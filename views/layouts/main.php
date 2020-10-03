@@ -29,7 +29,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <header id="header" class="hidden-xs">
+    <!-- <header id="header" class="hidden-xs">
         <div class="container">
             <div class="page-header">
                 <div class="logo pull-left">
@@ -45,7 +45,7 @@ AppAsset::register($this);
                 <div class="clearfix"></div>
             </div>
         </div>
-    </header>
+    </header> -->
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->setting->get('ojName'),
