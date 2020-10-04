@@ -13,9 +13,11 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
-# /vendor
-/vendor/workerman/*.pid
-/vendor/workerman/*.log
+/vendor
+
+# /vendor/workerman/*.pid
+# /vendor/workerman/*.log
+
 
 # composer itself is not needed
 composer.phar
@@ -38,10 +40,17 @@ tests/_support/_generated
 /judge/log/*
 /judge/data/*
 
+/judge/dispatcher
+/judge/ce.txt
+/judge/judge
+/judge/Main.cc
+
 #polygon
 /polygon/?
 /polygon/run/*
 /polygon/data/*
+
+/polygon/judge
 
 #db
 /config/db.php
