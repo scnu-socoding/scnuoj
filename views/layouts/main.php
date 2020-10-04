@@ -53,8 +53,9 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar-default',
         ],
+        'innerContainerOptions' => ['class' => 'container']
     ]);
-    $menuItems = [
+    $menuItemsLeft = [
         ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
         ['label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
         ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
@@ -75,17 +76,17 @@ AppAsset::register($this);
         ],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
-            $menuItems[] = [
+            $menuItemsRight[] = [
                 'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
                 'url' => ['/admin'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
-        $menuItems[] =  [
+        $menuItemsRight[] =  [
             'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
             'items' => [
                 ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
@@ -96,8 +97,14 @@ AppAsset::register($this);
         ];
     }
     echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $menuItemsLeft,
+        'encodeLabels' => false,
+        'activateParents' => true
+    ]);
+    echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
+        'items' => $menuItemsRight,
         'encodeLabels' => false,
         'activateParents' => true
     ]);
@@ -122,12 +129,13 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
+    <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
+        <!-- <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
         <p class="pull-left">
             <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
             Html::a (' English ', '?lang=en') ;
             ?>
-        </p>
+        </p> -->
     </div>
 </footer>
 
