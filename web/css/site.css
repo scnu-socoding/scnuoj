@@ -1,7 +1,8 @@
 html,
 body {
     height: 100%;
-    background-color: #e7e7e7
+    background-color: #ffffff 
+    /* modified by bobby285271 */
 }
 pre {
     border-radius: unset;
