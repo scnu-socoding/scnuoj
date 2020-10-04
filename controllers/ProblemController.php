@@ -180,7 +180,8 @@ class ProblemController extends BaseController
             Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
             return $this->refresh();
         }
-        $view = ($view == 'view' ? 'view' : 'classic');
+        // $view = ($view == 'view' ? 'view' : 'classic');
+        $view = ($view == 'view' ? 'classic' : 'classic');
 
         return $this->render($view, [
             'solution' => $solution,

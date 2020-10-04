@@ -41,9 +41,10 @@ $status = $model->getRunStatus();
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
+    <!-- <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->setting->get('ojName') . ' OJ',
+        'brandLabel' => Yii::$app->setting->get('ojName'),
+        // 'brandLabel' => Yii::$app->setting->get('ojName') . ' OJ',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-default',
@@ -82,7 +83,58 @@ $status = $model->getRunStatus();
         'items' => $menuItems,
     ]);
     NavBar::end();
+    ?> -->
+
+
+<?php
+    NavBar::begin([
+        // 'brandLabel' => Yii::$app->setting->get('ojName'),
+        // 'brandUrl' => Yii::$app->homeUrl,
+        // 'options' => [
+        //     'class' => 'navbar-default',
+        // ],
+        // 'innerContainerOptions' => ['class' => 'container']
+    ]);
+    $menuItemsLeft = [
+        ['label' => ' ' . '返回', 'url' => ['/contest/index']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
+    } else {
+        if (Yii::$app->user->identity->isAdmin()) {
+            $menuItemsRight[] = [
+                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
+                'url' => ['/admin'],
+                'active' => Yii::$app->controller->module->id == 'admin'
+            ];
+        }
+        $menuItemsRight[] =  [
+            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+            'items' => [
+                ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                '<li class="divider"></li>',
+                ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+            ]
+        ];
+    }
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $menuItemsLeft,
+        'encodeLabels' => false,
+        'activateParents' => true
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItemsRight,
+        'encodeLabels' => false,
+        'activateParents' => true
+    ]);
+    NavBar::end();
     ?>
+
+
 
     <div class="container">
         <?= Breadcrumbs::widget([
@@ -194,12 +246,13 @@ $status = $model->getRunStatus();
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
-        <p class="pull-left">
+    <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
+        <!-- <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p> -->
+        <!-- <p class="pull-left">
             <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
             Html::a (' English ', '?lang=en') ;
             ?>
-        </p>
+        </p> -->
     </div>
 </footer>
 <?php $this->endBody() ?>
