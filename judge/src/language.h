@@ -20,7 +20,7 @@ struct language languages[] = {
     },
     {
         "c++",
-        {"g++", "-fno-asm", "-O2", "-Wall", "-lm", "--static", "-std=c++11",
+        {"g++", "-fno-asm", "-O2", "-Wall", "-lm", "--static", "-std=c++14",
          "-DONLINE_JUDGE", "-o", "Main", "Main.cc", NULL},
         {"./Main", NULL},
         "cc",

@@ -153,7 +153,7 @@ class ProblemController extends Controller
             $fp = fopen($dataPath . '/spj.cc',"w");
             fputs($fp, $model->spj_source);
             fclose($fp);
-            exec("g++ -fno-asm -std=c++11 -O2 {$dataPath}/spj.cc -o {$dataPath}/spj -I" . Yii::getAlias('@app/libraries'));
+            exec("g++ -fno-asm -std=c++14 -O2 {$dataPath}/spj.cc -o {$dataPath}/spj -I" . Yii::getAlias('@app/libraries'));
             return $this->redirect(['spj', 'id' => $model->id]);
         }
         return $this->render('spj', [
