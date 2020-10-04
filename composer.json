@@ -13,6 +13,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
+        "yidas/yii2-bower-asset": "~2.0.0",
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
@@ -59,11 +60,5 @@
                 "config/web.php"
             ]
         }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    }
 }
