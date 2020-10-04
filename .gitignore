@@ -44,6 +44,7 @@ tests/_support/_generated
 /judge/ce.txt
 /judge/judge
 /judge/Main.cc
+/judge/etc/judge.pid
 
 #polygon
 /polygon/?
@@ -51,6 +52,7 @@ tests/_support/_generated
 /polygon/data/*
 
 /polygon/judge
+/polygon/etc/judge.pid
 
 #db
 /config/db.php
