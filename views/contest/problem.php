@@ -47,7 +47,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
         ]) ?>
     </div>
     <div class="row">
-        <div class="col-md-8 problem-view">
+        <div class="col-md-9 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ '. $problem['id'])): ?>
                 <h1><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h1>
 
@@ -109,30 +109,9 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                 <?php endif; ?>
                 <?php $this->endCache(); ?>
             <?php endif; ?>
-            <hr>
-            <h3 id="submit-code">Submit</h3>
-            <div class="content-wrapper">
-                <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
-                    比赛已结束。比赛结束五分钟后开放提交。
-                <?php else: ?>
-                    <?php if (Yii::$app->user->isGuest): ?>
-                        <?= app\widgets\login\Login::widget(); ?>
-                    <?php else: ?>
-                        <?php $form = ActiveForm::begin(); ?>
-
-                        <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
-
-                        <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
-
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-                        </div>
-                        <?php ActiveForm::end(); ?>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
+            
         </div>
-        <div class="col-md-4 problem-info">
+        <div class="col-md-3 problem-info">
             <div class="panel panel-default">
                 <!-- Table -->
                 <table class="table">
@@ -151,9 +130,37 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                 </table>
             </div>
 
-            <a class="btn btn-success" href="#submit-code">
+            <!-- <a class="btn btn-success" href="#submit-code">
                 <span class="glyphicon glyphicon-plus"></span> <?= Yii::t('app', 'Submit') ?>
-            </a>
+            </a> -->
+
+            <?php Modal::begin([
+                'header' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) . '</h3>',
+                'size' => Modal::SIZE_LARGE,
+                'toggleButton' => [
+                    'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
+                    'class' => 'btn btn-success'
+                ]
+            ]); ?>
+                <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
+                    比赛已结束。比赛结束五分钟后开放提交。
+                <?php else: ?>
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <?= app\widgets\login\Login::widget(); ?>
+                    <?php else: ?>
+                        <?php $form = ActiveForm::begin(); ?>
+
+                        <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
+
+                        <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php Modal::end(); ?>
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
             <div class="panel panel-default" style="margin-top: 40px">
