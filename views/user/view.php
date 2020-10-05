@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $contests array */
 /* @var $contestCnt integer */
 
-$this->title = $model->nickname;
+$this->title = Html::encode($model->username);
 $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
 $this->registerJsFile("/js/flot/jquery.canvaswrapper.js", ['depends' => 'yii\web\JqueryAsset']);
