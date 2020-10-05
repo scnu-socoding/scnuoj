@@ -385,21 +385,11 @@ class User extends ActiveRecord implements IdentityInterface
             $rating = $this->rating;
         if ($this->role == self::ROLE_ADMIN) {
             return Yii::t('app', 'Headquarters');
-        } else if ($rating == NULL) {
+        }
+        else if ($rating == NULL){
             return Yii::t('app', 'Unrated');
-        } else if ($rating < 1150) {
-            return Yii::t('app', 'Bronze');
-        } else if ($rating < 1400) {
-            return Yii::t('app', 'Silver');
-        } else if ($rating < 1650) {
-            return Yii::t('app', 'Gold');
-        } else if ($rating < 1900) {
-            return Yii::t('app', 'Platinum');
-        } else if ($rating < 2150) {
-            return Yii::t('app', 'Diamond');
-        } else if ($rating < 2400) {
-            return Yii::t('app', 'Master');
-        } else {
+        }
+        else {
             return Yii::t('app', 'Challenger');
         }
     }
@@ -428,21 +418,7 @@ class User extends ActiveRecord implements IdentityInterface
             'user-red',
             'user-admin'
         ];
-        if (empty($rating)) {
-            $tmp = $colors[0];
-        } else if ($rating < 1150) {
-            $tmp = $colors[1];
-        } else if ($rating < 1400) {
-            $tmp = $colors[2];
-        } else if ($rating < 1650) {
-            $tmp = $colors[3];
-        } else if ($rating < 1900) {
-            $tmp = $colors[4];
-        } else if ($rating < 2150) {
-            $tmp = $colors[5];
-        } else {
-            $tmp = $colors[6];
-        }
+        $tmp = $colors[0];
         return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 
@@ -468,20 +444,8 @@ class User extends ActiveRecord implements IdentityInterface
         ];
         if ($this->role == self::ROLE_ADMIN) {
             $tmp = $colors[10];
-        } else if ($rating == NULL) {
-            $tmp = $colors[0];
-        } else if ($rating < 1150) {
-            $tmp = $colors[1];
-        } else if ($rating < 1400) {
-            $tmp = $colors[2];
-        } else if ($rating < 1650) {
-            $tmp = $colors[3];
-        } else if ($rating < 1900) {
-            $tmp = $colors[4];
-        } else if ($rating < 2150) {
-            $tmp = $colors[5];
         } else {
-            $tmp = $colors[6];
+            $tmp = $colors[0];
         }
         return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
