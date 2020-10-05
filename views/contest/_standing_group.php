@@ -60,7 +60,7 @@ $submit_count = $rankResult['submit_count'];
                 ?>
             </th>
             <th>
-                <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']]) ?>
+                <?= Html::a(Html::encode($rank['username']), ['/user/view', 'id' => $rank['user_id']]) ?>
             </th>
             <th class="score-solved">
                 <?= $rank['solved'] ?>
