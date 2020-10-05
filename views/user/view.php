@@ -42,7 +42,7 @@ $plotJS = <<<EOT
         series: { 
             lines: { show: true }, 
             points: { show: true },
-            color: "red"
+            color: "purple"
         },
         xaxis: {
             tickDecimals: 0
