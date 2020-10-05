@@ -77,7 +77,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                 ?>
             </th>
             <th>
-                <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']]) ?>
+                <?= Html::a(Html::encode($rank['username']), ['/user/view', 'id' => $rank['user_id']]) ?>
             </th>
             <?php if ($model->type == Contest::TYPE_OI): ?>
             <th class="score-solved">
