@@ -11,7 +11,12 @@ use yii\widgets\DetailView;
 $this->title = $model->nickname;
 $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
+$this->registerJsFile("/js/flot/jquery.canvaswrapper.js", ['depends' => 'yii\web\JqueryAsset']);
+$this->registerJsFile("/js/flot/jquery.colorhelpers.js", ['depends' => 'yii\web\JqueryAsset']);
 $this->registerJsFile("/js/flot/jquery.flot.js", ['depends' => 'yii\web\JqueryAsset']);
+$this->registerJsFile("/js/flot/jquery.flot.uiConstants.js", ['depends' => 'yii\web\JqueryAsset']);
+$this->registerJsFile("/js/flot/jquery.flot.saturated.js", ['depends' => 'yii\web\JqueryAsset']);
+$this->registerJsFile("/js/flot/jquery.flot.browser.js", ['depends' => 'yii\web\JqueryAsset']);
 $this->registerJsFile("/js/flot/jquery.flot.time.js", ['depends' => 'yii\web\JqueryAsset']);
 $plotJS = <<<EOT
 var contests_json = {$contests};
@@ -124,13 +129,6 @@ $this->registerJs($plotJS);
                     'attributes' => [
                         'username',
                         'nickname',
-                        [
-                            'attribute' => Yii::t('app', 'QQ'),
-                            'value' => function ($model, $widget) {
-                                return Html::encode($model->profile->qq_number);
-                            },
-                            'format' => 'raw'
-                        ],
                         [
                             'attribute' => Yii::t('app', 'Major'),
                             'value' => function ($model, $widget) {
