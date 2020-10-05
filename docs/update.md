@@ -1,9 +1,9 @@
-JNOJ 更新
+SCNUOJ 更新
 ==========
 
-当前 JNOJ 还在不断开发中，仍然存在不少已知的未知的Bug，你可以在 [CHANGELOG.md](../CHANGELOG.md) 文件中查看目前的版本更新情况。
+当前 SCNUOJ 还在不断开发中，仍然存在不少已知的未知的Bug，你可以在 [CHANGELOG.md](../CHANGELOG.md) 文件中查看目前的版本更新情况。
 
-在你部署 JNOJ 后，若需要更新到最新版，需要在 jnoj 目录下执行以下命令：
+在你部署 SCNUOJ 后，若需要更新到最新版，需要在 scnuoj 目录下执行以下命令：
 
 ```bash
 git pull                  # 获取GitHub上最新代码
@@ -25,7 +25,7 @@ sudo ./polygon            # 运行Polygon进程
 在执行 `git pull` 时，可能会因你修改过本地文件而导致发生冲突。例如：
 
 ```
-shiyang@dr:/var/www/html/jnoj$ git pull
+shiyang@dr:/var/www/html/scnuoj$ git pull
 Updating 293eabfa..d1e5c814
 error: Your local changes to the following files would be overwritten by merge:
 	judge/dispatcher
