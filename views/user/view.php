@@ -78,13 +78,13 @@ $this->registerJs($plotJS);
                             },
                             'format' => 'raw'
                         ],
-                        [
-                            'attribute' => Yii::t('app', 'Student Number'),
-                            'value' => function ($model, $widget) {
-                                return $model->profile->student_number;
-                            },
-                            'format' => 'raw'
-                        ]
+                        // [
+                        //     'attribute' => Yii::t('app', 'Student Number'),
+                        //     'value' => function ($model, $widget) {
+                        //         return $model->profile->student_number;
+                        //     },
+                        //     'format' => 'raw'
+                        // ]
                     ],
                 ]) ?>
             </div>

@@ -76,7 +76,7 @@ return [
     'News' => '新闻',
     'Release news' => '发布新闻',
     'Male' => '男',
-    'Nickname' => '昵称',
+    'Nickname' => '学号',
     'Prefix' => '前缀',
     'Number' => '数量',
     'Names' => '名称',
