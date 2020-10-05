@@ -36,7 +36,7 @@
 
     2. 执行安装命令
     
-        进入 scnuoj 目录，在命令行运行 `./yii install` 来安装。安装过程会自动导入所需的 SQL 数据，并且需要你根据提示输入 OJ 管理员的账号密码。
+        进入 scnuoj 目录，在命令行运行 `composer install && ./yii install` 来安装。安装过程会自动导入所需的 SQL 数据，并且需要你根据提示输入 OJ 管理员的账号密码。
     
     3. 修改 `/etc/nginx/sites-enabled/default` 文件，需要修改的配置：
         ```
