@@ -442,11 +442,7 @@ class User extends ActiveRecord implements IdentityInterface
             'user-red',
             'user-admin'
         ];
-        if ($this->role == self::ROLE_ADMIN) {
-            $tmp = $colors[10];
-        } else {
-            $tmp = $colors[0];
-        }
+        $tmp = $colors[0];
         return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 

@@ -202,7 +202,7 @@ return [
 
     'Agree above and register' => '同意以上并参加',
 
-    'Headquarters' => '香农背锅侠',
+    'Headquarters' => '管理员',
     'Unrated' => 'SCNUer',
     'Bronze' => 'SCNUer',
     'Silver' => 'SCNUer',
