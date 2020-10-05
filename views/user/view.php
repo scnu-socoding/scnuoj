@@ -17,6 +17,7 @@ $this->registerJsFile("/js/flot/jquery.flot.js", ['depends' => 'yii\web\JqueryAs
 $this->registerJsFile("/js/flot/jquery.flot.uiConstants.js", ['depends' => 'yii\web\JqueryAsset']);
 $this->registerJsFile("/js/flot/jquery.flot.saturated.js", ['depends' => 'yii\web\JqueryAsset']);
 $this->registerJsFile("/js/flot/jquery.flot.browser.js", ['depends' => 'yii\web\JqueryAsset']);
+$this->registerJsFile("/js/flot/jquery.flot.drawSeries.js", ['depends' => 'yii\web\JqueryAsset']);
 $this->registerJsFile("/js/flot/jquery.flot.time.js", ['depends' => 'yii\web\JqueryAsset']);
 $plotJS = <<<EOT
 var contests_json = {$contests};
