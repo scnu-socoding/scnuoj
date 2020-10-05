@@ -15,7 +15,7 @@ use yii\bootstrap\ActiveForm;
 
 <!-- <?= $form->field($profile, 'qq_number')->textInput() ?> -->
 
-<?= $form->field($profile, 'student_number')->textInput() ?>
+<!-- <?= $form->field($profile, 'student_number')->textInput() ?> -->
 
 <?= $form->field($profile, 'gender')->radioList([Yii::t('app', 'Male'), Yii::t('app', 'Female')]) ?>
 
