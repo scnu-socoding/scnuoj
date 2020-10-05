@@ -25,7 +25,7 @@ $this->title = Yii::t('app', 'Rating');
                         2
                     </div>
                     <h3 class="rating-two-name"><?= Html::a($top3users[1]->colorName, ['/user/view', 'id' => $top3users[1]->id]) ?></h3>
-                    <span><?= $top3users[1]->getRatingLevel() ?></span>
+                    <!-- <span><?= $top3users[1]->getRatingLevel() ?></span> -->
                     <span><?= $top3users[1]->rating ?></span>
                 </div>
                 <?php endif; ?>
@@ -34,7 +34,7 @@ $this->title = Yii::t('app', 'Rating');
                         1
                     </div>
                     <h3 class="rating-one-name"><?= Html::a($top3users[0]->colorName, ['/user/view', 'id' => $top3users[0]->id]) ?></h3>
-                    <span><?= $top3users[0]->getRatingLevel() ?></span>
+                    <!-- <span><?= $top3users[0]->getRatingLevel() ?></span> -->
                     <span><?= $top3users[0]->rating ?></span>
                 </div>
                 <?php if (isset($top3users[2])): ?>
@@ -43,7 +43,7 @@ $this->title = Yii::t('app', 'Rating');
                         3
                     </div>
                     <h3 class="rating-three-name"><?= Html::a($top3users[2]->colorName, ['/user/view', 'id' => $top3users[2]->id]) ?></h3>
-                    <span><?= $top3users[2]->getRatingLevel() ?></span>
+                    <!-- <span><?= $top3users[2]->getRatingLevel() ?></span> -->
                     <span><?= $top3users[2]->rating ?></span>
                 </div>
                 <?php endif; ?>
@@ -56,7 +56,7 @@ $this->title = Yii::t('app', 'Rating');
                         <th>#</th>
                         <th>Who</th>
                         <th>=</th>
-                        <th>Role</th>
+                        <!-- <th>Role</th> -->
                     </tr>
                     </thead>
                     <tbody>
@@ -70,9 +70,9 @@ $this->title = Yii::t('app', 'Rating');
                             <td>
                                 <?= $user->rating ?>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <?= $user->getRatingLevel() ?>
-                            </td>
+                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
