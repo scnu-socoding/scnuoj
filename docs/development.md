@@ -36,7 +36,7 @@ WEB 端是采用　PHP　语言 yii2 框架来写的，MVC 模式。
 
 如果需要修改用户界面，只需在 views 文件夹下找到相关文件来修改。
 
-比如，当你想修改此链接的页面：`http://127.0.0.1/jnoj/web/wiki/contest`，那么视图文件可以在 `jnoj/views/wiki/contest.php`，
-控制器在 `jnoj/controllers/WikiController.php` 的 `actionContest()`。
+比如，当你想修改此链接的页面：`http://127.0.0.1/scnuoj/web/wiki/contest`，那么视图文件可以在 `scnuoj/views/wiki/contest.php`，
+控制器在 `scnuoj/controllers/WikiController.php` 的 `actionContest()`。
 
 后台应用程序及 polygon 应用程序在 modules 目录下，该目录下也是一个 MVC结构。
