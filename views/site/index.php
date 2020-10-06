@@ -49,7 +49,7 @@ $this->title = Yii::$app->setting->get('ojName');
         <!-- </div> -->
         <?php endif; ?>
         <?php if (!empty($discusses)): ?>
-            <div class="sidebar-module">
+            <!-- <div class="sidebar-module"> -->
                 <h4>最近讨论</h4>
                 <ol class="list-unstyled">
                     <?php foreach ($discusses as $discuss): ?>
@@ -68,7 +68,7 @@ $this->title = Yii::$app->setting->get('ojName');
                         </li>
                     <?php endforeach; ?>
                 </ol>
-            </div>
+            <!-- </div> -->
         <?php endif; ?>
     </div>
 </div>
