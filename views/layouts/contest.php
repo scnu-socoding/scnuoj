@@ -263,6 +263,7 @@ $status = $model->getRunStatus();
     var end_time = new Date("<?= $model->end_time ?>");
     $("#countdown").countdown(start_time.getTime() - diff, function(event) {
         $(this).html(event.strftime('%D:%H:%M:%S'));
+        if($(this).html() == "00:00:00:00") location.reload();
     });
     function clock() {
         var h, m, s, n, y, mon, d;
