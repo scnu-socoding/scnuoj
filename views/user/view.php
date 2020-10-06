@@ -40,16 +40,16 @@ $plotJS = <<<EOT
 
     var options = {
         series: { 
-            lines: { show: true }, 
+            lines: { show: true , lineWidth: 2 }, 
             points: { show: true },
             color: "purple"
         },
         xaxis: {
             tickDecimals: 0
-        },yaxis: {
+        },
+        yaxis: {
             tickDecimals: 0
         }
-            
     };
 
     $.plot($("#placeholder"), dataset, options);
