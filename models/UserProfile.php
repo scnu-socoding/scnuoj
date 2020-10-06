@@ -37,6 +37,7 @@ class UserProfile extends \yii\db\ActiveRecord
             [['user_id'], 'required'],
             [['user_id', 'gender', 'qq_number', 'student_number'], 'integer'],
             [['birthdate'], 'safe'],
+            [['student_number'], 'required'],
             [['address', 'description', 'major'], 'string'],
             [['signature', 'school'], 'string', 'max' => 128],
             [['major'], 'string', 'max' => 64],
