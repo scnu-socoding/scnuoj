@@ -402,9 +402,9 @@ class User extends ActiveRecord implements IdentityInterface
      * @param integer $rating
      * @return string 含有颜色的HTML昵称
      */
-    public static function getColorNameByRating($username, $rating)
+    public static function getColorNameByRating($nickname, $rating)
     {
-        $username = Html::encode($username);
+        $nickname = Html::encode($nickname);
         $colors = [
             'user-black',
             'user-gray',
@@ -419,8 +419,7 @@ class User extends ActiveRecord implements IdentityInterface
             'user-admin'
         ];
         $tmp = $colors[0];
-        return "{$username}";
-        // return "<span class=\"{$tmp} rated-user\">{$username}</span>";
+        return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 
     /**
@@ -428,8 +427,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getColorName()
     {
-        // $rating = $this->rating;
-        $username = Html::encode($this->username);
+        $rating = $this->rating;
+        $nickname = Html::encode($this->nickname);
         $colors = [
             'user-black',
             'user-gray',
@@ -444,8 +443,7 @@ class User extends ActiveRecord implements IdentityInterface
             'user-admin'
         ];
         $tmp = $colors[0];
-        return "{$username}";
-        // return "<span class=\"{$tmp} rated-user\">{$username}</span>";
+        return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 
     public function isAdmin()
