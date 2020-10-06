@@ -27,7 +27,7 @@ $this->title = Yii::t('app', 'Rating');
                         2
                     </div>
                     <h3 class="rating-two-name">
-                        <?= Html::a(User::getColorNameByRating($top3users[1]['username'], $top3users[1]['rating']), ['/user/view', 'id' => $top3users[1]['id']]) ?>
+                        <?= Html::a(User::getColorNameByRating($top3users[1]['nickname'], $top3users[1]['rating']), ['/user/view', 'id' => $top3users[1]['id']]) ?>
                     </h3>
                     <span><?= $top3users[1]['solved'] ?></span>
                 </div>
@@ -38,7 +38,7 @@ $this->title = Yii::t('app', 'Rating');
                         1
                     </div>
                     <h3 class="rating-one-name">
-                        <?= Html::a(User::getColorNameByRating($top3users[0]['username'], $top3users[0]['rating']), ['/user/view', 'id' => $top3users[0]['id']]) ?>
+                        <?= Html::a(User::getColorNameByRating($top3users[0]['nickname'], $top3users[0]['rating']), ['/user/view', 'id' => $top3users[0]['id']]) ?>
                     </h3>
                     <span><?= $top3users[0]['solved'] ?></span>
                 </div>
@@ -49,7 +49,7 @@ $this->title = Yii::t('app', 'Rating');
                         3
                     </div>
                     <h3 class="rating-three-name">
-                        <?= Html::a(User::getColorNameByRating($top3users[2]['username'], $top3users[2]['rating']), ['/user/view', 'id' => $top3users[2]['id']]) ?>
+                        <?= Html::a(User::getColorNameByRating($top3users[2]['nickname'], $top3users[2]['rating']), ['/user/view', 'id' => $top3users[2]['id']]) ?>
                     </h3>
                     <span><?= $top3users[2]['solved'] ?></span>
                 </div>
@@ -71,7 +71,7 @@ $this->title = Yii::t('app', 'Rating');
                         <tr>
                             <th scope="row"><?= $num ?></th>
                             <td>
-                                <?= Html::a(User::getColorNameByRating($user['username'], $user['rating']), ['/user/view', 'id' => $user['id']]) ?>
+                                <?= Html::a(User::getColorNameByRating($user['nickname'], $user['rating']), ['/user/view', 'id' => $user['id']]) ?>
                             </td>
                             <td>
                                 <?= $user['solved'] ?>

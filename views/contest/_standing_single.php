@@ -52,7 +52,7 @@ $submit_count = $rankResult['submit_count'];
                 <?= $i + 1 ?>
             </th>
             <th>
-                <?= Html::a(User::getColorNameByRating($rank['username'], $rank['rating']), ['/user/view', 'id' => $rank['user_id']]) ?>
+                <?= Html::a(User::getColorNameByRating($rank['nickname'], $rank['rating']), ['/user/view', 'id' => $rank['user_id']]) ?>
             </th>
             <th class="score-solved">
                 <?= $rank['solved'] ?>

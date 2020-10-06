@@ -110,7 +110,7 @@ $status = $model->getRunStatus();
             ];
         }
         $menuItemsRight[] =  [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->username,
+            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
             'items' => [
                 ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
                 ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],

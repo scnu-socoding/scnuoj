@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $contests array */
 /* @var $contestCnt integer */
 
-$this->title = Html::encode($model->username);
+$this->title = $model->nickname;
 $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
 $this->registerJsFile("/js/flot/jquery.canvaswrapper.js", ['depends' => 'yii\web\JqueryAsset']);
@@ -78,13 +78,13 @@ $this->registerJs($plotJS);
                             },
                             'format' => 'raw'
                         ],
-                        // [
-                        //     'attribute' => Yii::t('app', 'Student Number'),
-                        //     'value' => function ($model, $widget) {
-                        //         return $model->profile->student_number;
-                        //     },
-                        //     'format' => 'raw'
-                        // ]
+                        [
+                            'attribute' => Yii::t('app', 'Student Number'),
+                            'value' => function ($model, $widget) {
+                                return $model->profile->student_number;
+                            },
+                            'format' => 'raw'
+                        ]
                     ],
                 ]) ?>
             </div>
