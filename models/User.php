@@ -419,7 +419,8 @@ class User extends ActiveRecord implements IdentityInterface
             'user-admin'
         ];
         $tmp = $colors[0];
-        return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
+        return "<span>{$nickname}</span>";
+        // return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 
     /**
@@ -443,7 +444,8 @@ class User extends ActiveRecord implements IdentityInterface
             'user-admin'
         ];
         $tmp = $colors[0];
-        return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
+        return "<span>{$nickname}</span>";
+        // return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 
     public function isAdmin()
