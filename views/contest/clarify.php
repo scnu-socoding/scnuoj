@@ -46,7 +46,7 @@ if ($discuss != null) {
     }
     ?>
     <div class="well">
-        如果你认为题目存在歧义，可以在这里提出．
+        如果你认为题目存在歧义，可以在这里提出。
     </div>
 
     <?= GridView::widget([
