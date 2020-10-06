@@ -62,14 +62,21 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->title
             'pagination' => $pages,
         ]); ?>
         <div class="well">
-            <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($newDiscuss, 'content')->widget('app\widgets\editormd\Editormd')->label(false); ?>
+            <?php if (Yii::$app->user->isGuest): ?>
+                <?= app\widgets\login\Login::widget(); ?>
+            <?php else: ?>
+                <?php $form = ActiveForm::begin(); ?>
 
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-primary']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
+                <?= $form->field($newDiscuss, 'content')->widget('app\widgets\editormd\Editormd')->label(false); ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-primary']) ?>
+                </div>
+                <?php ActiveForm::end(); ?>
+            <?php endif; ?>
+
+           
         </div>
     </div>
     <div class="col-md-3">

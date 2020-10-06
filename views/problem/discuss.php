@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1><?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id]) ?></h1>
 <?php if (Yii::$app->user->isGuest): ?>
-    Login before discuss
+    <?= Yii::$app->session->setFlash('info', '创建讨论帖前请先登录。'); ?>
+    <?= app\widgets\login\Login::widget(); ?>
 <?php else: ?>
     <div class="discuss-form">
         <?php $form = ActiveForm::begin(); ?>
