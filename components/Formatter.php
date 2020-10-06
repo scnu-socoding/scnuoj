@@ -126,7 +126,7 @@ class Formatter extends \yii\i18n\Formatter
 
         $katex = $this->katex_entity_decode_editormd( $katex );
 
-        return '<span class="katex math inline">' . $katex . '</span>';
+        return '<span class="katex math inline" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">' . $katex . '</span>';
     }
 
     public function katex_markup_double( $content ) {
