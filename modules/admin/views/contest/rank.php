@@ -43,8 +43,9 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
             <thead>
             <tr>
                 <th width="60px">Rank</th>
-                <th width="120px">Username</th>
-                <th width="120px">Nickname</th>
+                <th width="80px">Username</th>
+                <th width="80px">Nickname</th>
+                <th width="80px">Number</th>
                 <th title="# solved / penalty time" colspan="2">Score</th>
                 <?php foreach($problems as $key => $p): ?>
                     <th>
@@ -89,6 +90,9 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                     </th>
                     <th>
                         <?= Html::encode($rank['nickname']); ?>
+                    </th>
+                    <th>
+                        <?= Html::encode($rank['student_number']); ?>
                     </th>
                     <th class="score-solved">
                         <?= $rank['solved'] ?>
