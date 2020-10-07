@@ -31,7 +31,8 @@ $this->title = Yii::t('app', 'Problems');
                         return $solve . Html::a($model->id, ['/problem/view', 'id' => $key]);
                     },
                     'format' => 'raw',
-                    'options' => ['width' => '100px']
+                    'options' => ['width' => '100px'],
+                    'enableSorting' => false
                 ],
                 [
                     'attribute' => 'title',
@@ -51,6 +52,7 @@ $this->title = Yii::t('app', 'Problems');
                         return $res;
                     },
                     'format' => 'raw',
+                    'enableSorting' => false
                 ],
                 [
                     'attribute' => 'solved',
@@ -62,7 +64,8 @@ $this->title = Yii::t('app', 'Problems');
                         ], ['data-pjax' => 0]);
                     },
                     'format' => 'raw',
-                    'options' => ['width' => '100px']
+                    'options' => ['width' => '100px'],
+                    'enableSorting' => false
                 ]
             ],
         ]); ?>
