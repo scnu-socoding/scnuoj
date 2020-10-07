@@ -27,6 +27,8 @@ $this->title = Html::encode($model->name);
 <?= GridView::widget([
     'layout' => '{items}{pager}',
     'dataProvider' => $userDataProvider,
+    // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+    'tableOptions' => ['class' => 'table'],
     'options' => ['class' => 'table-responsive'],
     'columns' => [
         [

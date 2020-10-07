@@ -95,6 +95,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
         <?= \yii\grid\GridView::widget([
             'dataProvider' => $announcements,
+            // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+            'tableOptions' => ['class' => 'table'],
             'columns' => [
                 'content:ntext',
                 'created_at:datetime',

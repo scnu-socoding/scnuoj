@@ -26,6 +26,8 @@ if ($discuss != null) {
         echo GridView::widget([
             'layout' => '{items}{pager}',
             'dataProvider' => $dataProvider,
+            // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+            'tableOptions' => ['class' => 'table'],
             'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px'],
             'columns' => [
                 [
@@ -51,6 +53,8 @@ if ($discuss != null) {
 
     <?= GridView::widget([
         'dataProvider' => $clarifies,
+        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+        'tableOptions' => ['class' => 'table'],
         'columns' => [
             [
                 'attribute' => 'Who',

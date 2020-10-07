@@ -19,6 +19,8 @@ $this->title = Yii::t('app', 'Problems');
         <?= GridView::widget([
             'layout' => '{items}{pager}',
             'dataProvider' => $dataProvider,
+            // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+            'tableOptions' => ['class' => 'table'],
             'options' => ['class' => 'table-responsive problem-index-list'],
             'columns' => [
                 [
