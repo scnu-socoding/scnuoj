@@ -232,5 +232,7 @@ return [
     'Runtime Error' => '运行出错',
     'Compile Error' => '编译错误',
     'System Error' => '系统错误',
-    'No Test Data' => '无测评数据'
+    'No Test Data' => '无测评数据',
+
+    'Solved' => '通过'
 ];
