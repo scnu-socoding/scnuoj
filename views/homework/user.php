@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $provider,
+        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+        'tableOptions' => ['class' => 'table'],
         'options' => ['class' => 'table-responsive'],
         'columns' => [
             [

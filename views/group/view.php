@@ -89,6 +89,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $contestDataProvider,
+                // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+                'tableOptions' => ['class' => 'table'],
                 'options' => ['class' => 'table-responsive'],
                 'columns' => [
                     [
@@ -158,6 +160,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $userDataProvider,
+                // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+                 'tableOptions' => ['class' => 'table'],
                 'options' => ['class' => 'table-responsive'],
                 'columns' => [
                     [

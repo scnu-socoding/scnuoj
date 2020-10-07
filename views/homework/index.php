@@ -14,6 +14,8 @@ $this->title = Yii::t('app', 'Homework');
     <p><?= Html::a(Yii::t('app', 'Create'), ['/homework/create'], ['class' => 'btn btn-success']) ?></p>
     <?= GridView::widget([
         'layout' => '{items}{pager}',
+        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+        'tableOptions' => ['class' => 'table'],
         'dataProvider' => $dataProvider,
         'options' => ['class' => 'table-responsive'],
         'columns' => [

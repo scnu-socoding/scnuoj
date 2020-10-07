@@ -63,7 +63,8 @@ $stats = $model->getStatisticsData();
         'layout' => '{items}{pager}',
         'dataProvider' => $dataProvider,
         'options' => ['class' => 'table-responsive'],
-        'tableOptions' => ['class' => 'table table-striped table-bordered'],
+        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+        'tableOptions' => ['class' => 'table'],
         'columns' => [
             [
                 'attribute' => 'who',

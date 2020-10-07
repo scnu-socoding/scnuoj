@@ -41,7 +41,8 @@ $submissionStatistics = $model->getSubmissionStatistics();
     </div>
     <hr>
     <div class="table-responsive">
-        <table class="table table-bordered table-problem-list">
+        <!-- <table class="table table-bordered table-problem-list"> -->
+        <table class="table table-problem-list">
             <thead>
             <tr>
                 <th width="70px">#</th>
@@ -97,6 +98,8 @@ $submissionStatistics = $model->getSubmissionStatistics();
         echo '<hr>';
         echo GridView::widget([
             'layout' => '{items}{pager}',
+            // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+            'tableOptions' => ['class' => 'table'],
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px;text-align: left;'],
             'columns' => [

@@ -17,6 +17,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $provider,
+        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+        'tableOptions' => ['class' => 'table'],
         'options' => ['class' => 'table-responsive'],
         'columns' => [
             [
