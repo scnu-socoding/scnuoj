@@ -23,6 +23,7 @@ $this->title = Yii::t('app', 'Contests');
                     return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
                 },
                 'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'status',
@@ -42,9 +43,16 @@ $this->title = Yii::t('app', 'Contests');
                     return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
                 },
                 'format' => 'raw',
+                'enableSorting' => false
             ],
-            'start_time',
-            'end_time',
+            [
+                'attribute' => 'start_time',
+                'enableSorting' => false
+            ],
+            [
+                'attribute' => 'end_time',
+                'enableSorting' => false
+            ]
         ],
     ]); ?>
 </div>
