@@ -61,7 +61,7 @@ AppAsset::register($this);
         ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
         [
             'label' => '<span class="glyphicon glyphicon-king"></span> ' . Yii::t('app', 'Rating'),
-            'url' => ['/rating/problem'],
+            'url' => ['/rating/index'],
             'active' => Yii::$app->controller->id == 'rating'
         ],
         [
