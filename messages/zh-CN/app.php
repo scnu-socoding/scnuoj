@@ -234,5 +234,7 @@ return [
     'System Error' => '系统错误',
     'No Test Data' => '无测评数据',
 
-    'Solved' => '通过'
+    'Solved' => '通过',
+    'Rank by Rating' => '积分排行',
+    'Rank by Solved Problems' => '题目排行'
 ];

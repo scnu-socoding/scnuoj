@@ -8,15 +8,31 @@ use app\models\User;
 /* @var $currentPage integer */
 /* @var $defaultPageSize integer */
 
+use yii\bootstrap\Nav;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Rating');
 ?>
-<p style="text-align: center">
+<!-- <p style="text-align: center">
     ★<?= Html::a('题数排行', ['problem']) ?>
     &nbsp;&bull;&nbsp;
     <?= Html::a('段位排行', ['index']) ?>
-</p>
+</p> -->
+
+<?= Nav::widget([
+    'items' => [
+        [
+            'label' => '积分排行',
+            'url' => ['rating/index'],
+        ],
+        [
+            'label' => '题目排行',
+            'url' => ['rating/problem']
+        ]
+    ],
+    'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
+]) ?>
+
 <div class="rating-index">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

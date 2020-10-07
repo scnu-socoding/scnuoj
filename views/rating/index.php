@@ -6,15 +6,30 @@
 /* @var $currentPage integer */
 /* @var $defaultPageSize integer */
 
+use yii\bootstrap\Nav;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Rating');
 ?>
-<p style="text-align: center">
+<!-- <p style="text-align: center">
     <?= Html::a('题数排行', ['problem']) ?>
     &nbsp;&bull;&nbsp;
     ★<?= Html::a('段位排行', ['index']) ?>
-</p>
+</p> -->
+
+<?= Nav::widget([
+    'items' => [
+        [
+            'label' => Yii::t('app', 'Rank by Rating'),
+            'url' => ['rating/index'],
+        ],
+        [
+            'label' => Yii::t('app', 'Rank by Solved Problems'),
+            'url' => ['rating/problem']
+        ]
+    ],
+    'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
+]) ?>
 <div class="rating-index">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
