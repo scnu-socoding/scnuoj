@@ -97,6 +97,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
                         },
                         'format' => 'raw',
+                        'enableSorting' => false
                     ],
                     [
                         'attribute' => 'status',
@@ -116,15 +117,18 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'options' => ['width' => '220px']
+                        'options' => ['width' => '220px'],
+                        'enableSorting' => false
                     ],
                     [
                         'attribute' => 'start_time',
-                        'options' => ['width' => '150px']
+                        'options' => ['width' => '150px'],
+                        'enableSorting' => false
                     ],
                     [
                         'attribute' => 'end_time',
-                        'options' => ['width' => '150px']
+                        'options' => ['width' => '150px'],
+                        'enableSorting' => false
                     ],
                 ],
             ]); ?>
@@ -162,7 +166,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             return $model->getRole(true);
                         },
                         'format' => 'raw',
-                        'options' => ['width' => '150px']
+                        'options' => ['width' => '150px'],
+                        'enableSorting' => false
                     ],
                     [
                         'attribute' => Yii::t('app', 'Nickname'),
@@ -170,13 +175,15 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
                         },
                         'format' => 'raw',
+                        'enableSorting' => false
                     ],
                     [
                         'attribute' => 'created_at',
                         'value' => function ($model, $key, $index, $column) {
                             return Yii::$app->formatter->asRelativeTime($model->created_at);
                         },
-                        'options' => ['width' => '150px']
+                        'options' => ['width' => '150px'],
+                        'enableSorting' => false
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
