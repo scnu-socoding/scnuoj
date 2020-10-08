@@ -88,7 +88,7 @@ $this->registerJs($plotJS);
                         [
                             'attribute' => '积分',
                             'value' => function ($model, $widget) {
-                                return $model->rating;
+                                return isset($model->rating)?$model->rating:'Unrated';
                             },
                             'format' => 'raw'
                         ]
