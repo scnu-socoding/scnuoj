@@ -5,7 +5,7 @@ use yii\bootstrap\Nav;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->title = 'Wiki';
+$this->title = Yii::t('app', 'Wiki');;
 ?>
 
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
