@@ -8,7 +8,7 @@ use yii\bootstrap\Nav;
 /* @var $profile app\models\UserProfile */
 /* @var $action string */
 
-$this->title = Html::encode($model->username);
+$this->title = $model->nickname;
 $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
 ?>
 <div class="user-update">
