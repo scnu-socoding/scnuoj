@@ -106,7 +106,8 @@ $submissionStatistics = $model->getSubmissionStatistics();
                 [
                     'attribute' => 'created_at',
                     'options' => ['width' => '150px'],
-                    'format' => 'datetime'
+                    'format' => 'datetime',
+                    'enableSorting' => false
                 ],
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
@@ -114,6 +115,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
                         return Yii::$app->formatter->asMarkdown($model->content);
                     },
                     'format' => 'html',
+                    'enableSorting' => false
                 ],
             ],
         ]);

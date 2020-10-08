@@ -25,23 +25,25 @@ if ($discuss != null) {
     if ($dataProvider->count > 0) {
         echo GridView::widget([
             'layout' => '{items}{pager}',
-            'dataProvider' => $dataProvider,
             // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
             'tableOptions' => ['class' => 'table'],
-            'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px'],
+            'dataProvider' => $dataProvider,
+            'options' => ['class' => 'table-responsive'],
             'columns' => [
+                [
+                    'attribute' => 'created_at',
+                    'options' => ['width' => '150px'],
+                    'format' => 'datetime',
+                    'enableSorting' => false
+                ],
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
                         return Yii::$app->formatter->asMarkdown($model->content);
                     },
-                    'format' => 'html'
+                    'format' => 'html',
+                    'enableSorting' => false
                 ],
-                [
-                    'attribute' => 'created_at',
-                    'options' => ['width' => '150px'],
-                    'format' => 'datetime'
-                ]
             ],
         ]);
         echo '<hr>';
@@ -61,7 +63,8 @@ if ($discuss != null) {
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->user->colorname, ['/user/view', 'id' => $model->user->id]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'title',
@@ -72,10 +75,17 @@ if ($discuss != null) {
                         'cid' => $model->id
                     ], ['data-pjax' => 0]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
-            'created_at',
-            'updated_at'
+            [
+                'attribute' => 'created_at',
+                'enableSorting' => false
+            ],
+            [
+                'attribute' => 'updated_at',
+                'enableSorting' => false
+            ]
         ]
     ]); ?>
 
