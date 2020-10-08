@@ -14,6 +14,8 @@ use app\models\Contest;
 
 $this->title = $model->title;
 $this->params['model'] = $model;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
+$this->params['breadcrumbs'][] = $this->title;
 $problems = $model->problems;
 
 $nav = [];
