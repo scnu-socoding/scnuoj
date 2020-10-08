@@ -14,7 +14,7 @@ use yii\bootstrap\Nav;
 
 $this->title = Html::encode($model->title) . ' - ' . $problem['title'];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->title;
 $this->params['model'] = $model;
 
 if (!Yii::$app->user->isGuest) {
