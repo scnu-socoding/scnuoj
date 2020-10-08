@@ -84,6 +84,13 @@ $this->registerJs($plotJS);
                                 return $model->profile->student_number;
                             },
                             'format' => 'raw'
+                        ],
+                        [
+                            'attribute' => '积分',
+                            'value' => function ($model, $widget) {
+                                return $model->rating;
+                            },
+                            'format' => 'raw'
                         ]
                     ],
                 ]) ?>
