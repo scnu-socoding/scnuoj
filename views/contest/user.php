@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
                     return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
                 },
                 'format' => 'raw',
+                'enableSorting' => false
             ],
         ],
     ]); ?>
