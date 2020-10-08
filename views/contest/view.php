@@ -96,6 +96,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
     <?php
     if ($dataProvider->count > 0) {
         echo '<hr>';
+        echo '<div class="table-responsive">';
         echo GridView::widget([
             'layout' => '{items}{pager}',
             // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
@@ -119,6 +120,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
                 ],
             ],
         ]);
+        echo '</div>';
     }
     ?>
 </div>
