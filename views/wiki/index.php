@@ -1,39 +1,38 @@
-<h3>Compile</h3>
+<h3>编译</h3>
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table">
         <thead>
         <tr>
-            <th>Language</th>
-            <th>Compile method</th>
+            <th>语言</th>
+            <th>编译命令</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <th>C</th>
-            <th>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c99 -DONLINE_JUDGE</th>
+            <th><code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c99 -DONLINE_JUDGE</code></th>
         </tr>
         <tr>
             <th>C++</th>
-            <th>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</th>
+            <th><code>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code></th>
         </tr>
         <tr>
             <th>Java</th>
-            <th>javac -J-Xms32m -J-Xmx256m Main.java </th>
+            <th><code>javac -J-Xms32m -J-Xmx256m Main.java</code></th>
         </tr>
         </tbody>
     </table>
 </div>
 
-<hr>
 
-<h3>Result</h3>
+<h3>结果</h3>
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table">
         <thead>
         <tr>
-            <th>Result</th>
+            <th width="180">结果</th>
             <th width="120">中文</th>
-            <th>Information</th>
+            <th>详细信息</th>
         </tr>
         </thead>
         <tbody>
@@ -70,7 +69,7 @@
         <tr>
             <th>Wrong Answer</th>
             <th>解答错误</th>
-            <th>答案不对，仅仅通过样例数据的测试并不一定是正确答案，一定还有你没想到的地方</th>
+            <th>答案不对，仅通过样例数据的测试并不一定就正确，一定还有你没想到的地方</th>
         </tr>
         <tr>
             <th>Time Limit Exceeded</th>
@@ -90,7 +89,7 @@
         <tr>
             <th>Runtime Error</th>
             <th>运行出错</th>
-            <th>运行时错误，非法的内存访问，数组越界，指针漂移，调用禁用的系统函数。请点击后获得详细输出</th>
+            <th>运行时错误，非法的内存访问，数组越界，指针漂移，调用禁用的系统函数</th>
         </tr>
         <tr>
             <th>Compile Error</th>
