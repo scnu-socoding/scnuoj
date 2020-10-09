@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 
-if((!Yii::$app->user->identity->isAdmin()) && isset($model->user) && ($model->user->isAdmin())){
+if((Yii::$app->user->identity->isVip()) && isset($model->user) && (!$model->user->isVip())){
     throw new ForbiddenHttpException('You are not allowed to perform this action.');
 }
 
