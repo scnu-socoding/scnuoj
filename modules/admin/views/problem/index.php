@@ -20,6 +20,7 @@ $this->title = Yii::t('app', 'Problems');
         <?= Html::a(Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-success']) ?>
     </p>
     <hr>
+    <?php if (Yii::$app->user->identity->isAdmin()):?>
     <p>
         选中项：
         <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="任何用户均能在前台看见题目">
@@ -35,6 +36,7 @@ $this->title = Yii::t('app', 'Problems');
             删除
         </a>
     </p>
+    <?php endif; ?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -43,6 +45,7 @@ $this->title = Yii::t('app', 'Problems');
             [
                 'class' => 'yii\grid\CheckboxColumn',
                 'name' => 'id',
+                'visible' => Yii::$app->user->identity->isAdmin()
             ],
             [
                 'attribute' => 'id',
@@ -88,7 +91,10 @@ $this->title = Yii::t('app', 'Problems');
                 },
                 'format' => 'raw',
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visible' => Yii::$app->user->identity->isAdmin()
+            ],
         ],
     ]);
     $this->registerJs('
