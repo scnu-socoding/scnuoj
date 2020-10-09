@@ -7,6 +7,8 @@ use yii\bootstrap\Nav;
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <div class="col-md-2">
+<?php if (Yii::$app->user->identity->isAdmin()):?>
+
     <?= Nav::widget([
         'options' => ['class' => 'nav nav-pills nav-stacked'],
         'items' => [
@@ -21,6 +23,18 @@ use yii\bootstrap\Nav;
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
         ],
     ]) ?>
+<?php endif; ?>
+
+<?php if (Yii::$app->user->identity->isVip()):?>
+
+<?= Nav::widget([
+    'options' => ['class' => 'nav nav-pills nav-stacked'],
+    'items' => [
+        ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']]
+    ],
+]) ?>
+<?php endif; ?>
+
 </div>
 <div class="col-md-10">
     <?= $content ?>
