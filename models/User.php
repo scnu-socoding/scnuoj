@@ -456,6 +456,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->role == self::ROLE_ADMIN;
     }
 
+    public function isVip()
+    {
+        return $this->role == self::ROLE_VIP;
+    }
+
     /**
      * 是否已经验证邮箱
      */
