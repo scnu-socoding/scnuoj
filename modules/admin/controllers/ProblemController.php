@@ -53,7 +53,8 @@ class ProblemController extends Controller
                         'allow' => true,
                         // Allow users, moderators and admins to create
                         'roles' => [
-                            User::ROLE_ADMIN
+                            User::ROLE_ADMIN,
+                            User::ROLE_VIP
                         ],
                     ],
                 ],
