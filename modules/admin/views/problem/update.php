@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\User;
+use yii\web\ForbiddenHttpException;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Problem */
@@ -10,6 +12,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' =>
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 $this->params['model'] = $model;
+
+if((!Yii::$app->user->identity->isAdmin()) && isset($model->user) && ($model->user->isAdmin())){
+    throw new ForbiddenHttpException('You are not allowed to perform this action.');
+}
+
 ?>
 
 <div class="problem-update">
