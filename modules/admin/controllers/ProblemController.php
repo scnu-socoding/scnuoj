@@ -158,6 +158,12 @@ class ProblemController extends Controller
     {
         $this->layout = 'problem';
         $model = $this->findModel($id);
+
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
+
         $model->setSamples();
 
         return $this->render('view', [
@@ -175,6 +181,12 @@ class ProblemController extends Controller
     {
         $this->layout = 'problem';
         $model = $this->findModel($id);
+
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
             return $this->refresh();
@@ -290,6 +302,12 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $id = intval($id);
         $model = $this->findModel($id);
+
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $sample_input = [$model->sample_input, $model->sample_input_2, $model->sample_input_3];
             $sample_output = [$model->sample_output, $model->sample_output_2, $model->sample_output_3];
@@ -387,6 +405,12 @@ class ProblemController extends Controller
     {
         $this->layout = 'problem';
         $model = $this->findModel($id);
+
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
+
         $solutions = (new Query())->select('id, result, created_at, memory, time, language, code_length')
             ->from('{{%solution}}')
             ->where(['problem_id' => $id, 'status' => Solution::STATUS_TEST])
@@ -424,6 +448,11 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $model = $this->findModel($id);
 
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
+
         $dataPath = Yii::$app->params['judgeProblemDataPath'] . $model->id;
         $spjContent = '';
         if (file_exists($dataPath . '/spj.cc')) {
@@ -460,6 +489,11 @@ class ProblemController extends Controller
     {
         $this->layout = 'problem';
         $model = $this->findModel($id);
+
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
 
         $dataPath = Yii::$app->params['judgeProblemDataPath'] . $model->id;
         $subtaskContent = '';
