@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\models\User;
-use yii\web\ForbiddenHttpException;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Problem */
@@ -13,11 +11,6 @@ $files = $model->getDataFiles();
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['model'] = $model;
-
-if((Yii::$app->user->identity->isVip()) && isset($model->user) && (!$model->user->isVip())){
-    throw new ForbiddenHttpException('You are not allowed to perform this action.');
-}
-
 
 ?>
 <div class="solutions-view">
