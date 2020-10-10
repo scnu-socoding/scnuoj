@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </small>
                     </td>
                     <td width="50" align="right" valign="middle" title="<?= Yii::t('app', 'Reply') ?>">
-                        <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ', ['/forum/thread/view', 'id' => $discuss->id], ['class' => 'badge']); ?>
+                        <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ', ['/discuss/view', 'id' => $discuss->id], ['class' => 'badge']); ?>
                     </td>
                 </tr>
                 </tbody>
