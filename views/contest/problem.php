@@ -157,7 +157,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
                         <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary', 'id' => 'submit_solution_btn']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     <?php endif; ?>
@@ -230,6 +230,31 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 <?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $js = <<<EOF
+
+// 防止重复提交
+
+var wait = 5;
+
+var submit_btn = document.getElementById("submit_solution_btn");
+
+function time() {
+    if (wait == 0) {
+        submit_btn.removeAttribute("disabled");
+        submit_btn.innerHTML = "提交";
+        wait = 5;
+    } else {
+        submit_btn.setAttribute("disabled", true);
+        submit_btn.innerHTML = "请等待";
+        wait--;
+        setTimeout(function () {
+            time()
+        },
+            1000)
+    }
+}
+
+submit_btn.parentNode.parentNode.onsubmit = function () { time(); }
+
 $('[data-click=solution_info]').click(function() {
     $.ajax({
         url: $(this).attr('href'),
