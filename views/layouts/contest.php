@@ -49,7 +49,7 @@ $status = $model->getRunStatus();
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-default navbar-fixed-top',
+            'class' => 'navbar-default',
         ],
         'innerContainerOptions' => ['class' => 'container']
     ]);
@@ -108,10 +108,6 @@ $status = $model->getRunStatus();
     ]);
     NavBar::end();
     ?>
-
-    <br />
-    <br />
-    <br />
 
     <div class="container">
         <?= Breadcrumbs::widget([
