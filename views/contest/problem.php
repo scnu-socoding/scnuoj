@@ -12,7 +12,7 @@ use yii\bootstrap\Nav;
 /* @var $problem array */
 /* @var $submissions array */
 
-$this->title = Html::encode($model->title) . ' - ' . $problem['title'];
+$this->title = Html::encode($model->title);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
 $this->params['breadcrumbs'][] = $model->title;
 $this->params['model'] = $model;
