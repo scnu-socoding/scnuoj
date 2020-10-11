@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $clarify app\models\Discuss */
 /* @var $newClarify app\models\Discuss */
 
+$this->title = $model->title;
 $this->params['model'] = $model;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
 $this->params['breadcrumbs'][] = $this->title;
