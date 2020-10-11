@@ -84,6 +84,13 @@ $status = $model->getRunStatus();
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
+        if  (Yii::$app->user->identity->isVip()) {
+            $menuItemsRight[] = [
+                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
+                'url' => ['/admin/problem'],
+                'active' => Yii::$app->controller->module->id == 'admin'
+            ];
+        }
         $menuItemsRight[] =  [
             'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
             'items' => [
