@@ -15,6 +15,11 @@ use app\models\Contest;
 /* @var $newGroupUser app\models\GroupUser */
 
 $this->title = $model->name;
+
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']];
+$this->params['breadcrumbs'][] = $this->title;
+
+
 $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 ?>
 <div class="group-view">

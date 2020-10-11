@@ -9,6 +9,10 @@ use app\models\GroupUser;
 /* @var $model app\models\Group */
 /* @var $userDataProvider yii\data\ActiveDataProvider */
 $this->title = Html::encode($model->name);
+
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <h2><?= Html::a(Html::encode($model->name), ['/group/view', 'id' => $model->id]) ?></h2>
 <?php if ($model->getRole() == GroupUser::ROLE_INVITING): ?>
