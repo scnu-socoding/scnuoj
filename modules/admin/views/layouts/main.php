@@ -30,7 +30,8 @@ use yii\bootstrap\Nav;
 <?= Nav::widget([
     'options' => ['class' => 'nav nav-pills nav-stacked'],
     'items' => [
-        ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']]
+        ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']],
+        ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
     ],
 ]) ?>
 <?php endif; ?>
