@@ -41,49 +41,7 @@ $status = $model->getRunStatus();
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <!-- <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->setting->get('ojName'),
-        // 'brandLabel' => Yii::$app->setting->get('ojName') . ' OJ',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-default',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-    ];
-    if ($model->group_id != 0) {
-        $menuItems[] = [
-            'label' => Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']
-        ];
-    } else {
-        $menuItems[] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-    }
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
-    } else {
-        if (Yii::$app->user->identity->role == \app\models\User::ROLE_ADMIN) {
-            $menuItems[] = ['label' => Yii::t('app', 'Backend'), 'url' => ['/admin']];
-        }
-        $menuItems[] = [
-            'label' => Yii::$app->user->identity->nickname,
-            'items' => [
-                ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-                '<li class="divider"></li>',
-                ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-            ]
-        ];
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?> -->
+    
 
 
 <?php
@@ -95,9 +53,26 @@ $status = $model->getRunStatus();
         ],
         'innerContainerOptions' => ['class' => 'container']
     ]);
-    // $menuItemsLeft = [
-    //     ['label' => ' ' . '返回', 'url' => ['/contest/index']],
-    // ];
+    $menuItemsLeft = [
+        ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
+        ['label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
+        ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        [
+            'label' => '<span class="glyphicon glyphicon-king"></span> ' . Yii::t('app', 'Rating'),
+            'url' => ['/rating/index'],
+            'active' => Yii::$app->controller->id == 'rating'
+        ],
+        [
+            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::t('app', 'Group'),
+            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']
+        ],
+        ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
+        [
+            'label' => '<span class="glyphicon glyphicon-info-sign"></span> '. Yii::t('app', 'Wiki'),
+            'url' => ['/wiki/index'],
+            'active' => Yii::$app->controller->id == 'wiki'
+        ],
+    ];
     if (Yii::$app->user->isGuest) {
         $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
         $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
@@ -119,12 +94,12 @@ $status = $model->getRunStatus();
             ]
         ];
     }
-    // echo Nav::widget([
-    //     'options' => ['class' => 'navbar-nav navbar-left'],
-    //     'items' => $menuItemsLeft,
-    //     'encodeLabels' => false,
-    //     'activateParents' => true
-    // ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $menuItemsLeft,
+        'encodeLabels' => false,
+        'activateParents' => true
+    ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItemsRight,
