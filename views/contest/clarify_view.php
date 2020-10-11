@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <hr>
         <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
         <hr>
-        <span class="glyphicon glyphicon-user"></span> <?= $clarify->user->username ?>
+        <span class="glyphicon glyphicon-user"></span> <?= $clarify->user->colorname ?>
         &nbsp;•&nbsp;
         <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
     </div>
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="well">
             <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
             <hr>
-            <span class="glyphicon glyphicon-user"></span> <?= Html::encode($reply->user->username) ?>
+            <span class="glyphicon glyphicon-user"></span> <?= Html::encode($reply->user->colorname) ?>
             &nbsp;•&nbsp;
             <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
         </div>
