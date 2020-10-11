@@ -10,9 +10,10 @@ use app\models\Solution;
 /* @var $searchModel app\models\SolutionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('app', 'Stats');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
+$this->params['breadcrumbs'][] = ['label' => Html::encode($model->id . ' - ' . $model->title), 'url' => ['problem/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Stats');
 
 $stats = $model->getStatisticsData();
 ?>
