@@ -51,7 +51,7 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-default',
+            'class' => 'navbar-default navbar-fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container']
     ]);
@@ -117,6 +117,10 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+
+    <br />
+    <br />
+    <br />
 
     <?php
     if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
