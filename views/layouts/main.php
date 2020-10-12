@@ -105,6 +105,8 @@ AppAsset::register($this);
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
+            'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
