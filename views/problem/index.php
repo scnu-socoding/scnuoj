@@ -44,7 +44,7 @@ $this->title = Yii::t('app', 'Problems');
                         if ($tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
                             foreach((array)$tags as $tag) {
-                                $res .= Html::a('<span class="label label-default">' . Html::encode($tag) . '</span>', [
+                                $res .= Html::a('<span class="badge badge-secondary">' . Html::encode($tag) . '</span>', [
                                     '/problem/index', 'tag' => $tag
                                 ]);
                             }
@@ -94,8 +94,8 @@ $this->title = Yii::t('app', 'Problems');
                     'url' => ['/problem/index'],
                     'format' => 'ul',
                     'urlParam' => 'tag',
-                    'listOptions' => ['class' => 'tag-group'],
-                    'liOptions' => ['class' => 'tag-group-item']
+                    'listOptions' => ['class' => ' ' , 'style' => 'padding-left:0;'],
+                    'liOptions' => ['class' => 'badge badge-light']
                 ]) ?>
             </div>
         </div>
