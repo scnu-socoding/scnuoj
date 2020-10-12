@@ -227,12 +227,12 @@ $status = $model->getRunStatus();
 <!-- <footer class="footer">
     <div class="container">
     <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
-        <!-- <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p> -->
-        <!-- <p class="pull-left">
+        <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
+        <p class="pull-left">
             <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
             Html::a (' English ', '?lang=en') ;
             ?>
-        </p> -->
+        </p>
     </div>
 </footer> -->
 <?php $this->endBody() ?>
