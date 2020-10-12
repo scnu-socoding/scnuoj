@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SolutionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

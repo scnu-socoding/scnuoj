@@ -3,7 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 $problem = $this->params['model'];
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>

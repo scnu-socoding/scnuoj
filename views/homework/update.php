@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Modal;
+use yii\bootstrap4\Nav;
 use app\models\Contest;
 use app\models\Homework;
 

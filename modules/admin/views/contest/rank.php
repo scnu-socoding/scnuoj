@@ -11,7 +11,7 @@ $first_blood = $rank_result['first_blood'];
 $result = $rank_result['rank_result'];
 $submit_count = $rank_result['submit_count'];
 
-$this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
+$this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
 ?>
 
 <div class="wrap">

@@ -3,7 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 $model = $this->params['model'];
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
@@ -25,7 +25,7 @@ $model = $this->params['model'];
 </div>
 <div class="col-md-10">
     <div class="problem-header">
-        <?= \yii\bootstrap\Nav::widget([
+        <?= \yii\bootstrap4\Nav::widget([
             'options' => ['class' => 'nav nav-pills'],
             'items' => [
                 ['label' => Yii::t('app', 'Preview'), 'url' => ['/admin/problem/view', 'id' => $model->id]],

@@ -1,6 +1,6 @@
 <?php
 
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
