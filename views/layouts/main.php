@@ -111,7 +111,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<!-- <footer class="footer">
     <div class="container">
     <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
         <!-- <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
@@ -121,7 +121,7 @@ AppAsset::register($this);
             ?>
         </p> -->
     </div>
-</footer>
+</footer> -->
 
 <?php $this->endBody() ?>
 </body>
