@@ -406,11 +406,17 @@ a.desc:after {
 
 .problem-index-list tr td:nth-child(1),
 .problem-index-list tr th:nth-child(1) {
-    text-align: right;
+    text-align: center;
 }
+
+.problem-index-list thead tr td:nth-child(2),
+.problem-index-list thead tr th:nth-child(2) {
+    text-align: center;
+}
+
 .problem-index-list tr td:nth-child(3),
 .problem-index-list tr th:nth-child(3) {
-    text-align:center;
+    text-align: center;
 }
 .contest-countdown {
     padding: 20px;
