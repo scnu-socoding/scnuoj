@@ -224,7 +224,7 @@ $status = $model->getRunStatus();
     </div>
 </div>
 
-<footer class="footer">
+<!-- <footer class="footer">
     <div class="container">
     <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
         <!-- <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p> -->
@@ -234,7 +234,7 @@ $status = $model->getRunStatus();
             ?>
         </p> -->
     </div>
-</footer>
+</footer> -->
 <?php $this->endBody() ?>
 <script>
     var client_time = new Date();
