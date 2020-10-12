@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use app\models\Contest;
 
 /* @var $this yii\web\View */

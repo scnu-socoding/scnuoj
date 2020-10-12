@@ -6,7 +6,7 @@
 /* @var $currentPage integer */
 /* @var $defaultPageSize integer */
 
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Rating');

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */

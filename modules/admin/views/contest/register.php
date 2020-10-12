@@ -3,7 +3,7 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use yii\widgets\ActiveForm;
 use app\models\Contest;
 

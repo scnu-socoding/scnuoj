@@ -1,10 +1,10 @@
 <?php
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model \app\models\PasswordResetRequestForm */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $this->title = '重置密码';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
