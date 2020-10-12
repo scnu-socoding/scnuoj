@@ -72,23 +72,23 @@ $this->title = Yii::t('app', 'Problems');
         ]); ?>
     </div>
     <div class="col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-body">
                 <?= Html::beginForm('', 'post', ['class' => 'form-inline']) ?>
                 <div class="input-group">
                     <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?>
                     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
-                    <span class="input-group-btn">
+                    <!-- <span class="input-group-btn">
                     <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span>', ['class' => 'btn btn-default']) ?>
-                    </span>
+                    </span> -->
                 </div>
                 <?= Html::endForm() ?>
             </div>
         </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading"><?= Yii::t('app', 'Tags') ?></div>
-            <div class="panel-body">
+        <br />
+        <div class="card">
+            <div class="card-header"><?= Yii::t('app', 'Tags') ?></div>
+            <div class="card-body">
                 <?= TaggingWidget::widget([
                     'items' => $tags,
                     'url' => ['/problem/index'],
