@@ -14,7 +14,6 @@ $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="row">
 
-    <?php Pjax::begin(); ?>
     <div class="col-md-9">
         <?= GridView::widget([
             'layout' => '{items}{pager}',
@@ -101,5 +100,4 @@ $this->title = Yii::t('app', 'Problems');
             </div>
         </div>
     </div>
-    <?php Pjax::end(); ?>
 </div>
