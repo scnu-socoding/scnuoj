@@ -13,6 +13,7 @@ use justinvoelker\tagging\TaggingWidget;
 $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="row">
+    
 
     <div class="col-md-9">
         <?= GridView::widget([
@@ -27,26 +28,27 @@ $this->title = Yii::t('app', 'Problems');
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
                         $solve = '';
                         if (isset($solvedProblem[$model->id])) {
-                            $solve = '<span class="glyphicon glyphicon-ok text-success" style="float:left"></span>';
+                            return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-success']);
                         }
-                        return $solve . Html::a($model->id, ['/problem/view', 'id' => $key]);
+                        return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-secondary']);
                     },
                     'format' => 'raw',
-                    'options' => ['width' => '100px'],
+                    // 'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ],
                 [
                     'attribute' => 'title',
                     'value' => function ($model, $key, $index, $column) {
-                        $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key]);
+                        $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key], ['class' => 'text-dark']);
                         $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
                         $tagsCount = count($tags);
                         if ($tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
                             foreach((array)$tags as $tag) {
-                                $res .= Html::a('<span class="badge badge-secondary">' . Html::encode($tag) . '</span>', [
+                                $res .= Html::a(Html::encode($tag), [
                                     '/problem/index', 'tag' => $tag
-                                ]);
+                                ], ['class' => 'btn-sm btn-secondary']);
+                                $res .= ' ';
                             }
                             $res .= '</span>';
                         }
@@ -62,10 +64,10 @@ $this->title = Yii::t('app', 'Problems');
                             '/solution/index',
                             'SolutionSearch[problem_id]' => $model->id,
                             'SolutionSearch[result]' => 4
-                        ], ['data-pjax' => 0]);
+                        ], ['class' => 'text-dark'], ['data-pjax' => 0]);
                     },
                     'format' => 'raw',
-                    'options' => ['width' => '100px'],
+                    // 'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ]
             ],
@@ -89,14 +91,15 @@ $this->title = Yii::t('app', 'Problems');
         <div class="card">
             <div class="card-header"><?= Yii::t('app', 'Tags') ?></div>
             <div class="card-body">
-                <?= TaggingWidget::widget([
+                 <?= TaggingWidget::widget([
                     'items' => $tags,
                     'url' => ['/problem/index'],
                     'format' => 'ul',
                     'urlParam' => 'tag',
-                    'listOptions' => ['class' => ' ' , 'style' => 'padding-left:0;'],
-                    'liOptions' => ['class' => 'badge badge-light']
-                ]) ?>
+                    'listOptions' => ['style' => 'padding-left:0;'],
+                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block;'],
+                    'linkOptions' => ['class' => 'btn-sm btn-secondary']
+                ]) ?> 
             </div>
         </div>
     </div>
