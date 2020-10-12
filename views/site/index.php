@@ -8,15 +8,22 @@ use yii\helpers\Html;
 
 $this->title = Yii::$app->setting->get('ojName');
 ?>
-<div class="row blog">
-
-    <div class="sidebar-module sidebar-module-inset">
-        <center><h2>South China Normal University Online Judge</h2>
-        <h4>华南师范大学（软件学院）在线判题系统</h4>
-        </center>
+<div class="row">
+    <div class="col"> 
+        <div class="card">
+            <div class="card-body">
+                <center>
+                    <h2>South China Normal University Online Judge</h2>
+                    <h5>华南师范大学（软件学院）在线判题系统</h5>
+                </center>
+            </div>
+        </div>
     </div>
+</div>
 
-    <hr>
+<br />
+
+<div class="row blog">
     <div class="col-md-8"> 
         <div class="blog-main">
             <?php foreach ($news as $v): ?>
@@ -32,12 +39,7 @@ $this->title = Yii::$app->setting->get('ojName');
         </div>
     </div>
     <div class="col-md-4">
-        <!-- <div class="sidebar-module sidebar-module-inset">
-            <h4>关于 SCNUOJ</h4>
-            <p>Online Judge系统（简称OJ）是一个在线的判题系统。 用户可以在线提交程序多种程序（如C、C++、Java）源代码，系统对源代码进行编译和执行， 并通过预先设计的测试数据来检验程序源代码的正确性。</p>
-        </div> -->
         <?php if (!empty($contests)): ?>
-        <!-- <div class="sidebar-module"> -->
             <h3>最近比赛</h3>
             <ol class="list-unstyled">
                 <?php foreach ($contests as $contest): ?>
@@ -49,7 +51,6 @@ $this->title = Yii::$app->setting->get('ojName');
         <!-- </div> -->
         <?php endif; ?>
         <?php if (!empty($discusses)): ?>
-            <!-- <div class="sidebar-module"> -->
                 <h3>最近讨论</h3>
                 <ol class="list-unstyled">
                     <?php foreach ($discusses as $discuss): ?>
@@ -58,17 +59,13 @@ $this->title = Yii::$app->setting->get('ojName');
                                 <?= Html::a(Html::encode($discuss['title']), ['/discuss/view', 'id' => $discuss['id']]) ?>
                             </div>
                             <small class="text-muted">
-                                <span class="glyphicon glyphicon-user"></span>
                                 <?= Html::a(Html::encode($discuss['nickname']), ['/user/view', 'id' => $discuss['username']]) ?>
-                                &nbsp;•&nbsp;
-                                <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($discuss['created_at']) ?>
-                                &nbsp;•&nbsp;
+                                <?= Yii::$app->formatter->asRelativeTime($discuss['created_at']) ?>
                                 <?= Html::a(Html::encode($discuss['ptitle']), ['/problem/view', 'id' => $discuss['pid']]) ?>
                             </small>
                         </li>
                     <?php endforeach; ?>
                 </ol>
-            <!-- </div> -->
         <?php endif; ?>
     </div>
 </div>
