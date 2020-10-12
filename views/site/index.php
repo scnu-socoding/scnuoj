@@ -22,6 +22,7 @@ $this->title = Yii::$app->setting->get('ojName');
 </div>
 
 <br />
+<br />
 
 <div class="row blog">
     <div class="col-md-8"> 
