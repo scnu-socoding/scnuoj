@@ -10,7 +10,7 @@ $this->title = Yii::$app->setting->get('ojName');
 ?>
 <div class="row">
     <div class="col"> 
-        <div class="card">
+        <div class="card bg-secondary text-white">
             <div class="card-body">
                 <center>
                     <h2>South China Normal University Online Judge</h2>
@@ -24,15 +24,21 @@ $this->title = Yii::$app->setting->get('ojName');
 <br />
 <br />
 
-<div class="row blog">
+<div class="row">
     <div class="col-md-8"> 
-        <div class="blog-main">
+    <h3>新闻与公告</h3>
+        <div>
             <?php foreach ($news as $v): ?>
-                <div class="blog-post">
-                    <h3 class="blog-post-title"><?= Html::a(Html::encode($v['title']), ['/site/news', 'id' => $v['id']]) ?></h3>
-                    <p class="blog-post-meta">
-                        <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asDate($v['created_at']) ?></p>
+                <div class="card">
+                    <div class="card-body">
+                        <h3><?= Html::a(Html::encode($v['title']), ['/site/news', 'id' => $v['id']], ['class' => 'text-dark']) ?></h3>
+                        <?= Yii::$app->formatter->asMarkdown($v['content']) ?>
+                    </div>
+                    <div class="card-footer">
+                        <?= Yii::$app->formatter->asDate($v['created_at']) ?>
+                    </div>
                 </div>
+                <br />
             <?php endforeach; ?>
             <?= \yii\widgets\LinkPager::widget([
                 'pagination' => $pages,
@@ -42,27 +48,28 @@ $this->title = Yii::$app->setting->get('ojName');
     <div class="col-md-4">
         <?php if (!empty($contests)): ?>
             <h3>最近比赛</h3>
-            <ol class="list-unstyled">
+            <ol class="list-group">
                 <?php foreach ($contests as $contest): ?>
-                <li>
-                    <?= Html::a(Html::encode($contest['title']), ['/contest/view', 'id' => $contest['id']]) ?>
+                <li class="list-group-item">
+                    <?= Html::a(Html::encode($contest['title']), ['/contest/view', 'id' => $contest['id']], ['class' => 'text-dark']) ?>
                 </li>
                 <?php endforeach; ?>
             </ol>
         <!-- </div> -->
+            <br />
         <?php endif; ?>
         <?php if (!empty($discusses)): ?>
                 <h3>最近讨论</h3>
-                <ol class="list-unstyled">
+                <ol class="list-group">
                     <?php foreach ($discusses as $discuss): ?>
-                        <li class="index-discuss-item">
+                        <li class="list-group-item">
                             <div>
-                                <?= Html::a(Html::encode($discuss['title']), ['/discuss/view', 'id' => $discuss['id']]) ?>
+                                <?= Html::a(Html::encode($discuss['title']), ['/discuss/view', 'id' => $discuss['id']], ['class' => 'text-dark']) ?>
                             </div>
                             <small class="text-muted">
-                                <?= Html::a(Html::encode($discuss['nickname']), ['/user/view', 'id' => $discuss['username']]) ?>
+                                <?= Html::a(Html::encode($discuss['nickname']), ['/user/view', 'id' => $discuss['username']], ['class' => 'text-dark']) ?>
                                 <?= Yii::$app->formatter->asRelativeTime($discuss['created_at']) ?>
-                                <?= Html::a(Html::encode($discuss['ptitle']), ['/problem/view', 'id' => $discuss['pid']]) ?>
+                                <?= Html::a(Html::encode($discuss['ptitle']), ['/problem/view', 'id' => $discuss['pid']], ['class' => 'text-dark']) ?>
                             </small>
                         </li>
                     <?php endforeach; ?>
