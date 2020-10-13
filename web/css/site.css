@@ -272,7 +272,7 @@ a.desc:after {
     max-width: 100%;
 }
 
-.sample-test .input, .sample-test .output {
+/* .sample-test .input, .sample-test .output {
     border: 1px solid #888;
 }
 
@@ -294,7 +294,7 @@ a.desc:after {
     margin-bottom: 1em;
     position: relative;
     top: -1px;
-}
+} */
 
 .form-signin {
     max-width: 330px;
