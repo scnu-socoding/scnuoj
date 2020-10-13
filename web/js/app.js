@@ -127,12 +127,12 @@ $(document).ready(function () {
   renderKatex();
 
   function addCopyBtn() {
-    $(".sample-test h4").each(function() {
+    $(".sample-test h5").each(function() {
       var preId = ("id" + Math.random()).replace('.', '0');
       var cpyId = ("id" + Math.random()).replace('.', '0');
 
       $(this).parent().find("pre").attr("id", preId);
-      var copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='btn-copy'>复制</div>");
+      var copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='btn btn-sm btn-outline-secondary' >复制</div>");
       $(this).append(copy);
 
       var clipboard = new ClipboardJS('#' + cpyId, {
