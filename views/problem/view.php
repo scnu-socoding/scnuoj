@@ -276,7 +276,7 @@ $nextProblemID = $model->getNextProblemID();
                     <div>
                         <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
                             <?php Modal::begin([
-                                'header' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
+                                'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
                                 'toggleButton' => [
                                     'label' => '我的提交',
                                     'class' => 'btn btn-default'

@@ -78,7 +78,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         <h3>
             <?= Yii::t('app', 'Announcements') ?>
             <?php Modal::begin([
-                'header' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
+                'title' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
                 'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-success'],
             ]); ?>
             <?php $form = ActiveForm::begin(); ?>
@@ -123,7 +123,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                         <th>
                             <?php Modal::begin([
-                                'header' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                                'title' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
                                 'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
                             ]); ?>
 
@@ -165,7 +165,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <th></th>
                     <th>
                         <?php Modal::begin([
-                            'header' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
+                            'title' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
                             'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
                         ]); ?>
 

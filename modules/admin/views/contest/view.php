@@ -47,7 +47,7 @@ $problems = $model->problems;
     </p>
     <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
         <?php Modal::begin([
-            'header' => '<h3>'.Yii::t('app','Scroll Scoreboard').'</h3>',
+            'title' => '<h3>'.Yii::t('app','Scroll Scoreboard').'</h3>',
             'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-success'],
         ]); ?>
         <?= Html::beginForm(['contest/scroll-scoreboard', 'id' => $model->id], 'get', ['target' => '_blank']) ?>
@@ -103,7 +103,7 @@ $problems = $model->problems;
     <h3>
         <?= Yii::t('app', 'Announcements') ?>
         <?php Modal::begin([
-            'header' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
+            'title' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
             'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-success'],
         ]); ?>
         <?php $form = ActiveForm::begin(); ?>
@@ -131,7 +131,7 @@ $problems = $model->problems;
         <?= Yii::t('app', 'Problems') ?>
     </h3>
     <?php Modal::begin([
-        'header' => '<h3>'.Yii::t('app','设置题目来源').'</h3>',
+        'title' => '<h3>'.Yii::t('app','设置题目来源').'</h3>',
         'toggleButton' => ['label' => '设置下列所有题目的来源', 'class' => 'btn btn-success'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-source', 'id' => $model->id]) ?>
@@ -149,7 +149,7 @@ $problems = $model->problems;
     <?php Modal::end(); ?>
 
     <?php Modal::begin([
-        'header' => '<h3>'.Yii::t('app','设置下列所有题目在前台显示状态').'</h3>',
+        'title' => '<h3>'.Yii::t('app','设置下列所有题目在前台显示状态').'</h3>',
         'toggleButton' => ['label' => '设置题目在前台显示状态', 'class' => 'btn btn-success'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-status', 'id' => $model->id]) ?>
@@ -197,7 +197,7 @@ $problems = $model->problems;
                     <td><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                     <th>
                         <?php Modal::begin([
-                            'header' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                            'title' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
                             'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
                         ]); ?>
 
@@ -238,7 +238,7 @@ $problems = $model->problems;
                 <th></th>
                 <th>
                     <?php Modal::begin([
-                        'header' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
+                        'title' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
                         'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
                     ]); ?>
 
@@ -263,7 +263,7 @@ $problems = $model->problems;
     </div>
 </div>
 <?php Modal::begin([
-    'header' => '<h3>'.Yii::t('app','Information').'</h3>',
+    'title' => '<h3>'.Yii::t('app','Information').'</h3>',
     'options' => ['id' => 'modal-info'],
     'size' => Modal::SIZE_LARGE
 ]); ?>

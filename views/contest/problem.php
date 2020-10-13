@@ -137,7 +137,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
             </a> -->
 
             <?php Modal::begin([
-                'header' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) . '</h3>',
+                'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) . '</h3>',
                 'size' => Modal::SIZE_LARGE,
                 'toggleButton' => [
                     'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),

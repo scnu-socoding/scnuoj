@@ -117,7 +117,7 @@ $nextProblemID = $model->getNextProblemID();
         </div>
 
         <?php Modal::begin([
-            'header' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
+            'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
             'size' => Modal::SIZE_LARGE,
             'toggleButton' => [
                 'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
