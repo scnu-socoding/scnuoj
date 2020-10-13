@@ -87,7 +87,10 @@ class SiteController extends BaseController
             ->limit(10)
             ->all();
 
-        $pages = new Pagination(['totalCount' => $newsQuery->count()]);
+        $pages = new Pagination([
+            'totalCount' => $newsQuery->count(),
+            'defaultPageSize' => 5
+        ]);
         $news = $newsQuery->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
