@@ -112,7 +112,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
+<br />
 <!-- <footer class="footer">
     <div class="container">
     <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
