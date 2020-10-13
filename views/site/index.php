@@ -8,6 +8,9 @@ use yii\helpers\Html;
 
 $this->title = Yii::$app->setting->get('ojName');
 ?>
+
+<p></p>
+
 <div class="row">
     <div class="col"> 
         <div class="card bg-secondary text-white">
@@ -21,7 +24,7 @@ $this->title = Yii::$app->setting->get('ojName');
     </div>
 </div>
 
-<br />
+<p></p>
 <br />
 
 <div class="row">
