@@ -31,7 +31,7 @@ $nextProblemID = $model->getNextProblemID();
         <h3><?= Html::encode($this->title) ?></h3>
     </div>
 </div>
-<br />
+<p></p>
 
 <div class="row">
     
@@ -45,7 +45,7 @@ $nextProblemID = $model->getNextProblemID();
                 <?= Yii::$app->formatter->asMarkdown($model->description) ?>
             </div>
         </div>
-        <br />
+        <p></p>
 
         <div class="card">
 
@@ -56,7 +56,7 @@ $nextProblemID = $model->getNextProblemID();
                 <!-- </div> -->
             </div>
         </div>
-        <br />
+        <p></p>
 
         <div class="card">
 
@@ -68,7 +68,7 @@ $nextProblemID = $model->getNextProblemID();
             </div>
         </div>
         
-        <br />
+        <p></p>
         <div class="card">
 
             <div class="card-body">
@@ -110,7 +110,7 @@ $nextProblemID = $model->getNextProblemID();
 
 
         <?php if (!empty($model->hint)): ?>
-            <br />
+            <p></p>
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title"><?= Yii::t('app', 'Hint') ?></h3>
@@ -122,7 +122,7 @@ $nextProblemID = $model->getNextProblemID();
         <?php endif; ?>
 
         <?php if (!empty($model->source)): ?>
-            <br />
+            <p></p>
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title"><?= Yii::t('app', 'Source') ?></h3>

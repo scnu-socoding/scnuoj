@@ -38,7 +38,7 @@ $this->title = Yii::$app->setting->get('ojName');
                         <?= Yii::$app->formatter->asDate($v['created_at']) ?>
                     </div>
                 </div>
-                <br />
+                <p></p>
             <?php endforeach; ?>
             <?= \yii\bootstrap4\LinkPager::widget([
                 'pagination' => $pages,
