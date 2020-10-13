@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Users');
     <hr>
     <p>
         <?php Modal::begin([
-            'header' => '<h2>' . Yii::t('app', '批量创建用户') . '</h2>',
+            'title' => '<h2>' . Yii::t('app', '批量创建用户') . '</h2>',
             'toggleButton' => ['label' => Yii::t('app', '批量创建用户'), 'class' => 'btn btn-success'],
         ]);?>
         <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>

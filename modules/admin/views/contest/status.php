@@ -27,7 +27,7 @@ foreach ($problems as $key => $p) {
             <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?>
         </h1>
         <?php Modal::begin([
-            'header' => '<h3>'.Yii::t('app','Attention!').'</h3>',
+            'title' => '<h3>'.Yii::t('app','Attention!').'</h3>',
             'toggleButton' => ['label' => Yii::t('app', 'Show the submissions in frontend'), 'class' => 'btn btn-success'],
         ]); ?>
         <h3>继续该操作前，请详细阅读以下内容：</h3>
@@ -209,7 +209,7 @@ $this->registerJs($js);
 </div>
 
 <?php Modal::begin([
-    'header' => '<h3>'.Yii::t('app','Information').'</h3>',
+    'title' => '<h3>'.Yii::t('app','Information').'</h3>',
     'options' => ['id' => 'solution-info']
 ]); ?>
     <div id="solution-content">

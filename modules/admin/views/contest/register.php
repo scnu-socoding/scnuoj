@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
 <h1><?= Html::encode($model->title) ?></h1>
 
 <?php Modal::begin([
-    'header' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
+    'title' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
     'toggleButton' => ['label' => Yii::t('app', 'Add participating user'), 'class' => 'btn btn-success'],
 ]);?>
 <?= Html::beginForm(['contest/register', 'id' => $model->id]) ?>
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
 
 <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
     <?php Modal::begin([
-        'header' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
+        'title' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
         'toggleButton' => ['label' => Yii::t('app', 'Generate user for the contest'), 'class' => 'btn btn-success'],
     ]);?>
         <p class="text-muted">在线下举行比赛时，可在此处批量创建账号。</p>

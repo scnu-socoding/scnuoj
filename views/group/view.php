@@ -44,7 +44,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                 </h2>
                 <?php if ($model->hasPermission()): ?>
                 <?php Modal::begin([
-                    'header' => '<h3>' . Yii::t('app', 'Create') . '</h3>',
+                    'title' => '<h3>' . Yii::t('app', 'Create') . '</h3>',
                     'toggleButton' => [
                         'label' => Yii::t('app', 'Create'),
                         'tag' => 'a',
@@ -146,7 +146,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                 </h2>
                 <?php if ($model->hasPermission()): ?>
                     <?php Modal::begin([
-                        'header' => '<h3>' . Yii::t('app', 'Invite Member') . '</h3>',
+                        'title' => '<h3>' . Yii::t('app', 'Invite Member') . '</h3>',
                         'toggleButton' => [
                             'label' => Yii::t('app', 'Invite Member'),
                             'tag' => 'a',
