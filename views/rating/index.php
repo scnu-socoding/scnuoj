@@ -93,7 +93,7 @@ $this->title = Yii::t('app', 'Rating');
                     </tbody>
                 </table>
             </div>
-            <?= \yii\widgets\LinkPager::widget(['pagination' => $pages]) ?>
+            <?= \yii\bootstrap4\LinkPager::widget(['pagination' => $pages]) ?>
         </div>
     </div>
 </div>

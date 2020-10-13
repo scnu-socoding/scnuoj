@@ -40,7 +40,7 @@ $this->title = Yii::$app->setting->get('ojName');
                 </div>
                 <br />
             <?php endforeach; ?>
-            <?= \yii\widgets\LinkPager::widget([
+            <?= \yii\bootstrap4\LinkPager::widget([
                 'pagination' => $pages,
             ]); ?>
         </div>
