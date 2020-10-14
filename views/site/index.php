@@ -9,27 +9,36 @@ use yii\helpers\Html;
 $this->title = Yii::$app->setting->get('ojName');
 ?>
 
-<br>
-
 <div class="row">
     <div class="col"> 
         <div class="card bg-secondary text-white">
-            <div class="card-body">
-                <center>
-                    <h2>South China Normal University Online Judge</h2>
-                    <h5>华南师范大学（软件学院）在线判题系统</h5>
-                </center>
+            <div class="card-body text-center d-none d-md-block">
+                    <p></p>
+                    <h3>South China Normal University Online Judge</h3>
+                    <p>华南师范大学软件学院在线判题系统</p>
+                    <p></p>
+            </div>
+            <div class="card-body text-center d-md-none">
+                    <p></p>
+                    <h3>SCNU Online Judge</h3>
+                    <p>华南师范大学软件学院在线判题系统</p>
+                    <p></p>
             </div>
         </div>
     </div>
 </div>
 
+<div class="d-none d-md-block">
+    <br />
+</div>
+<div class="d-md-none">
 <p></p>
-<br />
-
+</div>
 <div class="row">
-    <div class="col-md-8"> 
+    <div class="col-md-8">
+    <div class="d-none d-md-block">
     <h3>新闻与公告</h3>
+    </div>
         <div>
             <?php foreach ($news as $v): ?>
                 <div class="card">
@@ -49,7 +58,7 @@ $this->title = Yii::$app->setting->get('ojName');
             ]); ?>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 d-none d-md-block">
         <?php if (!empty($contests)): ?>
             <h3>最近比赛</h3>
             <ol class="list-group">
