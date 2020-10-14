@@ -97,11 +97,11 @@ $nextProblemID = $model->getNextProblemID();
                 <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != ''):?>
                     <div class="input">
                         <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
-                        <pre><?= Html::encode($model->sample_input_3) ?></pre>
+                        <pre class="list-group-item"><?= Html::encode($model->sample_input_3) ?></pre>
                     </div>
                     <div class="output">
                         <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
-                        <pre><?= Html::encode($model->sample_output_3) ?></pre>
+                        <pre class="list-group-item"><?= Html::encode($model->sample_output_3) ?></pre>
                     </div>
                 <?php endif; ?>
             </div>
