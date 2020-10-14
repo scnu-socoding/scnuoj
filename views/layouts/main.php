@@ -10,8 +10,6 @@ use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-use yii\widgets\Pjax;
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -29,7 +27,6 @@ AppAsset::register($this);
 </head>
 
 <body>
-<?php Pjax::begin(['id'=>'id-pjax', 'timeout' => '2000']); ?>
 <?php $this->beginBody() ?>
 
 <div>
@@ -143,7 +140,6 @@ AppAsset::register($this);
 </footer> -->
 
 <?php $this->endBody() ?>
-<?php Pjax::end(); ?>
 </body>
 </html>
 <?php $this->endPage() ?>
