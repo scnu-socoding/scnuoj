@@ -9,7 +9,7 @@ use yii\helpers\Html;
 $this->title = Yii::$app->setting->get('ojName');
 ?>
 
-<p></p>
+<br>
 
 <div class="row">
     <div class="col"> 

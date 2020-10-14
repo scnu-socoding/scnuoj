@@ -93,7 +93,7 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-    <br />
+    <p></p>
 
     <?php
     if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
