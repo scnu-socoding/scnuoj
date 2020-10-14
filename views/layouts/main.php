@@ -27,7 +27,6 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/scnu-socoding/live2d-widget@0.99/autoload.js"></script>
 </head>
 
 <body>
