@@ -27,11 +27,11 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bobby285271/live2d-widget@0.9.5/autoload.js"></script>
 </head>
 
 <body>
-<?php Pjax::begin(['id'=>'id-pjax', 'timeout' => false]); ?>
+<?php Pjax::begin(['id'=>'id-pjax', 'timeout' => 'false']); ?>
 <?php $this->beginBody() ?>
 
 <div>
