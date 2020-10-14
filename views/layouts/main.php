@@ -29,7 +29,7 @@ AppAsset::register($this);
 </head>
 
 <body>
-<?php Pjax::begin(['id'=>'id-pjax', 'timeout' => 'false']); ?>
+<?php Pjax::begin(['id'=>'id-pjax', 'timeout' => '2000']); ?>
 <?php $this->beginBody() ?>
 
 <div>
