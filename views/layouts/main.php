@@ -34,7 +34,7 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg bg-light navbar-light',
+            'class' => 'navbar navbar-expand-lg bg-light navbar-light fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container']
     ]);
@@ -59,40 +59,53 @@ AppAsset::register($this);
         ],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItemsLeft[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItemsLeft[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItemsRight[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItemsRight[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
-            $menuItemsLeft[] = [
+            $menuItemsRight[] = [
                 'label' => Yii::t('app', 'Backend'),
                 'url' => ['/admin'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
         if  (Yii::$app->user->identity->isVip()) {
-            $menuItemsLeft[] = [
+            $menuItemsRight[] = [
                 'label' => Yii::t('app', 'Backend'),
                 'url' => ['/admin/problem'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
-        $menuItemsLeft[] =  [
+        $menuItemsRight[] =  [
             'label' => Yii::$app->user->identity->nickname,
-            'items' => [
-                ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-                ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-            ]
+            'url' => ['/user/view', 'id' => Yii::$app->user->id],
+            // 'items' => [
+            //     ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+            //     ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+            // ]
+        ];
+        $menuItemsRight[] = [
+            'label' => Yii::t('app', 'Logout'),
+            'url' => ['/site/logout'],
         ];
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
+        'options' => ['class' => 'navbar-nav mr-auto'],
         'items' => $menuItemsLeft,
+        'encodeLabels' => false,
+        'activateParents' => true
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav'],
+        'items' => $menuItemsRight,
         'encodeLabels' => false,
         'activateParents' => true
     ]);
     NavBar::end();
     ?>
+    <br />
+    <p></p>
+    <br />
     <p></p>
 
     <?php
