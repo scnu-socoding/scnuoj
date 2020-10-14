@@ -10,6 +10,8 @@ use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+use yii\widgets\Pjax;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -24,8 +26,12 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
 </head>
+
 <body>
+<?php Pjax::begin(['id'=>'id-pjax', 'timeout' => false]); ?>
 <?php $this->beginBody() ?>
 
 <div>
@@ -139,6 +145,7 @@ AppAsset::register($this);
 </footer> -->
 
 <?php $this->endBody() ?>
+<?php Pjax::end(); ?>
 </body>
 </html>
 <?php $this->endPage() ?>
