@@ -78,7 +78,8 @@ $stats = $model->getStatisticsData();
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->username, ['/user/view', 'id' => $model->created_by]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'result',
@@ -93,36 +94,44 @@ $stats = $model->getStatisticsData();
                         return $model->getResult();
                     }
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'time',
                 'value' => function ($model, $key, $index, $column) {
                     return $model->time . ' MS';
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'memory',
                 'value' => function ($model, $key, $index, $column) {
                     return $model->memory . ' KB';
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'language',
                 'value' => function ($model, $key, $index, $column) {
                     return $model->getLang();
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
-            'code_length',
+            [
+                'attribute' => 'code_length',
+                'enableSorting' => false
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ]
         ],
     ]); ?>
