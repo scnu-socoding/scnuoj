@@ -16,8 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="row">
-    <div class="col-md-9">
-        <h1 class="discuss-title"><?= Html::encode($model->title) ?></h1>
+    <div class="col">
+        <div class="card bg-secondary text-white">
+        <div class="card-body">
+            <h3><?= Html::encode($this->title) ?></h3>
+        </div>
+    </div>
+    <p></p>
         <p>
             <span class="glyphicon glyphicon-user"></span> <?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->username]) ?>
             &nbsp;•&nbsp;
@@ -81,8 +86,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
            
         </div>
-    </div>
-    <div class="col-md-3">
-
     </div>
 </div>
