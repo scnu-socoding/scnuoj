@@ -7,9 +7,10 @@ use yii\helpers\Html;
 /* @var $solution app\models\Solution */
 /* @var $submissions array */
 
-$this->title = $model->id . ' - ' . $model->title;
+$this->title = Yii::t('app', 'Editorial');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/problem/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->id . ' - ' . $model->title, 'url' => ['/problem/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Editorial');
 ?>
 <div class="news-view">
     <h1 class="news-title">
