@@ -17,7 +17,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Stats');
 
 $stats = $model->getStatisticsData();
 ?>
-<h1><?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id]) ?></h1>
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+<p></p>
 <hr>
 <div class="stats-content" style="padding: 0 50px">
     <h2>提交统计</h2>
