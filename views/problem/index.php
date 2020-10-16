@@ -101,7 +101,7 @@ $this->title = Yii::t('app', 'Problems');
                     'urlParam' => 'tag',
                     'listOptions' => ['style' => 'padding-left:0;'],
                     'liOptions' => ['style' => 'list-style-type: none; display: inline-block;'],
-                    'linkOptions' => ['class' => 'btn-sm btn-secondary']
+                    'linkOptions' => ['class' => 'btn-sm btn-secondary', 'style' => 'margin-bottom:1px']
                 ]) ?> 
             </div>
         </div>
