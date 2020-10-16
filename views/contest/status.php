@@ -157,6 +157,9 @@ $isContestEnd = $model->isContestEnd();
                 'enableSorting' => false
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+        ]
     ]); ?>
 <?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);

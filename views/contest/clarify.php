@@ -47,6 +47,9 @@ if ($discuss != null) {
                     'enableSorting' => false
                 ],
             ],
+            'pager' => [
+                'linkOptions' => ['class' => 'page-link text-dark'],
+            ]
         ]);
         echo '<hr>';
     }
