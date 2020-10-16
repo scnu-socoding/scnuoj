@@ -52,7 +52,7 @@ $this->title = Yii::$app->setting->get('ojName');
                 </div>
                 <p></p>
             <?php endforeach; ?>
-            <?= \yii\bootstrap4\LinkPager::widget([
+            <?= \yii\widgets\LinkPager::widget([
                 'pagination' => $pages,
                 'linkOptions' => ['class' => 'page-link text-dark'],
             ]); ?>
