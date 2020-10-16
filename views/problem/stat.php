@@ -76,7 +76,7 @@ $stats = $model->getStatisticsData();
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->username, ['/user/view', 'id' => $model->created_by]);
+                    return Html::a($model->username, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                 },
                 'format' => 'raw',
                 'enableSorting' => false
@@ -134,5 +134,8 @@ $stats = $model->getStatisticsData();
                 'enableSorting' => false
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+        ]
     ]); ?>
 </div>
