@@ -141,6 +141,9 @@ foreach ($problems as $key => $p) {
                     'code_length',
                     'created_at:datetime',
                 ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                ]
             ]); ?>
         </div>
 <?php

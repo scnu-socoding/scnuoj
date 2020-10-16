@@ -121,6 +121,9 @@ $submissionStatistics = $model->getSubmissionStatistics();
                     'enableSorting' => false
                 ],
             ],
+            'pager' => [
+                'linkOptions' => ['class' => 'page-link text-dark'],
+            ]
         ]);
         echo '</div>';
     }

@@ -114,6 +114,9 @@ $this->title = Yii::t('app', 'Status');
                 'enableSorting' => false
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+        ]
     ]); ?>
 
 <?php

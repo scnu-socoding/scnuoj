@@ -71,6 +71,9 @@ $this->title = Yii::t('app', 'Problems');
                     'enableSorting' => false
                 ]
             ],
+            'pager' => [
+                'linkOptions' => ['class' => 'page-link text-dark'],
+            ]
         ]); ?>
     </div>
     <div class="col-md-3">

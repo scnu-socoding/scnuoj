@@ -138,6 +138,9 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'enableSorting' => false
                     ],
                 ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                ]
             ]); ?>
 
             <div>
@@ -223,6 +226,9 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'options' => ['width' => '90px']
                     ]
                 ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                ]
             ]); ?>
         </div>
     </div>

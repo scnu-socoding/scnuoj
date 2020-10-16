@@ -56,5 +56,8 @@ $this->title = Yii::t('app', 'Contests');
                 'enableSorting' => false
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+        ]
     ]); ?>
 </div>

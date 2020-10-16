@@ -30,5 +30,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
                 'enableSorting' => false
             ],
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+        ]
     ]); ?>
 </div>

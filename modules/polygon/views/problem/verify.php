@@ -93,6 +93,9 @@ $solution->language = Yii::$app->user->identity->language;
             'format' => 'raw'
         ]
     ],
+    'pager' => [
+        'linkOptions' => ['class' => 'page-link text-dark'],
+    ]
 ]); ?>
 <hr>
 <?php if (!$model->spj): ?>
