@@ -70,15 +70,22 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
                 <h3><?= Yii::t('app', 'Examples') ?></h3>
                 <div class="content-wrapper">
+
+                <?php if ($sample_input[0] == '' && $sample_output[0] == '' && $sample_input[1] == '' && $sample_output[1] == '' && $sample_input[2] == '' && $sample_output[2] == ''):?>
+                    <p>抱歉，本题不提供样例。</p>
+                <?php endif; ?>
+
                     <div class="sample-test">
-                        <div class="input">
-                            <h4><?= Yii::t('app', 'Input') ?></h4>
-                            <pre><?= $sample_input[0] ?></pre>
-                        </div>
-                        <div class="output">
-                            <h4><?= Yii::t('app', 'Output') ?></h4>
-                            <pre><?= $sample_output[0] ?></pre>
-                        </div>
+                        <?php if ($sample_input[0] != '' || $sample_output[0] != ''):?>
+                            <div class="input">
+                                <h4><?= Yii::t('app', 'Input') ?></h4>
+                                <pre><?= $sample_input[0] ?></pre>
+                            </div>
+                            <div class="output">
+                                <h4><?= Yii::t('app', 'Output') ?></h4>
+                                <pre><?= $sample_output[0] ?></pre>
+                            </div>
+                        <?php endif; ?>
 
                         <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
                             <div class="input">
