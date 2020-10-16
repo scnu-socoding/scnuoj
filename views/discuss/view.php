@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
-        <?= \yii\bootstrap4\LinkPager::widget([
+        <?= \yii\widgets\LinkPager::widget([
             'pagination' => $pages,
         ]); ?>
         <div class="well">

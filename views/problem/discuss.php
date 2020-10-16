@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
     <?php endforeach; ?>
 </div>
 
-<?= \yii\bootstrap4\LinkPager::widget([
+<?= \yii\widgets\LinkPager::widget([
     'pagination' => $pages,
     'linkOptions' => ['class' => 'page-link text-dark'],
     //'widgetId' => '#content',
