@@ -23,7 +23,7 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0]);
+                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0, 'class' => 'text-dark']);
                 },
                 'format' => 'raw',
                 'enableSorting' => false
@@ -33,7 +33,7 @@ $this->title = Yii::t('app', 'Status');
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by]);
+                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
@@ -43,7 +43,7 @@ $this->title = Yii::t('app', 'Status');
                 'attribute' => 'problem_id',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->problem)) {
-                        return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id]);
+                        return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
@@ -91,7 +91,7 @@ $this->title = Yii::t('app', 'Status');
                     if ($model->canViewSource()) {
                         return Html::a($model->getLang(),
                             ['/solution/source', 'id' => $model->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info"]
+                            ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
                         );
                     } else {
                         return $model->getLang();
