@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d249d2c460db2545ab1ac0228867494f",
+    "content-hash": "f3ccd4e0804ae75f9a3bc7342decb869",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -192,6 +192,69 @@
             "time": "2020-06-29T00:56:53+00:00"
         },
         {
+            "name": "fortawesome/font-awesome",
+            "version": "5.15.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "57005cea6da7d1c67f3466974aecd25485f60452"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/57005cea6da7d1c67f3466974aecd25485f60452",
+                "reference": "57005cea6da7d1c67f3466974aecd25485f60452",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-4.0",
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Travis Chase",
+                    "homepage": "http://twitter.com/supercodepoet"
+                },
+                {
+                    "name": "Dave Gandy",
+                    "homepage": "http://twitter.com/davegandy"
+                },
+                {
+                    "name": "Rob Madole",
+                    "homepage": "http://twitter.com/robmadole"
+                },
+                {
+                    "name": "Jory Raphael",
+                    "homepage": "http://twitter.com/sensibleworld"
+                },
+                {
+                    "name": "Geremia Taglialatela",
+                    "homepage": "http://twitter.com/gtagliala"
+                },
+                {
+                    "name": "Brian Talbot",
+                    "homepage": "http://twitter.com/talbs"
+                },
+                {
+                    "name": "Mike Wilkerson",
+                    "homepage": "http://twitter.com/mw77"
+                }
+            ],
+            "description": "The iconic font, CSS, and SVG framework",
+            "homepage": "https://fontawesome.com",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon",
+                "svg"
+            ],
+            "time": "2020-10-05T16:44:11+00:00"
+        },
+        {
             "name": "justinvoelker/yii2-tagging",
             "version": "1.0.2",
             "source": {
@@ -233,10 +296,10 @@
         },
         {
             "name": "npm-asset/bootstrap",
-            "version": "4.5.2",
+            "version": "4.5.3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.5.2.tgz"
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.5.3.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -367,12 +430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/Workerman.git",
-                "reference": "49708bb40e16cccb91aa1ffa841e64a34677a264"
+                "reference": "418b3ae818897e671074f0d1888d9aac9a403b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/Workerman/zipball/49708bb40e16cccb91aa1ffa841e64a34677a264",
-                "reference": "49708bb40e16cccb91aa1ffa841e64a34677a264",
+                "url": "https://api.github.com/repos/walkor/Workerman/zipball/418b3ae818897e671074f0d1888d9aac9a403b73",
+                "reference": "418b3ae818897e671074f0d1888d9aac9a403b73",
                 "shasum": ""
             },
             "require": {
@@ -405,7 +468,7 @@
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2020-10-03T11:25:24+00:00"
+            "time": "2020-10-14T03:11:47+00:00"
         },
         {
             "name": "yiisoft/yii2",
