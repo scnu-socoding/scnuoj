@@ -125,7 +125,9 @@ AppAsset::register($this);
     }
     ?>
 
+
     <div class="container">
+        <div class="alert alert-warning">为了保证你的做题体验，在校园网环境下请优先通过 <a href="http://10.191.65.243:5000">10.191.65.243:5000</a> 访问 SCNUOJ。</div>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
