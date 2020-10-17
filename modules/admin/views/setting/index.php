@@ -59,6 +59,16 @@ $this->title = Yii::t('app', 'Setting');
             0 => '关闭'
         ]) ?>
     </div>
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '创建小组'), 'isDefGroup') ?>
+        <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
+            1 => '开启',
+            2 => '仅管理员',
+            3 => '管理员与VIP用户',	            
+            0 => '关闭'	            
+        ]) ?>
+    </div>     
     	
     <div class="form-group">
         <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
