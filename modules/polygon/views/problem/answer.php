@@ -19,7 +19,7 @@ $this->params['model'] = $model;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'solution')->widget('app\widgets\editormd\Editormd')->label(false) ?>
+    <?= $form->field($model, 'solution')->widget(Yii::$app->setting->get('ojEditor'))->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

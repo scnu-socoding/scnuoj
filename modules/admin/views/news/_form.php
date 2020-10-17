@@ -15,7 +15,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+    <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
     <?= $form->field($model, 'status')->radioList([
         1 => Yii::t('app', 'Visible'),

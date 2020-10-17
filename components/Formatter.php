@@ -2,6 +2,7 @@
 
 namespace app\components;
 
+use Yii;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 
@@ -26,20 +27,7 @@ class Formatter extends \yii\i18n\Formatter
         ],
     ];
 
-    /**
-     * Format as normal markdown without class link extensions.
-     *
-     * @param $markdown string content
-     * @return string
-     */
-    public function asMarkdown($markdown)
-    {
-        $html = Markdown::process($markdown, 'gfm');
-        $output = HtmlPurifier::process($html, $this->purifierConfig);
-        return '<div class="markdown">' . $this->katex($output) . '</div>';
-    }
-
-    /**
+      /**
      * Format as normal content without class link extensions.
      *
      * @param $value string content
@@ -51,6 +39,27 @@ class Formatter extends \yii\i18n\Formatter
         $value = HtmlPurifier::process($value, $this->purifierConfig);
         return '<div class="html-output">' . $this->katex($value) . '</div>';
     }
+
+    /**
+     * Format as normal markdown without class link extensions.
+     *
+     * @param $markdown string content
+     * @return string
+     */
+    public function asMarkdown($markdown)
+    {
+        if(Yii::$app->setting->get('ojEditor')=='app\widgets\editormd\Editormd') {
+            $html = Markdown::process($markdown, 'gfm');
+            $output = HtmlPurifier::process($html, $this->purifierConfig);
+            return '<div class="markdown">' . $this->katex($output) . '</div>';
+        }
+        else {
+            return Yii::$app->formatter->asHtml($markdown,NULL);
+        }
+
+    }
+
+  
 
     public function katex($content)
     {
