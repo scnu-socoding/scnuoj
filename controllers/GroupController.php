@@ -341,7 +341,18 @@ class GroupController extends BaseController
             $groupUser->role = GroupUser::ROLE_MANAGER;
         } else if ($role == 5 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为普通成员
             $groupUser->role = GroupUser::ROLE_MEMBER;
+        } else if ($role == 6 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置密码
+            Yii::$app->db->createCommand()->update('{{%user}}', [
+                    'password_hash' => Yii::$app->security->generatePasswordHash('123456')
+                ], ['id' => $groupUser->user_id])->execute();
+            Yii::$app->session->setFlash('success', $groupUser->user->username.'的密码已经重置为：123456');
+        } else if ($role == 7 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置昵称
+            Yii::$app->db->createCommand()->update('{{%user}}', [
+                    'nickname' =>  $groupUser->user->username
+                ], ['id' => $groupUser->user_id])->execute();
+            Yii::$app->session->setFlash('success', $groupUser->user->username.'的昵称已经重置！');
         }
+        
         if ($role != 0) {
             $groupUser->update();
             Yii::$app->cache->delete('role' . $group->id . '_' . $groupUser->user_id);
