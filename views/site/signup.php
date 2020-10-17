@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Yii::$app->session->setFlash('info', '用户名和学号一经设置<b>不可修改</b>，请使用真实学号注册（注册成功后可以设置昵称）。'); ?>
 
 <div class="form-signin">
+    <?php if (Yii::$app->setting->get('isUserReg')): ?>    
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
@@ -59,5 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-success btn-block', 'name' => 'signup-button']) ?>
     </div>
     <?php ActiveForm::end(); ?>
+    <?php else: ?>
+       <h3> 当前未开放注册！</h3>
+    <?php endif; ?>    
 </div>
 
