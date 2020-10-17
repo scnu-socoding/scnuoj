@@ -681,3 +681,21 @@ a.desc:after {
 .card-columns .card {
     margin-bottom: .75rem;
 }
+
+
+.label {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 3px 10px;
+    color: #333;
+    font-size: 12px;
+    margin-right: 2px;
+    background: #fff;
+    position: relative;
+    font-weight: normal;
+}
+
+.label-default {
+  background-color: #fff;
+}

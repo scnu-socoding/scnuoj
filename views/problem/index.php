@@ -45,9 +45,8 @@ $this->title = Yii::t('app', 'Problems');
                         if ($tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
                             foreach((array)$tags as $tag) {
-                                $res .= Html::a('<span class="label label-default">' . Html::encode($tag) . '</span>', [
-                                    '/problem/index', 'tag' => $tag
-                                ]);
+                                $res .= Html::a(Html::encode($tag) , ['/problem/index', 'tag' => $tag
+                            ],$options = ['class' => 'label label-default']);
                             }
                             $res .= '</span>';
                         }
