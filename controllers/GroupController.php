@@ -199,43 +199,42 @@ class GroupController extends BaseController
             if (!$model->hasPermission()) {
                 throw new ForbiddenHttpException('You are not allowed to perform this action.');
             }
-            //　查找用户ID 以及查看是否已经加入比赛中
-            $query = (new Query())->select('u.id as user_id, count(g.user_id) as exist')
-                ->from('{{%user}} as u')
-                ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id')
-                ->where('u.username=:name and g.group_id=:gid', [':name' => $newGroupUser->username, ':gid' => $model->id])
-                ->one();
-            if (!isset($query['user_id'])) {
-                Yii::$app->session->setFlash('error', '不存在该用户');
-            } else if (!$query['exist']) {
-                if(User::findOne($query['user_id'])->isAdmin()){
-                    $newGroupUser->role = GroupUser::ROLE_MANAGER;
-                    $newGroupUser->created_at = new Expression('NOW()');
-                    $newGroupUser->user_id = $query['user_id'];
-                    $newGroupUser->group_id = $model->id;
-                    $newGroupUser->save();
-                }else{
-                    $newGroupUser->role = GroupUser::ROLE_INVITING;
-                    $newGroupUser->created_at = new Expression('NOW()');
-                    $newGroupUser->user_id = $query['user_id'];
-                    $newGroupUser->group_id = $model->id;
-                    $newGroupUser->save();
-                }
-                
-                Yii::$app->session->setFlash('success', '已邀请');
-            } else {
-                if(User::findOne($query['user_id'])->isAdmin()){
-                    Yii::$app->db->createCommand()->update('{{%group_user}}', [
-                        'role' => GroupUser::ROLE_MANAGER
-                    ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
-                }
-                else{
-                    Yii::$app->db->createCommand()->update('{{%group_user}}', [
-                        'role' => GroupUser::ROLE_INVITING
-                    ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
-                }
-                Yii::$app->session->setFlash('error', '已邀请');
+            $usernames = str_replace("\r","",$newGroupUser->username);
+            $usernames = explode("\n", trim($usernames));
+            $count = count($usernames);
+            $join = 0;
+            $role = $newGroupUser->role;
+		for ($i = 0; $i < $count; ++$i) {
+			if (empty($usernames[$i]))
+            	continue;
+     		    $newGroupUser = new GroupUser();            
+                $newGroupUser->username = $usernames[$i];
+	            //　查找用户ID 以及查看是否已经加入比赛中
+	            $query = (new Query())->select('u.id as user_id, count(g.user_id) as exist')
+	                ->from('{{%user}} as u')
+	                ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id')
+	                ->where('u.username=:name and g.group_id=:gid', [':name' => $newGroupUser->username, ':gid' => $model->id])
+	                ->one();
+	            if (!isset($query['user_id'])) {
+	                Yii::$app->session->setFlash('error', $newGroupUser->username.',不存在该用户');
+	            } else if (!$query['exist']) {
+                    $newGroupUser->role = $role;
+                    if(User::findOne($query['user_id'])->isAdmin()){
+                        $newGroupUser->role = GroupUser::ROLE_MANAGER;
+                    }
+	                $newGroupUser->created_at = new Expression('NOW()');
+	                $newGroupUser->user_id = $query['user_id'];
+	                $newGroupUser->group_id = $model->id;
+	                $newGroupUser->save();
+	                ++$join;
+	            } else {
+	                Yii::$app->db->createCommand()->update('{{%group_user}}', [
+	                    'role' => $role
+	                ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
+	                ++$join;
+	            }
             }
+            Yii::$app->session->setFlash('success', $join.'个用户已邀请');
             return $this->refresh();
         }
 
