@@ -34,9 +34,9 @@ class Formatter extends \yii\i18n\Formatter
      * @param $markdown string content
      * @return string
      */
-    public function asMarkdown($markdown)
+    public function asMarkdown($markdown, $isMarkDown = false)
     {
-        if(Yii::$app->setting->get('ojEditor')=='app\widgets\editormd\Editormd') {
+        if($isMarkDown || Yii::$app->setting->get('ojEditor')=='app\widgets\editormd\Editormd') {
             $html = Markdown::process($markdown, 'gfm');
             $output = HtmlPurifier::process($html, $this->purifierConfig);
             return '<div class="markdown">' . $this->katex($output) . '</div>';
