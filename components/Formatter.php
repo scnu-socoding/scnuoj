@@ -27,18 +27,6 @@ class Formatter extends \yii\i18n\Formatter
         ],
     ];
 
-      /**
-     * Format as normal content without class link extensions.
-     *
-     * @param $value string content
-     * @return string
-     */
-    public function asHtml($value, $config = NULL)
-    {
-        $value = str_replace(array("<pre>", "</pre>"), array("<div class='pre'>", "</div>"), $value);
-        $value = HtmlPurifier::process($value, $this->purifierConfig);
-        return '<div class="html-output">' . $this->katex($value) . '</div>';
-    }
 
     /**
      * Format as normal markdown without class link extensions.
@@ -56,9 +44,21 @@ class Formatter extends \yii\i18n\Formatter
         else {
             return Yii::$app->formatter->asHtml($markdown,NULL);
         }
-
     }
 
+
+    /**
+     * Format as normal content without class link extensions.
+     *
+     * @param $value string content
+     * @return string
+     */
+    public function asHtml($value, $config = NULL)
+    {
+        $value = str_replace(array("<pre>", "</pre>"), array("<div class='pre'>", "</div>"), $value);
+        $value = HtmlPurifier::process($value, $this->purifierConfig);
+        return '<div class="html-output">' . $this->katex($value) . '</div>';
+    }
   
 
     public function katex($content)
