@@ -99,6 +99,8 @@ class GenerateUserForm extends Model
 
     public function generateUsers()
     {
+        $this->names = str_replace("\t"," ",$this->names);
+        $this->names = str_replace("\r","",$this->names);
         $pieces = explode("\n", trim($this->names));
         $count = count($pieces);
 
@@ -120,6 +122,9 @@ class GenerateUserForm extends Model
             $user->generateAuthKey();
             if ($user->save()) {
                 echo "帐号数{$i}/{$count}：帐号 {$username} 创建成功";
+                Yii::$app->db->createCommand()->insert('{{%user_profile}}', [
+                'user_id' => $user->id,
+                ])->execute();
             } else {
                 $err = $user->getErrors();
                 echo "帐号数{$i}/{$count}：帐号 {$username} 创建失败！！！！！ 失败原因：";
