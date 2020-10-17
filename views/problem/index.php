@@ -17,7 +17,14 @@ $this->title = Yii::t('app', 'Problems');
 
     <div class="col-lg-9 col-md-8">
         <?= GridView::widget([
-            'layout' => '{items}{pager}',
+            'layout' => '{pager}{items}{pager}',
+            'pager' =>[
+                'firstPageLabel' => '首页',
+                'prevPageLabel' => '« ',
+                'nextPageLabel' => '» ',
+                'lastPageLabel' => '尾页',
+                'maxButtonCount' => 15
+            ],
             'dataProvider' => $dataProvider,
             // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
             'tableOptions' => ['class' => 'table'],
