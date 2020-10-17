@@ -50,9 +50,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])
         ?>
 
-    <?= $form->field($newDiscuss, 'content', [
+        <?= $form->field($newDiscuss, 'content', [
             'template' => "{input}",
-        ])->widget('app\widgets\editormd\Editormd'); ?>
+        ])->widget(Yii::$app->setting->get('ojEditor')); ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
