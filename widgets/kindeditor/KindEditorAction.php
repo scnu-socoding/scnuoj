@@ -181,7 +181,7 @@ class KindEditorAction extends Action {
         if ($handle = opendir($current_path)) {
             $i = 0;
             while (false !== ($filename = readdir($handle))) {
-                if ($filename{0} == '.')
+                if ($filename[0] == '.')
                     continue;
                 $file = $current_path . $filename;
                 if (is_dir($file)) {
