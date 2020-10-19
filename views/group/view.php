@@ -22,12 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 ?>
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+<p></p>
+
 <div class="group-view">
     <div class="row">
         <div class="col-md-3">
-            <h1><?= Html::a(Html::encode($this->title), ['/group/view', 'id' => $model->id]) ?></h1>
             <?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
-            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-default btn-block']) ?>
+            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-block']) ?>
             <?php endif; ?>
             <hr>
             <p>
@@ -48,7 +55,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     'toggleButton' => [
                         'label' => Yii::t('app', 'Create'),
                         'tag' => 'a',
-                        'style' => 'cursor:pointer;'
+                        'class' => 'btn btn-sm btn-outline-secondary float-right'
                     ]
                 ]); ?>
                     <?php $form = ActiveForm::begin(); ?>
@@ -153,7 +160,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'toggleButton' => [
                             'label' => Yii::t('app', 'Invite Member'),
                             'tag' => 'a',
-                            'style' => 'cursor:pointer;'
+                            'class' => 'btn btn-sm btn-outline-secondary float-right'
                         ]
                     ]); ?>
                     <?php $form = ActiveForm::begin(); ?>
