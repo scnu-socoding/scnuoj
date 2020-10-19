@@ -40,85 +40,97 @@ $status = $model->getRunStatus();
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+<div>
     
-
-
 <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-default',
+            'class' => 'navbar navbar-expand-lg bg-light navbar-light fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container']
     ]);
     $menuItemsLeft = [
-        ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
-        ['label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
-        ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-king"></span> ' . Yii::t('app', 'Rating'),
+            'label' => Yii::t('app', 'Problems'),
+            'url' => ['/problem/index'],
+            'active' => Yii::$app->controller->id == 'problem'
+        ],
+        ['label' => Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        [
+            'label' => Yii::t('app', 'Rating'),
             'url' => ['/rating/index'],
             'active' => Yii::$app->controller->id == 'rating'
         ],
         [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']
+            'label' => Yii::t('app', 'Group'),
+            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
+            'active' => Yii::$app->controller->id == 'group'
         ],
-        ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
+        ['label' => Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-info-sign"></span> '. Yii::t('app', 'Wiki'),
+            'label' => Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
         ],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItemsRight[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItemsRight[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
             $menuItemsRight[] = [
-                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
+                'label' => Yii::t('app', 'Backend'),
                 'url' => ['/admin'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
         if  (Yii::$app->user->identity->isVip()) {
             $menuItemsRight[] = [
-                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
+                'label' => Yii::t('app', 'Backend'),
                 'url' => ['/admin/problem'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
         $menuItemsRight[] =  [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
-            'items' => [
-                ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-                '<li class="divider"></li>',
-                ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-            ]
+            'label' => Yii::$app->user->identity->nickname,
+            'url' => ['/user/view', 'id' => Yii::$app->user->id],
+            // 'items' => [
+            //     ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+            //     ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+            // ]
+        ];
+        $menuItemsRight[] = [
+            'label' => Yii::t('app', 'Logout'),
+            'url' => ['/site/logout'],
         ];
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
+        'options' => ['class' => 'navbar-nav mr-auto'],
         'items' => $menuItemsLeft,
         'encodeLabels' => false,
         'activateParents' => true
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav'],
         'items' => $menuItemsRight,
         'encodeLabels' => false,
         'activateParents' => true
     ]);
     NavBar::end();
     ?>
+    <br />
+    <p></p>
+    <br />
+    <p></p>
 
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
+            'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
         ]) ?>
         <?= Alert::widget() ?>
         <div class="contest-info">
