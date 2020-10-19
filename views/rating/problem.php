@@ -13,65 +13,26 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Rating');
 ?>
-<!-- <p style="text-align: center">
-    ★<?= Html::a('题数排行', ['problem']) ?>
-    &nbsp;&bull;&nbsp;
-    <?= Html::a('段位排行', ['index']) ?>
-</p> -->
 
 <?= Nav::widget([
     'items' => [
         [
-            'label' => '积分排行',
+            'label' => Yii::t('app', 'Rank by Rating'),
             'url' => ['rating/index'],
+            'linkOptions' => ['class' => 'text-dark'],
         ],
         [
-            'label' => '题目排行',
-            'url' => ['rating/problem']
+            'label' => Yii::t('app', 'Rank by Solved Problems'),
+            'url' => ['rating/problem'],
+            'linkOptions' => ['class' => 'text-dark'],
         ]
     ],
     'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
 ]) ?>
 
-<div class="rating-index">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="row rating-top">
-                <?php if (isset($top3users[1])): ?>
-                <div class="col-md-4 col-xs-4">
-                    <div class="rating-two">
-                        2
-                    </div>
-                    <h3 class="rating-two-name">
-                        <?= Html::a(User::getColorNameByRating($top3users[1]['nickname'], $top3users[1]['rating']), ['/user/view', 'id' => $top3users[1]['id']]) ?>
-                    </h3>
-                    <span><?= $top3users[1]['solved'] ?></span>
-                </div>
-                <?php endif; ?>
-                <?php if (isset($top3users[0])): ?>
-                <div class="col-md-4 col-xs-4">
-                    <div class="rating-one">
-                        1
-                    </div>
-                    <h3 class="rating-one-name">
-                        <?= Html::a(User::getColorNameByRating($top3users[0]['nickname'], $top3users[0]['rating']), ['/user/view', 'id' => $top3users[0]['id']]) ?>
-                    </h3>
-                    <span><?= $top3users[0]['solved'] ?></span>
-                </div>
-                <?php endif; ?>
-                <?php if (isset($top3users[2])): ?>
-                <div class="col-md-4 col-xs-4">
-                    <div class="rating-three">
-                        3
-                    </div>
-                    <h3 class="rating-three-name">
-                        <?= Html::a(User::getColorNameByRating($top3users[2]['nickname'], $top3users[2]['rating']), ['/user/view', 'id' => $top3users[2]['id']]) ?>
-                    </h3>
-                    <span><?= $top3users[2]['solved'] ?></span>
-                </div>
-                <?php endif; ?>
-            </div>
-            <hr>
+<div class="row">
+    <div class="col-md-8">
+        <div class="rating-index">         
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -87,7 +48,7 @@ $this->title = Yii::t('app', 'Rating');
                         <tr>
                             <th scope="row"><?= $num ?></th>
                             <td>
-                                <?= Html::a(User::getColorNameByRating($user['nickname'], $user['rating']), ['/user/view', 'id' => $user['id']]) ?>
+                                <?= Html::a(User::getColorNameByRating($user['nickname'], $user['rating']), ['/user/view', 'id' => $user['id']], ['class' => 'text-dark']) ?>
                             </td>
                             <td>
                                 <?= $user['solved'] ?>
@@ -97,7 +58,31 @@ $this->title = Yii::t('app', 'Rating');
                     </tbody>
                 </table>
             </div>
-            <?= \yii\widgets\LinkPager::widget(['pagination' => $pages]) ?>
+            <?= \yii\widgets\LinkPager::widget(
+                [
+                    'pagination' => $pages,
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                ]
+            ) ?>
         </div>
     </div>
+    <div class="col-md-4 d-none d-md-block">
+        <div class="card text-dark">
+            <div class="card-body">
+                <h3>关于积分</h3>
+                <p>在参加 AK 杯、蓝桥杯热身赛、天梯赛选拔赛等比赛之后，参赛者将根据排名得到一定积分。如果参加了比赛但没有通过任何题目，不会计算比赛积分。</p>
+                <p>积分可以一定程度反映参赛者的程序设计能力，在需要时可作为学院 ACM 集训队选拔参考依据之一。</p>
+                <p>积分计算采用 Elo Ranking 算法，起始分为 1149。该算法已被牛客竞赛等多个知名判题系统采用。想要了解该算法的更多信息，请查看 <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" class="text-dark"> Wikipedia 相关词条</a>。</p>
+            
+            </div>
+        </div>
+        <p></p>
+        <div class="card text-dark">
+            <div class="card-body">
+                <h3>关于做题量</h3>
+                <p>暂时只计算在公共题库中完成题目的数量。在比赛和管理员后台通过的题目暂时不计入排行。</p>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
