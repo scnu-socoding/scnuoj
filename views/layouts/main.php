@@ -41,7 +41,11 @@ AppAsset::register($this);
     ]);
     $menuItemsLeft = [
         ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-        ['label' => Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
+        [
+            'label' => Yii::t('app', 'Problems'),
+            'url' => ['/problem/index'],
+            'active' => Yii::$app->controller->id == 'problem'
+        ],
         ['label' => Yii::t('app', 'Status'), 'url' => ['/solution/index']],
         [
             'label' => Yii::t('app', 'Rating'),
@@ -50,7 +54,8 @@ AppAsset::register($this);
         ],
         [
             'label' => Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']
+            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
+            'active' => Yii::$app->controller->id == 'group'
         ],
         ['label' => Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
