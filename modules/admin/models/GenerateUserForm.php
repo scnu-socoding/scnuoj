@@ -107,7 +107,8 @@ class GenerateUserForm extends Model
         set_time_limit(0);
         ob_end_clean();
         echo "生成帐号需要一定时间，在此期间请勿刷新或关闭该页面<br>";
-        for ($i = 1; $i <= count($pieces); ++$i) {
+        $cnt = count($pieces);
+        for ($i = 1; $i <= $cnt; ++$i) {
             if (empty($pieces[$i - 1]))
                 continue;
             $u = explode(' ', trim($pieces[$i - 1]));
