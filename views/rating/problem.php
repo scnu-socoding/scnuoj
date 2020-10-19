@@ -80,7 +80,7 @@ $this->title = Yii::t('app', 'Rating');
         <div class="card text-dark">
             <div class="card-body">
                 <h3>关于做题量</h3>
-                <p>暂时只计算在公共题库中完成题目的数量。在比赛和管理员后台通过的题目暂时不计入排行。</p>
+                <p>暂时只计算在公共题库中通过题目的数量。在比赛和管理员后台通过的题目暂时不计入排行。</p>
             </div>
         </div>
     </div>
