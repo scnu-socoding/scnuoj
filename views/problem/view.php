@@ -439,7 +439,7 @@ if (waitingCount > 0) {
             interval = null;
         }
     }
-    interval = setInterval(testWaitingsDone, 20000);
+    interval = setInterval(testWaitingsDone, 3000);
 }
 EOF;
 $this->registerJs($js);
