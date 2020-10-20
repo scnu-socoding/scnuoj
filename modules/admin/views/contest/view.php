@@ -135,7 +135,7 @@ $problems = $model->problems;
         'toggleButton' => ['label' => '设置下列所有题目的来源', 'class' => 'btn btn-success'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-source', 'id' => $model->id]) ?>
-    <div class="form-group">
+    <div class="form-group">   
         <?= Html::label(Yii::t('app', 'Source'), 'problem_id') ?>
         <?= Html::textInput('source', $model->title,['class' => 'form-control']) ?>
         <p class="hint-block">
@@ -245,6 +245,8 @@ $problems = $model->problems;
                     <?= Html::beginForm(['contest/addproblem', 'id' => $model->id]) ?>
 
                     <div class="form-group">
+                        <p class="hint-block">1.如果有几个题目，可以用空格或逗号键分开。</p>
+                        <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>     
                         <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
                         <?= Html::textInput('problem_id', '',['class' => 'form-control']) ?>
                     </div>
