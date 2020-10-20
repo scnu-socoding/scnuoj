@@ -298,33 +298,55 @@ class ContestController extends Controller
         $model = $this->findModel($id);
 
         if (($post = Yii::$app->request->post())) {
-            $pid = intval($post['problem_id']);
-            $has_problem = (new Query())->select('id')
-                ->from('{{%problem}}')
-                ->where('id=:id', [':id' => $pid])
-                ->exists();
-            if ($has_problem) {
-                $problem_in_contest = (new Query())->select('problem_id')
-                    ->from('{{%contest_problem}}')
-                    ->where(['problem_id' => $pid, 'contest_id' => $model->id])
-                    ->exists();
-                if ($problem_in_contest) {
-                    Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
-                    return $this->redirect(['contest/view', 'id' => $id]);
-                }
-                $count = (new Query())->select('contest_id')
-                    ->from('{{%contest_problem}}')
-                    ->where(['contest_id' => $model->id])
-                    ->count();
 
-                Yii::$app->db->createCommand()->insert('{{%contest_problem}}', [
-                    'problem_id' => $pid,
-                    'contest_id' => $model->id,
-                    'num' => $count
-                ])->execute();
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
-            } else {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
+            $problem_ids  = $post['problem_id'];
+            $problem_ids = str_replace(","," ",$problem_ids);
+            $problem_ids = str_replace("，"," ",$problem_ids);
+            $problem_ids = explode(" ", trim($problem_ids));
+            $cnt = count($problem_ids);
+            for ($i = 0; $i < $cnt; ++$i) {
+                if (empty($problem_ids[$i]))
+                continue;
+                $ids = explode("-", $problem_ids[$i]);
+                if(count($ids)==2){
+                    $id1 = intval($ids[0]);
+                    $id2 = intval($ids[1]);
+                    for($k=0;$id1<=$id2;++$id1,++$k){
+                        $pids[$k] = $id1;
+                    }
+                }else{
+                    $pids[0] = intval($problem_ids[$i]);
+                }
+                for($j=0;$j<count($pids);++$j){
+                    $pid = $pids[$j];
+                    $has_problem = (new Query())->select('id')
+                        ->from('{{%problem}}')
+                        ->where('id=:id', [':id' => $pid])
+                        ->exists();
+                    if ($has_problem) {
+                        $problem_in_contest = (new Query())->select('problem_id')
+                            ->from('{{%contest_problem}}')
+                            ->where(['problem_id' => $pid, 'contest_id' => $model->id])
+                            ->exists();
+                        if ($problem_in_contest) {
+                            Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
+                            return $this->redirect(['contest/view', 'id' => $id]);
+                        }
+                        $count = (new Query())->select('contest_id')
+                            ->from('{{%contest_problem}}')
+                            ->where(['contest_id' => $model->id])
+                            ->count();
+
+                        Yii::$app->db->createCommand()->insert('{{%contest_problem}}', [
+                            'problem_id' => $pid,
+                            'contest_id' => $model->id,
+                            'num' => $count
+                        ])->execute();
+                        Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+                    } else {
+                        Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
+                    }
+                }
             }
         }
         return $this->redirect(['contest/view', 'id' => $id]);
