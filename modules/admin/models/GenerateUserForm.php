@@ -112,11 +112,16 @@ class GenerateUserForm extends Model
             if (empty($pieces[$i - 1]))
                 continue;
             $u = explode(' ', trim($pieces[$i - 1]));
-            $username = $u[0];
-            $password = $u[1];
             $user = new User();
+            $username = $u[0];       
+            if(count($u)==3) {//3列含昵称的模式
+                $user->nickname = $u[1];
+                $password = $u[2];
+            }else{
+                $user->nickname = $username;
+                $password = $u[1];
+            }
             $user->username = $username;
-            $user->nickname = $username;
             $user->email = $username . '@jnoj.org';
             $user->role = User::ROLE_USER;
             $user->setPassword($password);
