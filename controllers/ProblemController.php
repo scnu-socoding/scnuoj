@@ -174,10 +174,19 @@ class ProblemController extends BaseController
                 Yii::$app->session->setFlash('error', 'Please login.');
                 return $this->redirect(['/site/login']);
             }
-            $solution->problem_id = $model->id;
-            $solution->status = Solution::STATUS_VISIBLE;
-            $solution->save();
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+            $st = time() - Yii::$app->session['Submit_time'];
+            $jt = intval(Yii::$app->setting->get('submitTime'));
+            if($st > $jt) {
+                $solution->problem_id = $model->id;
+                $solution->status = Solution::STATUS_VISIBLE;
+                $solution->save();
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+                Yii::$app->session['Submit_time']= time();
+            } else {
+                $st = $jt - $st;
+                $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'),$jt,$st);
+                Yii::$app->session->setFlash('error', $tip);
+            }
             return $this->refresh();
         }
         // $view = ($view == 'view' ? 'view' : 'classic');
