@@ -38,6 +38,14 @@ $this->title = Yii::t('app', 'Setting');
     </div>
 
     <div class="form-group">
+        <?= Html::label(Yii::t('app', '提交间隔时间'), 'submitTime') ?>
+        <?= Html::textInput('submitTime', $settings['submitTime'], ['class' => 'form-control']) ?>
+        <p class="hint-block">
+            时间单位为秒，设为 0 时不限制提交，否则提交后必须间隔指定时间后才能再次提交，可避免用户短时间重复提交的情况。
+        </p>
+    </div>    
+
+    <div class="form-group">
         <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
         <?= Html::radioList('isShareCode', $settings['isShareCode'], [
             1 => '用户可以查看其他用户的代码',
