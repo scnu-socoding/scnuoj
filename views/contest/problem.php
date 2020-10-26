@@ -34,7 +34,9 @@ foreach ($problems as $key => $p) {
             'problem',
             'id' => $model->id,
             'pid' => $key,
-        ]
+        ],
+        'options' => ['class' => 'page-item'],
+        'linkOptions' => ['class' => 'page-link text-dark']
     ];
 }
 $sample_input = unserialize($problem['sample_input']);
@@ -45,7 +47,8 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <div class="text-center">
         <?= Nav::widget([
             'items' => $nav,
-            'options' => ['class' => 'pagination']
+            'options' => ['class' => 'pagination'],
+            // 'linkOptions' => ['class' => 'page-link text-dark'],
         ]) ?>
     </div>
     <div class="row">
