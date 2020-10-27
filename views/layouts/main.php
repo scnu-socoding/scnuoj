@@ -111,8 +111,28 @@ AppAsset::register($this);
     ?>
     <br />
     <p></p>
-    <br />
-    <p></p>
+    
+   
+
+    <?php if ($this->title == "SCNU Online Judge"):?>
+                <div class="jumbotron jumbotron-fluid bg-secondary text-white">
+                    <div class="text-center d-none d-md-block">
+                            <br />
+                            <h2>South China Normal University Online Judge</h2>
+                            <p>华南师范大学软件学院在线判题系统</p>
+                    </div>
+                    <div class="text-center d-md-none">
+                            <br />  
+                            <h2>SCNU Online Judge</h2>
+                            <p>华南师范大学软件学院在线判题系统</p>
+                    </div>
+                </div>
+    <?php else: ?>
+        <br />
+        <p></p>
+    <?php endif?>
+
+    
 
     <?php
     if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
