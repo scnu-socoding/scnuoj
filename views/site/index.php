@@ -69,7 +69,7 @@ $this->title = Yii::$app->setting->get('ojName');
                 <?php endforeach; ?>
             </ol>
         <!-- </div> -->
-            <br />
+            <p></p>
         <?php endif; ?>
         <?php if (!empty($discusses)): ?>
                 <ol class="list-group">
