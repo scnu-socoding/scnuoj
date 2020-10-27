@@ -700,5 +700,5 @@ a.desc:after {
 
 .navbar {
     background: #e9ecef;
-    border-bottom: 2px solid #007bff;
+    /* border-bottom: 2px solid #007bff; */
 }
