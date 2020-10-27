@@ -36,9 +36,9 @@ $this->title = Yii::$app->setting->get('ojName');
 </div>
 <div class="row">
     <div class="col-md-8">
-    <div class="d-none d-md-block">
+    <!-- <div class="d-none d-md-block">
     <h3>新闻与公告</h3>
-    </div>
+    </div> -->
         <div>
             <?php foreach ($news as $v): ?>
                 <div class="card">
@@ -60,8 +60,8 @@ $this->title = Yii::$app->setting->get('ojName');
     </div>
     <div class="col-md-4 d-none d-md-block">
         <?php if (!empty($contests)): ?>
-            <h3>最近比赛</h3>
             <ol class="list-group">
+                <li class="list-group-item text-center"><i class="fas fa-fw fa-chart-line"></i>最近比赛</li>
                 <?php foreach ($contests as $contest): ?>
                 <li class="list-group-item">
                     <?= Html::a(Html::encode($contest['title']), ['/contest/view', 'id' => $contest['id']], ['class' => 'text-dark']) ?>
@@ -72,8 +72,8 @@ $this->title = Yii::$app->setting->get('ojName');
             <br />
         <?php endif; ?>
         <?php if (!empty($discusses)): ?>
-                <h3>最近讨论</h3>
                 <ol class="list-group">
+                    <li class="list-group-item text-center"><i class="fas fa-fw fa-comment"></i>最近讨论</li>
                     <?php foreach ($discusses as $discuss): ?>
                         <li class="list-group-item">
                             <div>
