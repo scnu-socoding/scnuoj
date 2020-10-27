@@ -9,31 +9,9 @@ use yii\helpers\Html;
 $this->title = Yii::$app->setting->get('ojName');
 ?>
 
-<div class="row">
-    <div class="col"> 
-        <div class="card bg-secondary text-white">
-            <div class="card-body text-center d-none d-md-block">
-                    <p></p>
-                    <h3>South China Normal University Online Judge</h3>
-                    <p>华南师范大学软件学院在线判题系统</p>
-                    <p></p>
-            </div>
-            <div class="card-body text-center d-md-none">
-                    <p></p>
-                    <h3>SCNU Online Judge</h3>
-                    <p>华南师范大学软件学院在线判题系统</p>
-                    <p></p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="d-none d-md-block">
-    <br />
-</div>
-<div class="d-md-none">
+
 <p></p>
-</div>
 <div class="row">
     <div class="col-md-8">
     <!-- <div class="d-none d-md-block">
