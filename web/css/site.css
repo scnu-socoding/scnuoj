@@ -697,3 +697,8 @@ a.desc:after {
 .list-view .card-columns .card .card-header a{
     color: #212529 !important;
 }
+
+.navbar {
+    background: #e9ecef;
+    border-bottom: 2px solid #007bff;
+}

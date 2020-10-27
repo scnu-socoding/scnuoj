@@ -35,9 +35,9 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg bg-light navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container']
+        'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
     $menuItemsLeft = [
         ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
