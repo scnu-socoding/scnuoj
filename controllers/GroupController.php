@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\BaseController;
 use Yii;
 use app\models\Group;
+use app\models\User;
 use app\models\GroupUser;
 use app\models\GroupSearch;
 use app\models\Contest;
