@@ -702,3 +702,23 @@ a.desc:after {
     background: #e9ecef;
     /* border-bottom: 2px solid #007bff; */
 }
+
+.contest-index thead tr td:nth-child(1),
+.contest-index thead tr th:nth-child(1) {
+    text-align: center;
+}
+
+.contest-index tr td:nth-child(2),
+.contest-index tr th:nth-child(2) {
+    text-align: center;
+}
+
+.contest-index tr td:nth-child(3),
+.contest-index tr th:nth-child(3) {
+    text-align: center;
+}
+
+.contest-index tr td:nth-child(4),
+.contest-index tr th:nth-child(4) {
+    text-align: center;
+}
