@@ -10,7 +10,7 @@ use yii\web\ForbiddenHttpException;
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 
-if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
+if (Yii::$app->user->identity->role !== User::ROLE_ADMIN && Yii::$app->user->identity->role !== User::ROLE_VIP) {
     throw new ForbiddenHttpException('You are not allowed to perform this action.');
 }
 

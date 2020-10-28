@@ -22,7 +22,7 @@ $this->title = Yii::t('app', 'Groups');
         [
             'label' => Yii::t('app', 'Create'),
             'url' => 'create',
-            'visible' => !Yii::$app->user->isGuest&&Yii::$app->user->identity->isAdmin(),
+            'visible' => !Yii::$app->user->isGuest&&(Yii::$app->user->identity->isAdmin()||Yii::$app->user->identity->isVip()),
             'options' => ['class' => 'pull-right']
         ]
     ],
