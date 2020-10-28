@@ -207,16 +207,32 @@ class GroupController extends BaseController
             if (!isset($query['user_id'])) {
                 Yii::$app->session->setFlash('error', '不存在该用户');
             } else if (!$query['exist']) {
-                $newGroupUser->role = GroupUser::ROLE_INVITING;
-                $newGroupUser->created_at = new Expression('NOW()');
-                $newGroupUser->user_id = $query['user_id'];
-                $newGroupUser->group_id = $model->id;
-                $newGroupUser->save();
+                if(User::findOne($query['user_id'])->isAdmin()){
+                    $newGroupUser->role = GroupUser::ROLE_MANAGER;
+                    $newGroupUser->created_at = new Expression('NOW()');
+                    $newGroupUser->user_id = $query['user_id'];
+                    $newGroupUser->group_id = $model->id;
+                    $newGroupUser->save();
+                }else{
+                    $newGroupUser->role = GroupUser::ROLE_INVITING;
+                    $newGroupUser->created_at = new Expression('NOW()');
+                    $newGroupUser->user_id = $query['user_id'];
+                    $newGroupUser->group_id = $model->id;
+                    $newGroupUser->save();
+                }
+                
                 Yii::$app->session->setFlash('success', '已邀请');
             } else {
-                Yii::$app->db->createCommand()->update('{{%group_user}}', [
-                    'role' => GroupUser::ROLE_INVITING
-                ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
+                if(User::findOne($query['user_id'])->isAdmin()){
+                    Yii::$app->db->createCommand()->update('{{%group_user}}', [
+                        'role' => GroupUser::ROLE_MANAGER
+                    ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
+                }
+                else{
+                    Yii::$app->db->createCommand()->update('{{%group_user}}', [
+                        'role' => GroupUser::ROLE_INVITING
+                    ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
+                }
                 Yii::$app->session->setFlash('error', '已邀请');
             }
             return $this->refresh();
