@@ -22,7 +22,7 @@ $this->title = Yii::t('app', 'Contests');
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
+                    return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'btn-sm btn-secondary']) . '</span>';
                 },
                 'format' => 'raw',
                 'enableSorting' => false
@@ -42,7 +42,7 @@ $this->title = Yii::t('app', 'Contests');
                         $column = $model->getRunStatus(true);
                     }
                     $userCount = $model->getContestUserCount();
-                    return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
+                    return $column;
                 },
                 'format' => 'raw',
                 'enableSorting' => false
