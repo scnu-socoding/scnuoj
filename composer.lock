@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "749fe178bfe673fa9462879225fa8c40",
+    "content-hash": "2addde552905a5a653a99ae2a1802e40",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1507,24 +1507,22 @@
         },
         {
             "name": "codeception/specify",
-            "version": "0.4.6",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Specify.git",
-                "reference": "21b586f503ca444aa519dd9cafb32f113a05f286"
+                "reference": "17ae6d4d6cb201ef5461f6587ecfcff8c177f854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/21b586f503ca444aa519dd9cafb32f113a05f286",
-                "reference": "21b586f503ca444aa519dd9cafb32f113a05f286",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/17ae6d4d6cb201ef5461f6587ecfcff8c177f854",
+                "reference": "17ae6d4d6cb201ef5461f6587ecfcff8c177f854",
                 "shasum": ""
             },
             "require": {
                 "myclabs/deep-copy": "~1.1",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "php": ">=7.1.0",
+                "phpunit/phpunit": ">=7.0 <10.0"
             },
             "type": "library",
             "autoload": {
@@ -1539,11 +1537,15 @@
             "authors": [
                 {
                     "name": "Michael Bodnarchuk",
-                    "email": "davert.php@mailican.com"
+                    "email": "davert@codeception.com"
+                },
+                {
+                    "name": "Gustavo Nieves",
+                    "homepage": "https://medium.com/@ganieves"
                 }
             ],
             "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2016-10-21T09:42:00+00:00"
+            "time": "2020-08-27T20:17:29+00:00"
         },
         {
             "name": "codeception/stub",
