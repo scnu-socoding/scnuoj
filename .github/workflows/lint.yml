@@ -1,4 +1,4 @@
-name: LintChecks
+name: Lint Checks
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -10,6 +10,6 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2.1.0
       - name: Fetch PHPlint
-        run: composer install
+        run: composer require overtrue/phplint --dev -v
       - name: Execute PHPlint
         run: ./vendor/bin/phplint ./ --exclude=vendor --no-cache
