@@ -1,14 +1,14 @@
 {
-    "name": "jnoj",
-    "description": "Jiangnan Online Judge",
+    "name": "scnu-socoding/scnuoj",
+    "description": "South China Normal University Online Judge",
     "keywords": [
         "online judge"
     ],
-    "homepage": "http://www.github.com/shi-yang/jnoj",
+    "homepage": "https://github.com/SCNU-SoCoding/scnuoj",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/shi-yang/jnoj/issues"
+        "issues": "https://github.com/SCNU-SoCoding/scnuoj/issues"
     },
     "minimum-stability": "stable",
     "require": {

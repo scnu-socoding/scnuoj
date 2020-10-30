@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2addde552905a5a653a99ae2a1802e40",
+    "content-hash": "1aeaee5cdefe683f6d4d93d586d9e8f6",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -896,16 +896,16 @@
         },
         {
             "name": "workerman/channel",
-            "version": "v1.0.5",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/walkor/Channel.git",
-                "reference": "0836a9a413c6e8425ee36307d95e2e49cc380f50"
+                "url": "https://github.com/walkor/channel.git",
+                "reference": "bf6d837705738d875162a7344818e1bf02e8cef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/Channel/zipball/0836a9a413c6e8425ee36307d95e2e49cc380f50",
-                "reference": "0836a9a413c6e8425ee36307d95e2e49cc380f50",
+                "url": "https://api.github.com/repos/walkor/channel/zipball/bf6d837705738d875162a7344818e1bf02e8cef2",
+                "reference": "bf6d837705738d875162a7344818e1bf02e8cef2",
                 "shasum": ""
             },
             "require": {
@@ -922,7 +922,7 @@
                 "MIT"
             ],
             "homepage": "http://www.workerman.net",
-            "time": "2018-07-02T02:42:37+00:00"
+            "time": "2020-10-19T02:04:29+00:00"
         },
         {
             "name": "workerman/phpsocket.io",
@@ -964,12 +964,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/Workerman.git",
-                "reference": "418b3ae818897e671074f0d1888d9aac9a403b73"
+                "reference": "580c2476d77a707879332125fa79fedb0ec74e9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/Workerman/zipball/418b3ae818897e671074f0d1888d9aac9a403b73",
-                "reference": "418b3ae818897e671074f0d1888d9aac9a403b73",
+                "url": "https://api.github.com/repos/walkor/Workerman/zipball/580c2476d77a707879332125fa79fedb0ec74e9d",
+                "reference": "580c2476d77a707879332125fa79fedb0ec74e9d",
                 "shasum": ""
             },
             "require": {
@@ -1002,7 +1002,7 @@
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2020-10-14T03:11:47+00:00"
+            "time": "2020-10-28T03:37:31+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -4112,20 +4112,20 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v1.1.9",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "b776d18b303a39f56c63747bcb977ad4b27aca26"
+                "reference": "d15da7ba4957ffb8f1747218be9e1a121fd298a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/b776d18b303a39f56c63747bcb977ad4b27aca26",
-                "reference": "b776d18b303a39f56c63747bcb977ad4b27aca26",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/d15da7ba4957ffb8f1747218be9e1a121fd298a1",
+                "reference": "d15da7ba4957ffb8f1747218be9e1a121fd298a1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.3",
+                "php": ">=7.2.5",
                 "psr/container": "^1.0"
             },
             "suggest": {
@@ -4134,7 +4134,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "2.2-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -4184,7 +4184,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-06T13:19:58+00:00"
+            "time": "2020-09-07T11:33:47+00:00"
         },
         {
             "name": "symfony/yaml",
