@@ -10,6 +10,6 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2.1.0
       - name: Fetch PHPlint
-        run: composer require overtrue/phplint --dev -v
+        run: composer require overtrue/phplint --dev -v --with-all-dependencies
       - name: Execute PHPlint
         run: ./vendor/bin/phplint ./ --exclude=vendor --no-cache
