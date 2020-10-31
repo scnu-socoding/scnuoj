@@ -81,13 +81,13 @@ $submissionStatistics = $model->getSubmissionStatistics();
                         <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
 
                         <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
-                            <span class="glyphicon glyphicon-question-sign"></span>
+                            <span class="fas fa-fw fa-question text-warning"></span>
                         <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
-                            <span class="glyphicon glyphicon-ok text-success" title="正确解答"></span>
+                            <span class="fas fa-fw fa-check text-success" title="正确解答"></span>
                         <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
-                            <span class="glyphicon glyphicon-question-sign text-muted" title="等待测评"></span>
+                            <span class="fas fa-fw fa-question text-warning" title="等待测评"></span>
                         <?php else: ?>
-                            <span class="glyphicon glyphicon-remove text-danger" title="未正确解答"></span>
+                            <span class="fas fa-fw fa-exclamation text-danger" title="未正确解答"></span>
                         <?php endif; ?>
                     </th>
                 </tr>
