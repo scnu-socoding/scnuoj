@@ -191,36 +191,41 @@ $status = $model->getRunStatus();
                     [
                         'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
                         'url' => ['contest/view', 'id' => $model->id],
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problem'),
                         'url' => ['contest/problem', 'id' => $model->id],
-                        'linkOptions' => ['data-pjax' => 0]
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app' , 'Status'),
                         'url' => ['contest/status', 'id' => $model->id],
-                        'linkOptions' => ['data-pjax' => 0],
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-glass"></span> ' . Yii::t('app', 'Standing'),
                         'url' => ['contest/standing', 'id' => $model->id],
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Clarification'),
                         'url' => ['contest/clarify', 'id' => $model->id],
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ],
                 ];
                 if ($model->scenario == $model::SCENARIO_OFFLINE && $model->getRunStatus() == $model::STATUS_RUNNING) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-print"></span> 打印服务',
-                        'url' => ['/contest/print', 'id' => $model->id]
+                        'url' => ['/contest/print', 'id' => $model->id],
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ];
                 }
                 if ($model->isContestEnd()) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', 'Editorial'),
-                        'url' => ['contest/editorial', 'id' => $model->id]
+                        'url' => ['contest/editorial', 'id' => $model->id],
+                        'linkOptions' => ['data-pjax' => 0, 'class' => 'text-dark']
                     ];
                 }
                 echo Nav::widget([
@@ -235,7 +240,7 @@ $status = $model->getRunStatus();
         <?php endif; ?>
     </div>
 </div>
-
+<br />
 <!-- <footer class="footer">
     <div class="container">
     <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
