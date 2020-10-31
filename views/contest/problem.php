@@ -44,75 +44,102 @@ $sample_output = unserialize($problem['sample_output']);
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
 <div class="problem-view">
-    <div class="text-center">
+    <div><center>
         <?= Nav::widget([
             'items' => $nav,
             'options' => ['class' => 'pagination'],
             // 'linkOptions' => ['class' => 'page-link text-dark'],
         ]) ?>
+    </center></div>
+
+    <div class="card bg-secondary text-white">
+        <div class="card-body">
+            <h3><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
+        </div>
     </div>
+    <p></p>
+
     <div class="row">
         <div class="col-md-9 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ '. $problem['id'])): ?>
-                <h1><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h1>
+                
 
-                <h3><?= Yii::t('app', 'Description') ?></h3>
-                <div class="content-wrapper">
-                    <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
-                </div>
-
-                <h3><?= Yii::t('app', 'Input') ?></h3>
-                <div class="content-wrapper">
-                    <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-                </div>
-
-                <h3><?= Yii::t('app', 'Output') ?></h3>
-                <div class="content-wrapper">
-                    <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-                </div>
-
-                <h3><?= Yii::t('app', 'Examples') ?></h3>
-                <div class="content-wrapper">
-                    <div class="sample-test">
-                        <div class="input">
-                            <h4><?= Yii::t('app', 'Input') ?></h4>
-                            <pre><?= $sample_input[0] ?></pre>
-                        </div>
-                        <div class="output">
-                            <h4><?= Yii::t('app', 'Output') ?></h4>
-                            <pre><?= $sample_output[0] ?></pre>
-                        </div>
-
-                        <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
-                            <div class="input">
-                                <h4><?= Yii::t('app', 'Input') ?></h4>
-                                <pre><?= $sample_input[1] ?></pre>
-                            </div>
-                            <div class="output">
-                                <h4><?= Yii::t('app', 'Output') ?></h4>
-                                <pre><?= $sample_output[1] ?></pre>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
-                            <div class="input">
-                                <h4><?= Yii::t('app', 'Input') ?></h4>
-                                <pre><?= $sample_input[2] ?></pre>
-                            </div>
-                            <div class="output">
-                                <h4><?= Yii::t('app', 'Output') ?></h4>
-                                <pre><?= $sample_output[2] ?></pre>
-                            </div>
-                        <?php endif; ?>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><?= Yii::t('app', 'Description') ?></h3>
+                        <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
                     </div>
                 </div>
+                <p></p>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><?= Yii::t('app', 'Input') ?></h3>
+                        <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
+                    </div>
+                </div>
+                <p></p>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><?= Yii::t('app', 'Output') ?></h3>
+                        <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+                    </div>
+                </div>
+                <p></p>
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h3 class="card-title"><?= Yii::t('app', 'Examples') ?></h3>
+                        <div class="sample-test">
+                            <div class="input">
+                                <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
+                                <pre class="list-group-item"><?= $sample_input[0] ?></pre>
+                            </div>
+                            <div class="output">
+                                <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
+                                <pre class="list-group-item"><?= $sample_output[0] ?></pre>
+                            </div>
+
+                            <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
+                                <div class="input">
+                                    <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
+                                    <pre class="list-group-item"><?= $sample_input[1] ?></pre>
+                                </div>
+                                <div class="output">
+                                    <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
+                                    <pre class="list-group-item"><?= $sample_output[1] ?></pre>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
+                                <div class="input">
+                                    <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
+                                    <pre class="list-group-item"><?= $sample_output[2] ?></pre>
+                                </div>
+                                <div class="output">
+                                    <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
+                                    <pre class="list-group-item"><?= $sample_output[2] ?></pre>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                
                 <?php if (!empty($problem['hint'])): ?>
-                    <h3><?= Yii::t('app', 'Hint') ?></h3>
-                    <div class="content-wrapper">
-                        <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                    <p></p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?= Yii::t('app', 'Hint') ?></h3>
+                            <!-- <div class="content-wrapper"> -->
+                            <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                            <!-- </div> -->
+                        </div>
                     </div>
                 <?php endif; ?>
-                <?php $this->endCache(); ?>
+               
+            <?php $this->endCache(); ?>
             <?php endif; ?>
             
         </div>
@@ -144,7 +171,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                 'size' => Modal::SIZE_LARGE,
                 'toggleButton' => [
                     'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
-                    'class' => 'btn btn-success'
+                    'class' => 'btn btn-secondary btn-block'
                 ]
             ]); ?>
                 <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
@@ -160,7 +187,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
                         <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary', 'id' => 'submit_solution_btn']) ?>
+                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-outline-secondary', 'id' => 'submit_solution_btn']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     <?php endif; ?>
@@ -169,7 +196,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
             <div class="panel panel-default" style="margin-top: 40px">
-                <div class="panel-heading"><?= Yii::t('app', 'Submissions') ?></div>
+                <!-- <div class="panel-heading"><?= Yii::t('app', 'Submissions') ?></div> -->
                 <!-- Table -->
                 <table class="table">
                     <tbody>
