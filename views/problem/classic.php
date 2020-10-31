@@ -74,37 +74,37 @@ $nextProblemID = $model->getNextProblemID();
             <div class="card-body">
                 <h3 class="card-title"><?= Yii::t('app', 'Examples') ?></h3>
                 <div class="sample-test">
-                <div class="input">
-                    <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
-                    <pre class="list-group-item"><?= Html::encode($model->sample_input) ?></pre>
-                </div>
-                <div class="output">
-                    <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
-                    <pre class="list-group-item"><?= Html::encode($model->sample_output) ?></pre>
-                </div>
-
-                <?php if ($model->sample_input_2 != '' || $model->sample_output_2 != ''):?>
                     <div class="input">
-                        <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
-                        <pre class="list-group-item"><?= Html::encode($model->sample_input_2) ?></pre>
+                        <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
+                        <pre class="list-group-item"><?= Html::encode($model->sample_input) ?></pre>
                     </div>
                     <div class="output">
-                        <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
-                        <pre class="list-group-item"><?= Html::encode($model->sample_output_2) ?></pre>
+                        <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
+                        <pre class="list-group-item"><?= Html::encode($model->sample_output) ?></pre>
                     </div>
-                <?php endif; ?>
 
-                <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != ''):?>
-                    <div class="input">
-                        <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
-                        <pre class="list-group-item"><?= Html::encode($model->sample_input_3) ?></pre>
-                    </div>
-                    <div class="output">
-                        <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
-                        <pre class="list-group-item"><?= Html::encode($model->sample_output_3) ?></pre>
-                    </div>
-                <?php endif; ?>
-            </div>
+                    <?php if ($model->sample_input_2 != '' || $model->sample_output_2 != ''):?>
+                        <div class="input">
+                            <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
+                            <pre class="list-group-item"><?= Html::encode($model->sample_input_2) ?></pre>
+                        </div>
+                        <div class="output">
+                            <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
+                            <pre class="list-group-item"><?= Html::encode($model->sample_output_2) ?></pre>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != ''):?>
+                        <div class="input">
+                            <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
+                            <pre class="list-group-item"><?= Html::encode($model->sample_input_3) ?></pre>
+                        </div>
+                        <div class="output">
+                            <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
+                            <pre class="list-group-item"><?= Html::encode($model->sample_output_3) ?></pre>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
 
