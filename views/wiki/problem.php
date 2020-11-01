@@ -56,7 +56,7 @@ use yii\bootstrap4\Modal;
 <div class="pre"><p>#include &lt;bits/stdc++.h&gt;
 int main()
 {
-    // 生成 20 组数据
+    // 生成 30 组数据
     for (int test = 1; test <= 30; test++)
     {
         char name[100];
