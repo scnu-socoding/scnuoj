@@ -94,7 +94,7 @@ class HomeworkController extends BaseController
                 ->from('{{%problem}}')
                 ->where('id=:id', [':id' => $pid])
                 ->scalar();
-            if ($problemStatus == null || (User::findOne($problemSetter)->isAdmin() && $problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
+            if ($problemStatus == null || (isset($problemSetter) && User::findOne($problemSetter)->isAdmin() && $problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
             } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER ||
                                                                      Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
