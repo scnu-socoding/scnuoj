@@ -27,11 +27,14 @@ use yii\helpers\Url;
         'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">MByte</span></div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
+
+    <?php if (Yii::$app->user->identity->isAdmin()): ?>
     <?= $form->field($model, 'status')->radioList([
         1 => Yii::t('app', 'Visible'),
         0 => Yii::t('app', 'Hidden'),
         2 => Yii::t('app', 'Private')
     ])->hint(Yii::t('app', '可见：题目将在首页展示，任何用户可见。隐藏：题目仅在后台显示。私有：题目标题在前台可见，但信息仅VIP用户可见')) ?>
+    <?php endif ?>
 
     <?= $form->field($model, 'description')->widget('app\widgets\editormd\Editormd'); ?>
 
