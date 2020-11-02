@@ -8,6 +8,7 @@ $model = $this->params['model'];
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <div class="col-md-2">
+<?php if (Yii::$app->user->identity->isAdmin()):?>
     <?= Nav::widget([
         'options' => ['class' => 'nav nav-pills nav-stacked'],
         'items' => [
@@ -22,6 +23,18 @@ $model = $this->params['model'];
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
         ],
     ]) ?>
+    <?php endif; ?>
+
+    <?php if (Yii::$app->user->identity->isVip()):?>
+
+    <?= Nav::widget([
+    'options' => ['class' => 'nav nav-pills nav-stacked'],
+    'items' => [
+        ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']],
+        ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
+    ],
+    ]) ?>
+<?php endif; ?>
 </div>
 <div class="col-md-10">
     <div class="problem-header">
