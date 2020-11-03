@@ -70,7 +70,9 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                 //线下赛，参加比赛但不参加排名的处理
                 if ($model->scenario == Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
                     echo '*';
-                } else {
+                } elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
+                    echo '*';
+                }  else {
                     echo $ranking;
                     $ranking++;
                 }
