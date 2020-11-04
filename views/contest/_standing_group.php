@@ -20,7 +20,7 @@ $submit_count = $rankResult['submit_count'];
     <tr>
         <th width="60px">Rank</th>
         <th width="200px">Who</th>
-        <th width="200px">Number</th>
+        <th width="120px">Number</th>
         <th title="# solved / penalty time" colspan="2">Score</th>
         <?php foreach($problems as $key => $p): ?>
             <th>
