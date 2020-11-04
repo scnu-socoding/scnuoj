@@ -14,8 +14,10 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?php if (Yii::$app->user->identity->isAdmin()): ?>
     <?= $form->field($model, 'id')->textInput(['placeholder' => '可不填'])
-        ->hint('此处用于指定题目ID，若不填，新建题目时题目ID会自动增长。新建题目时填写的ID不能为已经存在的ID') ?>
+        ->hint('除非遇到 ID 冲突，否则不要填写（保持默认）') ?>
+    <?php endif ?>
 
     <?= $form->field($model, 'title')->textInput() ?>
 
