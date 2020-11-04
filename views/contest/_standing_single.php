@@ -21,6 +21,7 @@ $submit_count = $rankResult['submit_count'];
     <tr>
         <th width="60px">Rank</th>
         <th width="200px">Who</th>
+        <th width="120px">Number</th>
         <th title="# solved / penalty time" colspan="2">Score</th>
         <?php foreach($problems as $key => $p): ?>
             <th>
@@ -53,6 +54,9 @@ $submit_count = $rankResult['submit_count'];
             </th>
             <th>
                 <?= Html::a(User::getColorNameByRating($rank['nickname'], $rank['rating']), ['/user/view', 'id' => $rank['user_id']]) ?>
+            </th>
+            <th>
+                <?= Html::encode($rank['student_number']); ?>
             </th>
             <th class="score-solved">
                 <?= $rank['solved'] ?>
