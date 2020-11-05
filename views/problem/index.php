@@ -33,6 +33,7 @@ $this->title = Yii::t('app', 'Problems');
                         return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-secondary']);
                     },
                     'format' => 'raw',
+                    'options' => ['style' => 'min-width:100px;'],
                     // 'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ],
@@ -55,7 +56,8 @@ $this->title = Yii::t('app', 'Problems');
                         return $res;
                     },
                     'format' => 'raw',
-                    'enableSorting' => false
+                    'enableSorting' => false,
+                    'options' => ['style' => 'min-width:300px;'],
                 ],
                 [
                     'attribute' => 'solved',
@@ -68,7 +70,8 @@ $this->title = Yii::t('app', 'Problems');
                     },
                     'format' => 'raw',
                     // 'options' => ['width' => '100px'],
-                    'enableSorting' => false
+                    'enableSorting' => false,
+                    'options' => ['style' => 'min-width:100px;'],
                 ]
             ],
             'pager' => [
