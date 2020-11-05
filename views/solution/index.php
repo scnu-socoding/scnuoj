@@ -26,7 +26,8 @@ $this->title = Yii::t('app', 'Status');
                     return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0, 'class' => 'text-dark']);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
                 
             ],
             [
@@ -37,7 +38,8 @@ $this->title = Yii::t('app', 'Status');
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:150px;']
             ],
             [
                 'attribute' => 'problem_id',
@@ -47,7 +49,8 @@ $this->title = Yii::t('app', 'Status');
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:200px;']
             ],
             [
                 'attribute' => 'result',
@@ -62,12 +65,14 @@ $this->title = Yii::t('app', 'Status');
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'score',
                 'visible' => Yii::$app->setting->get('oiMode'),
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'time',
@@ -75,7 +80,8 @@ $this->title = Yii::t('app', 'Status');
                     return $model->time . ' MS';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'memory',
@@ -83,7 +89,8 @@ $this->title = Yii::t('app', 'Status');
                     return $model->memory . ' KB';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'language',
@@ -98,12 +105,14 @@ $this->title = Yii::t('app', 'Status');
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'code_length',
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'created_at',
@@ -111,7 +120,8 @@ $this->title = Yii::t('app', 'Status');
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ]
         ],
         'pager' => [
