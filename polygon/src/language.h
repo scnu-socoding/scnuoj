@@ -12,7 +12,7 @@ struct language {
 struct language languages[] = {
 	{
 		"c",
-		{"gcc", "Main.c", "-o", "Main", "-Wall", "-O2", "-lm", "--static", "-std=c99",
+		{"gcc", "Main.c", "-o", "Main", "-Wall", "-O2", "-lm", "--static", "-std=c11",
          "-DONLINE_JUDGE", NULL},
         {"./Main", NULL},
         "c",
