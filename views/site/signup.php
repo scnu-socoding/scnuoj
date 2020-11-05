@@ -16,18 +16,47 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-    <?= $form->field($model, 'username') ?>
+    <?= $form->field($model, 'username', [
+            'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-user"></i></span></div>{input}</div>{error}',
+            'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('username'),
+            ],
+        ])->label(false);
+    ?>
+    <?= $form->field($model, 'email', [
+            'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-mail-bulk"></i></span></div>{input}</div>{error}',
+            'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('email'),
+            ],
+        ])->label(false);
+    ?>
+    <?= $form->field($model, 'studentNumber', [
+            'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-info"></i></span></div>{input}</div>{error}',
+            'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('studentNumber'),
+            ],
+        ])->label(false);
+    ?>
+    <?= $form->field($model, 'password', [
+           'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-lock"></i></span></div>{input}</div>{error}',
+           'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('password'),
+            ],
+        ])->passwordInput()->label(false);
+    ?>
 
-    <?= $form->field($model, 'email') ?>
-
-    <?= $form->field($model, 'studentNumber') ?>
-
-    <?= $form->field($model, 'password')->passwordInput() ?>
-
-    <?= $form->field($model, 'verifyCode')->widget(\yii\captcha\Captcha::className()); ?>
+    <?= $form->field($model, 'verifyCode', [
+           'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('verifyCode'),
+            ],
+        ])->widget(\yii\captcha\Captcha::className(),[
+            'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-check"></i></span></div>{input}</div>
+            <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}</div></div>',
+        ])->label(false);
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-success btn-block', 'name' => 'signup-button']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
