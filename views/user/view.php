@@ -118,18 +118,18 @@ $this->registerJs($plotJS);
         </div>
         <hr>
         <h3>已解答 <small>(<?= count($solutionStats['solved_problem']) ?>)</small></h3>
-        <ul>
+        <!-- <ul> -->
             <?php foreach ($solutionStats['solved_problem'] as $p): ?>
-                <li class="label label-default"><?= Html::a($p, ['/problem/view', 'id' => $p], ['style' => 'color:#fff']) ?></li>
+                <?= Html::a($p, ['/problem/view', 'id' => $p], ['class' => 'badge badge-secondary']) ?>
             <?php endforeach; ?>
-        </ul>
+        <!-- </ul> -->
         <hr>
         <h3>未解答 <small>(<?= count($solutionStats['unsolved_problem']) ?>)</small></h3>
-        <ul>
+        <!-- <ul> -->
             <?php foreach ($solutionStats['unsolved_problem'] as $p): ?>
-                <li class="label label-default"><?= Html::a($p, ['/problem/view', 'id' => $p], ['style' => 'color:#fff']) ?></li>
+                <?= Html::a($p, ['/problem/view', 'id' => $p], ['class' => 'badge badge-secondary']) ?>
             <?php endforeach; ?>
-        </ul>
+        <!-- </ul> -->
 
         <hr>
         <h2>统计</h2>
