@@ -108,10 +108,11 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     [
                         'attribute' => 'title',
                         'value' => function ($model, $key, $index, $column) {
-                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
+                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'btn-sm btn-secondary']) . '</span>';
                         },
                         'format' => 'raw',
-                        'enableSorting' => false
+                        'enableSorting' => false,
+                        'options' => ['style' => 'min-width:300px'],
                     ],
                     [
                         'attribute' => 'status',
@@ -128,20 +129,21 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                 $column = $model->getRunStatus(true);
                             }
                             $userCount = $model->getContestUserCount();
-                            return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
+                            return $column;
+                            // return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'options' => ['width' => '220px'],
+                        'options' => ['style' => 'min-width:100px'],
                         'enableSorting' => false
                     ],
                     [
                         'attribute' => 'start_time',
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:180px'],
                         'enableSorting' => false
                     ],
                     [
                         'attribute' => 'end_time',
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:180px'],
                         'enableSorting' => false
                     ],
                 ],
@@ -185,15 +187,16 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             return $model->getRole(true);
                         },
                         'format' => 'raw',
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:100px'],
                         'enableSorting' => false
                     ],
                     [
                         'attribute' => Yii::t('app', 'Nickname'),
                         'value' => function ($model, $key, $index, $column) {
-                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
+                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
                         },
                         'format' => 'raw',
+                        'options' => ['style' => 'min-width:200px'],
                         'enableSorting' => false
                     ],
                     [
@@ -201,7 +204,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'value' => function ($model, $key, $index, $column) {
                             return Yii::$app->formatter->asRelativeTime($model->created_at);
                         },
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:100px'],
                         'enableSorting' => false
                     ],
                     [
@@ -214,9 +217,10 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                     'aria-label' => Yii::t('yii', 'Update'),
                                     'data-pjax' => '0',
                                     'onclick' => 'return false',
-                                    'data-click' => "user-manager"
+                                    'data-click' => "user-manager",
+                                    'class' => 'text-dark'
                                 ];
-                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                                return Html::a('<i class="fas fa-sm fa-pen"></i>', $url, $options);
                             },
                             'user-delete' => function ($url, $model, $key) {
                                 $options = [
@@ -225,8 +229,9 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                     'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                     'data-method' => 'post',
                                     'data-pjax' => '0',
+                                    'class' => 'text-dark'
                                 ];
-                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, $options);
+                                return Html::a('<span class="fas fa-sm fa-trash"></span>', $url, $options);
                             }
                         ],
                         'visible' => $model->hasPermission(),
