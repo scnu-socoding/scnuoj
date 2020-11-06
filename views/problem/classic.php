@@ -197,13 +197,13 @@ $nextProblemID = $model->getNextProblemID();
 
         <div class="btn-group btn-block">
         <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> 上一题',
-            $previousProblemID ? ['/problem/view', 'id' => $previousProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+            $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
             ['class' => 'btn btn-outline-secondary', 'disabled' => !$previousProblemID]
             // ['class' => 'btn btn-default', 'style' => 'width: 40%', 'disabled' => !$previousProblemID]
         )?>
 
         <?= Html::a('下一题 <span class="glyphicon glyphicon-arrow-right"></span>',
-            $nextProblemID ? ['/problem/view', 'id' => $nextProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+            $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
             ['class' => 'btn btn-outline-secondary', 'disabled' => !$previousProblemID]
             // ['class' => 'btn btn-default', 'style' => 'width: 50%', 'disabled' => !$nextProblemID]
         )?>
@@ -246,7 +246,7 @@ $nextProblemID = $model->getNextProblemID();
                             ?>
                         </td>
                         <td>
-                            <?= Html::a('»',
+                            <?= Html::a('<i class="fas fa-sm fa-edit"></i>',
                                 ['/solution/source', 'id' => $sub['id']],
                                 ['title' => '查看源码', 'class' => 'text-dark', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]) ?>
                         </td>
