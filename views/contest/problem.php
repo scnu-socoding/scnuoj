@@ -26,24 +26,6 @@ if (empty($problems)) {
     return;
 }
 
-$nav = [];
-$nav[] = [
-    'label' => '选择问题',
-    'options' => ['class' => 'page-item disabled'],
-    'linkOptions' => ['class' => 'page-link text-white bg-secondary']
-];
-foreach ($problems as $key => $p) {
-    $nav[] = [
-        'label' => chr(65 + $key),
-        'url' => [
-            'problem',
-            'id' => $model->id,
-            'pid' => $key,
-        ],
-        'options' => ['class' => 'page-item'],
-        'linkOptions' => ['class' => 'page-link text-white bg-secondary']
-    ];
-}
 $sample_input = unserialize($problem['sample_input']);
 $sample_output = unserialize($problem['sample_output']);
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
@@ -52,13 +34,6 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <p></p>
 
     <div class="card bg-secondary text-white">
-        <div class="card-header">
-        <?= Nav::widget([
-            'items' => $nav,
-            'options' => ['class' => 'pagination pagination-sm'],
-            // 'linkOptions' => ['class' => 'page-link text-dark'],
-        ]) ?>
-        </div>
         <div class="card-body">
             <h3><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
         </div>
@@ -199,11 +174,22 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     <?php endif; ?>
                 <?php endif; ?>
             <?php Modal::end(); ?>
+            <hr>
+
+            <div class="dropdown">
+                <button type="button" class="btn btn-outline-secondary btn-block dropdown-toggle" data-toggle="dropdown">
+                    切换问题
+                </button>
+                <div class="dropdown-menu">
+                    <?php foreach ($problems as $key => $p): ?>
+                        <?= Html::a(chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'dropdown-item']); ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
-            <div class="panel panel-default" style="margin-top: 40px">
-                <!-- <div class="panel-heading"><?= Yii::t('app', 'Submissions') ?></div> -->
-                <!-- Table -->
+                <p></p>
                 <table class="table">
                     <tbody>
                     <?php foreach($submissions as $sub): ?>
@@ -251,7 +237,6 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-            </div>
             <?php endif; ?>
         </div>
     </div>
