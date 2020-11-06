@@ -142,51 +142,45 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     </tbody>
                 </table>
             </div>
-
-            <!-- <a class="btn btn-success" href="#submit-code">
-                <span class="glyphicon glyphicon-plus"></span> <?= Yii::t('app', 'Submit') ?>
-            </a> -->
-
-            <?php Modal::begin([
-                'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) . '</h3>',
-                'size' => Modal::SIZE_LARGE,
-                'toggleButton' => [
-                    'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
-                    'class' => 'btn btn-secondary btn-block'
-                ]
-            ]); ?>
-                <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
-                    比赛已结束。比赛结束五分钟后开放提交。
-                <?php else: ?>
-                    <?php if (Yii::$app->user->isGuest): ?>
-                        <?= app\widgets\login\Login::widget(); ?>
+            
+            <div class="btn-group btn-block dropdown">
+                <?php Modal::begin([
+                    'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) . '</h3>',
+                    'size' => Modal::SIZE_LARGE,
+                    'toggleButton' => [
+                        'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
+                        'class' => 'btn btn-secondary'
+                    ]
+                ]); ?>
+                    <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
+                        比赛已结束。比赛结束五分钟后开放提交。
                     <?php else: ?>
-                        <?php $form = ActiveForm::begin(); ?>
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <?= app\widgets\login\Login::widget(); ?>
+                        <?php else: ?>
+                            <?php $form = ActiveForm::begin(); ?>
 
-                        <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
+                            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
 
-                        <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+                            <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-outline-secondary', 'id' => 'submit_solution_btn']) ?>
-                        </div>
-                        <?php ActiveForm::end(); ?>
+                            <div class="form-group">
+                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-outline-secondary', 'id' => 'submit_solution_btn']) ?>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
-            <?php Modal::end(); ?>
-            <hr>
+                <?php Modal::end(); ?>
 
-            <div class="dropdown">
-                <button type="button" class="btn btn-outline-secondary btn-block dropdown-toggle" data-toggle="dropdown">
-                    切换问题
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                    问题列表
                 </button>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-right">
                     <?php foreach ($problems as $key => $p): ?>
                         <?= Html::a(chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'dropdown-item']); ?>
                     <?php endforeach; ?>
                 </div>
             </div>
-
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
                 <p></p>
