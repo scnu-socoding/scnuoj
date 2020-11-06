@@ -19,7 +19,8 @@ $problems = $model->problems;
 $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 $submissionStatistics = $model->getSubmissionStatistics();
 ?>
-<div class="contest-overview text-center center-block">
+<div class="contest-overview center-block">
+
     <div class="table-responsive well">
         <table class="table table-overview">
             <tbody>
@@ -42,58 +43,34 @@ $submissionStatistics = $model->getSubmissionStatistics();
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
     </div>
     <hr>
-    <div class="table-responsive">
-        <!-- <table class="table table-bordered table-problem-list"> -->
-        <table class="table table-problem-list">
-            <thead>
-            <tr>
-                <th width="70px">#</th>
-                <?php
-                if ($model->isContestEnd()) {
-                    echo "<th width='100px'>题号</th>";
-                }
-                ?>
-                <th><?= Yii::t('app', 'Problem Name') ?></th>
-                <th width="100px">正确 / 提交</th>
-                <th width="80px">解答状态</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="col col-md-10 offset-md-1">
+        <div class="list-group">
             <?php foreach ($problems as $key => $p): ?>
-                <tr>
-                    <th><?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></th>
-                    <?php
-                    if ($model->isContestEnd()) {
-                        echo "<th>" . Html::a($p['problem_id'], ['/problem/view', 'id' => $p['problem_id']]) . "</th>";
+                <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
+                    <div class="list-group-item">
+                <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
+                    <div class="list-group-item list-group-item-secondary">
+                <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
+                    <div class="list-group-item list-group-item-success">
+                <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
+                    <div class="list-group-item list-group-item-warning">
+                <?php else: ?>
+                    <div class="list-group-item list-group-item-danger">
+                <?php endif; ?>
+                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>. <?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
+                <?php
+                    if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) {
+                        echo '? / ' . $submissionStatistics[$p['problem_id']]['submit'];
+                    } else {
+                        echo '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>';
                     }
-                    ?>
-                    <td><?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
-                    <th>
-                        <?php
-                            if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) {
-                                echo '? / ' . $submissionStatistics[$p['problem_id']]['submit'];
-                            } else {
-                                echo $submissionStatistics[$p['problem_id']]['solved'] . ' / ' . $submissionStatistics[$p['problem_id']]['submit'];
-                            }
-                        ?>
-                    </th>
-                    <th>
-                        <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
-
-                        <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
-                            <span class="fas fa-fw fa-question text-warning"></span>
-                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
-                            <span class="fas fa-fw fa-check text-success" title="正确解答"></span>
-                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
-                            <span class="fas fa-fw fa-question text-warning" title="等待测评"></span>
-                        <?php else: ?>
-                            <span class="fas fa-fw fa-exclamation text-danger" title="未正确解答"></span>
-                        <?php endif; ?>
-                    </th>
-                </tr>
+                ?>
+                </div>
             <?php endforeach; ?>
-            </tbody>
-        </table>
+        </div>
+    </div>
+
+
     </div>
     <?php
     if ($dataProvider->count > 0) {
