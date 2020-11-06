@@ -27,6 +27,11 @@ if (empty($problems)) {
 }
 
 $nav = [];
+$nav[] = [
+    'label' => '选择问题',
+    'options' => ['class' => 'page-item disabled'],
+    'linkOptions' => ['class' => 'page-link text-white bg-secondary']
+];
 foreach ($problems as $key => $p) {
     $nav[] = [
         'label' => chr(65 + $key),
@@ -36,7 +41,7 @@ foreach ($problems as $key => $p) {
             'pid' => $key,
         ],
         'options' => ['class' => 'page-item'],
-        'linkOptions' => ['class' => 'page-link text-dark']
+        'linkOptions' => ['class' => 'page-link text-white bg-secondary']
     ];
 }
 $sample_input = unserialize($problem['sample_input']);
@@ -44,15 +49,16 @@ $sample_output = unserialize($problem['sample_output']);
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
 <div class="problem-view">
-    <div><center>
-        <?= Nav::widget([
-            'items' => $nav,
-            'options' => ['class' => 'pagination'],
-            // 'linkOptions' => ['class' => 'page-link text-dark'],
-        ]) ?>
-    </center></div>
+    <p></p>
 
     <div class="card bg-secondary text-white">
+        <div class="card-header">
+        <?= Nav::widget([
+            'items' => $nav,
+            'options' => ['class' => 'pagination pagination-sm'],
+            // 'linkOptions' => ['class' => 'page-link text-dark'],
+        ]) ?>
+        </div>
         <div class="card-body">
             <h3><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
         </div>
