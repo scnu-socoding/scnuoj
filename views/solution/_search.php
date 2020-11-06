@@ -38,13 +38,13 @@ use yii\bootstrap4\ActiveForm;
             <?= $form->field($model, 'result', [
                 'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\"><i class=\"fas fa-fw fa-check\"></i></span></div>{input}</div>",
                 'options' => ['class' => ''],
-            ])->dropDownList($model::getResultList())->label(false) ?>
+            ])->dropDownList($model::getResultList(), ['class' => 'form-control custom-select'])->label(false) ?>
         </div>
         <div class="col-lg" style="margin-bottom: 3px">
             <?= $form->field($model, 'language', [
                 'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\"><i class=\"fas fa-fw fa-globe\"></i></span></div>{input}</div>",
                 'options' => ['class' => ''],
-            ])->dropDownList($model::getLanguageList())->label(false) ?>
+            ])->dropDownList($model::getLanguageList(), ['class' => 'form-control custom-select'])->label(false) ?>
         </div> 
         <div class="col-lg" style="margin-bottom: 3px">
             <div class="btn-group btn-block">
