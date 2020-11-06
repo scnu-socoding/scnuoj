@@ -45,28 +45,28 @@ $submissionStatistics = $model->getSubmissionStatistics();
     <hr>
     <div class="col col-md-10 offset-md-1">
         <div class="list-group">
-            <?php foreach ($problems as $key => $p): ?>
+            <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
+                <?php foreach ($problems as $key => $p): ?>
                 <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
-                    <div class="list-group-item">
-                <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
-                    <div class="list-group-item list-group-item-secondary">
-                <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
-                    <div class="list-group-item list-group-item-success">
-                <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
-                    <div class="list-group-item list-group-item-warning">
+                    <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
                 <?php else: ?>
-                    <div class="list-group-item list-group-item-danger">
+                    <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-warning']) ?>
                 <?php endif; ?>
-                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>. <?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
-                <?php
-                    if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) {
-                        echo '? / ' . $submissionStatistics[$p['problem_id']]['submit'];
-                    } else {
-                        echo '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>';
-                    }
-                ?>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php foreach ($problems as $key => $p): ?>
+                <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
+                    <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
+                <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
+                    <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-success']) ?>
+                <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
+                    <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-warning']) ?>
+                <?php else: ?>
+                    <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-danger']) ?>
+                <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            
         </div>
     </div>
 
