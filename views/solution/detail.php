@@ -11,100 +11,95 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Status'), 'url' => [
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <div class="table-responsive">
-    <table class="table table-bordered table-rank">
+    <table class="table table-rank">
         <thead>
-        <tr>
-            <th width="120px">Run ID</th>
-            <th width="120px"><?= Yii::t('app', 'Author') ?></th>
-            <th width="200px"><?= Yii::t('app', 'Problem') ?></th>
-            <th width="80px"><?= Yii::t('app', 'Lang') ?></th>
-            <th><?= Yii::t('app', 'Verdict') ?></th>
-            <?php if (Yii::$app->setting->get('oiMode')): ?>
-                <th width="80px"><?= Yii::t('app', 'Score') ?></th>
-            <?php endif; ?>
-            <th><?= Yii::t('app', 'Time') ?></th>
-            <th><?= Yii::t('app', 'Memory') ?></th>
-            <th><?= Yii::t('app', 'Code Length') ?></th>
-            <th><?= Yii::t('app', 'Submit Time') ?></th>
-        </tr>
+            <tr>
+                <th style="min-width:100px"><?= Yii::t('app', 'Run ID') ?></th>
+                <th style="min-width:150px"><?= Yii::t('app', 'Author') ?></th>
+                <th style="min-width:200px"><?= Yii::t('app', 'Problem ID') ?></th>
+                <th style="min-width:100px"><?= Yii::t('app', 'Verdict') ?></th>
+                <?php if (Yii::$app->setting->get('oiMode')): ?>
+                <th width="100px"><?= Yii::t('app', 'Score') ?></th>
+                <?php endif; ?>
+                <th style="min-width:100px"><?= Yii::t('app', 'Time') ?></th>
+                <th style="min-width:100px"><?= Yii::t('app', 'Memory') ?></th>
+                <th style="min-width:100px"><?= Yii::t('app', 'Lang') ?></th>
+                <th style="min-width:100px"><?= Yii::t('app', 'Code Length') ?></th>
+                <th style="min-width:100px"><?= Yii::t('app', 'Submit Time') ?></th>
+            </tr>
         </thead>
         <tbody>
-        <tr>
-            <th><?= $model->id ?></th>
-            <th><?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by]) ?></th>
-            <th><?= Html::a(Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id]) ?></th>
-            <th><?= Solution::getLanguageList($model->language) ?></th>
-            <th>
-                <?php if ($model->canViewResult()) {
-                    echo Solution::getResultList($model->result);
-                } else {
-                    echo Solution::getResultList(Solution::OJ_WT0);
-                } ?>
-            </th>
-            <?php if (Yii::$app->setting->get('oiMode')): ?>
-                <th width="80px">
+            <tr>
+                <td><?= $model->id ?></td>
+                <td><?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']) ?>
+                </td>
+                <td><?= Html::a(Html::encode($model->problem_id . ' - ' . $model->problem->title), ['/problem/view', 'id' => $model->problem_id], ['class' => 'text-dark']) ?>
+                </td>
+
+                <td>
+                    <?php if ($model->canViewResult()) {
+                        echo $model->getResult();
+                        // echo Solution::getResultList($model->result);
+                    } else {
+                        echo Solution::getResultList(Solution::OJ_WT0);
+                    } ?>
+                </td>
+                <?php if (Yii::$app->setting->get('oiMode')): ?>
+                <td>
                     <?php
-                        if ($model->canViewResult()) {
-                            echo $model->score;
-                        } else {
-                            echo '-';
-                        }
-                    ?>
-                </th>
-            <?php endif; ?>
-            <th>
-                <?php
-                if ($model->canViewResult()) {
-                    echo $model->time;
-                } else {
-                    echo '-';
-                }
-                ?> MS
-            </th>
-            <th>
-                <?php
-                if ($model->canViewResult()) {
-                    echo $model->memory;
-                } else {
-                    echo '-';
-                }
-                ?> KB
-            </th>
-            <th><?= $model->code_length ?></th>
-            <th><?= $model->created_at ?></th>
-        </tr>
+                            if ($model->canViewResult()) {
+                                echo $model->score;
+                            } else {
+                                echo '-';
+                            }
+                        ?>
+                </td>
+                <?php endif; ?>
+                <td>
+                    <?php
+                    if ($model->canViewResult()) {
+                        echo $model->time;
+                    } else {
+                        echo '-';
+                    }
+                    ?> MS
+                </td>
+                <td>
+                    <?php
+                    if ($model->canViewResult()) {
+                        echo $model->memory;
+                    } else {
+                        echo '-';
+                    }
+                    ?> KB
+                </td>
+                <td><?= Solution::getLanguageList($model->language) ?></td>
+                <td><?= $model->code_length ?></td>
+                <td><?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></td>
+            </tr>
         </tbody>
     </table>
 </div>
-<?php if ($model->canViewResult()): ?>
-    <hr>
-    <h3>Tests(<?= $model->getPassedTestCount() ?>/<?= $model->getTestCount() ?>):</h3>
-    <h3>
-        <?php for ($i = 1; $i <= $model->getPassedTestCount(); $i++): ?>
-            <?php if ($i <= $model->getTestCount()) : ?>
-                <span class="glyphicon glyphicon-ok-circle text-success"></span>
-            <?php else: ?>
-                <span class="glyphicon glyphicon-remove-circle text-danger"></span>
-            <?php endif; ?>
-        <?php endfor; ?>
-        <?php if ($model->getPassedTestCount() < $model->getTestCount()) : ?>
-            <span class="glyphicon glyphicon-remove-circle text-danger"></span>
-        <?php endif; ?>
-    </h3>
-<?php endif; ?>
 
 <?php if ($model->canViewSource()): ?>
-    <hr>
-    <div class="pre"><p><?= Html::encode($model->source) ?></p></div>
+<pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
+<?php endif; ?>
+
+<?php if ($model->canViewResult()): ?>
+<div class="border rounded">
+    <div class="card-body">
+        <h3 style="margin:0">测试点信息 <small class="text-secondary"><?= $model->getPassedTestCount() ?> Accepted /
+                <?= $model->getTestCount() ?> Total</small></h3>
+    </div>
+</div>
 <?php endif; ?>
 
 <?php if ($model->solutionInfo != null && $model->canViewErrorInfo()): ?>
-    <hr>
-    <h3><?= Yii::t('app', 'Judgement Protocol') ?>:</h3>
-    <div id="run-info">
-
-    </div>
+    <p></p>
+<div id="run-info" class="list-group">
+</div>
 <?php
 $json = $model->solutionInfo->run_info;
 $json = str_replace(PHP_EOL,"<br>",$json);
