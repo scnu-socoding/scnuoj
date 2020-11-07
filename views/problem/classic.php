@@ -31,66 +31,60 @@ $nextProblemID = $model->getNextProblemID();
 
         <h1><?= Html::encode($this->title) ?></h1>
 
-        <?php if ($model->description == ''):?>
-            <div class="content-wrapper">
-                <div class="alert alert-info">比赛试题通过其它方式分发，敬请留意比赛公告信息。</div>
-            <div>
-        <?php else:?>
-            <div class="content-wrapper">
-                <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-            </div>
+        <div class="content-wrapper">
+            <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+        </div>
 
-            <h3><?= Yii::t('app', 'Input') ?></h3>
-            <div class="content-wrapper">
-                <?= Yii::$app->formatter->asMarkdown($model->input) ?>
-            </div>
+        <h3><?= Yii::t('app', 'Input') ?></h3>
+        <div class="content-wrapper">
+            <?= Yii::$app->formatter->asMarkdown($model->input) ?>
+        </div>
 
-            <h3><?= Yii::t('app', 'Output') ?></h3>
-            <div class="content-wrapper">
-                <?= Yii::$app->formatter->asMarkdown($model->output) ?>
-            </div>
+        <h3><?= Yii::t('app', 'Output') ?></h3>
+        <div class="content-wrapper">
+            <?= Yii::$app->formatter->asMarkdown($model->output) ?>
+        </div>
 
-            <h3><?= Yii::t('app', 'Examples') ?></h3>
-            <div class="content-wrapper">
-                <?php if ($model->sample_input == '' && $model->sample_output == '' && $model->sample_input_2 == '' && $model->sample_output_2 == '' && $model->sample_input_3 == '' && $model->sample_output_3 == ''):?>
-                    <p>抱歉，本题不提供样例。</p>
+        <h3><?= Yii::t('app', 'Examples') ?></h3>
+        <div class="content-wrapper">
+            <?php if ($model->sample_input == '' && $model->sample_output == '' && $model->sample_input_2 == '' && $model->sample_output_2 == '' && $model->sample_input_3 == '' && $model->sample_output_3 == ''):?>
+                <p>抱歉，本题不提供样例。</p>
+            <?php endif; ?>
+            <div class="sample-test">
+                <?php if ($model->sample_input != '' || $model->sample_output != ''):?>
+                    <div class="input">
+                        <h4><?= Yii::t('app', 'Input') ?></h4>
+                        <pre><?= Html::encode($model->sample_input) ?></pre>
+                    </div>
+                    <div class="output">
+                        <h4><?= Yii::t('app', 'Output') ?></h4>
+                        <pre><?= Html::encode($model->sample_output) ?></pre>
+                    </div>
                 <?php endif; ?>
-                <div class="sample-test">
-                    <?php if ($model->sample_input != '' || $model->sample_output != ''):?>
-                        <div class="input">
-                            <h4><?= Yii::t('app', 'Input') ?></h4>
-                            <pre><?= Html::encode($model->sample_input) ?></pre>
-                        </div>
-                        <div class="output">
-                            <h4><?= Yii::t('app', 'Output') ?></h4>
-                            <pre><?= Html::encode($model->sample_output) ?></pre>
-                        </div>
-                    <?php endif; ?>
 
-                    <?php if ($model->sample_input_2 != '' || $model->sample_output_2 != ''):?>
-                        <div class="input">
-                            <h4><?= Yii::t('app', 'Input') ?></h4>
-                            <pre><?= Html::encode($model->sample_input_2) ?></pre>
-                        </div>
-                        <div class="output">
-                            <h4><?= Yii::t('app', 'Output') ?></h4>
-                            <pre><?= Html::encode($model->sample_output_2) ?></pre>
-                        </div>
-                    <?php endif; ?>
+                <?php if ($model->sample_input_2 != '' || $model->sample_output_2 != ''):?>
+                    <div class="input">
+                        <h4><?= Yii::t('app', 'Input') ?></h4>
+                        <pre><?= Html::encode($model->sample_input_2) ?></pre>
+                    </div>
+                    <div class="output">
+                        <h4><?= Yii::t('app', 'Output') ?></h4>
+                        <pre><?= Html::encode($model->sample_output_2) ?></pre>
+                    </div>
+                <?php endif; ?>
 
-                    <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != ''):?>
-                        <div class="input">
-                            <h4><?= Yii::t('app', 'Input') ?></h4>
-                            <pre><?= Html::encode($model->sample_input_3) ?></pre>
-                        </div>
-                        <div class="output">
-                            <h4><?= Yii::t('app', 'Output') ?></h4>
-                            <pre><?= Html::encode($model->sample_output_3) ?></pre>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != ''):?>
+                    <div class="input">
+                        <h4><?= Yii::t('app', 'Input') ?></h4>
+                        <pre><?= Html::encode($model->sample_input_3) ?></pre>
+                    </div>
+                    <div class="output">
+                        <h4><?= Yii::t('app', 'Output') ?></h4>
+                        <pre><?= Html::encode($model->sample_output_3) ?></pre>
+                    </div>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
+        </div>
 
         <?php if (!empty($model->hint)): ?>
             <h3><?= Yii::t('app', 'Hint') ?></h3>
