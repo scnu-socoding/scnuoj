@@ -10,7 +10,7 @@
         <tbody>
         <tr>
             <th>C</th>
-            <th><code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c99 -DONLINE_JUDGE</code></th>
+            <th><code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c11 -DONLINE_JUDGE</code></th>
         </tr>
         <tr>
             <th>C++</th>
