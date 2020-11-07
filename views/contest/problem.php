@@ -52,8 +52,8 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
         <div class="col-md-9 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ '. $problem['id'])): ?>
                 <h1><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h1>
-                <div class="alert alert-info">比赛题目通过其它方式分发，敬请留意相关信息。</div>
                 <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output']): ?>
+                    <div class="alert alert-info">比赛题目通过其它方式分发，敬请留意相关信息。</div>
                 <?php else: ?>
                     <h3><?= Yii::t('app', 'Description') ?></h3>
                     <div class="content-wrapper">
