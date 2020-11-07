@@ -43,83 +43,84 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <div class="row">
         <div class="col-md-9 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ '. $problem['id'])): ?>
-                
-
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title"><?= Yii::t('app', 'Description') ?></h3>
-                        <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
-                    </div>
-                </div>
-                <p></p>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title"><?= Yii::t('app', 'Input') ?></h3>
-                        <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-                    </div>
-                </div>
-                <p></p>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title"><?= Yii::t('app', 'Output') ?></h3>
-                        <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-                    </div>
-                </div>
-                <p></p>
-
-                <div class="card">
-
-                    <div class="card-body">
-                        <h3 class="card-title"><?= Yii::t('app', 'Examples') ?></h3>
-                        <div class="sample-test">
-                            <div class="input">
-                                <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
-                                <pre class="list-group-item"><?= $sample_input[0] ?></pre>
-                            </div>
-                            <div class="output">
-                                <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
-                                <pre class="list-group-item"><?= $sample_output[0] ?></pre>
-                            </div>
-
-                            <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
-                                <div class="input">
-                                    <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
-                                    <pre class="list-group-item"><?= $sample_input[1] ?></pre>
-                                </div>
-                                <div class="output">
-                                    <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
-                                    <pre class="list-group-item"><?= $sample_output[1] ?></pre>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
-                                <div class="input">
-                                    <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
-                                    <pre class="list-group-item"><?= $sample_output[2] ?></pre>
-                                </div>
-                                <div class="output">
-                                    <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
-                                    <pre class="list-group-item"><?= $sample_output[2] ?></pre>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                
-                <?php if (!empty($problem['hint'])): ?>
-                    <p></p>
+                <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == ''): ?>
+                    <div class="alert border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
+                <?php else: ?>
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title"><?= Yii::t('app', 'Hint') ?></h3>
-                            <!-- <div class="content-wrapper"> -->
-                            <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
-                            <!-- </div> -->
+                            <h3 class="card-title"><?= Yii::t('app', 'Description') ?></h3>
+                            <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
                         </div>
                     </div>
+                    <p></p>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?= Yii::t('app', 'Input') ?></h3>
+                            <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
+                        </div>
+                    </div>
+                    <p></p>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?= Yii::t('app', 'Output') ?></h3>
+                            <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+                        </div>
+                    </div>
+                    <p></p>
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h3 class="card-title"><?= Yii::t('app', 'Examples') ?></h3>
+                            <div class="sample-test">
+                                <div class="input">
+                                    <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
+                                    <pre class="list-group-item"><?= $sample_input[0] ?></pre>
+                                </div>
+                                <div class="output">
+                                    <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
+                                    <pre class="list-group-item"><?= $sample_output[0] ?></pre>
+                                </div>
+
+                                <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
+                                    <div class="input">
+                                        <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
+                                        <pre class="list-group-item"><?= $sample_input[1] ?></pre>
+                                    </div>
+                                    <div class="output">
+                                        <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
+                                        <pre class="list-group-item"><?= $sample_output[1] ?></pre>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
+                                    <div class="input">
+                                        <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
+                                        <pre class="list-group-item"><?= $sample_output[2] ?></pre>
+                                    </div>
+                                    <div class="output">
+                                        <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
+                                        <pre class="list-group-item"><?= $sample_output[2] ?></pre>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <?php if (!empty($problem['hint'])): ?>
+                        <p></p>
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title"><?= Yii::t('app', 'Hint') ?></h3>
+                                <!-- <div class="content-wrapper"> -->
+                                <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
-               
             <?php $this->endCache(); ?>
             <?php endif; ?>
             
