@@ -16,7 +16,7 @@ use yii\helpers\Url;
 
     <?php if (Yii::$app->user->identity->isAdmin()): ?>
     <?= $form->field($model, 'id')->textInput(['placeholder' => '可不填'])
-        ->hint('除非遇到 ID 冲突，否则不要填写（保持默认）') ?>
+        ->hint('除非遇到 ID 冲突，否则不要更改本栏内容（保持默认）') ?>
     <?php endif ?>
 
     <?= $form->field($model, 'title')->textInput() ?>
