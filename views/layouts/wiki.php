@@ -22,6 +22,7 @@ $this->title = Yii::t('app', 'Wiki');;
             ],
             'options' => ['class' => 'nav nav-pills flex-column']
         ]) ?>
+    <p></p>
     </div>
     <div class="col-md-9">
         <div class="wiki-contetn">
