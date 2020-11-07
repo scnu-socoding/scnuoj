@@ -722,3 +722,13 @@ a.desc:after {
 .contest-index tr th:nth-child(4) {
     text-align: center;
 }
+
+.nav-pills .nav-link, .nav-pills .show > .nav-link {
+    color: #121416;
+    /* background-color: #5a6268; */
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #6c757d;
+}

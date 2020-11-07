@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Wiki');;
                 ['label' => Yii::t('app', 'OI 模式'), 'url' => ['wiki/oi']],
                 ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']]
             ],
-            'options' => ['class' => 'nav nav-pills nav-stacked']
+            'options' => ['class' => 'nav nav-pills flex-column']
         ]) ?>
     </div>
     <div class="col-md-9">
