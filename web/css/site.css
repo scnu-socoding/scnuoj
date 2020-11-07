@@ -11,15 +11,16 @@ pre {
     white-space:pre-wrap;
     display: block;
     padding: 9.5px;
-    margin: 0 0 10px;
+    /* margin: 0 0 10px; */
     font-size: 13px;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     line-height: 1.42857143;
-    color: #333;
+    /* color: #333; */
     word-break: break-all;
     word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+    background-color: #F0F0F0;
+    border-radius: 0.25rem;
+    /* border: 1px solid #ccc; */
 }
 .pre p {
     margin: 0;
@@ -481,6 +482,11 @@ a.desc:after {
 .table-rank th {
     text-align: center;
 }
+
+.table-rank td {
+    text-align: center;
+}
+
 .table-problem-cell {
     font-size: 14px;
     padding: 0 !important;
@@ -580,7 +586,7 @@ a.desc:after {
 
 .test-for-popup {
     margin: 0;
-    border: none;
+    /* border: none; */
 }
 
 .btn-copy {

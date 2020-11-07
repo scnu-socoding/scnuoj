@@ -1,54 +1,51 @@
 var OJ_VERDICT = new Array(
-    "Pending",
-    "Pending Rejudge",
-    "Compiling",
-    "Running & Judging",
-    "Accepted",
-    "Presentation Error",
-    "Wrong Answer",
-    "Time Limit Exceeded",
-    "Memory Limit Exceeded",
-    "Output Limit Exceeded",
-    "Runtime Error",
-    "Compile Error",
-    "System Error",
-    "No Test Data"
+  "Pending",
+  "Pending Rejudge",
+  "Compiling",
+  "Running & Judging",
+  "Accepted",
+  "Presentation Error",
+  "Wrong Answer",
+  "Time Limit Exceeded",
+  "Memory Limit Exceeded",
+  "Output Limit Exceeded",
+  "Runtime Error",
+  "Compile Error",
+  "System Error",
+  "No Test Data"
 );
 // bootstrap 3 CSS class
 var OJ_VERDICT_COLOR = new Array(
-    "text-muted",
-    "text-muted",
-    "text-muted",
-    "text-muted",
-    "text-success", // AC
-    "text-warning", // PE
-    "text-danger",  // WA
-    "text-warning", // TLE
-    "text-warning", // MLE
-    "text-warning", // OLE
-    "text-warning", // RE
-    "text-warning", // CE
-    "text-danger",  // SE
-    "text-danger"
+  "text-muted",
+  "text-muted",
+  "text-muted",
+  "text-muted",
+  "text-success", // AC
+  "text-warning", // PE
+  "text-danger",  // WA
+  "text-warning", // TLE
+  "text-warning", // MLE
+  "text-warning", // OLE
+  "text-warning", // RE
+  "text-warning", // CE
+  "text-danger",  // SE
+  "text-danger"
 );
-function testHtml(id, caseJsonObject)
-{
-  return '<div class="panel panel-default test-for-popup"> \
-        <div class="panel-heading" role="tab" id="heading' + id + '"> \
-            <h4 class="panel-title"> \
-                <a class="collapsed" role="button" data-toggle="collapse" \
+function testHtml(id, caseJsonObject) {
+  return '<div class="list-group-item test-for-popup"> \
+        <div role="tab" id="heading' + id + '"> \
+                <a class="collapsed text-dark" role="button" data-toggle="collapse" \
                    href="#test-' + id + '" aria-expanded="false" aria-controls="test-' + id + '"> \
-                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] +  '">\
-                    测试点<span class="test" style="width: 50px">' + id + '</span>： \
-                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span>， \
-                    用时: <span class="time">' + caseJsonObject.time + '</span> ms， \
-                    内存: <span class="memory">' + caseJsonObject.memory + '</span> KB \
-                    </div> \
+                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
+                    测试点 <span class="test" style="width: 50px">' + id + '</span> / \
+                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
+                    <span class="float-right text-secondary">用时 <span class="time">' + caseJsonObject.time + '</span> ms / \
+                    内存 <span class="memory">' + caseJsonObject.memory + '</span> KB \
+                    </span></div> \
                 </a> \
-            </h4> \
         </div> \
         <div id="test-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + id + '"> \
-            <div class="panel-body">\
+            <div class="panel-body"><hr>\
                 <div class="sample-test">\
                     <div class="input">\
                         <h4>输入</h4>\
@@ -61,8 +58,8 @@ function testHtml(id, caseJsonObject)
                     <div class="output">\
                         <h4>答案</h4>\
                         <pre>' + caseJsonObject.output + '</pre>\
-                    </div>' + (caseJsonObject.checker_log == "" ? "" :  '<div class="output"><h4>检查日志</h4><pre>' + caseJsonObject.checker_log + '</pre></div>')
-      + '<div class="output">\
+                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h4>检查日志</h4><pre>' + caseJsonObject.checker_log + '</pre></div>')
+    + '<div class="output">\
                         <h4>系统信息</h4>\
                         <pre>exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
                     </div>\
@@ -71,22 +68,19 @@ function testHtml(id, caseJsonObject)
         </div>\
     </div>';
 }
-function subtaskHtml(id, score, verdict)
-{
+function subtaskHtml(id, score, verdict) {
   var scoregot = score;
   var csscolor = 'panel-success';
   if (verdict != 4) {
     scoregot = 0;
     csscolor = 'panel-warning';
   }
-  return '<div class="panel ' + csscolor + ' test-for-popup"> \
+  return '<div class="list-group-item ' + csscolor + ' test-for-popup"> \
         <div class="panel-heading" role="tab" id="subtask-heading-' + id + '"> \
-            <h4 class="panel-title"> \
                 <a role="button" data-toggle="collapse" \
                     href="#subtask-' + id + '" aria-expanded="false" aria-controls="subtask-' + id + '"> \
                     子任务 #' + id + ', 分数: ' + score + ', 得分: ' + scoregot + ' \
                 </a> \
-            </h4> \
         </div> \
         <div id="subtask-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="subtask-heading-' + id + '"> \
             <div id="subtask-body-' + id + '" class="panel-body"> \
@@ -115,19 +109,19 @@ $(document).ready(function () {
       var texTxt = $(this).text();
       var el = $(this).get(0);
       try {
-        katex.render(texTxt, el, {displayMode: true})
+        katex.render(texTxt, el, { displayMode: true })
       } catch (err) {
         $(this).html("<span class=\'err\'>" + err)
       }
     });
-    $('.pre p').each(function(i, block) {  // use <pre><p>
+    $('.pre p').each(function (i, block) {  // use <pre><p>
       hljs.highlightBlock(block);
     });
   }
   renderKatex();
 
   function addCopyBtn() {
-    $(".sample-test h5").each(function() {
+    $(".sample-test h5").each(function () {
       var preId = ("id" + Math.random()).replace('.', '0');
       var cpyId = ("id" + Math.random()).replace('.', '0');
 
@@ -136,20 +130,20 @@ $(document).ready(function () {
       $(this).append(copy);
 
       var clipboard = new ClipboardJS('#' + cpyId, {
-        text: function(trigger) {
+        text: function (trigger) {
           return document.querySelector('#' + preId).innerText;
         }
       });
-      clipboard.on('success', function(e) {
+      clipboard.on('success', function (e) {
         $('#' + cpyId).text("已复制");
-        setTimeout(function() {
+        setTimeout(function () {
           $('#' + cpyId).text('复制');
         }, 500);
         e.clearSelection();
       });
-      clipboard.on('error', function(e) {
+      clipboard.on('error', function (e) {
         $('#' + cpyId).text("复制失败");
-        setTimeout(function() {
+        setTimeout(function () {
           $('#' + cpyId).text('复制');
         }, 500);
       });
@@ -158,7 +152,7 @@ $(document).ready(function () {
 
   addCopyBtn();
 
-  $(document).on('pjax:complete', function() {
+  $(document).on('pjax:complete', function () {
     renderKatex();
     addCopyBtn();
   });
@@ -167,5 +161,5 @@ $(document).ready(function () {
 
 
 
-//do something
+  //do something
 })
