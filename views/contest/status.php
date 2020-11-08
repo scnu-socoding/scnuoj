@@ -45,20 +45,22 @@ $isContestEnd = $model->isContestEnd();
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank']);
+                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'class' => 'text-dark']);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by]);
+                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:150px;']
             ],
             [
                 'label' => Yii::t('app', 'Problem'),
@@ -71,10 +73,11 @@ $isContestEnd = $model->isContestEnd();
                         return $model->problem->title;
                     }
                     return Html::a(chr(65 + $res->num) . ' - ' . $model->problem->title,
-                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num]);
+                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num], ['class' => 'text-dark']);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:200px;']
             ],
             [
                 'attribute' => 'result',
@@ -95,13 +98,15 @@ $isContestEnd = $model->isContestEnd();
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'score',
                 'enableSorting' => false,
                 'visible' => $model->type == Contest::TYPE_IOI || $model->type == Contest::TYPE_HOMEWORK ||
-                            ($model->type == Contest::TYPE_OI && $isContestEnd)
+                            ($model->type == Contest::TYPE_OI && $isContestEnd),
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'time',
@@ -113,7 +118,8 @@ $isContestEnd = $model->isContestEnd();
                     return $solution->time . ' MS';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'memory',
@@ -125,7 +131,8 @@ $isContestEnd = $model->isContestEnd();
                     return $solution->memory . ' KB';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'language',
@@ -134,19 +141,21 @@ $isContestEnd = $model->isContestEnd();
                     if ($solution->canViewSource() || $otherCan) {
                         return Html::a($solution->getLang(),
                             ['/solution/source', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0, 'class' => 'text-dark']
                         );
                     } else {
                         return $solution->getLang();
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'code_length',
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'created_at',
@@ -154,7 +163,8 @@ $isContestEnd = $model->isContestEnd();
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ]
         ],
         'pager' => [

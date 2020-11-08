@@ -13,43 +13,27 @@ $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
 <?php if ($model->isScoreboardFrozen()): ?>
-    <p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
+<p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
 <?php endif; ?>
-<table class="table table-bordered table-rank">
+<table class="table table-rank" style="display:inline">
     <thead>
-    <tr>
-        <th width="60px">Rank</th>
-        <th width="200px">Who</th>
-        <th width="200px">Number</th>
-        <th title="# solved / penalty time" colspan="2">Score</th>
-        <?php foreach($problems as $key => $p): ?>
-            <th>
-                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?>
-                <br>
-                <span style="color:#7a7a7a; font-size:12px">
-                    <?php
-                    if (isset($submit_count[$p['problem_id']]['solved']))
-                        echo $submit_count[$p['problem_id']]['solved'];
-                    else
-                        echo 0;
-                    ?>
-                    /
-                    <?php
-                    if (isset($submit_count[$p['problem_id']]['submit']))
-                        echo $submit_count[$p['problem_id']]['submit'];
-                    else
-                        echo 0;
-                    ?>
-                </span>
+        <tr>
+            <th style="min-width:80px">Rank</th>
+            <th style="min-width:150px" colspan="2">Who</th>
+            <th style="min-width:100px" title="solved / penalty time" colspan="2">Score</th>
+            <?php foreach($problems as $key => $p): ?>
+            <th style="min-width:60px">
+                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
+
             </th>
-        <?php endforeach; ?>
-    </tr>
+            <?php endforeach; ?>
+        </tr>
     </thead>
     <tbody>
-    <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?>
-    <?php $rank = $result[$i]; ?>
+        <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?>
+        <?php $rank = $result[$i]; ?>
         <tr>
-            <th>
+            <td>
                 <?php
                 //线下赛，参加比赛但不参加排名的处理
                 if ($model->scenario == \app\models\Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
@@ -62,19 +46,20 @@ $submit_count = $rankResult['submit_count'];
                     $ranking++;
                 }
                 ?>
-            </th>
-            <th>
-                <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']]) ?>
-            </th>
-            <th>
-                <?= Html::encode($rank['student_number']); ?>
-            </th>
-            <th class="score-solved">
+            </td>
+            <td>
+                <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
+
+            </td>
+            <td><?= Html::encode($rank['student_number']); ?>
+                </small>
+            </td>
+            <td class="score-solved">
                 <?= $rank['solved'] ?>
-            </th>
-            <th class="score-time">
+            </td>
+            <td class="score-time">
                 <?= min(intval($rank['time'] / 60), 99999) ?>
-            </th>
+            </td>
             <?php
             foreach($problems as $key => $p) {
                 $css_class = '';
@@ -116,17 +101,17 @@ $submit_count = $rankResult['submit_count'];
                         'cid' => $model->id,
                         'uid' => $rank['user_id']
                     ]);
-                    echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$time}<br><small>{$num} {$span}</small></th>";
+                    echo "<th style=\"border-left:#fff 2px solid\" class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$time}<br><small>{$num} {$span}</small></th>";
                 } else {
-                    echo "<th class=\"table-problem-cell {$css_class}\">{$time}<br><small>{$num} {$span}</small></th>";
+                    echo "<th style=\"border-left:#fff 2px solid\" class=\"table-problem-cell {$css_class}\">{$time}<br><small>{$num} {$span}</small></th>";
                 }
             }
             ?>
+            </td>
         </tr>
-    <?php endfor; ?>
+        <?php endfor; ?>
     </tbody>
 </table>
-
 <?php
 $js = "
 $('[data-click=submission]').click(function() {
@@ -146,6 +131,6 @@ $this->registerJs($js);
 <?php Modal::begin([
     'options' => ['id' => 'submission-info']
 ]); ?>
-    <div id="submission-content">
-    </div>
+<div id="submission-content">
+</div>
 <?php Modal::end(); ?>
