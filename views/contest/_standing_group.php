@@ -66,30 +66,31 @@ $submit_count = $rankResult['submit_count'];
                 $css_class = '';
                 $num = 0;
                 $time = '';
+                $span = '';
                 if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
                     if ($first_blood[$p['problem_id']] == $rank['user_id']) {
                         $css_class = 'text-info';
                     } else {
                         $css_class = 'text-success';
                     }
-                    $num = $rank['wa_count'][$p['problem_id']] + 1;
+                    $span = '+ ';
+                    $num = $rank['wa_count'][$p['problem_id']];
+                    if($num==0){
+                        $num='';
+                        $span='+';
+                    }
                     $time = intval($rank['ac_time'][$p['problem_id']]);
-                } else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                    $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
-                    $css_class = 'text-secondary';
-                    $time = '';
-                } else if (isset($rank['wa_count'][$p['problem_id']])) {
+                } 
+                // else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
+                //     $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
+                //     $css_class = 'text-secondary';
+                //     $time = '';
+                // } 
+                else if (isset($rank['wa_count'][$p['problem_id']])) {
                     $css_class = 'text-danger';
                     $num =  $rank['wa_count'][$p['problem_id']];
                     $time = '';
-                }
-                if ($num == 0) {
-                    $num = '';
-                    $span = '';
-                } else if ($num == 1) {
-                    $span = 'try';
-                } else {
-                    $span = 'tries';
+                    $span = '- ';
                 }
                 // 封榜的显示
                 if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
@@ -102,7 +103,7 @@ $submit_count = $rankResult['submit_count'];
                         'cid' => $model->id,
                         'uid' => $rank['user_id']
                     ]);
-                    echo "<th class=\"table-problem-cell\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><span class=\"{$css_class}\">{$time}<br><small>{$num} {$span}</small></span></th>";
+                    echo "<th class=\"table-problem-cell\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><span class=\"{$css_class}\">{$span}{$num}<br><small>{$time}</small></span></th>";
                 } else {
                     echo "<th class=\"table-problem-cell\"><span class=\"{$css_class}\">{$time}<br><small>{$num} {$span}</small></span></th>";
                 }
