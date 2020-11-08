@@ -23,7 +23,7 @@ $submit_count = $rankResult['submit_count'];
             <th style="text-align:left">Who</th>
             <th width="5rem" title="solved / penalty time" colspan="2">Score</th>
             <?php foreach($problems as $key => $p): ?>
-            <th width="5rem">
+            <th width="5.5rem">
                 <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
 
             </th>
@@ -73,11 +73,10 @@ $submit_count = $rankResult['submit_count'];
                     } else {
                         $css_class = 'text-success';
                     }
-                    $span = '+ ';
+                    $span = '+';
                     $num = $rank['wa_count'][$p['problem_id']];
                     if($num==0){
                         $num='';
-                        $span='+';
                     }
                     $time = intval($rank['ac_time'][$p['problem_id']]);
                 } 
@@ -90,7 +89,7 @@ $submit_count = $rankResult['submit_count'];
                     $css_class = 'text-danger';
                     $num =  $rank['wa_count'][$p['problem_id']];
                     $time = '';
-                    $span = '- ';
+                    $span = '-';
                 }
                 // 封榜的显示
                 if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
