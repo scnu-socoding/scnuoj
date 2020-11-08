@@ -72,9 +72,11 @@ $submit_count = $rankResult['submit_count'];
                     } else {
                         $css_class = 'text-success';
                     }
-                    $num = ' <small>+' . $rank['wa_count'][$p['problem_id']] . '</small>';
                     if ($num == 0) {
                         $num = ' <small>+</small>';
+                    }
+                    else{
+                        $num = ' <small>+' . $rank['wa_count'][$p['problem_id']] . '</small>';
                     }
                     $time = intval($rank['ac_time'][$p['problem_id']]);
                 } 
@@ -86,7 +88,7 @@ $submit_count = $rankResult['submit_count'];
                 else if (isset($rank['wa_count'][$p['problem_id']])) {
                     $css_class = 'text-danger';
                     if($rank['wa_count'][$p['problem_id']] != 0) {
-                        $num = '<small>-' . $rank['wa_count'][$p['problem_id']] . '</small>';
+                        $num = '-' . $rank['wa_count'][$p['problem_id']] . '';
                     }
                     $time = '';
                 }
