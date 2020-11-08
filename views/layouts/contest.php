@@ -22,6 +22,7 @@ $status = $model->getRunStatus();
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="renderer" content="webkit">
@@ -32,22 +33,23 @@ $status = $model->getRunStatus();
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
     <style>
-        .progress-bar {
-            transition: none !important;
-        }
+    .progress-bar {
+        transition: none !important;
+    }
     </style>
 </head>
-<body>
-<?php $this->beginBody() ?>
 
-<div>
-    
-<?php
+<body style="padding-top: 56px;">
+    <?php $this->beginBody() ?>
+
+    <div>
+
+    <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-lg bg-dark navbar-dark navbar-light fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
@@ -121,70 +123,72 @@ $status = $model->getRunStatus();
     ]);
     NavBar::end();
     ?>
-    <br />
-    <p></p>
-    <br />
-    <p></p>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
+        <div class="progress hidden-print rounded-0">
+            <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60"
+                aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
+                <!-- <?php if ($status == $model::STATUS_NOT_START): ?>
+                Not start
+                <p><?= date('y-m-d H:i:s', time()) ?></p>
+                <?php elseif ($status == $model::STATUS_RUNNING): ?>
+                Running
+                <?php else: ?>
+                Contest is over.
+                <?php endif; ?> -->
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <!-- <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
             'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
-        ]) ?>
-        <?= Alert::widget() ?>
-        <div class="contest-info">
-            <div class="row">
-                <div class="col-md-3 text-left hidden-print">
-                    <strong><?= Yii::t('app', 'Start') ?> </strong>
-                    <?= $model->start_time ?>
-                </div>
-                <div class="col-md-6 text-center">
-                    <h2 class="contest-title">
-                        <?= Html::encode($model->title) ?>
-                        <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
+        ]) ?> -->
+            <?= Alert::widget() ?>
+            <!-- <div class="contest-info">
+                <div class="row">
+                    <div class="col-md-3 text-left hidden-print">
+                        <strong><?= Yii::t('app', 'Start') ?> </strong>
+                        <?= $model->start_time ?>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h2 class="contest-title">
+                            <?= Html::encode($model->title) ?>
+                            <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
                             <small>
                                 <?= Html::a('<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'),
                                     ['/homework/update', 'id' => $model->id]) ?>
                             </small>
-                        <?php endif; ?>
-                    </h2>
+                            <?php endif; ?>
+                        </h2>
+                    </div>
+                    <div class="col-md-3 text-right hidden-print">
+                        <strong><?= Yii::t('app', 'End') ?> </strong>
+                        <?= $model->end_time ?>
+                    </div>
                 </div>
-                <div class="col-md-3 text-right hidden-print">
-                    <strong><?= Yii::t('app', 'End') ?> </strong>
-                    <?= $model->end_time ?>
+
+                <div class="text-center hidden-print">
+                    <strong><?= Yii::t('app', 'Now') ?></strong>
+                    <span id="nowdate"> <?= date("Y-m-d H:i:s") ?></span>
                 </div>
-            </div>
-            <div class="progress hidden-print">
-                <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
-                    <?php if ($status == $model::STATUS_NOT_START): ?>
-                        Not start
-                        <p><?= date('y-m-d H:i:s', time()) ?></p>
-                    <?php elseif ($status == $model::STATUS_RUNNING): ?>
-                        Running
-                    <?php else: ?>
-                        Contest is over.
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div class="text-center hidden-print">
-                <strong><?= Yii::t('app', 'Now') ?></strong>
-                <span id="nowdate"> <?= date("Y-m-d H:i:s") ?></span>
-            </div>
-        </div>
-        <hr>
-        <?php if ($status == $model::STATUS_NOT_START): ?>
+            </div> 
+            <hr> -->
+
+            <br />
+            <?php if ($status == $model::STATUS_NOT_START): ?>
             <div class="contest-countdown text-center">
                 <div id="countdown"></div>
             </div>
             <?php if (!empty($model->description)): ?>
-                <div class="contest-desc">
-                    <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-                </div>
+            <div class="contest-desc">
+                <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+            </div>
             <?php endif; ?>
-        <?php elseif (!$model->canView()): ?>
+            <?php elseif (!$model->canView()): ?>
             <?= $content ?>
-        <?php else: ?>
+            <?php else: ?>
             <div class="contest-view">
                 <?php
                 $menuItems = [
@@ -237,11 +241,11 @@ $status = $model->getRunStatus();
                 <?= $content ?>
                 <!-- <?php \yii\widgets\Pjax::end() ?> -->
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
-</div>
-<br />
-<!-- <footer class="footer">
+    <br />
+    <!-- <footer class="footer">
     <div class="container">
     <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
         <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
@@ -252,16 +256,17 @@ $status = $model->getRunStatus();
         </p>
     </div>
 </footer> -->
-<?php $this->endBody() ?>
-<script>
+    <?php $this->endBody() ?>
+    <script>
     var client_time = new Date();
     var diff = new Date("<?= date("Y/m/d H:i:s")?>").getTime() - client_time.getTime();
     var start_time = new Date("<?= $model->start_time ?>");
     var end_time = new Date("<?= $model->end_time ?>");
     $("#countdown").countdown(start_time.getTime() - diff, function(event) {
         $(this).html(event.strftime('%D:%H:%M:%S'));
-        if($(this).html() == "00:00:00:00") location.reload();
+        if ($(this).html() == "00:00:00:00") location.reload();
     });
+
     function clock() {
         var h, m, s, n, y, mon, d;
         var x = new Date(new Date().getTime() + diff);
@@ -273,8 +278,9 @@ $status = $model->getRunStatus();
         m = x.getMinutes();
         s = x.getSeconds();
 
-        n = y + "-" + mon + "-" + d + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ? s : "0" + s);
-        document.getElementById('nowdate').innerHTML = n;
+        n = y + "-" + mon + "-" + d + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ?
+            s : "0" + s);
+        // document.getElementById('nowdate').innerHTML = n;
         var now_time = new Date(n);
         if (now_time < end_time) {
             var rate = (now_time - start_time) / (end_time - start_time) * 100;
@@ -286,24 +292,25 @@ $status = $model->getRunStatus();
     }
     clock();
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // 连接服务端
         var socket = io(document.location.protocol + '//' + document.domain + ':2120');
         var uid = '<?= Yii::$app->user->isGuest ? session_id() : Yii::$app->user->id ?>';
         // 连接后登录
-        socket.on('connect', function(){
+        socket.on('connect', function() {
             socket.emit('login', uid);
         });
         // 后端推送来消息时
-        socket.on('msg', function(msg){
+        socket.on('msg', function(msg) {
             alert(msg);
         });
 
-        $('.pre p').each(function(i, block) {  // use <pre><p>
+        $('.pre p').each(function(i, block) { // use <pre><p>
             hljs.highlightBlock(block);
         });
     });
-</script>
+    </script>
 </body>
+
 </html>
 <?php $this->endPage() ?>
