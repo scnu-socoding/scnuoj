@@ -21,9 +21,9 @@ $submit_count = $rankResult['submit_count'];
             <th style="width:2.5rem">Rank</th>
             <th style="width:8rem">Number</th>
             <th style="text-align:left">Who</th>
-            <th style="width:5rem" title="solved / penalty time" colspan="2">Score</th>
+            <th style="width:8rem" title="solved / penalty time" colspan="2">Score</th>
             <?php foreach($problems as $key => $p): ?>
-            <th style="width:6rem">
+            <th style="width:5rem">
                 <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
 
             </th>
@@ -72,7 +72,7 @@ $submit_count = $rankResult['submit_count'];
                     } else {
                         $css_class = 'text-success';
                     }
-                    if ($num == 0) {
+                    if ($rank['wa_count'][$p['problem_id']] == 0) {
                         $num = ' <small>+</small>';
                     }
                     else{
