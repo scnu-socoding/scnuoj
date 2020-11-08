@@ -21,11 +21,25 @@ $submit_count = $rankResult['submit_count'];
             <th style="width:2.5rem">Rank</th>
             <th style="width:8rem">Number</th>
             <th style="text-align:left">Who</th>
-            <th style="width:8rem" title="solved / penalty time" colspan="2">Score</th>
+            <th style="min-width:6.4rem" title="solved / penalty time">Score</th>
             <?php foreach($problems as $key => $p): ?>
-            <th style="width:5rem">
+            <th style="min-width:6.4rem">
                 <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
-
+                <small>
+                    <?php
+                    // echo "(";
+                    if (isset($submit_count[$p['problem_id']]['solved']))
+                        echo $submit_count[$p['problem_id']]['solved'];
+                    else
+                        echo 0;
+                    echo " / ";
+                    if (isset($submit_count[$p['problem_id']]['submit']))
+                        echo $submit_count[$p['problem_id']]['submit'];
+                    else
+                        echo 0;
+                    // echo ")";
+                    ?>
+                </small>
             </th>
             <?php endforeach; ?>
         </tr>
@@ -55,11 +69,8 @@ $submit_count = $rankResult['submit_count'];
                 <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
 
             </td>
-            <td class="score-solved">
-                <?= $rank['solved'] ?>
-            </td>
-            <td class="score-time">
-                <?= min(intval($rank['time'] / 60), 99999) ?>
+            <td>
+                <span class="font-weight-bold"><?= $rank['solved'] ?></span> <small class="text-secondary"><?php if (intval($rank['time'] / 60) < 99999): ?>(<?= intval($rank['time'] / 60) ?>)<?php endif; ?></small>
             </td>
             <?php
             foreach($problems as $key => $p) {
@@ -68,17 +79,17 @@ $submit_count = $rankResult['submit_count'];
                 $time = '';
                 if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
                     if ($first_blood[$p['problem_id']] == $rank['user_id']) {
-                        $css_class = 'text-info';
+                        $css_class = 'text-primary font-weight-bold';
                     } else {
-                        $css_class = 'text-success';
+                        $css_class = 'text-success font-weight-bold';
                     }
                     if ($rank['wa_count'][$p['problem_id']] == 0) {
-                        $num = ' <small>+</small>';
+                        $num = '+';
                     }
                     else{
-                        $num = ' <small>+' . $rank['wa_count'][$p['problem_id']] . '</small>';
+                        $num = '+' . $rank['wa_count'][$p['problem_id']];
                     }
-                    $time = intval($rank['ac_time'][$p['problem_id']]);
+                    $time = ' <small class="text-secondary">(' . intval($rank['ac_time'][$p['problem_id']]) . ')</small';
                 } 
                 // else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
                 //     $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
@@ -86,15 +97,15 @@ $submit_count = $rankResult['submit_count'];
                 //     $time = '';
                 // } 
                 else if (isset($rank['wa_count'][$p['problem_id']])) {
-                    $css_class = 'text-danger';
+                    $css_class = 'text-danger font-weight-bold';
                     if($rank['wa_count'][$p['problem_id']] != 0) {
-                        $num = '-' . $rank['wa_count'][$p['problem_id']] . '';
+                        $num = '-' . $rank['wa_count'][$p['problem_id']];
                     }
                     $time = '';
                 }
                 // 封榜的显示
                 if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                    $num = $rank['ce_count'][$p['problem_id']] + $rank['wa_count'][$p['problem_id']] . "+" .  $rank['pending'][$p['problem_id']];
+                    $num = "-" . $rank['wa_count'][$p['problem_id']] . " <span class=\"text-dark\">/<span> <span class=\"text-warning\">" .  $rank['pending'][$p['problem_id']] . "<span>";
                 }
                 if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || (!$model->isScoreboardFrozen() && $model->isContestEnd())) {
                     $url = Url::toRoute([
@@ -103,9 +114,9 @@ $submit_count = $rankResult['submit_count'];
                         'cid' => $model->id,
                         'uid' => $rank['user_id']
                     ]);
-                    echo "<th class=\" {$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$time}{$num}</th>";
+                    echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$num}{$time}</td>";
                 } else {
-                    echo "<th class=\"{$css_class}\">{$time}<br><small>{$num} {$span}</small></span></th>";
+                    echo "<td class=\"{$css_class}\">{$num}{$time}</td>";
                 }
             }
             ?>
