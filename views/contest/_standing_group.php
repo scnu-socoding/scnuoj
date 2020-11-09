@@ -70,7 +70,14 @@ $submit_count = $rankResult['submit_count'];
 
             </td>
             <td>
-                <span class="font-weight-bold"><?= $rank['solved'] ?></span> <small class="text-secondary"><?php if (intval($rank['time'] / 60) < 99999): ?>(<?= intval($rank['time'] / 60) ?>)<?php endif; ?></small>
+                <span class="font-weight-bold"><?= $rank['solved'] ?></span> 
+                <small class="text-secondary">
+                <?php if (intval($rank['time'] / 60) < 100000): ?>
+                (<?= intval($rank['time'] / 60) ?>)
+                <?php else:?>
+                (10W+)
+                <?php endif; ?>
+                </small>
             </td>
             <?php
             foreach($problems as $key => $p) {
@@ -89,7 +96,13 @@ $submit_count = $rankResult['submit_count'];
                     else{
                         $num = '+' . $rank['wa_count'][$p['problem_id']];
                     }
-                    $time = ' <small class="text-secondary">(' . intval($rank['ac_time'][$p['problem_id']]) . ')</small';
+                    if (intval($rank['ac_time'][$p['problem_id']]) < 100000){
+                        $time = ' <small class="text-secondary">(' . intval($rank['ac_time'][$p['problem_id']]) . ')</small>';
+                    }
+                    else{
+                        $time = ' <small class="text-secondary">(' . '10W+' . ')</small>';
+                    }
+                    
                 } 
                 // else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
                 //     $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
