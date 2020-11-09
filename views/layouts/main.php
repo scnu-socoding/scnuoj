@@ -58,7 +58,11 @@ AppAsset::register($this);
             'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
             'active' => Yii::$app->controller->id == 'group'
         ],
-        ['label' => Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
+        [
+            'label' => Yii::t('app', 'Contests'), 
+            'url' => ['/contest/index'],
+            'active' => Yii::$app->controller->id == 'contest'
+        ],
         [
             'label' => Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
