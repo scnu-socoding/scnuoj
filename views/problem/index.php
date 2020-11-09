@@ -13,7 +13,7 @@ use justinvoelker\tagging\TaggingWidget;
 $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="row">
-    
+
 
     <div class="col-lg-9 col-md-8">
         <?= GridView::widget([
@@ -78,17 +78,18 @@ $this->title = Yii::t('app', 'Problems');
                 'linkOptions' => ['class' => 'page-link text-dark'],
             ]
         ]); ?>
+        <p></p>
     </div>
     <div class="col-lg-3 col-md-4">
         <div class="card">
             <div class="card-body">
-                <?= Html::beginForm('', 'post', ['class' => 'form-inline']) ?>
+                <?= Html::beginForm('', 'post') ?>
                 <div class="input-group">
-                    <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?>
+                    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
                     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
-                    <!-- <span class="input-group-btn">
-                    <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span>', ['class' => 'btn btn-default']) ?>
-                    </span> -->
+                    <span class="input-group-append">
+                        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-secondary']) ?>
+                    </span>
                 </div>
                 <?= Html::endForm() ?>
             </div>
@@ -97,7 +98,7 @@ $this->title = Yii::t('app', 'Problems');
         <div class="card">
             <div class="card-header"><?= Yii::t('app', 'Tags') ?></div>
             <div class="card-body">
-                 <?= TaggingWidget::widget([
+                <?= TaggingWidget::widget([
                     'items' => $tags,
                     'url' => ['/problem/index'],
                     'format' => 'ul',
@@ -105,7 +106,7 @@ $this->title = Yii::t('app', 'Problems');
                     'listOptions' => ['style' => 'padding-left:0;'],
                     'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:2px'],
                     'linkOptions' => ['class' => 'btn-sm btn-secondary']
-                ]) ?> 
+                ]) ?>
             </div>
         </div>
     </div>
