@@ -31,7 +31,7 @@ $this->title = Yii::t('app', 'Rating');
 ]) ?>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-9 col-md-8">
         <div class="rating-index">         
             <div class="table-responsive">
                 <table class="table">
@@ -66,7 +66,7 @@ $this->title = Yii::t('app', 'Rating');
             ) ?>
         </div>
     </div>
-    <div class="col-md-4 d-none d-md-block">
+    <div class="col-lg-3 col-md-4">
         <div class="card text-dark">
             <div class="card-body">
                 <h3>关于积分</h3>

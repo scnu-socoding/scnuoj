@@ -15,6 +15,7 @@ AppAsset::register($this);
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="renderer" content="webkit">
@@ -27,15 +28,15 @@ AppAsset::register($this);
 </head>
 
 <body>
-<?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
 
-<div>
-    <?php
+    <div>
+        <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-light fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
@@ -82,14 +83,15 @@ AppAsset::register($this);
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
-        $menuItemsRight[] =  [
-            'label' => Yii::$app->user->identity->nickname,
-            'url' => ['/user/view', 'id' => Yii::$app->user->id],
-            // 'items' => [
-            //     ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-            //     ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-            // ]
-        ];
+        // $menuItemsRight[] =  [
+        //     'label' => Yii::$app->user->identity->nickname,
+        //     'url' => ['/user/view', 'id' => Yii::$app->user->id],
+        //     // 'items' => [
+        //     //     ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+        //     //     ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+        //     //     ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+        //     // ]
+        // ];
         $menuItemsRight[] = [
             'label' => Yii::t('app', 'Logout'),
             'url' => ['/site/logout'],
@@ -109,62 +111,54 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-    <br />
-    <p></p>
-    
-   
-
-    <?php if ($this->title == "SCNU Online Judge"):?>
-                <div class="jumbotron jumbotron-fluid bg-secondary text-white">
-                    <div class="text-center d-none d-md-block">
-                            <br />
-                            <h2>South China Normal University Online Judge</h2>
-                            <p>华南师范大学软件学院在线判题系统</p>
-                    </div>
-                    <div class="text-center d-md-none">
-                            <br />  
-                            <h2>SCNU Online Judge</h2>
-                            <p>华南师范大学软件学院在线判题系统</p>
-                    </div>
-                </div>
-    <?php else: ?>
         <br />
         <p></p>
-    <?php endif?>
 
-    
 
-    <?php
+
+        <?php if ($this->title == "SCNU Online Judge"):?>
+        <div class="jumbotron jumbotron-fluid bg-secondary text-white">
+            <div class="text-center d-none d-md-block">
+                <br />
+                <h2>South China Normal University Online Judge</h2>
+                <p>华南师范大学软件学院在线判题系统</p>
+            </div>
+            <div class="text-center d-md-none">
+                <br />
+                <h2>SCNU Online Judge</h2>
+                <p>华南师范大学软件学院在线判题系统</p>
+            </div>
+        </div>
+        <?php else: ?>
+        <br />
+        <p></p>
+        <?php endif?>
+
+
+
+        <?php
     if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
         $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
         echo "<div class=\"container\"><p class=\"bg-danger\">请前往设置页面验证您的邮箱：{$a}</p></div>";
     }
     ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
+        <div class="container-fluid">
+            <div class="col-lg-10 offset-lg-1">
+                <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
             'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
         ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+                <?= Alert::widget() ?>
+                <?= $content ?>
+            </div>
+        </div>
     </div>
-</div>
-<br />
-<!-- <footer class="footer">
-    <div class="container">
-    <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
-        <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
-        <p class="pull-left">
-            <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
-            Html::a (' English ', '?lang=en') ;
-            ?>
-        </p>
-    </div>
-</footer> -->
+    <br />
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

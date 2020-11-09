@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'Problems');
 <div class="row">
     
 
-    <div class="col-md-9">
+    <div class="col-lg-9 col-md-8">
         <?= GridView::widget([
             'layout' => '{items}{pager}',
             'dataProvider' => $dataProvider,
@@ -79,7 +79,7 @@ $this->title = Yii::t('app', 'Problems');
             ]
         ]); ?>
     </div>
-    <div class="col-md-3">
+    <div class="col-lg-3 col-md-4">
         <div class="card">
             <div class="card-body">
                 <?= Html::beginForm('', 'post', ['class' => 'form-inline']) ?>
