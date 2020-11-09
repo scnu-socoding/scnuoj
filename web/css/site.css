@@ -694,6 +694,10 @@ a.desc:after {
     margin-bottom: .75rem;
 }
 
+ul.pagination {
+    margin-bottom: 0;
+}
+
 .pagination .page-item.active  .page-link {
     background-color: #6c757d !important;
     border-color: #6c757d !important;
