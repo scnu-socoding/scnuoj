@@ -44,12 +44,12 @@ $status = $model->getRunStatus();
 
     <div>
 
-    <?php
+        <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg bg-dark navbar-dark navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-lg bg-light navbar-light fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
@@ -139,14 +139,14 @@ $status = $model->getRunStatus();
         </div>
 
         <div class="container-fluid">
-
-            <!-- <?= Breadcrumbs::widget([
+            <div class="col-lg-10 offset-lg-1">
+                <!-- <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
             'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
         ]) ?> -->
-            <?= Alert::widget() ?>
-            <!-- <div class="contest-info">
+                <?= Alert::widget() ?>
+                <!-- <div class="contest-info">
                 <div class="row">
                     <div class="col-md-3 text-left hidden-print">
                         <strong><?= Yii::t('app', 'Start') ?> </strong>
@@ -176,21 +176,21 @@ $status = $model->getRunStatus();
             </div> 
             <hr> -->
 
-            <br />
-            <?php if ($status == $model::STATUS_NOT_START): ?>
-            <div class="contest-countdown text-center">
-                <div id="countdown"></div>
-            </div>
-            <?php if (!empty($model->description)): ?>
-            <div class="contest-desc">
-                <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-            </div>
-            <?php endif; ?>
-            <?php elseif (!$model->canView()): ?>
-            <?= $content ?>
-            <?php else: ?>
-            <div class="contest-view">
-                <?php
+                <br />
+                <?php if ($status == $model::STATUS_NOT_START): ?>
+                <div class="contest-countdown text-center">
+                    <div id="countdown"></div>
+                </div>
+                <?php if (!empty($model->description)): ?>
+                <div class="contest-desc">
+                    <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+                </div>
+                <?php endif; ?>
+                <?php elseif (!$model->canView()): ?>
+                <?= $content ?>
+                <?php else: ?>
+                <div class="contest-view">
+                    <?php
                 $menuItems = [
                     [
                         'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
@@ -234,28 +234,18 @@ $status = $model->getRunStatus();
                 }
                 echo Nav::widget([
                     'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-tabs hidden-print'],
+                    'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
                     'encodeLabels' => false
                 ]) ?>
-                <!-- <?php \yii\widgets\Pjax::begin() ?> -->
-                <?= $content ?>
-                <!-- <?php \yii\widgets\Pjax::end() ?> -->
+                    <!-- <?php \yii\widgets\Pjax::begin() ?> -->
+                    <?= $content ?>
+                    <!-- <?php \yii\widgets\Pjax::end() ?> -->
+                </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
     </div>
     <br />
-    <!-- <footer class="footer">
-    <div class="container">
-    <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
-        <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
-        <p class="pull-left">
-            <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
-            Html::a (' English ', '?lang=en') ;
-            ?>
-        </p>
-    </div>
-</footer> -->
     <?php $this->endBody() ?>
     <script>
     var client_time = new Date();
