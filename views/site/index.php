@@ -35,6 +35,7 @@ $this->title = Yii::$app->setting->get('ojName');
                 'linkOptions' => ['class' => 'page-link text-dark'],
             ]); ?>
         </div>
+        <p></p>
     </div>
     <div class="col-lg-3 col-md-4">
 
