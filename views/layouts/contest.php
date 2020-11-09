@@ -264,9 +264,12 @@ $status = $model->getRunStatus();
         m = x.getMinutes();
         s = x.getSeconds();
 
-        n = y + "-" + mon + "-" + d + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ?
+        n = y + "-" + (mon >= 10 ? mon : "0" + mon) + "-" + (d >= 10 ? d : "0" + d) + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ?
             s : "0" + s);
-        // document.getElementById('nowdate').innerHTML = n;
+        if (document.getElementById('nowdate')) {
+            document.getElementById('nowdate').innerHTML = n;
+        }
+
         var now_time = new Date(n);
         if (now_time < end_time) {
             var rate = (now_time - start_time) / (end_time - start_time) * 100;
