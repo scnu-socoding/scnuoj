@@ -32,25 +32,15 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 <div class="group-view">
     <div class="row">
-        <div class="col-md-3">
-            <?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
-            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-block']) ?>
-            <?php endif; ?>
-            <hr>
-            <p>
-                <?= Yii::$app->formatter->asMarkdown($model->description); ?>
-            </p>
-            <hr>
-            <p><?= Yii::t('app', 'Join Policy') ?>: <?= $model->getJoinPolicy() ?></p>
-            <p><?= Yii::t('app', 'Status') ?>: <?= $model->getStatus() ?></p>
-        </div>
-        <div class="col-md-9">
-            <div>
-                <h2 style="display: inline">
-                    <?= Yii::t('app', 'Homework'); ?>
-                </h2>
-                <?php if ($model->hasPermission()): ?>
-                <?php Modal::begin([
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="display: inline">
+                        <?= Yii::t('app', 'Homework'); ?>
+                    </h3>
+                    <?php if ($model->hasPermission()): ?>
+                    <?php Modal::begin([
                     'title' => '<h3>' . Yii::t('app', 'Create') . '</h3>',
                     'toggleButton' => [
                         'label' => Yii::t('app', 'Create'),
@@ -58,6 +48,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'class' => 'btn btn-sm btn-outline-secondary float-right'
                     ]
                 ]); ?>
+
                     <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($newContest, 'title')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
                     <?= $form->field($newContest, 'start_time')->widget('app\widgets\laydate\LayDate', [
@@ -95,9 +86,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
-                <?php Modal::end(); ?>
-                <?php endif; ?>
+                    <?php Modal::end(); ?>
+                    <?php endif; ?>
+                </div>
             </div>
+            <p></p>
+
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $contestDataProvider,
@@ -152,11 +146,13 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                 ]
             ]); ?>
 
-            <div>
-                <h2 style="display: inline">
-                    <?= Yii::t('app', 'Member'); ?>
-                </h2>
-                <?php if ($model->hasPermission()): ?>
+            <p></p>
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="display: inline">
+                        <?= Yii::t('app', 'Member'); ?>
+                    </h3>
+                    <?php if ($model->hasPermission()): ?>
                     <?php Modal::begin([
                         'title' => '<h3>' . Yii::t('app', 'Invite Member') . '</h3>',
                         'toggleButton' => [
@@ -172,8 +168,10 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     </div>
                     <?php ActiveForm::end(); ?>
                     <?php Modal::end(); ?>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
             </div>
+            <p></p>
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $userDataProvider,
@@ -242,6 +240,27 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     'linkOptions' => ['class' => 'page-link text-dark'],
                 ]
             ]); ?>
+
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
+            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-block']) ?>
+            <p></p>
+            <?php endif; ?>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <?= $model->description ?>
+                </div>
+            </div>
+
+            <p></p>
+
+            <div class="list-group">
+                <div class="list-group-item"><?= Yii::t('app', 'Join Policy') ?><span
+                        class="float-right text-secondary"><?= $model->getJoinPolicy() ?></span></div>
+                <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
+                        class="float-right text-secondary"><?= $model->getStatus() ?></span></div>
+            </div>
         </div>
     </div>
 </div>
@@ -264,6 +283,6 @@ $this->registerJs($js);
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']
 ]); ?>
-    <div id="solution-content">
-    </div>
+<div id="solution-content">
+</div>
 <?php Modal::end(); ?>
