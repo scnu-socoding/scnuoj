@@ -49,7 +49,7 @@ $status = $model->getRunStatus();
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg bg-light navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
@@ -124,17 +124,9 @@ $status = $model->getRunStatus();
     NavBar::end();
     ?>
 
-        <div class="progress hidden-print rounded-0">
+        <div class="progress hidden-print rounded-0 bg-light">
             <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60"
                 aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
-                <!-- <?php if ($status == $model::STATUS_NOT_START): ?>
-                Not start
-                <p><?= date('y-m-d H:i:s', time()) ?></p>
-                <?php elseif ($status == $model::STATUS_RUNNING): ?>
-                Running
-                <?php else: ?>
-                Contest is over.
-                <?php endif; ?> -->
             </div>
         </div>
 
