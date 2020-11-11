@@ -26,7 +26,7 @@ foreach ($problems as $key => $p) {
 $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
 ?>
-<div class="solution-index" style="margin-top: 20px">
+<div>
     <?php if ($model->isScoreboardFrozen()) :?>
         <p class="text-center">现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</p>
     <?php endif; ?>

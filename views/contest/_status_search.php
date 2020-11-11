@@ -16,7 +16,7 @@ use yii\bootstrap4\ActiveForm;
         'action' => ['status', 'id' => $contest_id],
         'method' => 'get',
         'options' => [
-            'class' => 'form-inline',
+            'class' => '',
             'data-pjax' => 1
         ],
     ]); ?>
