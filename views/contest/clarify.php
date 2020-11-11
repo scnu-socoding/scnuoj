@@ -22,7 +22,7 @@ if ($discuss != null) {
     ]);
 }
 ?>
-<div style="margin-top: 20px">
+<div>
     <?php
     if ($dataProvider->count > 0) {
         echo GridView::widget([
@@ -54,9 +54,7 @@ if ($discuss != null) {
         echo '<hr>';
     }
     ?>
-    <div class="well">
-        如果你认为题目存在歧义，可以在这里提出。
-    </div>
+    <div class="alert alert-warning">如果你认为题目表述不清，可以在这里提问。</div>
 
     <?= GridView::widget([
         'dataProvider' => $clarifies,
@@ -99,13 +97,15 @@ if ($discuss != null) {
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($newClarify, 'title', [
-            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Title') . "</span>{input}</div>{error}",
+            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Title') ."</span></div>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->label(false) ?>
 
-        <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+        <?= $form->field($newClarify, 'content', [
+            'template' => "{input}",
+        ])->widget('app\widgets\editormd\Editormd'); ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
