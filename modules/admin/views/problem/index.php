@@ -40,6 +40,14 @@ $this->title = Yii::t('app', 'Problems');
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'layout' => '{pager}{items}{pager}',  
+        'pager' =>[
+          'firstPageLabel' => '首页',
+          'prevPageLabel' => '« ',
+          'nextPageLabel' => '» ',
+          'lastPageLabel' => '尾页',
+          'maxButtonCount' => 18
+        ],        
         'options' => ['id' => 'grid'],
         'columns' => [
             [

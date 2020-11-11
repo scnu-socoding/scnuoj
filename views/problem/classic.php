@@ -177,10 +177,12 @@ $nextProblemID = $model->getNextProblemID();
             <?php endif; ?>
             <?php Modal::end(); ?>
 
+            <?php if (Yii::$app->setting->get('isDiscuss')): ?>
             <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
             ['/problem/discuss', 'id' => $model->id],
             ['class' => 'btn btn-outline-secondary'])
         ?>
+            <?php endif; ?>
             <?php if (!empty($model->solution)): ?>
             <?= Html::a('<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', '题解'),
             ['/problem/solution', 'id' => $model->id],
@@ -352,7 +354,7 @@ if (waitingCount > 0) {
             interval = null;
         }
     }
-    interval = setInterval(testWaitingsDone, 200);
+    interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
 $this->registerJs($js);

@@ -99,27 +99,38 @@ class GenerateUserForm extends Model
 
     public function generateUsers()
     {
+        $this->names = str_replace("\t"," ",$this->names);
+        $this->names = str_replace("\r","",$this->names);
         $pieces = explode("\n", trim($this->names));
         $count = count($pieces);
 
         set_time_limit(0);
         ob_end_clean();
         echo "生成帐号需要一定时间，在此期间请勿刷新或关闭该页面<br>";
-        for ($i = 1; $i <= count($pieces); ++$i) {
+        $cnt = count($pieces);
+        for ($i = 1; $i <= $cnt; ++$i) {
             if (empty($pieces[$i - 1]))
                 continue;
             $u = explode(' ', trim($pieces[$i - 1]));
-            $username = $u[0];
-            $password = $u[1];
             $user = new User();
+            $username = $u[0];       
+            if(count($u)==3) {//3列含昵称的模式
+                $user->nickname = $u[1];
+                $password = $u[2];
+            }else{
+                $user->nickname = $username;
+                $password = $u[1];
+            }
             $user->username = $username;
-            $user->nickname = $username;
             $user->email = $username . '@jnoj.org';
             $user->role = User::ROLE_USER;
             $user->setPassword($password);
             $user->generateAuthKey();
             if ($user->save()) {
                 echo "帐号数{$i}/{$count}：帐号 {$username} 创建成功";
+                Yii::$app->db->createCommand()->insert('{{%user_profile}}', [
+                'user_id' => $user->id,
+                ])->execute();
             } else {
                 $err = $user->getErrors();
                 echo "帐号数{$i}/{$count}：帐号 {$username} 创建失败！！！！！ 失败原因：";

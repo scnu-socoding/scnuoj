@@ -46,6 +46,40 @@ $this->title = Yii::t('app', 'Setting');
     </div>
 
     <div class="form-group">
+        <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
+        <?= Html::radioList('isUserReg', $settings['isUserReg'], [
+            1 => '开放',
+            0 => '关闭'
+        ]) ?>
+    </div> 
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
+        <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
+            1 => '开启',
+            0 => '关闭'
+        ]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '创建小组'), 'isDefGroup') ?>
+        <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
+            1 => '开启',
+            2 => '仅管理员',
+            3 => '管理员与VIP用户',	            
+            0 => '关闭'	            
+        ]) ?>
+    </div>     
+    	
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
+        <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
+            2 => '只允许修改一次',
+            1 => '允许修改',
+            0 => '不允许修改'
+        ]) ?>
+    </div>     
+
+    <div class="form-group">
         <?= Html::label(Yii::t('app', '封榜时间'), 'scoreboardFrozenTime') ?>
         <?= Html::textInput('scoreboardFrozenTime', $settings['scoreboardFrozenTime'], ['class' => 'form-control']) ?>
         <p class="hint-block">单位：秒。这个时间是从比赛结束后开始计算，如值为
