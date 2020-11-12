@@ -25,44 +25,38 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
 </div>
 <br />
 
+<?php if (!empty($discusses)): ?>
+<div class="list-group">
+    <?php foreach ($discusses as $discuss): ?>
+    <?= Html::a(Html::encode($discuss->title) . '<span class="float-right">' .Html::encode($discuss->user->nickname) . ' / ' . Yii::$app->formatter->asRelativeTime($discuss->updated_at) . '</span>', ['/discuss/view', 'id' => $discuss->id], ['class' => 'text-dark list-group-item list-group-item-action']) ?>
+    <?php endforeach; ?>
+</div>
+<p></p>
+<?= \yii\widgets\LinkPager::widget([
+        'pagination' => $pages,
+        'linkOptions' => ['class' => 'page-link text-dark'],
+        //'widgetId' => '#content',
+    ]); ?>
+<p></p>
+<?php endif;?>
+
 <?php if (Yii::$app->user->isGuest): ?>
 
 <?php else: ?>
-    <div class="discuss-form">
-        <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($newDiscuss, 'title', [
+<div class="discuss-form">
+    <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($newDiscuss, 'title', [
             'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Title') ."</span></div>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])
         ?>
 
-        <?= $form->field($newDiscuss, 'content', [
+    <?= $form->field($newDiscuss, 'content', [
             'template' => "{input}",
         ])->widget('app\widgets\editormd\Editormd'); ?>
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
     </div>
-<?php endif; ?>
-
-<div class="list-group">
-    <?php foreach ($discusses as $discuss): ?>
-        <li class="list-group-item">
-            <div>
-                <?= Html::a(Html::encode($discuss->title), ['/discuss/view', 'id' => $discuss->id], ['class' => 'text-dark']) ?>
-            </div>
-            <small class="text-muted">
-                <?= Html::a(Html::encode($discuss->user->nickname), ['/user/view', 'id' => $discuss->user->username], ['class' => 'text-dark', 'rel' => 'author']); ?>
-                <?= Yii::$app->formatter->asRelativeTime($discuss->updated_at)?>
-                <?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id], ['class' => 'text-dark']) ?>
-            </small>
-        </li>
-    <?php endforeach; ?>
+    <?php ActiveForm::end(); ?>
 </div>
-
-<?= \yii\widgets\LinkPager::widget([
-    'pagination' => $pages,
-    'linkOptions' => ['class' => 'page-link text-dark'],
-    //'widgetId' => '#content',
-]); ?>
+<?php endif; ?>

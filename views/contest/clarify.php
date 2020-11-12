@@ -53,7 +53,7 @@ if ($discuss != null) {
         ]);
     }
     ?>
-    <div class="alert alert-warning">如果你认为题目表述不清，可以在这里提问。</div>
+    <div class="alert alert-info">如果你认为题目表述不清，可以在这里提问。</div>
 
     <?php if (!empty($clarifies)): ?>
         <div class="list-group">
@@ -89,7 +89,7 @@ if ($discuss != null) {
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
-        <p><?= Yii::t('app', 'The contest has ended.') ?></p>
+        <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
         <?php endif; ?>
     </div>
 </div>
