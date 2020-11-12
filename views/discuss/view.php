@@ -47,12 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <p></p>
-        <div class="card">
-            <div class="card-body">
-                <h3 style="margin-bottom:0"><?= Yii::t('app', 'Comments') ?></h3>
-            </div>
-        </div>
-        <p></p>
         <?php foreach ($replies as $reply): ?>
         <div class="card">
             <div class="card-body">
@@ -96,8 +90,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php ActiveForm::end(); ?>
             <?php endif; ?>
-
-
         </div>
     </div>
 </div>
