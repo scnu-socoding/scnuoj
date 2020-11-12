@@ -34,6 +34,7 @@ $this->title = Yii::$app->setting->get('ojName');
             <?= \yii\widgets\LinkPager::widget([
                 'pagination' => $pages,
                 'linkOptions' => ['class' => 'page-link text-dark'],
+                'maxButtonCount' => 5,
             ]); ?>
         </div>
         <p></p>

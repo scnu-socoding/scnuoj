@@ -75,7 +75,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach; ?>
         <?= \yii\widgets\LinkPager::widget([
             'pagination' => $pages,
+            'maxButtonCount' => 5,
         ]); ?>
+        <p></p>
         <div class="well">
 
             <?php if (Yii::$app->user->isGuest): ?>

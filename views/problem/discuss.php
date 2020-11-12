@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
 <?= \yii\widgets\LinkPager::widget([
         'pagination' => $pages,
         'linkOptions' => ['class' => 'page-link text-dark'],
-        //'widgetId' => '#content',
+        'maxButtonCount' => 5,
     ]); ?>
 <p></p>
 <?php endif;?>
