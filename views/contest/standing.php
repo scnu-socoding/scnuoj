@@ -41,35 +41,6 @@ $this->registerJs($js);
             </div>
             <?= Html::endForm(); ?>
         <?php endif; ?>
-        <!-- <div class="pull-right table-legend">
-            <?php if ($model->type != Contest::TYPE_OI && $model->type != Contest::TYPE_IOI): ?>
-                <div>
-                    <span class="solved-first legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'First to solve problem') ?></p>
-                </div>
-                <div>
-                    <span class="solved legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'Solved problem') ?></p>
-                </div>
-            <?php else: ?>
-                <div>
-                    <span class="solved-first legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'All correct') ?></p>
-                </div>
-                <div>
-                    <span class="solved legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'Partially correct') ?></p>
-                </div>
-            <?php endif; ?>
-            <div>
-                <span class="attempted legend-status"></span>
-                <p class="legend-label"> <?= Yii::t('app', 'Attempted problem') ?></p>
-            </div>
-            <div>
-                <span class="pending legend-status"></span>
-                <p class="legend-label"> <?= Yii::t('app', 'Pending judgement') ?></p>
-            </div>
-        </div> -->
     </div>
     <?php endif; ?>
     <div class="clearfix"></div>

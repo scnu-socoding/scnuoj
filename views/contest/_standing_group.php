@@ -15,12 +15,12 @@ $submit_count = $rankResult['submit_count'];
 <?php if ($model->isScoreboardFrozen()): ?>
 <p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
 <?php endif; ?>
-<table class="table table-rank">
+<table class="table">
     <thead>
         <tr>
             <th style="width:2.5rem">Rank</th>
             <th style="width:8rem">Number</th>
-            <th style="text-align:left">Who</th>
+            <th>Who</th>
             <th style="min-width:6.4rem" title="solved / penalty time">Score</th>
             <?php foreach($problems as $key => $p): ?>
             <th style="min-width:6.4rem">
@@ -65,7 +65,7 @@ $submit_count = $rankResult['submit_count'];
             <td>
                 <?= Html::encode($rank['student_number']); ?>
             </td>
-            <td style="text-align:left">
+            <td>
                 <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
 
             </td>
