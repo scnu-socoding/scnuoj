@@ -105,7 +105,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
                         'aria-label' => Yii::t('yii', 'Delete'),
                         'data-confirm' => '删除该项，也会删除该用户在此比赛中的提交记录，确定删除？',
                         'data-method' => 'post',
-                        'data-pjax' => '0',
                     ];
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
                 },

@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use justinvoelker\tagging\TaggingWidget;
 
 /* @var $this yii\web\View */
@@ -66,7 +65,7 @@ $this->title = Yii::t('app', 'Problems');
                             '/solution/index',
                             'SolutionSearch[problem_id]' => $model->id,
                             'SolutionSearch[result]' => 4
-                        ], ['class' => 'text-dark'], ['data-pjax' => 0]);
+                        ], ['class' => 'text-dark']);
                     },
                     'format' => 'raw',
                     // 'options' => ['width' => '100px'],
