@@ -118,7 +118,11 @@ $submit_count = $rankResult['submit_count'];
                 }
                 // 封榜的显示
                 if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                    $num = "-" . $rank['wa_count'][$p['problem_id']] . " <span class=\"text-dark\">/<span> <span class=\"text-warning\">" .  $rank['pending'][$p['problem_id']] . "<span>";
+                    if ($rank['wa_count'][$p['problem_id']] != 0) {
+                        $num = "-" . $rank['wa_count'][$p['problem_id']] . " <span class=\"text-dark\">/<span> <span class=\"text-warning\">" .  $rank['pending'][$p['problem_id']] . "<span>";
+                    } else {
+                        $num = "<span class=\"text-warning\">" .  $rank['pending'][$p['problem_id']] . "<span>";
+                    }
                 }
                 if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || (!$model->isScoreboardFrozen() && $model->isContestEnd())) {
                     $url = Url::toRoute([
