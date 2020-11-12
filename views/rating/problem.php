@@ -62,9 +62,11 @@ $this->title = Yii::t('app', 'Rating');
                 [
                     'pagination' => $pages,
                     'linkOptions' => ['class' => 'page-link text-dark'],
+                    'maxButtonCount' => 5,
                 ]
             ) ?>
         </div>
+        <p></p>
     </div>
     <div class="col-lg-3 col-md-4">
         <div class="card text-dark">
