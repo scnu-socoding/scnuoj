@@ -167,6 +167,7 @@ $isContestEnd = $model->isContestEnd();
         ],
         'pager' => [
             'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
         ]
     ]); ?>
 <?php

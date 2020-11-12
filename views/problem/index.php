@@ -75,6 +75,7 @@ $this->title = Yii::t('app', 'Problems');
             ],
             'pager' => [
                 'linkOptions' => ['class' => 'page-link text-dark'],
+                'maxButtonCount' => 5,
             ]
         ]); ?>
         <p></p>

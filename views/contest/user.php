@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
         ],
         'pager' => [
             'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
         ]
     ]); ?>
 </div>

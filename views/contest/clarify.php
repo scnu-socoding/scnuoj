@@ -49,10 +49,12 @@ if ($discuss != null) {
             ],
             'pager' => [
                 'linkOptions' => ['class' => 'page-link text-dark'],
+                'maxButtonCount' => 5,
             ]
         ]);
     }
     ?>
+    
     <div class="alert alert-info">如果你认为题目表述不清，可以在这里提问。</div>
 
     <?php if (!empty($clarifies)): ?>

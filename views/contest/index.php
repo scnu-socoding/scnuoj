@@ -61,6 +61,7 @@ $this->title = Yii::t('app', 'Contests');
         ],
         'pager' => [
             'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
         ]
     ]); ?>
 </div>

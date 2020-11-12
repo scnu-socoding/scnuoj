@@ -67,8 +67,8 @@ $submissionStatistics = $model->getSubmissionStatistics();
     <div class="col-md-4 col-lg-3">
         <!-- <p></p> -->
         <div class="list-group">
-            <div class="list-group-item"><?= Yii::t('app', 'Current time') ?><span
-                    class="text-secondary float-right" id="nowdate"><?= date("Y-m-d H:i:s") ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Current time') ?><span class="text-secondary float-right"
+                    id="nowdate"><?= date("Y-m-d H:i:s") ?></span></div>
             <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span
                     class="text-secondary float-right"><?= $model->start_time ?></span></div>
             <div class="list-group-item"><?= Yii::t('app', 'End time') ?><span
@@ -101,6 +101,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
             ],
             'pager' => [
             'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
             ]
             ]);
             echo '</div>';
