@@ -17,7 +17,6 @@ use yii\bootstrap4\ActiveForm;
         'method' => 'get',
         'options' => [
             'class' => '',
-            'data-pjax' => 1
         ],
     ]); ?>
 

@@ -18,6 +18,6 @@ use app\models\Solution;
         }
         ?>
         →
-        <?= Html::a($submission['id'], ['/solution/detail', 'id' => $submission['id']], ['target' => '_blank', 'data-pjax' => 0]) ?>
+        <?= Html::a($submission['id'], ['/solution/detail', 'id' => $submission['id']], ['target' => '_blank']) ?>
     </p>
 <?php endforeach; ?>
