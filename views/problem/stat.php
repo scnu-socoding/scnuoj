@@ -136,6 +136,7 @@ $stats = $model->getStatisticsData();
         ],
         'pager' => [
             'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
         ]
     ]); ?>
 </div>
