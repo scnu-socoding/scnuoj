@@ -75,13 +75,6 @@ class ContestController extends BaseController
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
 
-        if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/contest/status', [
-                'model' => $model,
-                'searchModel' => $searchModel,
-                'dataProvider' => $searchModel->search(Yii::$app->request->queryParams, $model)
-            ]);
-        }
         return $this->render('/contest/status', [
             'model' => $model,
             'searchModel' => $searchModel,
@@ -474,21 +467,12 @@ class ContestController extends BaseController
                 ->limit(10)
                 ->all();
         }
-        if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/contest/problem', [
-                'model' => $model,
-                'solution' => $solution,
-                'problem' => $problem,
-                'submissions' => $submissions
-            ]);
-        } else {
-            return $this->render('/contest/problem', [
-                'model' => $model,
-                'solution' => $solution,
-                'problem' => $problem,
-                'submissions' => $submissions
-            ]);
-        }
+        return $this->render('/contest/problem', [
+            'model' => $model,
+            'solution' => $solution,
+            'problem' => $problem,
+            'submissions' => $submissions
+        ]);
     }
 
     /**

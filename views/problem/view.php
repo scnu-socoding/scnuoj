@@ -308,13 +308,13 @@ $nextProblemID = $model->getNextProblemID();
                                                     $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
                                                     echo Html::a($span,
                                                         ['/solution/source', 'id' => $sub['id']],
-                                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                                     );
                                                 } else {
                                                     $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
                                                     echo Html::a($span,
                                                         ['/solution/result', 'id' => $sub['id']],
-                                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                                     );
                                                 }
                                                 ?>
@@ -322,7 +322,7 @@ $nextProblemID = $model->getNextProblemID();
                                             <td>
                                                 <?= Html::a('<span class="glyphicon glyphicon-edit"></span>',
                                                     ['/solution/source', 'id' => $sub['id']],
-                                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]) ?>
+                                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info"]) ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -345,13 +345,13 @@ $nextProblemID = $model->getNextProblemID();
                                     $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
                                     echo Html::a($span,
                                         ['/solution/source', 'id' => $sub['id']],
-                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                     );
                                 } else {
                                     $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
                                     echo Html::a($span,
                                         ['/solution/result', 'id' => $sub['id']],
-                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                     );
                                 }
                                 ?>
@@ -359,7 +359,7 @@ $nextProblemID = $model->getNextProblemID();
                             <span>
                                 <?= Html::a('<span class="glyphicon glyphicon-edit"></span>',
                                     ['/solution/source', 'id' => $sub['id']],
-                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0])
+                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info"])
                                 ?>
                             </span>
                         <?php endif; ?>
