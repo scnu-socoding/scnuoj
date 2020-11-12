@@ -18,6 +18,7 @@ use app\models\Contest;
 use app\models\Solution;
 use app\models\SolutionSearch;
 use app\models\Discuss;
+use yii\data\Pagination;
 
 /**
  * ContestController implements the CRUD actions for Contest model.
@@ -339,9 +340,16 @@ class ContestController extends BaseController
         if (!Yii::$app->user->isGuest) {
             $query->orWhere(['parent_id' => 0, 'entity_id' => $model->id, 'entity' => Discuss::ENTITY_CONTEST, 'created_by' => Yii::$app->user->id]);
         }
-        $clarifies = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $clarifies = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        // $clarifies = new ActiveDataProvider([
+        //     'query' => $query,
+        // ]);
 
         if ($discuss != null) {
             return $this->render('/contest/clarify_view', [
@@ -355,6 +363,7 @@ class ContestController extends BaseController
                 'clarifies' => $clarifies,
                 'newClarify' => $newClarify,
                 'discuss' => $discuss,
+                'pages' => $pages,
                 'dataProvider' => $dataProvider
             ]);
         }
