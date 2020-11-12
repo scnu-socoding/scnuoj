@@ -14,8 +14,7 @@ use yii\bootstrap4\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'class' => '',
-            'data-pjax' => 1
+            'class' => ''
         ],
     ]); ?>
     <div class="row">
