@@ -36,7 +36,7 @@ class Editormd extends InputWidget
     public function run()
     {
         $this->_options = [
-            'placeholder' => 'hint',
+            'placeholder' => '',
             'height' => 300,
             'imageUpload' => false,
             'tex' => true,
