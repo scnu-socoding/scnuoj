@@ -212,13 +212,13 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                 $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
                                 echo Html::a($span,
                                     ['/solution/source', 'id' => $sub['id']],
-                                    ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                    ['onclick' => 'return false', 'data-click' => "solution_info"]
                                 );
                             } else {
                                 $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
                                 echo Html::a($span,
                                     ['/solution/result', 'id' => $sub['id']],
-                                    ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                    ['onclick' => 'return false', 'data-click' => "solution_info"]
                                 );
                             }
                             ?>
@@ -226,7 +226,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <td>
                             <?= Html::a('<i class="fas fa-sm fa-edit"></i>',
                                 ['/solution/source', 'id' => $sub['id']],
-                                ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0, 'class' => 'text-dark']) ?>
+                                ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

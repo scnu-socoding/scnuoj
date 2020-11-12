@@ -216,7 +216,6 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                 $options = [
                                     'title' => Yii::t('yii', 'Update'),
                                     'aria-label' => Yii::t('yii', 'Update'),
-                                    'data-pjax' => '0',
                                     'onclick' => 'return false',
                                     'data-click' => "user-manager",
                                     'class' => 'text-dark'
@@ -229,7 +228,6 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                     'aria-label' => Yii::t('yii', 'Delete'),
                                     'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                     'data-method' => 'post',
-                                    'data-pjax' => '0',
                                     'class' => 'text-dark'
                                 ];
                                 return Html::a('<span class="fas fa-sm fa-trash"></span>', $url, $options);

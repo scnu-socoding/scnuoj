@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\bootstrap4\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SolutionSearch */
@@ -11,7 +10,6 @@ use yii\bootstrap4\Modal;
 $this->title = Yii::t('app', 'Status');
 ?>
 <div class="solution-index">
-    <?php Pjax::begin() ?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'layout' => '{items}{pager}',
@@ -23,7 +21,7 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0, 'class' => 'text-dark']);
+                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'class' => 'text-dark']);
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -196,7 +194,7 @@ EOF;
 $this->registerJs($js);
 ?>
 
-    <?php Pjax::end() ?>
+    
 </div>
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']

@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\bootstrap4\Modal;
 use app\models\Contest;
 
@@ -30,7 +29,6 @@ $isContestEnd = $model->isContestEnd();
     <?php if ($model->isScoreboardFrozen()) :?>
         <p class="text-center">现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</p>
     <?php endif; ?>
-    <?php Pjax::begin() ?>
     <?php if ($model->type != Contest::TYPE_OI || $isContestEnd): ?>
     <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
     <?php endif; ?>
@@ -91,7 +89,7 @@ $isContestEnd = $model->isContestEnd();
                     if ($otherCan || $createdBy || $model->type == Contest::TYPE_HOMEWORK || ($userInContest && $isContestEnd)) {
                         return Html::a($solution->getResult(),
                             ['/solution/result', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                            ['onclick' => 'return false', 'data-click' => "solution_info"]
                         );
                     } else {
                         return $solution->getResult();
@@ -141,7 +139,7 @@ $isContestEnd = $model->isContestEnd();
                     if ($solution->canViewSource() || $otherCan) {
                         return Html::a($solution->getLang(),
                             ['/solution/source', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0, 'class' => 'text-dark']
+                            ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
                         );
                     } else {
                         return $solution->getLang();
@@ -237,7 +235,6 @@ if (waitingCount > 0) {
 EOF;
 $this->registerJs($js);
 ?>
-    <?php Pjax::end() ?>
 </div>
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']
