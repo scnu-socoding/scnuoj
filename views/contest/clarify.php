@@ -32,16 +32,16 @@ if ($discuss != null) {
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive'],
             'columns' => [
-                [
-                    'attribute' => 'created_at',
-                    'options' => ['width' => '150px'],
-                    'format' => 'datetime',
-                    'enableSorting' => false
-                ],
+                // [
+                //     'attribute' => 'created_at',
+                //     'options' => ['width' => '150px'],
+                //     'format' => 'datetime',
+                //     'enableSorting' => false
+                // ],
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
-                        return Yii::$app->formatter->asMarkdown($model->content);
+                        return $model->content;
                     },
                     'format' => 'html',
                     'enableSorting' => false
@@ -51,46 +51,26 @@ if ($discuss != null) {
                 'linkOptions' => ['class' => 'page-link text-dark'],
             ]
         ]);
-        echo '<hr>';
     }
     ?>
     <div class="alert alert-warning">如果你认为题目表述不清，可以在这里提问。</div>
 
-    <?= GridView::widget([
-        'dataProvider' => $clarifies,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
-        'tableOptions' => ['class' => 'table'],
-        'columns' => [
-            [
-                'attribute' => 'Who',
-                'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->user->colorname, ['/user/view', 'id' => $model->user->id]);
-                },
-                'format' => 'raw',
-                'enableSorting' => false
-            ],
-            [
-                'attribute' => 'title',
-                'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), [
-                        '/contest/clarify',
-                        'id' => $model->entity_id,
-                        'cid' => $model->id
-                    ], ['data-pjax' => 0]);
-                },
-                'format' => 'raw',
-                'enableSorting' => false
-            ],
-            [
-                'attribute' => 'created_at',
-                'enableSorting' => false
-            ],
-            [
-                'attribute' => 'updated_at',
-                'enableSorting' => false
-            ]
-        ]
-    ]); ?>
+    <?php if (!empty($clarifies)): ?>
+        <div class="list-group">
+        <?php foreach ($clarifies as $clarify): ?>
+            <?= Html::a(Html::encode($clarify->title) . '<span class="float-right">' . Html::encode($clarify->user->nickname) . ' / '. Yii::$app->formatter->asRelativeTime($clarify->updated_at) . '</span>', ['/contest/clarify', 'id' => $clarify->entity_id, 'cid' => $clarify->id], ['class' => 'list-group-item text-dark list-group-item-action']) ?>
+        <?php endforeach; ?>
+        </div>
+        <p></p>
+        <?= \yii\widgets\LinkPager::widget([
+            'pagination' => $pages,
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            //'widgetId' => '#content',
+        ]); ?>
+        <p></p>
+    <?php endif; ?>
+
+    
 
     <div class="well">
         <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
