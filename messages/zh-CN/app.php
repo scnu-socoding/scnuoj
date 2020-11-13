@@ -238,5 +238,6 @@ return [
     'Rank by Rating' => '积分排行',
     'Rank by Solved Problems' => '做题量排行',
     'Assistants' => '助教',
-    'Current time' => '当前时间'
+    'Current time' => '当前时间',
+    'Register' => '注册'
 ];
