@@ -154,7 +154,29 @@ $status = $model->getRunStatus();
                 <?php if (!$model->canView()): ?>
                 <?= $content ?>
                 <?php elseif ($status == $model::STATUS_NOT_START): ?>
+                <?php
+                    $menuItems = [
+                    [
+                        'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
+                        'url' => ['contest/view', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark']
+                    ]
+                    ];
+                echo Nav::widget([
+                    'items' => $menuItems,
+                    'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
+                    'encodeLabels' => false
+                ]) ?>
+                <div class="card bg-secondary text-white">
+                    <div class="card-body">
+                        <h3><?= $model->title ?></h3>
+                    </div>
+                </div>
+                <p></p>
                 <div class="card">
+                    <div class="card-header">
+                        距离比赛开始
+                    </div>
                     <div class="card-body text-center">
                         <h1 id="countdown"></h1>
                     </div>
