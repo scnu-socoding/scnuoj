@@ -394,7 +394,7 @@ class ContestController extends BaseController
      */
     public function actionStanding2($id, $showStandingBeforeEnd = 1)
     {
-        $this->layout = 'basic';
+        $this->layout = 'contest';
         $model = $this->findModel($id);
         // 访问权限检查
         if ($model->status != Contest::STATUS_VISIBLE) {
@@ -406,6 +406,10 @@ class ContestController extends BaseController
             $rankResult = $model->getRankData(true);
         } else {
             $rankResult = $model->getRankData(true, time());
+        }
+        if($model->canView())
+        {
+            return $this->redirect(['/contest/standing', 'id' => $model->id]);
         }
         return $this->render('/contest/standing2', [
             'model' => $model,
