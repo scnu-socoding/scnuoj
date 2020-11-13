@@ -30,7 +30,7 @@ $this->title = Yii::t('app', 'Contests');
             [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
-                    $link = Html::a(Yii::t('app', 'Register »'), ['/contest/register', 'id' => $model->id]);
+                    $link = Html::a(Yii::t('app', 'Register »'), ['/contest/view', 'id' => $model->id]);
                     if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
                         $link = '<span class="well-done">' . Yii::t('app', 'Registration completed') . '</span>';
                     }
