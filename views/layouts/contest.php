@@ -159,7 +159,7 @@ $status = $model->getRunStatus();
                     [
                         'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
                         'url' => ['contest/view', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
+                        'linkOptions' => ['class' => 'text-dark active']
                     ]
                     ];
                 echo Nav::widget([
