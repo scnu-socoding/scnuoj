@@ -43,7 +43,7 @@ use yii\bootstrap4\Modal;
     <div class="well">
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($new_clarify, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
+        <?= $form->field($new_clarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-primary']) ?>
