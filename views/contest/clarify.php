@@ -84,7 +84,7 @@ if ($discuss != null) {
 
         <?= $form->field($newClarify, 'content', [
             'template' => "{input}",
-        ])->widget(Yii::$app->setting->get('ojEditor')); ?>
+        ])->widget('app\widgets\editormd\Editormd'); ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
