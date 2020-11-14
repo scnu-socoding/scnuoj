@@ -18,4 +18,5 @@
  */
 #include <sys/syscall.h>
 #define HOJ_MAX_LIMIT -1
+#define CALL_ARRAY_SIZE 512
 #include "okcalls64.h"
