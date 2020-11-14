@@ -7,7 +7,7 @@ use yii\bootstrap4\Nav;
 $model = $this->params['model'];
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
-<div class="col-md-2">
+<div class="col-md-4 col-lg-3">
 <?php if (Yii::$app->user->identity->isAdmin()):?>
     <?= Nav::widget([
         'options' => ['class' => 'nav nav-pills nav-stacked'],
@@ -36,7 +36,7 @@ $model = $this->params['model'];
     ]) ?>
 <?php endif; ?>
 </div>
-<div class="col-md-10">
+<div class="col-md-8 col-lg-9">
     <div class="problem-header">
         <?= \yii\bootstrap4\Nav::widget([
             'options' => ['class' => 'nav nav-pills'],
