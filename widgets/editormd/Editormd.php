@@ -38,7 +38,7 @@ class Editormd extends InputWidget
         $this->_options = [
             'placeholder' => '',
             'height' => 300,
-            'imageUpload' => false,
+            'imageUpload' => true,
             'tex' => true,
             'flowChart' => true,
             'sequenceDiagram' => true,
