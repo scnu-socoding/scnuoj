@@ -138,13 +138,4 @@ class NewsController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-    public function actions()
-	{
-	    return [
-	        'Kupload' => [
-	            'class' => 'app\widgets\kindeditor\KindEditorAction',
-	        ]
-	    ];
-	}   
 }
