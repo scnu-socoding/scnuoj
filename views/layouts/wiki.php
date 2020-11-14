@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'Wiki');;
 
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4 col-lg-3">
         <?= Nav::widget([
             'items' => [
                 ['label' => Yii::t('app', '判题信息'), 'url' => ['wiki/index']],
@@ -24,7 +24,7 @@ $this->title = Yii::t('app', 'Wiki');;
         ]) ?>
     <p></p>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8 col-lg-9">
         <div class="wiki-contetn">
             <?= $content ?>
         </div>
