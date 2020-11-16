@@ -26,7 +26,7 @@ return [
     'Refuse to join' => '已拒绝加入',
     'Refuse to apply' => '拒绝申请',
     'Explore' => '探索',
-    'Profile' => '个人档案',
+    'Profile' => '档案',
     'Announcement' => '公告',
     'Discuss' => '讨论',
     'Comments' => '评论',
