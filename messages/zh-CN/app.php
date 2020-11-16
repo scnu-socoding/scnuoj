@@ -236,6 +236,10 @@ return [
 
     'Solved' => '通过',
     'Rank by Rating' => '积分排行',
-    'Rank by Solved Problems' => '题目排行',
-    'Assistants' => '助教'
+    'Rank by Solved Problems' => '做题量排行',
+    'Assistants' => '助教',
+    'Current time' => '当前时间',
+    'Register' => '注册',
+    'Kanban' => '看板',
+    'The submission interval is %d seconds, and you can submit again after %d seconds.' => '提交间隔为 %d 秒，%d 秒后可以再次提交。'
 ];
