@@ -10,9 +10,15 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => Y
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
 <div class="group-update">
 
-    <h1><?= Html::a(Html::encode($this->title), ['/group/view', 'id' => $model->id]) ?></h1>
+    <p></p>
 
     <?= $this->render('_form', [
         'model' => $model,
