@@ -51,25 +51,36 @@ $recentSubmission = $model->getRecentSubmission();
                 ]) ?>
     </div>
     <div class="col-md-8 col-lg-9">
-        <?php if ($contestCnt): ?>
-        <div id="placeholder" style="width:100%;height:300px;"></div>
-        <hr>
-        <?php endif; ?>
-        <p>最近提交</p>
-        <div class="list-group">
-            <?php foreach ($recentSubmission as $submission): ?>
-            <a href="<?= \yii\helpers\Url::toRoute(['/solution/detail', 'id' => $submission['id']]) ?>"
-                class="list-group-item list-group-item-action">
-                <span>
-                    <?= Html::encode($submission['problem_id'] . '. '. $submission['title']) ?>
-                </span>
-                <span style="float: right">
-                    <?= \app\models\Solution::getResultList($submission['result']) ?>
-                    <?= Yii::$app->formatter->asRelativeTime($submission['created_at']) ?>
-                </span>
-            </a>
-            <?php endforeach; ?>
+        <?php if($model->profile->personal_intro != ''):?>
+        <div class="card">
+            <div class="card-body">
+                <?= Yii::$app->formatter->asMarkdown($model->profile->personal_intro) ?>
+            </div>
         </div>
+        <p></p>
+        <?php endif;?>
+        <?php if(!empty($recentSubmission)):?>
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="margin-bottom:0">最近提交</h3>
+                </div>
+            </div>
+            <p></p>
+            <div class="list-group">
+                <?php foreach ($recentSubmission as $submission): ?>
+                <a href="<?= \yii\helpers\Url::toRoute(['/solution/detail', 'id' => $submission['id']]) ?>"
+                    class="list-group-item list-group-item-action">
+                    <span>
+                        <?= Html::encode($submission['problem_id'] . '. '. $submission['title']) ?>
+                    </span>
+                    <span style="float: right">
+                        <?= \app\models\Solution::getResultList($submission['result']) ?>
+                        <?= Yii::$app->formatter->asRelativeTime($submission['created_at']) ?>
+                    </span>
+                </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif;?>
     </div>
 </div>
 <hr>
