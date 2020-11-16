@@ -32,8 +32,16 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 <div class="group-view">
     <div class="row">
-
+        
         <div class="col-md-8 col-lg-9">
+            <?php if($model->kanban != ''):?>
+            <div class="card">
+                <div class="card-body">
+                    <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
+                </div>
+            </div>
+            <p></p>
+            <?php endif;?>
             <div class="card">
                 <div class="card-body">
                     <h3 style="display: inline">
