@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
             ],
             [
                 'label' => Yii::t('app', 'Profile'),
-                'url' => 'create',
+                'url' => ['/user/view', 'id' => Yii::$app->user->id],
                 'options' => ['class' => 'ml-auto'],
                 'linkOptions' => ['class' => 'text-dark']
             ]
