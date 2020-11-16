@@ -17,6 +17,7 @@ use Yii;
  * @property string $school
  * @property string $student_number
  * @property string $major
+ * @property string $personal_intro
  */
 class UserProfile extends \yii\db\ActiveRecord
 {
