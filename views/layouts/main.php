@@ -87,15 +87,10 @@ AppAsset::register($this);
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
-        // $menuItemsRight[] =  [
-        //     'label' => Yii::$app->user->identity->nickname,
-        //     'url' => ['/user/view', 'id' => Yii::$app->user->id],
-        //     // 'items' => [
-        //     //     ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-        //     //     ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-        //     //     ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-        //     // ]
-        // ];
+        $menuItemsRight[] =  [
+            'label' => Yii::t('app', 'Setting'),
+            'url' => ['/user/setting', 'action' => 'profile'],
+        ];
         $menuItemsRight[] = [
             'label' => Yii::t('app', 'Logout'),
             'url' => ['/site/logout'],
