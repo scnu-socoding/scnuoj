@@ -28,6 +28,8 @@ use yii\bootstrap4\ActiveForm;
 
 <?= $form->field($profile, 'major')->textInput() ?>
 
+<div class="alert alert-info">自定义个人主页...</div>
+
 <?= $form->field($profile, 'personal_intro', [
             'template' => "{input}",
         ])->widget('app\widgets\editormd\Editormd'); ?>
