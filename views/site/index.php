@@ -41,16 +41,6 @@ $this->title = Yii::$app->setting->get('ojName');
     </div>
     <div class="col-lg-3 col-md-4">
 
-        <?php if (! Yii::$app->user->isGuest): ?>
-        <ol class="list-group">
-            <li class="list-group-item text-center"><i class="fas fa-fw fa-user"></i>个人中心</li>
-            <?= Html::a(Yii::$app->user->identity->nickname, ['/user/view', 'id' => Yii::$app->user->id], ['class' => 'list-group-item list-group-item-action']) ?>
-            <?= Html::a(Yii::t('app', 'Setting'), ['/user/setting', 'action' => 'profile'], ['class' => 'list-group-item list-group-item-action']) ?>
-            <?= Html::a(Yii::t('app', 'Logout'), ['/site/logout'], ['class' => 'list-group-item list-group-item-action']) ?>
-        </ol>
-        <!-- </div> -->
-        <p></p>
-        <?php endif; ?>
         <?php if (!empty($contests)): ?>
         <ol class="list-group">
             <li class="list-group-item text-center"><i class="fas fa-fw fa-chart-line"></i>最近比赛</li>
