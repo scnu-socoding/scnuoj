@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
             [
                 'attribute' => 'participants',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
+                    return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
                 },
                 'format' => 'raw',
                 'enableSorting' => false
