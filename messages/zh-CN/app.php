@@ -240,5 +240,6 @@ return [
     'Assistants' => '助教',
     'Current time' => '当前时间',
     'Register' => '注册',
+    'Kanban' => '看板',
     'The submission interval is %d seconds, and you can submit again after %d seconds.' => '提交间隔为 %d 秒，%d 秒后可以再次提交。'
 ];
