@@ -28,6 +28,10 @@ use yii\bootstrap4\ActiveForm;
 
 <?= $form->field($profile, 'major')->textInput() ?>
 
+<?= $form->field($profile, 'personal_intro', [
+            'template' => "{input}",
+        ])->widget('app\widgets\editormd\Editormd'); ?>
+
 <div class="form-group">
     <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 </div>
