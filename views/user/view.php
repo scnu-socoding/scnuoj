@@ -11,53 +11,6 @@ use yii\widgets\DetailView;
 $this->title = $model->nickname;
 $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
-$this->registerJsFile("/js/flot/jquery.canvaswrapper.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.colorhelpers.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.flot.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.flot.uiConstants.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.flot.saturated.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.flot.browser.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.flot.drawSeries.js", ['depends' => 'yii\web\JqueryAsset']);
-$this->registerJsFile("/js/flot/jquery.flot.time.js", ['depends' => 'yii\web\JqueryAsset']);
-$plotJS = <<<EOT
-
-    var contests_json = {$contests};
-    var data1 = new Array();
-    var cnt = 1;
-    for (var i in contests_json) {
-        data1.push([
-            cnt, contests_json[i].total
-        ]);
-        cnt += 1;
-    }
-
-    var dataset = [
-        {
-            data: data1,
-            lines: { show: true }
-        }
-    ];
-
-    var options = {
-        series: { 
-            lines: { show: true , lineWidth: 2 }, 
-            points: { show: true },
-            color: "purple"
-        },
-        xaxis: {
-            tickDecimals: 0
-        },
-        yaxis: {
-            tickDecimals: 0
-        }
-    };
-
-    $.plot($("#placeholder"), dataset, options);
-
-
-EOT;
-$this->registerJs($plotJS);
-
 ?>
 <div class="card bg-secondary text-white">
     <div class="card-body">
@@ -67,7 +20,7 @@ $this->registerJs($plotJS);
 <p></p>
 <?php if ($model->role != \app\models\User::ROLE_PLAYER): ?>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4 col-lg-3">
         <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
@@ -97,7 +50,7 @@ $this->registerJs($plotJS);
                     ],
                 ]) ?>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8 col-lg-9">
         <?php if ($contestCnt): ?>
         <div id="placeholder" style="width:100%;height:300px;"></div>
         <hr>
