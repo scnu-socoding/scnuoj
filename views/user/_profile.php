@@ -28,7 +28,7 @@ use yii\bootstrap4\ActiveForm;
 
 <?= $form->field($profile, 'major')->textInput() ?>
 
-<div class="alert alert-info">自定义个人主页...</div>
+<div class="alert alert-info">新功能测试：自定义个人主页展示的内容...</div>
 
 <?= $form->field($profile, 'personal_intro', [
             'template' => "{input}",
