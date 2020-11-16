@@ -18,14 +18,23 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
             [
                 'label' => Yii::t('app', 'Profile'),
                 'url' => ['user/setting', 'action' => 'profile'],
+                'linkOptions' => ['class' => 'text-dark']
             ],
             [
                 'label' => Yii::t('app', 'Account'),
                 'url' => ['user/setting', 'action' => 'account'],
+                'linkOptions' => ['class' => 'text-dark']
             ],
             [
                 'label' => Yii::t('app', 'Security'),
                 'url' => ['user/setting', 'action' => 'security'],
+                'linkOptions' => ['class' => 'text-dark']
+            ],
+            [
+                'label' => Yii::t('app', 'Profile'),
+                'url' => 'create',
+                'options' => ['class' => 'ml-auto'],
+                'linkOptions' => ['class' => 'text-dark']
             ]
         ];
         echo Nav::widget([
