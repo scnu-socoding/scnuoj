@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m201114_090421_add_setting_option
+ * Class m201116_071355_add_user_option
  */
-class m201114_090421_add_setting_option extends Migration
+class m201116_071355_add_user_option extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->delete('{{%setting}}', ['key' => 'ojEditor']);  
+        $this->addColumn('{{%user_profile}}', 'personal_intro', $this->text());
     }
 
     /**
@@ -20,7 +20,7 @@ class m201114_090421_add_setting_option extends Migration
      */
     public function safeDown()
     {
-        $this->insert('{{%setting}}', ['key' => 'ojEditor', 'value' => 'app\widgets\kindeditor\KindEditor']);
+        $this->dropColumn('{{%user_profile}}', 'personal_intro');
     }
 
     /*
@@ -32,7 +32,7 @@ class m201114_090421_add_setting_option extends Migration
 
     public function down()
     {
-        echo "m201114_090421_add_setting_option cannot be reverted.\n";
+        echo "m201116_071355_add_user_option cannot be reverted.\n";
 
         return false;
     }
