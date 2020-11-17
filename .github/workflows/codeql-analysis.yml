@@ -12,11 +12,7 @@
 
 name: "CodeQL"
 
-on:
-  push:
-    branches: [ next, master ]
-  schedule:
-    - cron: '29 17 * * 0'
+on: [push, workflow_dispatch]
 
 jobs:
   analyze:
