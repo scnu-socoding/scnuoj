@@ -723,6 +723,7 @@ a.desc:after {
   .press a{ 
       text-decoration:none; color:#fff;
   }
+<<<<<<< HEAD
   
 
   .boxshow5 {
@@ -744,3 +745,6 @@ a.desc:after {
 .navbar-right li a {
 line-height: 30px;
 }
+=======
+  
+>>>>>>> parent of 83842d85 (去除最上方的蓝灰色LOGO栏，美化导航栏)
