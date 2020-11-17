@@ -12,7 +12,7 @@ $this->title = Yii::$app->setting->get('ojName');
 
     <div class="sidebar-module sidebar-module-inset">
         <center><h2>South China Normal University Online Judge</h2>
-        <h4>华南师范大学（软件学院）在线判题系统</h4>
+        <h4>华南师范大学软件学院在线判题系统（临时版）</h4>
         </center>
     </div>
 

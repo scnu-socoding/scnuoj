@@ -127,7 +127,7 @@ AppAsset::register($this);
 
 
     <div class="container">
-        <div class="alert alert-warning">为了保证你的做题体验，在校园网环境下请优先通过 <a href="http://10.191.65.243:5000">10.191.65.243:5000</a> 访问 SCNUOJ。</div>
+        <div class="alert alert-info">因服务器故障，原 OJ 无法提供服务（<a href="https://socoding.cn/t/topic/292">点此查看详情</a>），本 OJ 仅作临时使用。由此给大家带来的不便，我们深表歉意。</div>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
