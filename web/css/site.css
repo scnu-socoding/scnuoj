@@ -744,11 +744,3 @@ a.desc:after {
 .navbar-right li a {
 line-height: 30px;
 }
-
-.wrap  .container {
-    padding: 25px 15px 20px;
-    background-color: #FFF;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    box-shadow: 0 1px 5px 0 rgba(0,0,0,.1);
-}
