@@ -45,9 +45,8 @@ $this->title = Yii::t('app', 'Problems');
                         if ($tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
                             foreach((array)$tags as $tag) {
-                                $res .= Html::a('<span class="label label-default">' . Html::encode($tag) . '</span>', [
-                                    '/problem/index', 'tag' => $tag
-                                ]);
+                                $res .= Html::a(Html::encode($tag) , ['/problem/index', 'tag' => $tag
+                            ],$options = ['class' => 'label label-default']);
                             }
                             $res .= '</span>';
                         }
@@ -59,17 +58,22 @@ $this->title = Yii::t('app', 'Problems');
                 [
                     'attribute' => 'solved',
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
-                        return Html::a($model->accepted, [
+                    if($model->submit==0)
+                        $pos = 0;
+                    else
+                        $pos = round($model->accepted *100 / $model->submit,2);
+
+                    return '<div title="通过率:'.$pos.'%" class="press"><span class="bar" style="width: ' . $pos . '%;">' . Html::a($model->accepted . '/' . $model->submit  , [
                             '/solution/index',
-                            'SolutionSearch[problem_id]' => $model->id,
-                            'SolutionSearch[result]' => 4
-                        ], ['data-pjax' => 0]);
+                            'SolutionSearch[problem_id]' => $model->id
+                           // 'SolutionSearch[result]' => 0
+                        ], ['data-pjax' => 0]) .'</span></div>';
                     },
                     'format' => 'raw',
                     'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ]
-            ],
+            ],   
         ]); ?>
     </div>
     <div class="col-md-3">
