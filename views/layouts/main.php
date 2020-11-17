@@ -22,7 +22,9 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?><?php if(Html::encode($this->title) != Yii::$app->setting->get('ojName')) echo " - " . Yii::$app->setting->get('ojName');?></title>
+    <title>
+        <?= Html::encode($this->title) ?><?php if(Html::encode($this->title) != Yii::$app->setting->get('ojName')) echo " - " . Yii::$app->setting->get('ojName');?>
+    </title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
 </head>
@@ -135,15 +137,16 @@ AppAsset::register($this);
 
 
 
-        <?php
-    if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
-        $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
-        echo "<div class=\"container\"><p class=\"bg-danger\">请前往设置页面验证您的邮箱：{$a}</p></div>";
-    }
-    ?>
+
 
         <div class="container-fluid">
             <div class="col-lg-10 offset-lg-1">
+                <?php
+    if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
+        $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
+        echo "<div class=\"alert alert-danger\">请前往设置页面验证您的邮箱：{$a}</div>";
+    }
+    ?>
                 <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
