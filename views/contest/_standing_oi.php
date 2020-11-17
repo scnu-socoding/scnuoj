@@ -25,6 +25,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
     <tr>
         <th width="60px">Rank</th>
         <th width="200px">Who</th>
+        <th width="120px">Number</th>
         <?php if ($model->type == Contest::TYPE_OI): ?>
         <th width="80px">测评总分</th>
         <th width="80px">订正总分</th>
@@ -80,6 +81,9 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             </th>
             <th>
                 <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']]) ?>
+            </th>
+            <th>
+                <?= Html::encode($rank['student_number']); ?>
             </th>
             <?php if ($model->type == Contest::TYPE_OI): ?>
             <th class="score-solved">
