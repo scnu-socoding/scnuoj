@@ -92,7 +92,14 @@ $recentSubmission = $model->getRecentSubmission();
     </div>
     <div class="col-md-4 col-lg-3">
 
-        
+        <?php
+        $hash = md5(strtolower(trim($model->email)));
+        $uri = 'http://www.gravatar.com/avatar/' . $hash . '?d=404';
+        $headers = @get_headers($uri);
+        if (preg_match("|200|", $headers[0])) {
+            echo '<img class="img-fluid rounded img-thumbnail" src="http://www.gravatar.com/avatar.php?gravatar_id='. $hash .'&s=512&d=mm"><p></p>';
+        }
+        ?>
         <div class="list-group">
             <div class="list-group-item">
                 <?= Yii::t('app', 'Username') ?><span
