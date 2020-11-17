@@ -28,12 +28,14 @@ use yii\widgets\ActiveForm;
         Group::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('可见：用户可在探索页面发现。') ?>
 
+
+    <?php if($model->id == 1):?>
     <div class="alert alert-info">新功能测试：小组看板...</div>
 
     <?= $form->field($model, 'kanban', [
             'template' => "{input}",
         ])->widget('app\widgets\editormd\Editormd'); ?>
-
+    <?php endif;?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
