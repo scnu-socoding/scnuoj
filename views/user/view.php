@@ -37,22 +37,24 @@ $recentSubmission = $model->getRecentSubmission();
         <p></p>
 
 
-        <div class="card">
+        <div class="card d-none d-md-block">
             <div class="card-header">最近提交</div>
             <div class="card-body">
                 <?php if(!empty($recentSubmission)):?>
-                <?php foreach ($recentSubmission as $submission): ?>
-                <a href="<?= \yii\helpers\Url::toRoute(['/solution/detail', 'id' => $submission['id']]) ?>"
-                    class="list-group-item list-group-item-action border-left-0 border-right-0">
-                    <span>
-                        <?= Html::encode($submission['problem_id'] . '. '. $submission['title']) ?>
-                    </span>
-                    <span style="float: right">
-                        <?= \app\models\Solution::getResultList($submission['result']) ?>
-                        <?= Yii::$app->formatter->asRelativeTime($submission['created_at']) ?>
-                    </span>
-                </a>
-                <?php endforeach; ?>
+                <div class="list-group">
+                    <?php foreach ($recentSubmission as $submission): ?>
+                    <a href="<?= \yii\helpers\Url::toRoute(['/solution/detail', 'id' => $submission['id']]) ?>"
+                        class="list-group-item list-group-item-action">
+                        <span>
+                            <?= Html::encode($submission['problem_id'] . '. '. $submission['title']) ?>
+                        </span>
+                        <span style="float: right">
+                            <?= \app\models\Solution::getResultList($submission['result']) ?>
+                            <?= Yii::$app->formatter->asRelativeTime($submission['created_at']) ?>
+                        </span>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
                 <?php else:?>
                 没有找到数据。
                 <?php endif;?>
@@ -60,7 +62,7 @@ $recentSubmission = $model->getRecentSubmission();
         </div>
         <p></p>
 
-        <div class="card">
+        <div class="card d-none d-md-block">
             <div class="card-header">已解答 <small class="text-secondary"><?= count($solutionStats['solved_problem']) ?>
                     Problem<?php if(count($solutionStats['solved_problem'])!=1) echo"s"; ?></small></div>
             <div class="card-body">
@@ -76,7 +78,7 @@ $recentSubmission = $model->getRecentSubmission();
         <p></p>
 
 
-        <div class="card">
+        <div class="card d-none d-md-block">
             <div class="card-header">未解答 <small class="text-secondary"><?= count($solutionStats['unsolved_problem']) ?>
                     Problem<?php if(count($solutionStats['unsolved_problem'])!=1) echo"s"; ?></small></div>
             <div class="card-body">
@@ -89,7 +91,7 @@ $recentSubmission = $model->getRecentSubmission();
                 <?php endif;?>
             </div>
         </div>
-
+        <p></p>
     </div>
     <div class="col-md-4 col-lg-3">
 
@@ -98,7 +100,7 @@ $recentSubmission = $model->getRecentSubmission();
         $uri = 'https://www.gravatar.com/avatar/' . $hash . '?&s=512&d=mm';
         $headers = @get_headers($uri);
         if (preg_match("|200|", $headers[0])) {
-            echo '<img class="img-fluid rounded img-thumbnail" onerror="errorImg(this)" src="'. $uri .'"><p></p>';
+            echo '<div class="d-none d-md-block"><img class="img-fluid rounded img-thumbnail" onerror="errorImg(this)" src="'. $uri .'"><p></p></div>';
         }
         ?>
         <div class="list-group">
