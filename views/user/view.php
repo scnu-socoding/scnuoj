@@ -12,6 +12,7 @@ $this->title = $model->nickname;
 $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
 ?>
+
 <div class="card bg-secondary text-white">
     <div class="card-body">
         <h3><?= $model->getColorName() ?></h3>
@@ -94,10 +95,10 @@ $recentSubmission = $model->getRecentSubmission();
 
         <?php
         $hash = md5(strtolower(trim($model->email)));
-        $uri = 'https://www.gravatar.com/avatar/' . $hash . '?d=404';
+        $uri = 'https://www.gravatar.com/avatar/' . $hash . '?&s=512&d=mm';
         $headers = @get_headers($uri);
         if (preg_match("|200|", $headers[0])) {
-            echo '<img class="img-fluid rounded img-thumbnail" src="https://www.gravatar.com/avatar.php?gravatar_id='. $hash .'&s=512&d=mm"><p></p>';
+            echo '<img class="img-fluid rounded img-thumbnail" onerror="errorImg(this)" src="'. $uri .'"><p></p>';
         }
         ?>
         <div class="list-group">
