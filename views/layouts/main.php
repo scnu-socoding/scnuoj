@@ -123,8 +123,9 @@ AppAsset::register($this);
 
 
 
-        <?php if ($this->title == "SCNU Online Judge"):?>
+        <?php if ($this->title == Yii::$app->setting->get('ojName')):?>
         <div class="jumbotron jumbotron-fluid bg-secondary text-white">
+            <?php if (Yii::$app->setting->get('ojName') =="SCNU Online Judge" ):?>
             <div class="text-center d-none d-md-block">
                 <br />
                 <h2>South China Normal University Online Judge</h2>
@@ -135,6 +136,12 @@ AppAsset::register($this);
                 <h2>SCNU Online Judge</h2>
                 <p>华南师范大学软件学院在线判题系统</p>
             </div>
+            <?php else: ?>
+                <div class="text-center">
+                <br />
+                <h2><?= Yii::$app->setting->get('ojName') ?></h2>
+            </div>
+            <?php endif?>
         </div>
         <?php else: ?>
         <br />
