@@ -110,7 +110,7 @@ AppAsset::register($this);
 
 
     <div class="container">
-        <div class="alert alert-info">因服务器故障，原 OJ 无法提供服务（<a href="https://socoding.cn/t/topic/292">点此查看详情</a>），本 OJ 仅作临时使用。由此给大家带来的不便，我们深表歉意。</div>
+        <div class="alert alert-danger">SCNUOJ 数据回迁工作预计在本周五晚上 18:30 开始进行，届时 SCNUOJ 将无法访问。预期完成时间未知，届时请留意相关通知。</div>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
