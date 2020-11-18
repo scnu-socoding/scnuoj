@@ -166,7 +166,7 @@ $nextProblemID = $model->getNextProblemID();
             <?php else: ?>
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
+            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select']) ?>
 
             <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
