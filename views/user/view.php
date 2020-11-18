@@ -49,7 +49,7 @@ $recentSubmission = $model->getRecentSubmission();
                             <?= Html::encode($submission['problem_id'] . '. '. $submission['title']) ?>
                         </span>
                         <span style="float: right">
-                            <?= \app\models\Solution::getResultList($submission['result']) ?>
+                            <?= \app\models\Solution::getResultList($submission['result']) ?> /
                             <?= Yii::$app->formatter->asRelativeTime($submission['created_at']) ?>
                         </span>
                     </a>
