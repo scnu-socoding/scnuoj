@@ -7,4 +7,4 @@
 
 <h3>SCNU Online Judge</h3>
 
-<p>　　华南师范大学（软件学院）在线判题系统由软件协会香农先修班负责人、技术部和 OJ 项目组维护。2020 版在线判题系统相比早期版本增加了赛时答疑、小组比赛、造题系统等功能。由于时间紧、任务重，本系统难免存在漏洞，我们欢迎大家在 <a href="https://github.com/scnu-socoding/scnuoj" target="_blank">scnu-socoding/scnuoj</a> 提供反馈意见或是贡献代码。2020 版在线判题系统的诞生离不开 JNOJ，在此特别鸣谢 JNOJ 开发组。</p>
+<p>　　华南师范大学（软件学院）在线判题系统由软件协会香农先修班负责人、技术部和 OJ 项目组维护。2020/2021 版在线判题系统相比早期版本增加了赛时答疑、小组比赛、造题系统等功能。由于时间紧、任务重，本系统难免存在漏洞，我们欢迎大家在 <a href="https://github.com/scnu-socoding/scnuoj" target="_blank">scnu-socoding/scnuoj</a> 提供反馈意见或是贡献代码。2020/2021 版在线判题系统的诞生离不开 JNOJ，在此特别鸣谢 JNOJ 开发组。</p>
