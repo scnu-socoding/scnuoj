@@ -43,107 +43,103 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <div class="row">
         <div class="col-md-9 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ '. $problem['id'])): ?>
-                <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == ''): ?>
-                    <div class="alert border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
-                <?php else: ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title"><?= Yii::t('app', 'Description') ?></h3>
-                            <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
+            <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == ''): ?>
+            <div class="alert border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
+            <?php else: ?>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><?= Yii::t('app', 'Description') ?></h3>
+                    <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
+                </div>
+            </div>
+            <p></p>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><?= Yii::t('app', 'Input') ?></h3>
+                    <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
+                </div>
+            </div>
+            <p></p>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><?= Yii::t('app', 'Output') ?></h3>
+                    <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+                </div>
+            </div>
+            <p></p>
+
+            <div class="card">
+
+                <div class="card-body">
+                    <h3 class="card-title"><?= Yii::t('app', 'Examples') ?></h3>
+                    <div class="sample-test">
+                        <div class="input">
+                            <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
+                            <pre class="list-group-item"><?= $sample_input[0] ?></pre>
                         </div>
+                        <div class="output">
+                            <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
+                            <pre class="list-group-item"><?= $sample_output[0] ?></pre>
+                        </div>
+
+                        <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
+                        <div class="input">
+                            <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
+                            <pre class="list-group-item"><?= $sample_input[1] ?></pre>
+                        </div>
+                        <div class="output">
+                            <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
+                            <pre class="list-group-item"><?= $sample_output[1] ?></pre>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
+                        <div class="input">
+                            <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
+                            <pre class="list-group-item"><?= $sample_output[2] ?></pre>
+                        </div>
+                        <div class="output">
+                            <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
+                            <pre class="list-group-item"><?= $sample_output[2] ?></pre>
+                        </div>
+                        <?php endif; ?>
                     </div>
-                    <p></p>
+                </div>
+            </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title"><?= Yii::t('app', 'Input') ?></h3>
-                            <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-                        </div>
-                    </div>
-                    <p></p>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title"><?= Yii::t('app', 'Output') ?></h3>
-                            <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-                        </div>
-                    </div>
-                    <p></p>
-
-                    <div class="card">
-
-                        <div class="card-body">
-                            <h3 class="card-title"><?= Yii::t('app', 'Examples') ?></h3>
-                            <div class="sample-test">
-                                <div class="input">
-                                    <h5><?= Yii::t('app', 'Input') ?> 1 </h5>
-                                    <pre class="list-group-item"><?= $sample_input[0] ?></pre>
-                                </div>
-                                <div class="output">
-                                    <h5><?= Yii::t('app', 'Output') ?> 1 </h5>
-                                    <pre class="list-group-item"><?= $sample_output[0] ?></pre>
-                                </div>
-
-                                <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
-                                    <div class="input">
-                                        <h5><?= Yii::t('app', 'Input') ?> 2 </h5>
-                                        <pre class="list-group-item"><?= $sample_input[1] ?></pre>
-                                    </div>
-                                    <div class="output">
-                                        <h5><?= Yii::t('app', 'Output') ?> 2 </h5>
-                                        <pre class="list-group-item"><?= $sample_output[1] ?></pre>
-                                    </div>
-                                <?php endif; ?>
-
-                                <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
-                                    <div class="input">
-                                        <h5><?= Yii::t('app', 'Input') ?> 3 </h5>
-                                        <pre class="list-group-item"><?= $sample_output[2] ?></pre>
-                                    </div>
-                                    <div class="output">
-                                        <h5><?= Yii::t('app', 'Output') ?> 3 </h5>
-                                        <pre class="list-group-item"><?= $sample_output[2] ?></pre>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <?php if (!empty($problem['hint'])): ?>
-                        <p></p>
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title"><?= Yii::t('app', 'Hint') ?></h3>
-                                <!-- <div class="content-wrapper"> -->
-                                <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
+            <?php if (!empty($problem['hint'])): ?>
+            <p></p>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><?= Yii::t('app', 'Hint') ?></h3>
+                    <!-- <div class="content-wrapper"> -->
+                    <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                    <!-- </div> -->
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php endif; ?>
             <?php $this->endCache(); ?>
             <?php endif; ?>
-            
+
         </div>
         <div class="col-md-3 problem-info">
-            <div class="panel panel-default">
-                <!-- Table -->
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td><?= Yii::t('app', 'Time Limit') ?></td>
-                        <td>
-                            <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                        <td><?= $problem['memory_limit'] ?> MB</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="list-group">
+                <div class="list-group-item"><?= Yii::t('app', 'Time Limit') ?>
+
+
+                    <span class="float-right text-secondary">
+                        <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>
+                    </span>
+                </div>
+                <div class="list-group-item"><?= Yii::t('app', 'Memory Limit') ?>
+                    <span class="float-right text-secondary"><?= $problem['memory_limit'] ?> MB</span>
+                </div>
             </div>
-            
+            <p></p>
+
             <div class="btn-group btn-block dropdown">
                 <?php Modal::begin([
                     'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) . '</h3>',
@@ -153,24 +149,24 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         'class' => 'btn btn-secondary'
                     ]
                 ]); ?>
-                    <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
-                        比赛已结束。比赛结束五分钟后开放提交。
-                    <?php else: ?>
-                        <?php if (Yii::$app->user->isGuest): ?>
-                            <?= app\widgets\login\Login::widget(); ?>
-                        <?php else: ?>
-                            <?php $form = ActiveForm::begin(); ?>
+                <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
+                比赛已结束。比赛结束五分钟后开放提交。
+                <?php else: ?>
+                <?php if (Yii::$app->user->isGuest): ?>
+                <?= app\widgets\login\Login::widget(); ?>
+                <?php else: ?>
+                <?php $form = ActiveForm::begin(); ?>
 
-                            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select']) ?>
+                <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select']) ?>
 
-                            <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+                <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
-                            <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-outline-secondary', 'id' => 'submit_solution_btn']) ?>
-                            </div>
-                            <?php ActiveForm::end(); ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-outline-secondary', 'id' => 'submit_solution_btn']) ?>
+                </div>
+                <?php ActiveForm::end(); ?>
+                <?php endif; ?>
+                <?php endif; ?>
                 <?php Modal::end(); ?>
 
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
@@ -178,15 +174,15 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <?php foreach ($problems as $key => $p): ?>
-                        <?= Html::a(chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'dropdown-item']); ?>
+                    <?= Html::a(chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'dropdown-item']); ?>
                     <?php endforeach; ?>
                 </div>
             </div>
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
-                <p></p>
-                <table class="table">
-                    <tbody>
+            <p></p>
+            <table class="table">
+                <tbody>
                     <?php foreach($submissions as $sub): ?>
                     <tr>
                         <td title="<?= $sub['created_at'] ?>">
@@ -230,8 +226,8 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         </td>
                     </tr>
                     <?php endforeach; ?>
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
             <?php endif; ?>
         </div>
     </div>

@@ -135,23 +135,17 @@ $nextProblemID = $model->getNextProblemID();
     <?php $this->endCache(); ?>
     <?php endif; ?>
     <div class="col-lg-3 col-md-4 problem-info">
-        <div class="panel panel-default">
-            <!-- Table -->
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td><?= Yii::t('app', 'Time Limit') ?></td>
-                        <td>
-                            <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($model->time_limit)]); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                        <td><?= $model->memory_limit ?> MB</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Table -->
+        <div class="list-group">
+            <div class="list-group-item"><?= Yii::t('app', 'Time Limit') ?>
+                <span
+                    class="float-right text-secondary"><?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($model->time_limit)]); ?></span>
+            </div>
+            <div class="list-group-item"><?= Yii::t('app', 'Memory Limit') ?>
+                <span class="float-right text-secondary"><?= $model->memory_limit ?> MB</span>
+            </div>
         </div>
+        <p></p>
         <div class="btn-group btn-block">
             <?php Modal::begin([
             'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
