@@ -21,7 +21,7 @@ $this->title = Yii::$app->setting->get('ojName');
             <?php foreach ($news as $v): ?>
             <div class="card">
                 <div class="card-body">
-                    <h3><?= Html::a(Html::encode($v['title']), ['/site/news', 'id' => $v['id']], ['class' => 'text-dark']) ?>
+                    <h3 class="card-title"><?= Html::a(Html::encode($v['title']), ['/site/news', 'id' => $v['id']], ['class' => 'text-dark']) ?>
                     </h3>
                     <?= Yii::$app->formatter->asMarkdown($v['content']) ?>
                 </div>
