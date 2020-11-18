@@ -160,6 +160,9 @@ AppAsset::register($this);
         echo "<div class=\"alert alert-danger\">请前往设置页面验证您的邮箱：{$a}</div>";
     }
     ?>
+
+<div class="alert alert-danger">SCNUOJ 数据回迁工作预计在本周五晚上 18:30 开始进行，届时 SCNUOJ 将无法访问。预期完成时间未知，届时请留意相关通知。</div>
+       
                 <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
