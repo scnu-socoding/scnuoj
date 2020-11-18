@@ -39,7 +39,7 @@ function testHtml(id, caseJsonObject) {
                     <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
                     测试点 <span class="test" style="width: 50px">' + id + '</span> / \
                     <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
-                    <span class="float-right text-secondary">用时 <span class="time">' + caseJsonObject.time + '</span> ms / \
+                    <span class="float-right text-secondary d-none d-md-inline">用时 <span class="time">' + caseJsonObject.time + '</span> ms / \
                     内存 <span class="memory">' + caseJsonObject.memory + '</span> KB \
                     </span></div> \
                 </a> \
@@ -49,19 +49,19 @@ function testHtml(id, caseJsonObject) {
                 <div class="sample-test">\
                     <div class="input">\
                         <h4>输入</h4>\
-                        <pre>' + caseJsonObject.input + '</pre>\
+                        <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
                     </div>\
                     <div class="output">\
                         <h4>输出</h4>\
-                        <pre>' + caseJsonObject.user_output + '</pre>\
+                        <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
                     </div>\
                     <div class="output">\
                         <h4>答案</h4>\
-                        <pre>' + caseJsonObject.output + '</pre>\
-                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h4>检查日志</h4><pre>' + caseJsonObject.checker_log + '</pre></div>')
+                        <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
+                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h4>检查日志</h4><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
     + '<div class="output">\
                         <h4>系统信息</h4>\
-                        <pre>exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
+                        <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
                     </div>\
                 </div>\
             </div>\
