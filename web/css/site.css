@@ -1,26 +1,21 @@
 html,
 body {
     height: 100%;
-    background-color: #ffffff 
-    /* modified by bobby285271 */
+
 }
 pre {
     border-radius: unset;
 }
 .pre {
-    white-space:pre-wrap;
+    white-space: pre-wrap;
     display: block;
     padding: 9.5px;
-    /* margin: 0 0 10px; */
     font-size: 13px;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    line-height: 1.42857143;
-    /* color: #333; */
     word-break: break-all;
     word-wrap: break-word;
     background-color: #F0F0F0;
     border-radius: 0.25rem;
-    /* border: 1px solid #ccc; */
 }
 .pre p {
     margin: 0;
@@ -43,20 +38,7 @@ pre {
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
-.logo .brand {
-    color: #fff;
-    font-size: 22px;
-    float: left;
-    padding-left: 10px;
-    position: relative;
-    top: 1px;
-    border-left: 1px solid #eaeaea;
-    margin-top: 15px;
-    margin-left: 5px;
-    overflow: hidden;
-    height: 55px;
-    line-height: 55px;
-}
+
 #header {
     background-color: #006179;
     margin-bottom: 0;
@@ -70,27 +52,6 @@ pre {
     width: 178px;
     height: 52px;
 }
-.jumbotron {
-    background-color: transparent;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-.progress {
-    height: 14px;
-}
-
-.progress-bar {
-    line-height: 14px;
-}
-
-.not-set {
-    color: #c55;
-    font-style: italic;
-}
 
 .well-done {
     color: green;
@@ -99,42 +60,6 @@ pre {
 
 .text-center {
     text-align: center;
-}
-
-/* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
-}
-
-a.asc:after {
-    content: /*"\e113"*/ "\e151";
-}
-
-a.desc:after {
-    content: /*"\e114"*/ "\e152";
-}
-
-.sort-numerical a.asc:after {
-    content: "\e153";
-}
-
-.sort-numerical a.desc:after {
-    content: "\e154";
-}
-
-.sort-ordinal a.asc:after {
-    content: "\e155";
-}
-
-.sort-ordinal a.desc:after {
-    content: "\e156";
 }
 
 .grid-view th {
@@ -147,15 +72,7 @@ a.desc:after {
     color: #999;
 }
 
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
-}
 
-/* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding: 15px;
     border: none;
@@ -272,30 +189,6 @@ a.desc:after {
 .content-wrapper img {
     max-width: 100%;
 }
-
-/* .sample-test .input, .sample-test .output {
-    border: 1px solid #888;
-}
-
-.sample-test h4 {
-    padding: 0.25em;
-    margin: 0;
-    border-bottom: 1px solid #888;
-    text-transform: lowercase;
-    font-weight: bold;
-}
-.sample-test pre {
-    padding: 0.25em;
-    margin: 0;
-    background-color: #efefef;
-    border: none;
-}
-
-.sample-test .output {
-    margin-bottom: 1em;
-    position: relative;
-    top: -1px;
-} */
 
 .form-signin {
     max-width: 500px;
