@@ -181,7 +181,7 @@ class GroupController extends BaseController
         $userDataProvider = new ActiveDataProvider([
             'query' => GroupUser::find()->where([
                 'group_id' => $model->id
-            ])->with('user')->orderBy(['role' => SORT_DESC,'user_id' => SORT_ASC])
+            ])->with('user')->orderBy(['role' => SORT_DESC, 'created_at' => SORT_ASC])
         ]);
 
         if ($newContest->load(Yii::$app->request->post())) {
