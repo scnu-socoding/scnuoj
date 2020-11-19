@@ -453,7 +453,7 @@ class ContestController extends BaseController
             return $this->refresh();
         }
         $submissions = [];
-        if (!Yii::$app->user->isGuest) {
+        if ((!Yii::$app->user->isGuest) && (!empty($problem))) {
             $submissions = (new Query())->select('created_at, result, id')
                 ->from('{{%solution}}')
                 ->where([
