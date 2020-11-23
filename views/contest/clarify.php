@@ -22,7 +22,7 @@ if ($discuss != null) {
     ]);
 }
 ?>
-<div style="margin-top: 20px">
+<div>
     <?php
     if ($dataProvider->count > 0) {
         echo GridView::widget([
@@ -32,81 +32,66 @@ if ($discuss != null) {
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive'],
             'columns' => [
-                [
-                    'attribute' => 'created_at',
-                    'options' => ['width' => '150px'],
-                    'format' => 'datetime',
-                    'enableSorting' => false
-                ],
+                // [
+                //     'attribute' => 'created_at',
+                //     'options' => ['width' => '150px'],
+                //     'format' => 'datetime',
+                //     'enableSorting' => false
+                // ],
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
-                        return Yii::$app->formatter->asMarkdown($model->content);
+                        return $model->content;
                     },
                     'format' => 'html',
                     'enableSorting' => false
                 ],
             ],
+            'pager' => [
+                'linkOptions' => ['class' => 'page-link text-dark'],
+                'maxButtonCount' => 5,
+            ]
         ]);
-        echo '<hr>';
     }
     ?>
-    <div class="well">
-        如果你认为题目存在歧义，可以在这里提出。
-    </div>
+    
+    <div class="alert alert-info">如果你认为题目表述不清，可以在这里提问。</div>
 
-    <?= GridView::widget([
-        'dataProvider' => $clarifies,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
-        'tableOptions' => ['class' => 'table'],
-        'columns' => [
-            [
-                'attribute' => 'Who',
-                'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->user->colorname, ['/user/view', 'id' => $model->user->id]);
-                },
-                'format' => 'raw',
-                'enableSorting' => false
-            ],
-            [
-                'attribute' => 'title',
-                'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), [
-                        '/contest/clarify',
-                        'id' => $model->entity_id,
-                        'cid' => $model->id
-                    ], ['data-pjax' => 0]);
-                },
-                'format' => 'raw',
-                'enableSorting' => false
-            ],
-            [
-                'attribute' => 'created_at',
-                'enableSorting' => false
-            ],
-            [
-                'attribute' => 'updated_at',
-                'enableSorting' => false
-            ]
-        ]
-    ]); ?>
+    <?php if (!empty($clarifies)): ?>
+        <div class="list-group">
+        <?php foreach ($clarifies as $clarify): ?>
+            <?= Html::a(Html::encode($clarify->title) . '<span class="float-right">' . Html::encode($clarify->user->nickname) . ' / '. Yii::$app->formatter->asRelativeTime($clarify->updated_at) . '</span>', ['/contest/clarify', 'id' => $clarify->entity_id, 'cid' => $clarify->id], ['class' => 'list-group-item text-dark list-group-item-action']) ?>
+        <?php endforeach; ?>
+        </div>
+        <p></p>
+        <?= \yii\widgets\LinkPager::widget([
+            'pagination' => $pages,
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+        ]); ?>
+        <p></p>
+    <?php endif; ?>
+
+    
 
     <div class="well">
         <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($newClarify, 'title', [
-            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Title') . "</span>{input}</div>{error}",
+            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Title') ."</span></div>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->label(false) ?>
 
-        <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+        <?= $form->field($newClarify, 'content', [
+            'template' => "{input}",
+        ])->widget('app\widgets\editormd\Editormd'); ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
-        <p><?= Yii::t('app', 'The contest has ended.') ?></p>
+        <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
         <?php endif; ?>
     </div>
 </div>

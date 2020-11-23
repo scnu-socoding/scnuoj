@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 
 $this->title = $model->title;
-$this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
+$this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
 ?>
 <style>
     html, body {

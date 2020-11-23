@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -18,16 +18,23 @@ if ($model->isVerifyEmail()) {
 }
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
+<div class="card">
+    <div class="card-body">
 
-<!-- <?= $form->field($model, 'username')->textInput() ?> -->
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="form-group">
+            <label for="user-username">用户名</label>
+            <input type="text" class="form-control" disabled="disabled" value="<?=$model->username?>">
+        </div>
 
-<?= $form->field($model, 'email', [
-        'template' => $emailTemplate
-])->textInput() ?>
+        <?= $form->field($model, 'email', [
+            'template' => $emailTemplate
+        ])->textInput() ?>
 
-<div class="form-group">
-    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-block btn-outline-secondary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+    </div>
 </div>
-
-<?php ActiveForm::end(); ?>

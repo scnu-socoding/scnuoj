@@ -38,10 +38,73 @@ $this->title = Yii::t('app', 'Setting');
     </div>
 
     <div class="form-group">
+        <?= Html::label(Yii::t('app', '提交间隔时间'), 'submitTime') ?>
+        <?= Html::textInput('submitTime', $settings['submitTime'], ['class' => 'form-control']) ?>
+        <p class="hint-block">
+            时间单位为秒，设为 0 时不限制提交，否则提交后必须间隔指定时间后才能再次提交，可避免用户短时间重复提交的情况。
+        </p>
+    </div>    
+
+    <div class="form-group">
         <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
         <?= Html::radioList('isShareCode', $settings['isShareCode'], [
             1 => '用户可以查看其他用户的代码',
             0 => '用户的代码只能由自己或者管理员查看'
+        ]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
+        <?= Html::radioList('isUserReg', $settings['isUserReg'], [
+            1 => '开放',
+            0 => '关闭'
+        ]) ?>
+    </div> 
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
+        <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
+            2 => '只允许修改一次',
+            1 => '允许修改',
+            0 => '不允许修改'
+        ]) ?>
+    </div>    
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
+        <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
+            1 => '开启',
+            0 => '关闭'
+        ]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '创建小组'), 'isDefGroup') ?>
+        <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
+            1 => '开启',
+            2 => '仅管理员',
+            3 => '管理员与VIP用户',	            
+            0 => '关闭'	            
+        ]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '组长直接加成员'), 'isGroupJoin') ?>
+        <?= Html::radioList('isGroupJoin', $settings['isGroupJoin'], [
+            1 => '开启',
+            0 => '关闭'
+        ]) ?>
+        <p class="hint-block">
+                开启该功能后,组长可以直接将用户拉入到小组中,不需要用户确认。
+        </p>         
+    </div>
+
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '小组管理权限'), 'isGroupReset') ?>
+        <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
+            1 => '仅组长可重置密码与昵称',
+            2 => '组长与管理员可重置密码与昵称',	            
+            0 => '关闭密码与昵称重置功能'	            
         ]) ?>
     </div>
 

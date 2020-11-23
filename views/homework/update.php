@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Modal;
+use yii\bootstrap4\Nav;
 use app\models\Contest;
 use app\models\Homework;
 
@@ -12,9 +12,9 @@ use app\models\Homework;
 /* @var $model app\models\Homework */
 
 $this->title = Html::encode($model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Group'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']];
 $this->params['breadcrumbs'][] = ['label' => Html::encode($model->group->name), 'url' => ['/group/view', 'id' => $model->group->id]];
-$this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' => ['/contest/view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
 $this->params['model'] = $model;
 $problems = $model->problems;
@@ -78,7 +78,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         <h3>
             <?= Yii::t('app', 'Announcements') ?>
             <?php Modal::begin([
-                'header' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
+                'title' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
                 'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-success'],
             ]); ?>
             <?php $form = ActiveForm::begin(); ?>
@@ -123,7 +123,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                         <th>
                             <?php Modal::begin([
-                                'header' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                                'title' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
                                 'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
                             ]); ?>
 
@@ -165,13 +165,15 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <th></th>
                     <th>
                         <?php Modal::begin([
-                            'header' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
+                            'title' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
                             'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
                         ]); ?>
 
                         <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
 
                         <div class="form-group">
+                            <p class="hint-block">1.如果有多个题目，可以用空格或逗号键分开。</p>
+                            <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>
                             <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
                             <?= Html::textInput('problem_id', '',['class' => 'form-control']) ?>
                         </div>

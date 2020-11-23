@@ -3,7 +3,7 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use yii\widgets\ActiveForm;
 use app\models\Contest;
 
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
 <h1><?= Html::encode($model->title) ?></h1>
 
 <?php Modal::begin([
-    'header' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
+    'title' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
     'toggleButton' => ['label' => Yii::t('app', 'Add participating user'), 'class' => 'btn btn-success'],
 ]);?>
 <?= Html::beginForm(['contest/register', 'id' => $model->id]) ?>
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
 
 <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
     <?php Modal::begin([
-        'header' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
+        'title' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
         'toggleButton' => ['label' => Yii::t('app', 'Generate user for the contest'), 'class' => 'btn btn-success'],
     ]);?>
         <p class="text-muted">在线下举行比赛时，可在此处批量创建账号。</p>
@@ -105,9 +105,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
                         'aria-label' => Yii::t('yii', 'Delete'),
                         'data-confirm' => '删除该项，也会删除该用户在此比赛中的提交记录，确定删除？',
                         'data-method' => 'post',
-                        'data-pjax' => '0',
                     ];
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
+                    return Html::a('<span class="fas fas-fw fa-trash"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
                 },
             ]
         ],

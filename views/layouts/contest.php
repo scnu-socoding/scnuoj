@@ -6,8 +6,8 @@
 /* @var $model app\models\Contest */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\widgets\Alert;
@@ -22,93 +22,110 @@ $status = $model->getRunStatus();
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>
+        <?= Html::encode($this->title) ?><?php if(Html::encode($this->title) != Yii::$app->setting->get('ojName')) echo " - " . Yii::$app->setting->get('ojName');?>
+    </title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
     <style>
-        .progress-bar {
-            transition: none !important;
-        }
+    .progress-bar {
+        transition: none !important;
+    }
     </style>
 </head>
-<body>
-<?php $this->beginBody() ?>
 
-<div class="wrap">
-    
+<body style="padding-top: 56px;">
 
+    <div class="progress hidden-print rounded-0 bg-light">
+        <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60"
+            aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+        </div>
+    </div>
 
-<?php
+    <?php $this->beginBody() ?>
+
+    <div>
+
+        <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-default',
+            'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container']
+        'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
     $menuItemsLeft = [
-        ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
-        ['label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
-        ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-king"></span> ' . Yii::t('app', 'Rating'),
+            'label' => Yii::t('app', 'Problems'),
+            'url' => ['/problem/index'],
+            'active' => Yii::$app->controller->id == 'problem'
+        ],
+        ['label' => Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        [
+            'label' => Yii::t('app', 'Rating'),
             'url' => ['/rating/index'],
             'active' => Yii::$app->controller->id == 'rating'
         ],
         [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']
+            'label' => Yii::t('app', 'Group'),
+            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
+            'active' => Yii::$app->controller->id == 'group'
         ],
-        ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-info-sign"></span> '. Yii::t('app', 'Wiki'),
+            'label' => Yii::t('app', 'Contests'),
+            'url' => ['/contest/index'],
+            'active' => Yii::$app->controller->id == 'contest'
+        ],
+        [
+            'label' => Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
-        ],
+        ]
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItemsRight[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItemsRight[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItemsRight[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
             $menuItemsRight[] = [
-                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
+                'label' => Yii::t('app', 'Backend'),
                 'url' => ['/admin'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
         if  (Yii::$app->user->identity->isVip()) {
             $menuItemsRight[] = [
-                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
+                'label' => Yii::t('app', 'Backend'),
                 'url' => ['/admin/problem'],
                 'active' => Yii::$app->controller->module->id == 'admin'
             ];
         }
         $menuItemsRight[] =  [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
-            'items' => [
-                ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-                '<li class="divider"></li>',
-                ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-            ]
+            'label' => Yii::t('app', 'Setting'),
+            'url' => ['/user/setting', 'action' => 'profile'],
+        ];
+        $menuItemsRight[] = [
+            'label' => Yii::t('app', 'Logout'),
+            'url' => ['/site/logout'],
         ];
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
+        'options' => ['class' => 'navbar-nav mr-auto'],
         'items' => $menuItemsLeft,
         'encodeLabels' => false,
         'activateParents' => true
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav'],
         'items' => $menuItemsRight,
         'encodeLabels' => false,
         'activateParents' => true
@@ -116,135 +133,122 @@ $status = $model->getRunStatus();
     NavBar::end();
     ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
+
+
+        <div class="container-fluid">
+            <div class="col-lg-10 offset-lg-1">
+                <!-- <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <div class="contest-info">
-            <div class="row">
-                <div class="col-md-3 text-left hidden-print">
-                    <strong><?= Yii::t('app', 'Start') ?> </strong>
-                    <?= $model->start_time ?>
-                </div>
-                <div class="col-md-6 text-center">
-                    <h2 class="contest-title">
-                        <?= Html::encode($model->title) ?>
-                        <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
-                            <small>
-                                <?= Html::a('<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'),
-                                    ['/homework/update', 'id' => $model->id]) ?>
-                            </small>
-                        <?php endif; ?>
-                    </h2>
-                </div>
-                <div class="col-md-3 text-right hidden-print">
-                    <strong><?= Yii::t('app', 'End') ?> </strong>
-                    <?= $model->end_time ?>
-                </div>
-            </div>
-            <div class="progress hidden-print">
-                <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
-                    <?php if ($status == $model::STATUS_NOT_START): ?>
-                        Not start
-                        <p><?= date('y-m-d H:i:s', time()) ?></p>
-                    <?php elseif ($status == $model::STATUS_RUNNING): ?>
-                        Running
-                    <?php else: ?>
-                        Contest is over.
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div class="text-center hidden-print">
-                <strong><?= Yii::t('app', 'Now') ?></strong>
-                <span id="nowdate"> <?= date("Y-m-d H:i:s") ?></span>
-            </div>
-        </div>
-        <hr>
-        <?php if ($status == $model::STATUS_NOT_START): ?>
-            <div class="contest-countdown text-center">
-                <div id="countdown"></div>
-            </div>
-            <?php if (!empty($model->description)): ?>
-                <div class="contest-desc">
-                    <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-                </div>
-            <?php endif; ?>
-        <?php elseif (!$model->canView()): ?>
-            <?= $content ?>
-        <?php else: ?>
-            <div class="contest-view">
+            'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
+            'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
+        ]) ?> -->
+
+
+                <br />
+                <?= Alert::widget() ?>
+
+                <?php if (!$model->canView()): ?>
+                <?= $content ?>
+                <?php elseif ($status == $model::STATUS_NOT_START): ?>
                 <?php
+                    $menuItems = [
+                    [
+                        'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
+                        'url' => ['contest/view', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark active']
+                    ]
+                    ];
+                echo Nav::widget([
+                    'items' => $menuItems,
+                    'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
+                    'encodeLabels' => false
+                ]) ?>
+                <div class="card bg-secondary text-white">
+                    <div class="card-body">
+                        <h3><?= $model->title ?></h3>
+                    </div>
+                </div>
+                <p></p>
+                <div class="card">
+                    <div class="card-header">
+                        距离比赛开始
+                    </div>
+                    <div class="card-body text-center">
+                        <h1 id="countdown"></h1>
+                    </div>
+                </div>
+                <?php if (!empty($model->description)): ?>
+                <!-- <div class="contest-desc">
+                    <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+                </div> -->
+                <?php endif; ?>
+                <?php else: ?>
+                <div class="contest-view">
+                    <?php
                 $menuItems = [
                     [
                         'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
                         'url' => ['contest/view', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problem'),
                         'url' => ['contest/problem', 'id' => $model->id],
-                        'linkOptions' => ['data-pjax' => 0]
+                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app' , 'Status'),
                         'url' => ['contest/status', 'id' => $model->id],
-                        'linkOptions' => ['data-pjax' => 0],
+                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-glass"></span> ' . Yii::t('app', 'Standing'),
                         'url' => ['contest/standing', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
                         'label' => '<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Clarification'),
                         'url' => ['contest/clarify', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark']
                     ],
                 ];
                 if ($model->scenario == $model::SCENARIO_OFFLINE && $model->getRunStatus() == $model::STATUS_RUNNING) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-print"></span> 打印服务',
-                        'url' => ['/contest/print', 'id' => $model->id]
+                        'url' => ['/contest/print', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark']
                     ];
                 }
                 if ($model->isContestEnd()) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', 'Editorial'),
-                        'url' => ['contest/editorial', 'id' => $model->id]
+                        'url' => ['contest/editorial', 'id' => $model->id],
+                        'linkOptions' => ['class' => 'text-dark']
                     ];
                 }
                 echo Nav::widget([
                     'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-tabs hidden-print'],
+                    'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
                     'encodeLabels' => false
                 ]) ?>
-                <!-- <?php \yii\widgets\Pjax::begin() ?> -->
-                <?= $content ?>
-                <!-- <?php \yii\widgets\Pjax::end() ?> -->
+                    <?= $content ?>
+                </div>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-    <p class="pull-left"><center>&copy; SCNU SoCoding <?= date('Y') ?></center></p>
-        <!-- <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p> -->
-        <!-- <p class="pull-left">
-            <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
-            Html::a (' English ', '?lang=en') ;
-            ?>
-        </p> -->
-    </div>
-</footer>
-<?php $this->endBody() ?>
-<script>
+    <br />
+    <?php $this->endBody() ?>
+    <script>
     var client_time = new Date();
     var diff = new Date("<?= date("Y/m/d H:i:s")?>").getTime() - client_time.getTime();
     var start_time = new Date("<?= $model->start_time ?>");
     var end_time = new Date("<?= $model->end_time ?>");
     $("#countdown").countdown(start_time.getTime() - diff, function(event) {
         $(this).html(event.strftime('%D:%H:%M:%S'));
-        if($(this).html() == "00:00:00:00") location.reload();
+        if ($(this).html() == "00:00:00:00") location.reload();
     });
+
     function clock() {
         var h, m, s, n, y, mon, d;
         var x = new Date(new Date().getTime() + diff);
@@ -256,8 +260,13 @@ $status = $model->getRunStatus();
         m = x.getMinutes();
         s = x.getSeconds();
 
-        n = y + "-" + mon + "-" + d + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ? s : "0" + s);
-        document.getElementById('nowdate').innerHTML = n;
+        n = y + "-" + (mon >= 10 ? mon : "0" + mon) + "-" + (d >= 10 ? d : "0" + d) + " " + (h >= 10 ? h : "0" + h) +
+            ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ?
+                s : "0" + s);
+        if (document.getElementById('nowdate')) {
+            document.getElementById('nowdate').innerHTML = n;
+        }
+
         var now_time = new Date(n);
         if (now_time < end_time) {
             var rate = (now_time - start_time) / (end_time - start_time) * 100;
@@ -269,24 +278,25 @@ $status = $model->getRunStatus();
     }
     clock();
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // 连接服务端
         var socket = io(document.location.protocol + '//' + document.domain + ':2120');
         var uid = '<?= Yii::$app->user->isGuest ? session_id() : Yii::$app->user->id ?>';
         // 连接后登录
-        socket.on('connect', function(){
+        socket.on('connect', function() {
             socket.emit('login', uid);
         });
         // 后端推送来消息时
-        socket.on('msg', function(msg){
+        socket.on('msg', function(msg) {
             alert(msg);
         });
 
-        $('.pre p').each(function(i, block) {  // use <pre><p>
+        $('.pre p').each(function(i, block) { // use <pre><p>
             hljs.highlightBlock(block);
         });
     });
-</script>
+    </script>
 </body>
+
 </html>
 <?php $this->endPage() ?>

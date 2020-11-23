@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use yii\widgets\ActiveForm;
 use app\models\GroupUser;
 use app\models\Contest;
@@ -22,43 +22,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 ?>
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+<p></p>
+
 <div class="group-view">
     <div class="row">
-        <div class="col-md-3">
-            <h1><?= Html::a(Html::encode($this->title), ['/group/view', 'id' => $model->id]) ?></h1>
-            <?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
-            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-default btn-block']) ?>
-            <?php endif; ?>
-            <hr>
-            <p>
-                <?= Yii::$app->formatter->asMarkdown($model->description); ?>
-            </p>
-            <hr>
-            <p><?= Yii::t('app', 'Join Policy') ?>: <?= $model->getJoinPolicy() ?></p>
-            <p><?= Yii::t('app', 'Status') ?>: <?= $model->getStatus() ?></p>
-        </div>
-        <div class="col-md-9">
-            <div>
-                <?php if($model->kanban != ''):?>
-                <div class="card">
-                    <div class="card-body">
-                        <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
-                    </div>
+        
+        <div class="col-md-8 col-lg-9">
+            <?php if($model->kanban != ''):?>
+            <div class="card">
+                <div class="card-body">
+                    <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
                 </div>
-                <br>
-                <?php endif;?>
-                <h2 style="display: inline">
-                    <?= Yii::t('app', 'Homework'); ?>
-                </h2>
-                <?php if ($model->hasPermission()): ?>
-                <?php Modal::begin([
-                    'header' => '<h3>' . Yii::t('app', 'Create') . '</h3>',
+            </div>
+            <p></p>
+            <?php endif;?>
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="display: inline">
+                        <?= Yii::t('app', 'Homework'); ?>
+                    </h3>
+                    <?php if ($model->hasPermission()): ?>
+                    <?php Modal::begin([
+                    'title' => '<h3>' . Yii::t('app', 'Create') . '</h3>',
                     'toggleButton' => [
                         'label' => Yii::t('app', 'Create'),
                         'tag' => 'a',
-                        'style' => 'cursor:pointer;'
+                        'class' => 'btn btn-sm btn-outline-secondary float-right'
                     ]
                 ]); ?>
+
                     <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($newContest, 'title')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
                     <?= $form->field($newContest, 'start_time')->widget('app\widgets\laydate\LayDate', [
@@ -96,9 +94,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
-                <?php Modal::end(); ?>
-                <?php endif; ?>
+                    <?php Modal::end(); ?>
+                    <?php endif; ?>
+                </div>
             </div>
+            <p></p>
+
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $contestDataProvider,
@@ -109,10 +110,11 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     [
                         'attribute' => 'title',
                         'value' => function ($model, $key, $index, $column) {
-                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
+                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'btn-sm btn-secondary']) . '</span>';
                         },
                         'format' => 'raw',
-                        'enableSorting' => false
+                        'enableSorting' => false,
+                        'options' => ['style' => 'min-width:300px'],
                     ],
                     [
                         'attribute' => 'status',
@@ -129,47 +131,63 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                 $column = $model->getRunStatus(true);
                             }
                             $userCount = $model->getContestUserCount();
-                            return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
+                            return $column;
+                            // return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'options' => ['width' => '220px'],
+                        'options' => ['style' => 'min-width:100px'],
                         'enableSorting' => false
                     ],
                     [
                         'attribute' => 'start_time',
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:180px'],
                         'enableSorting' => false
                     ],
                     [
                         'attribute' => 'end_time',
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:180px'],
                         'enableSorting' => false
                     ],
                 ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                    'maxButtonCount' => 5,
+                ]
             ]); ?>
 
-            <div>
-                <h2 style="display: inline">
-                    <?= Yii::t('app', 'Member'); ?>
-                </h2>
-                <?php if ($model->hasPermission()): ?>
+            <p></p>
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="display: inline">
+                        <?= Yii::t('app', 'Member'); ?>
+                    </h3>
+                    <?php if ($model->hasPermission()): ?>
                     <?php Modal::begin([
-                        'header' => '<h3>' . Yii::t('app', 'Invite Member') . '</h3>',
+                        'title' => '<h3>' . Yii::t('app', 'Invite Member') . '</h3>',
                         'toggleButton' => [
                             'label' => Yii::t('app', 'Invite Member'),
                             'tag' => 'a',
-                            'style' => 'cursor:pointer;'
+                            'class' => 'btn btn-sm btn-outline-secondary float-right'
                         ]
                     ]); ?>
                     <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($newGroupUser, 'username')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
+                    <p class="hint-block">1. 一个用户占据一行，每行格式为<code>username</code>。</p>
+                      <p class="hint-block">2. 必须是已经注册过的用户。</p>
+                      <?= $form->field($newGroupUser, 'username')->textarea(['rows' => 10]) ?>
+                      <?php if (Yii::$app->setting->get('isGroupJoin')): ?>    
+                        <?= $form->field($newGroupUser, 'role')->radioList(['2'=>'邀请中','4'=>'普通成员'],['value'=>[4]]) ?>
+                      <?php else: ?>
+                        <?= $form->field($newGroupUser, 'role')->radioList(['2'=>'邀请中'],['value'=>[2]]) ?>
+                      <?php endif; ?>  
                     <div class="form-group">
                         <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                     <?php Modal::end(); ?>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
             </div>
+            <p></p>
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $userDataProvider,
@@ -183,15 +201,16 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             return $model->getRole(true);
                         },
                         'format' => 'raw',
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:100px'],
                         'enableSorting' => false
                     ],
                     [
                         'attribute' => Yii::t('app', 'Nickname'),
                         'value' => function ($model, $key, $index, $column) {
-                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
+                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
                         },
                         'format' => 'raw',
+                        'options' => ['style' => 'min-width:200px'],
                         'enableSorting' => false
                     ],
                     [
@@ -199,7 +218,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'value' => function ($model, $key, $index, $column) {
                             return Yii::$app->formatter->asRelativeTime($model->created_at);
                         },
-                        'options' => ['width' => '150px'],
+                        'options' => ['style' => 'min-width:100px'],
                         'enableSorting' => false
                     ],
                     [
@@ -210,11 +229,11 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                 $options = [
                                     'title' => Yii::t('yii', 'Update'),
                                     'aria-label' => Yii::t('yii', 'Update'),
-                                    'data-pjax' => '0',
                                     'onclick' => 'return false',
-                                    'data-click' => "user-manager"
+                                    'data-click' => "user-manager",
+                                    'class' => 'text-dark'
                                 ];
-                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                                return Html::a('<i class="fas fa-sm fa-pen"></i>', $url, $options);
                             },
                             'user-delete' => function ($url, $model, $key) {
                                 $options = [
@@ -222,16 +241,41 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                     'aria-label' => Yii::t('yii', 'Delete'),
                                     'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                     'data-method' => 'post',
-                                    'data-pjax' => '0',
+                                    'class' => 'text-dark'
                                 ];
-                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, $options);
+                                return Html::a('<span class="fas fa-sm fa-trash"></span>', $url, $options);
                             }
                         ],
                         'visible' => $model->hasPermission(),
                         'options' => ['width' => '90px']
                     ]
                 ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                    'maxButtonCount' => 5,
+                ]
             ]); ?>
+
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
+            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-block']) ?>
+            <p></p>
+            <?php endif; ?>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <?= $model->description ?>
+                </div>
+            </div>
+
+            <p></p>
+
+            <div class="list-group">
+                <div class="list-group-item"><?= Yii::t('app', 'Join Policy') ?><span
+                        class="float-right text-secondary"><?= $model->getJoinPolicy() ?></span></div>
+                <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
+                        class="float-right text-secondary"><?= $model->getStatus() ?></span></div>
+            </div>
         </div>
     </div>
 </div>
@@ -254,6 +298,6 @@ $this->registerJs($js);
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']
 ]); ?>
-    <div id="solution-content">
-    </div>
+<div id="solution-content">
+</div>
 <?php Modal::end(); ?>

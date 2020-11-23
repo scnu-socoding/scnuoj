@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SolutionSearch */
@@ -17,7 +17,6 @@ use yii\bootstrap\ActiveForm;
         'method' => 'get',
         'options' => [
             'class' => 'form-inline',
-            'data-pjax' => 1
         ],
     ]); ?>
 

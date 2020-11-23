@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use app\models\Solution;
 
 /* @var $this yii\web\View */
@@ -266,17 +266,22 @@ $nextProblemID = $model->getNextProblemID();
                     ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
                 <div class="problem-footer">
-                    <?php
+                <?php
                     if (Yii::$app->user->isGuest) {
                         echo '<span>请先登陆</span>';
                     } else {
-                        echo Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']);
+                        echo Html::submitButton('<span class="glyphicon glyphicon-plus"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);            
+                        if (Yii::$app->setting->get('isDiscuss')){
+                        echo Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
+                            ['/problem/discuss', 'id' => $model->id],
+                            ['class' => 'btn btn-default']);
+                        }
                     }
                     ?>
                     <div>
                         <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
                             <?php Modal::begin([
-                                'header' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
+                                'title' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
                                 'toggleButton' => [
                                     'label' => '我的提交',
                                     'class' => 'btn btn-default'
@@ -303,13 +308,13 @@ $nextProblemID = $model->getNextProblemID();
                                                     $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
                                                     echo Html::a($span,
                                                         ['/solution/source', 'id' => $sub['id']],
-                                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                                     );
                                                 } else {
                                                     $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
                                                     echo Html::a($span,
                                                         ['/solution/result', 'id' => $sub['id']],
-                                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                                     );
                                                 }
                                                 ?>
@@ -317,7 +322,7 @@ $nextProblemID = $model->getNextProblemID();
                                             <td>
                                                 <?= Html::a('<span class="glyphicon glyphicon-edit"></span>',
                                                     ['/solution/source', 'id' => $sub['id']],
-                                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]) ?>
+                                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info"]) ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -340,13 +345,13 @@ $nextProblemID = $model->getNextProblemID();
                                     $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
                                     echo Html::a($span,
                                         ['/solution/source', 'id' => $sub['id']],
-                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                     );
                                 } else {
                                     $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
                                     echo Html::a($span,
                                         ['/solution/result', 'id' => $sub['id']],
-                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        ['onclick' => 'return false', 'data-click' => "solution_info"]
                                     );
                                 }
                                 ?>
@@ -354,7 +359,7 @@ $nextProblemID = $model->getNextProblemID();
                             <span>
                                 <?= Html::a('<span class="glyphicon glyphicon-edit"></span>',
                                     ['/solution/source', 'id' => $sub['id']],
-                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0])
+                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info"])
                                 ?>
                             </span>
                         <?php endif; ?>
@@ -434,7 +439,7 @@ if (waitingCount > 0) {
             interval = null;
         }
     }
-    interval = setInterval(testWaitingsDone, 20000);
+    interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
 $this->registerJs($js);

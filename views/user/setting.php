@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -18,14 +18,23 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
             [
                 'label' => Yii::t('app', 'Profile'),
                 'url' => ['user/setting', 'action' => 'profile'],
+                'linkOptions' => ['class' => 'text-dark']
             ],
             [
                 'label' => Yii::t('app', 'Account'),
                 'url' => ['user/setting', 'action' => 'account'],
+                'linkOptions' => ['class' => 'text-dark']
             ],
             [
                 'label' => Yii::t('app', 'Security'),
                 'url' => ['user/setting', 'action' => 'security'],
+                'linkOptions' => ['class' => 'text-dark']
+            ],
+            [
+                'label' => Yii::t('app', 'Profile'),
+                'url' => ['/user/view', 'id' => Yii::$app->user->id],
+                'options' => ['class' => 'ml-auto'],
+                'linkOptions' => ['class' => 'text-dark']
             ]
         ];
         echo Nav::widget([

@@ -1,32 +1,33 @@
 {
-    "name": "jnoj",
-    "description": "Jiangnan Online Judge",
+    "name": "scnu-socoding/scnuoj",
+    "description": "South China Normal University Online Judge",
     "keywords": [
         "online judge"
     ],
-    "homepage": "http://www.github.com/shi-yang/jnoj",
+    "homepage": "https://github.com/SCNU-SoCoding/scnuoj",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/shi-yang/jnoj/issues"
+        "issues": "https://github.com/SCNU-SoCoding/scnuoj/issues"
     },
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.5",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "yiisoft/yii2-bootstrap4": "~2.0.6",
+        "yiisoft/yii2-swiftmailer": "~2.1.2",
         "workerman/workerman": "dev-master",
         "workerman/phpsocket.io": "dev-master",
-        "justinvoelker/yii2-tagging": "*"
+        "justinvoelker/yii2-tagging": "*",
+        "fortawesome/font-awesome": "^5.12.1"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.0",
-        "yiisoft/yii2-gii": "~2.0.0",
+        "yiisoft/yii2-debug": "~2.1.13",
+        "yiisoft/yii2-gii": "~2.2.1",
         "yiisoft/yii2-faker": "~2.0.0",
-        "codeception/base": "^2.2.3",
-        "codeception/verify": "~0.3.1",
-        "codeception/specify": "~0.4.3"
+        "codeception/base": "^3.1.2",
+        "codeception/verify": "~1.5.0",
+        "codeception/specify": "~1.4.0"
     },
     "config": {
         "process-timeout": 1800,
@@ -59,5 +60,11 @@
                 "config/web.php"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }

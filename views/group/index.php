@@ -1,6 +1,7 @@
 <?php
 
-use yii\bootstrap\Nav;
+use app\models\User;
+use yii\bootstrap4\Nav;
 use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
@@ -8,22 +9,41 @@ use yii\widgets\ListView;
 
 $this->title = Yii::t('app', 'Groups');
 ?>
+<?php
+    $DefGp = false;
+    if(Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0)
+    {
+       $DefGp = false; 
+    }
+    elseif ((Yii::$app->setting->get('isDefGroup')==2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN) ) {
+        $DefGp = true; 
+    }
+    elseif(Yii::$app->setting->get('isDefGroup')==3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)){
+        $DefGp = true; 
+    }
+    else{
+        $DefGp = false;  
+    }
+?>
 <?= Nav::widget([
     'items' => [
         [
             'label' => Yii::t('app', 'My Groups'),
             'url' => ['group/my-group'],
-            'visible' => !Yii::$app->user->isGuest
+            'visible' => !Yii::$app->user->isGuest,
+            'linkOptions' => ['class' => 'text-dark']
         ],
         [
             'label' => Yii::t('app', 'Explore'),
-            'url' => ['group/index']
+            'url' => ['group/index'],
+            'linkOptions' => ['class' => 'text-dark']
         ],
         [
             'label' => Yii::t('app', 'Create'),
             'url' => 'create',
-            'visible' => !Yii::$app->user->isGuest&&(Yii::$app->user->identity->isAdmin()||Yii::$app->user->identity->isVip()),
-            'options' => ['class' => 'pull-right']
+            'visible' => $DefGp,
+            'options' => ['class' => 'ml-auto'],
+            'linkOptions' => ['class' => 'text-dark']
         ]
     ],
     'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
@@ -32,5 +52,9 @@ $this->title = Yii::t('app', 'Groups');
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_group_item',
-    'layout' => '<div class="card-columns">{items}</div>{summary}{pager}'
+    'layout' => '<div class="card-columns">{items}</div>{summary}{pager}',
+    'pager' => [
+        'linkOptions' => ['class' => 'page-link text-dark'],
+        'maxButtonCount' => 5,
+    ]
 ])?>

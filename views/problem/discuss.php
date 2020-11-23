@@ -18,67 +18,45 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->id . ' - ' . $
 $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
 
 ?>
-<h1><?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id]) ?></h1>
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= Yii::t('app', 'Discuss') ?></h3>
+    </div>
+</div>
+<br />
+
+<?php if (!empty($discusses)): ?>
+<div class="list-group">
+    <?php foreach ($discusses as $discuss): ?>
+    <?= Html::a(Html::encode($discuss->title) . '<span class="float-right">' .Html::encode($discuss->user->nickname) . ' / ' . Yii::$app->formatter->asRelativeTime($discuss->updated_at) . '</span>', ['/discuss/view', 'id' => $discuss->id], ['class' => 'text-dark list-group-item list-group-item-action']) ?>
+    <?php endforeach; ?>
+</div>
+<p></p>
+<?= \yii\widgets\LinkPager::widget([
+        'pagination' => $pages,
+        'linkOptions' => ['class' => 'page-link text-dark'],
+        'maxButtonCount' => 5,
+    ]); ?>
+<p></p>
+<?php endif;?>
+
 <?php if (Yii::$app->user->isGuest): ?>
-    <?= Yii::$app->session->setFlash('info', '创建讨论帖前请先登录。'); ?>
-    <?= app\widgets\login\Login::widget(); ?>
+
 <?php else: ?>
-    <div class="discuss-form">
-        <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($newDiscuss, 'title', [
-            'template' => "<div class=\"input-group\"><span class=\"input-group-addon\">". Yii::t('app', 'Title') ."</span>{input}</div>",
+<div class="discuss-form">
+    <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($newDiscuss, 'title', [
+            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Title') ."</span></div>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])
         ?>
 
-        <?= $form->field($newDiscuss, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+    <?= $form->field($newDiscuss, 'content', [
+            'template' => "{input}",
+        ])->widget('app\widgets\editormd\Editormd'); ?>
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
     </div>
-<?php endif; ?>
-
-<div id="content">
-    <?php foreach ($discusses as $discuss): ?>
-        <article class="thread-item" id="<?= $discuss->id ?>">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tbody>
-                <tr>
-                    <td width="10"></td>
-                    <td width="auto" valign="middle">
-                        <h2><?= Html::a(Html::encode($discuss->title), ['/discuss/view', 'id' => $discuss->id]) ?></h2>
-                        <small style="color: #aaa">
-                            <strong><?= Html::a(Html::encode($discuss->user->username), ['/user/view', 'id' => $discuss->user->username], ['class' => 'thread-nickname', 'rel' => 'author']); ?></strong>
-                            &nbsp;•&nbsp;
-                            <time title="<?= Yii::t('app', 'Last Reply Time') ?>">
-                                <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($discuss->updated_at)?>
-                            </time>
-                            <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $discuss->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)): ?>
-                                &nbsp;•&nbsp;
-                                <span class="glyphicon glyphicon-edit"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $discuss->id]) ?>
-                                &nbsp;•&nbsp;
-                                <span class="glyphicon glyphicon-trash"></span>
-                                <?= Html::a(Yii::t('app', 'Delete'), ['/discuss/delete', 'id' => $discuss->id], [
-                                    'data' => [
-                                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                                        'method' => 'post',
-                                    ],
-                                ]) ?>
-                            <?php endif; ?>
-                        </small>
-                    </td>
-                    <td width="50" align="right" valign="middle" title="<?= Yii::t('app', 'Reply') ?>">
-                        <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ', ['/discuss/view', 'id' => $discuss->id], ['class' => 'badge']); ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </article>
-    <?php endforeach; ?>
+    <?php ActiveForm::end(); ?>
 </div>
-
-<?= \yii\widgets\LinkPager::widget([
-    'pagination' => $pages,
-    //'widgetId' => '#content',
-]); ?>
+<?php endif; ?>

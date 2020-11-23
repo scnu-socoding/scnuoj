@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SolutionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,7 +10,6 @@ use yii\bootstrap\Modal;
 $this->title = Yii::t('app', 'Status');
 ?>
 <div class="solution-index">
-    <?php Pjax::begin() ?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'layout' => '{items}{pager}',
@@ -23,31 +21,34 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0]);
+                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'class' => 'text-dark']);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
                 
             ],
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by]);
+                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:150px;']
             ],
             [
                 'attribute' => 'problem_id',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->problem)) {
-                        return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id]);
+                        return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:200px;']
             ],
             [
                 'attribute' => 'result',
@@ -62,12 +63,14 @@ $this->title = Yii::t('app', 'Status');
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'score',
                 'visible' => Yii::$app->setting->get('oiMode'),
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'time',
@@ -75,7 +78,8 @@ $this->title = Yii::t('app', 'Status');
                     return $model->time . ' MS';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'memory',
@@ -83,7 +87,8 @@ $this->title = Yii::t('app', 'Status');
                     return $model->memory . ' KB';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'language',
@@ -91,19 +96,21 @@ $this->title = Yii::t('app', 'Status');
                     if ($model->canViewSource()) {
                         return Html::a($model->getLang(),
                             ['/solution/source', 'id' => $model->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info"]
+                            ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
                         );
                     } else {
                         return $model->getLang();
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'code_length',
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'created_at',
@@ -111,9 +118,14 @@ $this->title = Yii::t('app', 'Status');
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+        ]
     ]); ?>
 
 <?php
@@ -177,13 +189,13 @@ if (waitingCount > 0) {
             interval = null;
         }
     }
-    interval = setInterval(testWaitingsDone, 200);
+    interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
 $this->registerJs($js);
 ?>
 
-    <?php Pjax::end() ?>
+    
 </div>
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']

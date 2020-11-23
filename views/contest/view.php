@@ -19,110 +19,95 @@ $problems = $model->problems;
 $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 $submissionStatistics = $model->getSubmissionStatistics();
 ?>
-<div class="contest-overview text-center center-block">
-    <div class="table-responsive well">
-        <table class="table table-overview">
-            <tbody>
-            <tr>
-                <th><?= Yii::t('app', 'Start time') ?></th>
-                <td><?= $model->start_time ?></td>
-                <th><?= Yii::t('app', 'Type') ?></th>
-                <td><?= $model->getType() ?></td>
-            </tr>
-            <tr>
-                <th><?= Yii::t('app', 'End time') ?></th>
-                <td><?= $model->end_time ?></td>
-                <th><?= Yii::t('app', 'Status') ?></th>
-                <td><?= $model->getRunStatus(true) ?></td>
-            </tr>
-            </tbody>
-        </table>
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= $model->title ?></h3>
     </div>
-    <div class="contest-desc">
+</div>
+<p></p>
+
+<?php if ($model->description):?>
+<div class="card">
+    <div class="card-body">
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
     </div>
-    <hr>
-    <div class="table-responsive">
-        <!-- <table class="table table-bordered table-problem-list"> -->
-        <table class="table table-problem-list">
-            <thead>
-            <tr>
-                <th width="70px">#</th>
-                <?php
-                if ($model->isContestEnd()) {
-                    echo "<th width='100px'>题号</th>";
-                }
-                ?>
-                <th><?= Yii::t('app', 'Problem Name') ?></th>
-                <th width="100px">正确 / 提交</th>
-                <th width="80px">解答状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($problems as $key => $p): ?>
-                <tr>
-                    <th><?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></th>
-                    <?php
-                    if ($model->isContestEnd()) {
-                        echo "<th>" . Html::a($p['problem_id'], ['/problem/view', 'id' => $p['problem_id']]) . "</th>";
-                    }
-                    ?>
-                    <td><?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
-                    <th>
-                        <?php
-                            if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) {
-                                echo '? / ' . $submissionStatistics[$p['problem_id']]['submit'];
-                            } else {
-                                echo $submissionStatistics[$p['problem_id']]['solved'] . ' / ' . $submissionStatistics[$p['problem_id']]['submit'];
-                            }
-                        ?>
-                    </th>
-                    <th>
-                        <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
+</div>
+<p></p>
+<?php endif;?>
 
-                        <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
-                            <span class="glyphicon glyphicon-question-sign"></span>
-                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
-                            <span class="glyphicon glyphicon-ok text-success" title="正确解答"></span>
-                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
-                            <span class="glyphicon glyphicon-question-sign text-muted" title="等待测评"></span>
-                        <?php else: ?>
-                            <span class="glyphicon glyphicon-remove text-danger" title="未正确解答"></span>
-                        <?php endif; ?>
-                    </th>
-                </tr>
+<div class="row">
+    <div class="col-md-8 col-lg-9">
+        <div class="list-group">
+            <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
+            <?php foreach ($problems as $key => $p): ?>
+            <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
+            <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
+            <?php else: ?>
+            <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-warning']) ?>
+            <?php endif; ?>
             <?php endforeach; ?>
-            </tbody>
-        </table>
+            <?php else: ?>
+            <?php foreach ($problems as $key => $p): ?>
+            <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
+            <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
+            <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
+            <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-success']) ?>
+            <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
+            <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-warning']) ?>
+            <?php else: ?>
+            <?= Html::a(chr(65 + $key) . '. ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-danger']) ?>
+            <?php endif; ?>
+            <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        <p></p>
     </div>
-    <?php
-    if ($dataProvider->count > 0) {
-        echo '<hr>';
+
+    <div class="col-md-4 col-lg-3">
+        <!-- <p></p> -->
+        <div class="list-group">
+            <div class="list-group-item"><?= Yii::t('app', 'Current time') ?><span class="text-secondary float-right"
+                    id="nowdate"><?= date("Y-m-d H:i:s") ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span
+                    class="text-secondary float-right"><?= $model->start_time ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'End time') ?><span
+                    class="text-secondary float-right"><?= $model->end_time ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Type') ?><span
+                    class="text-secondary float-right"><?= $model->getType() ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
+                    class="text-secondary float-right"><?= $model->getRunStatus(true) ?></span></div>
+        </div>
+        <p></p>
+
+        <?php
+        if ($dataProvider->count > 0) {
         echo '<div class="table-responsive">';
-        echo GridView::widget([
+            echo GridView::widget([
             'layout' => '{items}{pager}',
             // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
             'tableOptions' => ['class' => 'table'],
             'dataProvider' => $dataProvider,
-            'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px;text-align: left;'],
+            'options' => ['class' => 'table-responsive'],
             'columns' => [
-                [
-                    'attribute' => 'created_at',
-                    'options' => ['width' => '150px'],
-                    'format' => 'datetime',
-                    'enableSorting' => false
-                ],
-                [
-                    'attribute' => Yii::t('app', 'Announcement'),
-                    'value' => function ($model, $key, $index, $column) {
-                        return Yii::$app->formatter->asMarkdown($model->content);
-                    },
-                    'format' => 'html',
-                    'enableSorting' => false
-                ],
+            [
+            'attribute' => Yii::t('app', 'Announcement'),
+            'value' => function ($model, $key, $index, $column) {
+            return $model->content;
+            },
+            'format' => 'html',
+            'enableSorting' => false
             ],
-        ]);
-        echo '</div>';
-    }
-    ?>
+            ],
+            'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+            ]
+            ]);
+            echo '</div>';
+        }
+        ?>
+
+    </div>
+
 </div>

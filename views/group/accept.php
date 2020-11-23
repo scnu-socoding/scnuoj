@@ -58,4 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['width' => '150px']
         ]
     ],
+    'pager' => [
+        'linkOptions' => ['class' => 'page-link text-dark'],
+        'maxButtonCount' => 5,
+    ]
 ]); ?>

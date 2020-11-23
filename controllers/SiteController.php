@@ -36,7 +36,7 @@ class SiteController extends BaseController
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
                 'fontFile' => '@webroot/fonts/Astarisborn.TTF',
-                'width' => 180
+                'width' => 200
             ],
         ];
     }
@@ -87,7 +87,10 @@ class SiteController extends BaseController
             ->limit(10)
             ->all();
 
-        $pages = new Pagination(['totalCount' => $newsQuery->count()]);
+        $pages = new Pagination([
+            'totalCount' => $newsQuery->count(),
+            'defaultPageSize' => 5
+        ]);
         $news = $newsQuery->offset($pages->offset)
             ->limit($pages->limit)
             ->all();

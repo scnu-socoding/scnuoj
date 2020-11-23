@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use app\models\Solution;
 
 /* @var $this yii\web\View */
@@ -17,7 +17,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Stats');
 
 $stats = $model->getStatisticsData();
 ?>
-<h1><?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id]) ?></h1>
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <h3><?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+<p></p>
 <hr>
 <div class="stats-content" style="padding: 0 50px">
     <h2>提交统计</h2>
@@ -70,9 +76,10 @@ $stats = $model->getStatisticsData();
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->username, ['/user/view', 'id' => $model->created_by]);
+                    return Html::a($model->username, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'result',
@@ -87,37 +94,49 @@ $stats = $model->getStatisticsData();
                         return $model->getResult();
                     }
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'time',
                 'value' => function ($model, $key, $index, $column) {
                     return $model->time . ' MS';
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'memory',
                 'value' => function ($model, $key, $index, $column) {
                     return $model->memory . ' KB';
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'language',
                 'value' => function ($model, $key, $index, $column) {
                     return $model->getLang();
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ],
-            'code_length',
+            [
+                'attribute' => 'code_length',
+                'enableSorting' => false
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+        ]
     ]); ?>
 </div>

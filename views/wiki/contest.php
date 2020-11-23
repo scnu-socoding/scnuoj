@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>ICPC</th>
-            <th>每道试题用时为从竞赛开始到试题解答被判定为正确所耗时间，其间每一次提交运行结果被判错误的话将被加罚 <span class="katex math inline" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">20</span> 分钟时间。赛时未能解答的试题不记时。排名方式由解题数从多到少排序，解题数相同则按则按各题用时之和从少到多排序。</th>
+            <th>每道试题用时为从竞赛开始到试题解答被判定为正确所耗时间，其间每一次提交运行结果被判错误的话将被加罚 <span class="katex math inline" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">20</span> 分钟时间。赛时未能解答的试题不记时。排名方式由解题数从多到少排序，解题数相同则按各题用时之和从少到多排序。</th>
         </tr>
         <tr>
             <th>作业</th>
@@ -48,7 +48,7 @@
 
     <br />
     <h3>关于积分</h3>
-    <p>　　在参加 AK 杯、蓝桥杯热身赛、天梯赛选拔赛等比赛之后，参赛者将根据排名得到一定积分。积分榜单可在 <?= \yii\helpers\Html::a('排行榜页面', ['/rating'], ['target' => '_blank']) ?> 查看。如果参加了比赛但没有通过任何题目，不会计算比赛积分。
+    <p>　　在参加比赛之后，参赛者将根据排名得到一定积分。积分榜单可在 <?= \yii\helpers\Html::a('排行榜页面', ['/rating'], ['target' => '_blank']) ?> 查看。如果参加了比赛但没有通过任何题目，不会计算比赛积分。积分一定程度上反映了参赛者的程序设计能力，可供各位同学找准自己的定位。
     </p>
 
     <br />

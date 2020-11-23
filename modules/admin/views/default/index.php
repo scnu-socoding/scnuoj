@@ -86,10 +86,10 @@ function __($message)
                 <span id="stat_softirq">0.0</span> softirq,
                 <span id="stat_steal">0.0</span> steal
                 <div class="progress">
-                    <div id="stat_UserBar" class="progress-bar progress-bar-success" role="progressbar"
+                    <div id="stat_UserBar" class="progress-bar bg-success" role="progressbar"
                          style="width:1px">&nbsp;
                     </div>
-                    <div id="stat_SystemBar" class="progress-bar progress-bar-warning" role="progressbar"
+                    <div id="stat_SystemBar" class="progress-bar bg-warning" role="progressbar"
                          style="width:0px">&nbsp;
                     </div>
                 </div>
@@ -110,11 +110,11 @@ function __($message)
                 , <?php __('Percent'); ?> <span
                         id="meminfo_UsedPercent"><?= $meminfo['memUsedPercent']; ?></span>%<br>
                 <div class="progress">
-                    <div id="meminfo_UsedBar" class="progress-bar progress-bar-success" role="progressbar"
+                    <div id="meminfo_UsedBar" class="progress-bar bg-success" role="progressbar"
                          style="width:<?= $meminfo['memUsedPercent']; ?>%"></div>
-                    <div id="meminfo_BuffersBar" class="progress-bar progress-bar-info" role="progressbar"
+                    <div id="meminfo_BuffersBar" class="progress-bar bg-info" role="progressbar"
                          style="width:<?= $meminfo['memBuffersPercent']; ?>%"></div>
-                    <div id="meminfo_CachedBar" class="progress-bar progress-bar-warning" role="progressbar"
+                    <div id="meminfo_CachedBar" class="progress-bar bg-warning" role="progressbar"
                          style="width:<?= $meminfo['memCachedPercent']; ?>%"></div>
                 </div>
                 <?php if ($meminfo['swapTotal'] > 0): ?>
@@ -124,7 +124,7 @@ function __($message)
                     , <?php __('Percent'); ?> <span
                             id="meminfo_swapPercent"><?= $meminfo['swapPercent']; ?></span>%
                     <div class="progress">
-                        <div id="meminfo_swapBar" class="progress-bar progress-bar-danger" role="progressbar"
+                        <div id="meminfo_swapBar" class="progress-bar bg-danger" role="progressbar"
                              style="width:<?= $meminfo['swapPercent']; ?>%"></div>
                     </div>
                 <?php endif; ?>
@@ -138,7 +138,7 @@ function __($message)
                 <?php __('Free'); ?> <span id="diskinfo_Free"><?= $diskinfo['diskFree']; ?></span>&nbsp;G，
                 <?php __('Percent'); ?> <span id="diskinfo_Percent"><?= $diskinfo['diskPercent']; ?></span>%
                 <div class="progress">
-                    <div id="diskinfo_UsedBar" class="progress-bar progress-bar-black" role="progressbar"
+                    <div id="diskinfo_UsedBar" class="progress-bar bg-primary" role="progressbar"
                          style="width:<?= $diskinfo['diskPercent']; ?>%"></div>
                 </div>
             </td>

@@ -21,3 +21,9 @@ use app\models\GroupUser;
 <?php elseif ($groupUser->role == GroupUser::ROLE_MANAGER && $model->getRole() == GroupUser::ROLE_LEADER): ?>
     <?= Html::a('设为普通成员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 5], ['class' => 'btn btn-default']); ?>
 <?php endif; ?>
+
+<?php if (($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER && Yii::$app->setting->get('isGroupReset')!=0)
+        || ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_MANAGER && Yii::$app->setting->get('isGroupReset')==2)): ?>
+<?= Html::a('重置密码', ['/group/user-update', 'id' => $groupUser->id, 'role' => 6], ['class' => 'btn btn-default']); ?> 
+<?= Html::a('重置昵称', ['/group/user-update', 'id' => $groupUser->id, 'role' => 7], ['class' => 'btn btn-default']); ?> 
+<?php endif; ?>

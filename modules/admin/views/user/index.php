@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -20,14 +20,15 @@ $this->title = Yii::t('app', 'Users');
     <hr>
     <p>
         <?php Modal::begin([
-            'header' => '<h2>' . Yii::t('app', '批量创建用户') . '</h2>',
+            'title' => '<h2>' . Yii::t('app', '批量创建用户') . '</h2>',
             'toggleButton' => ['label' => Yii::t('app', '批量创建用户'), 'class' => 'btn btn-success'],
         ]);?>
         <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
 
-        <p class="hint-block">1. 一个用户占据一行，每行格式为<code>username password</code>，即用户名与密码之间有一个空格。自行删除多余的空行。</p>
-        <p class="hint-block">2. 用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间</p>
-        <p class="hint-block">3. 密码至少六位</p>
+        <p class="hint-block">1.格式一:每个用户一行，格式为<code>用户名 密码</code>，中间用空格或Tab键分开。</p>
+        <p class="hint-block">2.格式二:每个用户一行，格式为<code>用户名 昵称 密码</code>，中间用空格或Tab键分开。</p>
+        <p class="hint-block">3.用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间</p>
+        <p class="hint-block">4.密码至少六位</p>
 
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])  ?>
 
@@ -77,7 +78,36 @@ $this->title = Yii::t('app', 'Users');
             // 'status',
             // 'created_at',
             // 'updated_at',
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{view} {update} {delete}',
+            'buttons' => [
+                'view' => function ($url, $model, $key) {
+                    $options = [
+                        'title' => Yii::t('yii', 'View'),
+                        'aria-label' => Yii::t('yii', 'View'),
+                        'class' => 'text-dark'
+                    ];
+                    return Html::a('<i class="fas fa-sm fa-eye"></i>', $url, $options);
+                },
+                'update' => function ($url, $model, $key) {
+                    $options = [
+                        'title' => Yii::t('yii', 'Update'),
+                        'aria-label' => Yii::t('yii', 'Update'),
+                        'class' => 'text-dark'
+                    ];
+                    return Html::a('<i class="fas fa-sm fa-pen"></i>', $url, $options);
+                },
+                'delete' => function ($url, $model, $key) {
+                    $options = [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'aria-label' => Yii::t('yii', 'Delete'),
+                        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                        'data-method' => 'post',
+                        'class' => 'text-dark'
+                    ];
+                    return Html::a('<span class="fas fa-sm fa-trash"></span>', $url, $options);
+                }
+            ]]
         ],
     ]);
     $this->registerJs('

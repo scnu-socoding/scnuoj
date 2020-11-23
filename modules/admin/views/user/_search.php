@@ -2,7 +2,7 @@
 
 use app\models\User;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -15,8 +15,7 @@ use yii\bootstrap\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'class' => 'form-inline',
-            'data-pjax' => 1
+            'class' => 'form-inline'
         ],
     ]); ?>
 

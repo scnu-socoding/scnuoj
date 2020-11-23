@@ -36,7 +36,14 @@ class Formatter extends \yii\i18n\Formatter
     {
         $html = Markdown::process($markdown, 'gfm');
         $output = HtmlPurifier::process($html, $this->purifierConfig);
-        return '<div class="markdown">' . $this->katex($output) . '</div>';
+        $output = $this->katex($output);
+        // 一些 DIRTY HACK
+        // 下面两行是新闻、评论等页面代码块添加高亮的
+        $output = preg_replace("/<pre><code.*?>/", "<pre><code class='pre'><p style='font-size:1rem'>", $output);
+        $output = str_replace("</code></pre>", "</p></code></pre>", $output);
+        // 下面这行是给表格添加 bootstrap 样式的
+        $output = str_replace(array("<table>", "</table>"), array("<table class='table'>", "</table>"), $output);
+        return '<div class="markdown">' . $output . '</div>';
     }
 
     /**

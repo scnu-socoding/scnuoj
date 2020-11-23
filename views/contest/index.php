@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use app\models\Contest;
 
 /* @var $this yii\web\View */
@@ -22,15 +21,16 @@ $this->title = Yii::t('app', 'Contests');
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
+                    return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'btn-sm btn-secondary']) . '</span>';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:300px;']
             ],
             [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
-                    $link = Html::a(Yii::t('app', 'Register »'), ['/contest/register', 'id' => $model->id]);
+                    $link = Html::a(Yii::t('app', 'Register »'), ['/contest/view', 'id' => $model->id]);
                     if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
                         $link = '<span class="well-done">' . Yii::t('app', 'Registration completed') . '</span>';
                     }
@@ -42,19 +42,26 @@ $this->title = Yii::t('app', 'Contests');
                         $column = $model->getRunStatus(true);
                     }
                     $userCount = $model->getContestUserCount();
-                    return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
+                    return $column;
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'start_time',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:180px;']
             ],
             [
                 'attribute' => 'end_time',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:180px;']
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+        ]
     ]); ?>
 </div>

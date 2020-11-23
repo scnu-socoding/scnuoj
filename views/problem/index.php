@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use justinvoelker\tagging\TaggingWidget;
 
 /* @var $this yii\web\View */
@@ -14,8 +13,8 @@ $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="row">
 
-    <?php Pjax::begin(); ?>
-    <div class="col-md-9">
+
+    <div class="col-lg-9 col-md-8">
         <?= GridView::widget([
             'layout' => '{items}{pager}',
             'dataProvider' => $dataProvider,
@@ -28,82 +27,87 @@ $this->title = Yii::t('app', 'Problems');
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
                         $solve = '';
                         if (isset($solvedProblem[$model->id])) {
-                            $solve = '<span class="glyphicon glyphicon-ok text-success" style="float:left"></span>';
+                            return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-success']);
                         }
-                        return $solve . Html::a($model->id, ['/problem/view', 'id' => $key]);
+                        return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-secondary']);
                     },
                     'format' => 'raw',
-                    'options' => ['width' => '100px'],
+                    'options' => ['style' => 'min-width:100px;'],
+                    // 'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ],
                 [
                     'attribute' => 'title',
                     'value' => function ($model, $key, $index, $column) {
-                        $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key]);
+                        $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key], ['class' => 'text-dark']);
                         $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
                         $tagsCount = count($tags);
                         if ($tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
                             foreach((array)$tags as $tag) {
-                                $res .= Html::a(Html::encode($tag) , ['/problem/index', 'tag' => $tag
-                            ],$options = ['class' => 'label label-default']);
+                                $res .= Html::a(Html::encode($tag), [
+                                    '/problem/index', 'tag' => $tag
+                                ], ['class' => 'btn-sm btn-secondary']);
+                                $res .= ' ';
                             }
                             $res .= '</span>';
                         }
                         return $res;
                     },
                     'format' => 'raw',
-                    'enableSorting' => false
+                    'enableSorting' => false,
+                    'options' => ['style' => 'min-width:300px;'],
                 ],
                 [
                     'attribute' => 'solved',
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
-                    if($model->submit==0)
-                        $pos = 0;
-                    else
-                        $pos = round($model->accepted *100 / $model->submit,2);
-
-                    return '<div title="通过率:'.$pos.'%" class="press"><span class="bar" style="width: ' . $pos . '%;">' . Html::a($model->accepted . '/' . $model->submit  , [
+                        return Html::a($model->accepted, [
                             '/solution/index',
-                            'SolutionSearch[problem_id]' => $model->id
-                           // 'SolutionSearch[result]' => 0
-                        ], ['data-pjax' => 0]) .'</span></div>';
+                            'SolutionSearch[problem_id]' => $model->id,
+                            'SolutionSearch[result]' => 4
+                        ], ['class' => 'text-dark']);
                     },
                     'format' => 'raw',
-                    'options' => ['width' => '100px'],
-                    'enableSorting' => false
+                    // 'options' => ['width' => '100px'],
+                    'enableSorting' => false,
+                    'options' => ['style' => 'min-width:100px;'],
                 ]
-            ],   
+            ],
+            'pager' => [
+                'linkOptions' => ['class' => 'page-link text-dark'],
+                'maxButtonCount' => 5,
+            ]
         ]); ?>
+        <p></p>
     </div>
-    <div class="col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <?= Html::beginForm('', 'post', ['class' => 'form-inline']) ?>
+    <div class="col-lg-3 col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <?= Html::beginForm('', 'post') ?>
                 <div class="input-group">
-                    <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?>
+                    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
                     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
-                    <span class="input-group-btn">
-                    <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span>', ['class' => 'btn btn-default']) ?>
+                    <span class="input-group-append">
+                        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-secondary']) ?>
                     </span>
                 </div>
                 <?= Html::endForm() ?>
             </div>
         </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading"><?= Yii::t('app', 'Tags') ?></div>
-            <div class="panel-body">
+        <br />
+        <div class="card">
+            <div class="card-header"><?= Yii::t('app', 'Tags') ?></div>
+            <div class="card-body">
                 <?= TaggingWidget::widget([
                     'items' => $tags,
                     'url' => ['/problem/index'],
                     'format' => 'ul',
                     'urlParam' => 'tag',
-                    'listOptions' => ['class' => 'tag-group'],
-                    'liOptions' => ['class' => 'tag-group-item']
+                    'listOptions' => ['style' => 'padding-left:0;'],
+                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:2px'],
+                    'linkOptions' => ['class' => 'btn-sm btn-secondary']
                 ]) ?>
             </div>
         </div>
     </div>
-    <?php Pjax::end(); ?>
 </div>

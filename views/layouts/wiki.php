@@ -1,6 +1,6 @@
 <?php
 
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'Wiki');;
 
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4 col-lg-3">
         <?= Nav::widget([
             'items' => [
                 ['label' => Yii::t('app', '判题信息'), 'url' => ['wiki/index']],
@@ -20,10 +20,11 @@ $this->title = Yii::t('app', 'Wiki');;
                 ['label' => Yii::t('app', 'OI 模式'), 'url' => ['wiki/oi']],
                 ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']]
             ],
-            'options' => ['class' => 'nav nav-pills nav-stacked']
+            'options' => ['class' => 'nav nav-pills flex-column']
         ]) ?>
+    <p></p>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8 col-lg-9">
         <div class="wiki-contetn">
             <?= $content ?>
         </div>

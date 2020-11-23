@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use app\models\Contest;
 
 /* @var $this yii\web\View */
@@ -26,11 +25,10 @@ foreach ($problems as $key => $p) {
 $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
 ?>
-<div class="solution-index" style="margin-top: 20px">
+<div class="solution-index">
     <?php if ($model->isScoreboardFrozen()) :?>
         <p class="text-center">现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</p>
     <?php endif; ?>
-    <?php Pjax::begin() ?>
     <?php if ($model->type != Contest::TYPE_OI || $isContestEnd): ?>
     <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
     <?php endif; ?>
@@ -45,20 +43,22 @@ $isContestEnd = $model->isContestEnd();
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank']);
+                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'class' => 'text-dark']);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by]);
+                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:150px;']
             ],
             [
                 'label' => Yii::t('app', 'Problem'),
@@ -71,10 +71,11 @@ $isContestEnd = $model->isContestEnd();
                         return $model->problem->title;
                     }
                     return Html::a(chr(65 + $res->num) . ' - ' . $model->problem->title,
-                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num]);
+                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num], ['class' => 'text-dark']);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:200px;']
             ],
             [
                 'attribute' => 'result',
@@ -88,20 +89,22 @@ $isContestEnd = $model->isContestEnd();
                     if ($otherCan || $createdBy || $model->type == Contest::TYPE_HOMEWORK || ($userInContest && $isContestEnd)) {
                         return Html::a($solution->getResult(),
                             ['/solution/result', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                            ['onclick' => 'return false', 'data-click' => "solution_info"]
                         );
                     } else {
                         return $solution->getResult();
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'score',
                 'enableSorting' => false,
                 'visible' => $model->type == Contest::TYPE_IOI || $model->type == Contest::TYPE_HOMEWORK ||
-                            ($model->type == Contest::TYPE_OI && $isContestEnd)
+                            ($model->type == Contest::TYPE_OI && $isContestEnd),
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'time',
@@ -113,7 +116,8 @@ $isContestEnd = $model->isContestEnd();
                     return $solution->time . ' MS';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'memory',
@@ -125,7 +129,8 @@ $isContestEnd = $model->isContestEnd();
                     return $solution->memory . ' KB';
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'language',
@@ -134,19 +139,21 @@ $isContestEnd = $model->isContestEnd();
                     if ($solution->canViewSource() || $otherCan) {
                         return Html::a($solution->getLang(),
                             ['/solution/source', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                            ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
                         );
                     } else {
                         return $solution->getLang();
                     }
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'code_length',
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ],
             [
                 'attribute' => 'created_at',
@@ -154,9 +161,14 @@ $isContestEnd = $model->isContestEnd();
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
                 'format' => 'raw',
-                'enableSorting' => false
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:100px;']
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+        ]
     ]); ?>
 <?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
@@ -219,12 +231,11 @@ if (waitingCount > 0) {
             interval = null;
         }
     }
-    interval = setInterval(testWaitingsDone, 500);
+    interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
 $this->registerJs($js);
 ?>
-    <?php Pjax::end() ?>
 </div>
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']

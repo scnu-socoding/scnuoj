@@ -18,6 +18,7 @@ use app\models\Contest;
 use app\models\Solution;
 use app\models\SolutionSearch;
 use app\models\Discuss;
+use yii\data\Pagination;
 
 /**
  * ContestController implements the CRUD actions for Contest model.
@@ -74,13 +75,6 @@ class ContestController extends BaseController
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
 
-        if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/contest/status', [
-                'model' => $model,
-                'searchModel' => $searchModel,
-                'dataProvider' => $searchModel->search(Yii::$app->request->queryParams, $model)
-            ]);
-        }
         return $this->render('/contest/status', [
             'model' => $model,
             'searchModel' => $searchModel,
@@ -339,9 +333,16 @@ class ContestController extends BaseController
         if (!Yii::$app->user->isGuest) {
             $query->orWhere(['parent_id' => 0, 'entity_id' => $model->id, 'entity' => Discuss::ENTITY_CONTEST, 'created_by' => Yii::$app->user->id]);
         }
-        $clarifies = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $clarifies = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        // $clarifies = new ActiveDataProvider([
+        //     'query' => $query,
+        // ]);
 
         if ($discuss != null) {
             return $this->render('/contest/clarify_view', [
@@ -355,6 +356,7 @@ class ContestController extends BaseController
                 'clarifies' => $clarifies,
                 'newClarify' => $newClarify,
                 'discuss' => $discuss,
+                'pages' => $pages,
                 'dataProvider' => $dataProvider
             ]);
         }
@@ -392,7 +394,7 @@ class ContestController extends BaseController
      */
     public function actionStanding2($id, $showStandingBeforeEnd = 1)
     {
-        $this->layout = 'basic';
+        $this->layout = 'contest';
         $model = $this->findModel($id);
         // 访问权限检查
         if ($model->status != Contest::STATUS_VISIBLE) {
@@ -404,6 +406,10 @@ class ContestController extends BaseController
             $rankResult = $model->getRankData(true);
         } else {
             $rankResult = $model->getRankData(true, time());
+        }
+        if($model->canView())
+        {
+            return $this->redirect(['/contest/standing', 'id' => $model->id]);
         }
         return $this->render('/contest/standing2', [
             'model' => $model,
@@ -465,21 +471,12 @@ class ContestController extends BaseController
                 ->limit(10)
                 ->all();
         }
-        if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/contest/problem', [
-                'model' => $model,
-                'solution' => $solution,
-                'problem' => $problem,
-                'submissions' => $submissions
-            ]);
-        } else {
-            return $this->render('/contest/problem', [
-                'model' => $model,
-                'solution' => $solution,
-                'problem' => $problem,
-                'submissions' => $submissions
-            ]);
-        }
+        return $this->render('/contest/problem', [
+            'model' => $model,
+            'solution' => $solution,
+            'problem' => $problem,
+            'submissions' => $submissions
+        ]);
     }
 
     /**

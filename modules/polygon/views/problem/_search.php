@@ -14,8 +14,7 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'class' => 'form-inline',
-            'data-pjax' => 1
+            'class' => 'form-inline'
         ],
     ]); ?>
 

@@ -17,13 +17,13 @@
  * along with HUSTOJ. if not, see <http://www.gnu.org/licenses/>.
  */
 //c & c++
-int LANG_CV[512] = {
+int LANG_CV[CALL_ARRAY_SIZE] = {
 	SYS_read, SYS_write, SYS_mprotect, SYS_munmap, SYS_brk, SYS_arch_prctl, SYS_pread64, SYS_open, SYS_writev,
 	SYS_time, SYS_futex, SYS_set_thread_area, SYS_access, SYS_clock_gettime, SYS_exit_group, SYS_mq_open,
 	SYS_ioprio_get, SYS_unshare, SYS_set_robust_list, SYS_splice, SYS_close, SYS_stat, SYS_fstat, SYS_execve,
 	SYS_uname, SYS_lseek, SYS_readlink, SYS_mmap, SYS_sysinfo, 0};
 //java
-int LANG_JV[512] = {
+int LANG_JV[CALL_ARRAY_SIZE] = {
 	SYS_read, SYS_mprotect, SYS_getuid, SYS_getgid, SYS_geteuid, SYS_getegid, SYS_munmap, SYS_getppid, SYS_getpgrp,
 	SYS_brk, SYS_rt_sigaction, SYS_rt_sigprocmask, SYS_prctl, SYS_arch_prctl, SYS_ioctl, SYS_pread64, SYS_open,
 	SYS_futex, SYS_set_thread_area, SYS_access, SYS_getdents64, SYS_set_tid_address, SYS_pipe, SYS_exit_group,
@@ -31,7 +31,7 @@ int LANG_JV[512] = {
 	SYS_execve, SYS_lstat, SYS_wait4, SYS_uname, SYS_fcntl, SYS_getcwd, SYS_lseek, SYS_readlink, SYS_mmap,
 	SYS_getrlimit, 0};
 //python
-int LANG_YV[512] = {
+int LANG_YV[CALL_ARRAY_SIZE] = {
 	SYS_read, SYS_write, SYS_mprotect, SYS_getuid, SYS_getgid, SYS_geteuid, SYS_getegid, SYS_munmap, SYS_brk,
 	SYS_rt_sigaction, SYS_sigaltstack, SYS_rt_sigprocmask, SYS_sched_get_priority_max, SYS_arch_prctl, SYS_ioctl,
 	SYS_pread64, SYS_getxattr, SYS_open, SYS_futex, SYS_access, SYS_getdents64, SYS_set_tid_address, SYS_clock_gettime,

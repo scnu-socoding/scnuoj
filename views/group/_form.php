@@ -13,9 +13,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name' ,[
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Names') ."</span></div>{input}</div>",
+      ])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description' ,[
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Description') ."</span></div>{input}</div>",
+      ])->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'join_policy')->radioList([
         Group::JOIN_POLICY_INVITE => Yii::t('app', 'Invite Only'),
@@ -33,6 +37,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'kanban', [
             'template' => "{input}",
         ])->widget('app\widgets\editormd\Editormd'); ?>
+
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

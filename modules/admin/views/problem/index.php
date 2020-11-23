@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProblemSearch */
@@ -40,6 +40,14 @@ $this->title = Yii::t('app', 'Problems');
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'layout' => '{pager}{items}{pager}',  
+        'pager' =>[
+          'firstPageLabel' => '首页',
+          'prevPageLabel' => '« ',
+          'nextPageLabel' => '» ',
+          'lastPageLabel' => '尾页',
+          'maxButtonCount' => 18
+        ],        
         'options' => ['id' => 'grid'],
         'columns' => [
             [
@@ -93,8 +101,37 @@ $this->title = Yii::t('app', 'Problems');
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => Yii::t('yii', 'View'),
+                            'aria-label' => Yii::t('yii', 'View'),
+                            'class' => 'text-dark'
+                        ];
+                        return Html::a('<i class="fas fa-sm fa-eye"></i>', $url, $options);
+                    },
+                    'update' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'class' => 'text-dark'
+                        ];
+                        return Html::a('<i class="fas fa-sm fa-pen"></i>', $url, $options);
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => Yii::t('yii', 'Delete'),
+                            'aria-label' => Yii::t('yii', 'Delete'),
+                            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                            'data-method' => 'post',
+                            'class' => 'text-dark'
+                        ];
+                        return Html::a('<span class="fas fa-sm fa-trash"></span>', $url, $options);
+                    }
+                ],
                 'visible' => Yii::$app->user->identity->isAdmin()
-            ],
+            ]
         ],
     ]);
     $this->registerJs('

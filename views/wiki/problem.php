@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 ?>
 
 <h3>Polygon System</h3>

@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */
@@ -27,7 +26,7 @@ foreach ($problems as $key => $p) {
             <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?>
         </h1>
         <?php Modal::begin([
-            'header' => '<h3>'.Yii::t('app','Attention!').'</h3>',
+            'title' => '<h3>'.Yii::t('app','Attention!').'</h3>',
             'toggleButton' => ['label' => Yii::t('app', 'Show the submissions in frontend'), 'class' => 'btn btn-success'],
         ]); ?>
         <h3>继续该操作前，请详细阅读以下内容：</h3>
@@ -45,7 +44,6 @@ foreach ($problems as $key => $p) {
             ['/admin/contest/download-solution', 'id' => $model->id],
             ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => '下载比赛期间正确解答的代码，可用于查重']
         ); ?>
-        <?php Pjax::begin() ?>
         <?= Html::beginForm(
             ['/admin/contest/status', 'id' => $model->id],
             'get',
@@ -133,7 +131,7 @@ foreach ($problems as $key => $p) {
                         'value' => function ($model, $key, $index, $column) {
                             return Html::a($model->getLang(),
                                 ['/solution/source', 'id' => $model->id],
-                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                ['onclick' => 'return false', 'data-click' => "solution_info"]
                             );
                         },
                         'format' => 'raw'
@@ -141,6 +139,9 @@ foreach ($problems as $key => $p) {
                     'code_length',
                     'created_at:datetime',
                 ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link text-dark'],
+                ]
             ]); ?>
         </div>
 <?php
@@ -204,12 +205,12 @@ if ($autoRefresh) {
 }
 $this->registerJs($js);
 ?>
-        <?php Pjax::end() ?>
+
     </div>
 </div>
 
 <?php Modal::begin([
-    'header' => '<h3>'.Yii::t('app','Information').'</h3>',
+    'title' => '<h3>'.Yii::t('app','Information').'</h3>',
     'options' => ['id' => 'solution-info']
 ]); ?>
     <div id="solution-content">

@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use app\models\Contest;
 
 /* @var $this yii\web\View */
@@ -55,5 +54,9 @@ $this->title = Yii::t('app', 'Homework');
                 }
             ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link text-dark'],
+            'maxButtonCount' => 5,
+        ]
     ]); ?>
 </div>

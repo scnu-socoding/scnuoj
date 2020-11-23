@@ -5,8 +5,8 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode($this->title) ?><?php if(Html::encode($this->title) != Yii::$app->setting->get('ojName')) echo " - " . Yii::$app->setting->get('ojName');?></title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
 </head>

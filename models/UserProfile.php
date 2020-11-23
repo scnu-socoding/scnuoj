@@ -17,6 +17,7 @@ use Yii;
  * @property string $school
  * @property string $student_number
  * @property string $major
+ * @property string $personal_intro
  */
 class UserProfile extends \yii\db\ActiveRecord
 {
@@ -42,6 +43,7 @@ class UserProfile extends \yii\db\ActiveRecord
             [['signature', 'school'], 'string', 'max' => 128],
             [['major'], 'string', 'max' => 64],
             [['user_id'], 'unique'],
+            [['personal_intro'], 'string'],
         ];
     }
 
@@ -60,7 +62,8 @@ class UserProfile extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'school' => Yii::t('app', 'School'),
             'student_number' => Yii::t('app', 'Student Number'),
-            'major' => Yii::t('app', 'Major')
+            'major' => Yii::t('app', 'Major'),
+            'personal_intro' => Yii::t('app', 'Profile')
         ];
     }
 }

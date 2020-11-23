@@ -1,25 +1,21 @@
 html,
 body {
     height: 100%;
-    background-color: #ffffff 
-    /* modified by bobby285271 */
+
 }
 pre {
     border-radius: unset;
 }
 .pre {
-    white-space:pre-wrap;
+    white-space: pre-wrap;
     display: block;
     padding: 9.5px;
-    margin: 0 0 10px;
     font-size: 13px;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    line-height: 1.42857143;
-    color: #333;
     word-break: break-all;
     word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+    background-color: #F0F0F0;
+    border-radius: 0.25rem;
 }
 .pre p {
     margin: 0;
@@ -38,24 +34,11 @@ pre {
 
 .footer {
     height: 60px;
-    background-color: #fff;
+    background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
-.logo .brand {
-    color: #fff;
-    font-size: 22px;
-    float: left;
-    padding-left: 10px;
-    position: relative;
-    top: 1px;
-    border-left: 1px solid #eaeaea;
-    margin-top: 15px;
-    margin-left: 5px;
-    overflow: hidden;
-    height: 55px;
-    line-height: 55px;
-}
+
 #header {
     background-color: #006179;
     margin-bottom: 0;
@@ -69,27 +52,6 @@ pre {
     width: 178px;
     height: 52px;
 }
-.jumbotron {
-    background-color: transparent;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-.progress {
-    height: 14px;
-}
-
-.progress-bar {
-    line-height: 14px;
-}
-
-.not-set {
-    color: #c55;
-    font-style: italic;
-}
 
 .well-done {
     color: green;
@@ -98,42 +60,6 @@ pre {
 
 .text-center {
     text-align: center;
-}
-
-/* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
-}
-
-a.asc:after {
-    content: /*"\e113"*/ "\e151";
-}
-
-a.desc:after {
-    content: /*"\e114"*/ "\e152";
-}
-
-.sort-numerical a.asc:after {
-    content: "\e153";
-}
-
-.sort-numerical a.desc:after {
-    content: "\e154";
-}
-
-.sort-ordinal a.asc:after {
-    content: "\e155";
-}
-
-.sort-ordinal a.desc:after {
-    content: "\e156";
 }
 
 .grid-view th {
@@ -146,15 +72,7 @@ a.desc:after {
     color: #999;
 }
 
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
-}
 
-/* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding: 15px;
     border: none;
@@ -272,32 +190,8 @@ a.desc:after {
     max-width: 100%;
 }
 
-.sample-test .input, .sample-test .output {
-    border: 1px solid #888;
-}
-
-.sample-test h4 {
-    padding: 0.25em;
-    margin: 0;
-    border-bottom: 1px solid #888;
-    text-transform: lowercase;
-    font-weight: bold;
-}
-.sample-test pre {
-    padding: 0.25em;
-    margin: 0;
-    background-color: #efefef;
-    border: none;
-}
-
-.sample-test .output {
-    margin-bottom: 1em;
-    position: relative;
-    top: -1px;
-}
-
 .form-signin {
-    max-width: 330px;
+    max-width: 500px;
     padding: 15px;
     margin: 0 auto;
 }
@@ -406,11 +300,17 @@ a.desc:after {
 
 .problem-index-list tr td:nth-child(1),
 .problem-index-list tr th:nth-child(1) {
-    text-align: right;
+    text-align: center;
 }
+
+.problem-index-list thead tr td:nth-child(2),
+.problem-index-list thead tr th:nth-child(2) {
+    text-align: center;
+}
+
 .problem-index-list tr td:nth-child(3),
 .problem-index-list tr th:nth-child(3) {
-    text-align:center;
+    text-align: center;
 }
 .contest-countdown {
     padding: 20px;
@@ -475,6 +375,11 @@ a.desc:after {
 .table-rank th {
     text-align: center;
 }
+
+.table-rank td {
+    text-align: center;
+}
+
 .table-problem-cell {
     font-size: 14px;
     padding: 0 !important;
@@ -574,7 +479,7 @@ a.desc:after {
 
 .test-for-popup {
     margin: 0;
-    border: none;
+    /* border: none; */
 }
 
 .btn-copy {
@@ -682,45 +587,47 @@ a.desc:after {
     margin-bottom: .75rem;
 }
 
-
-.label {
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 3px 10px;
-    color: #333;
-    font-size: 12px;
-    margin-right: 2px;
-    background: #fff;
-    position: relative;
-    font-weight: normal;
+.pagination .page-item.active  .page-link {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #fff !important;
 }
 
-.label-default {
-  background-color: #fff;
+.list-view .card-columns .card .card-header a{
+    color: #212529 !important;
 }
 
+.navbar {
+    background: #e9ecef;
+    /* border-bottom: 2px solid #007bff; */
+}
 
-.press .bar {
-    text-align: center;  
-    padding:0px 3px;
-    background-color: #6daade;  
-    display: flex;  
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-    width: 0%;  
-    height: 100%;  
-   }
-  
-  .press { 
-        width:100%;
-        height:100%;
-      background-color: #ccc;
-      box-shadow: inset 1px 2px 2px rgba(0,0,0,.1);
-      border-radius: .25em;
-      overflow: hidden;  
-  }
-  
-  .press a{ 
-      text-decoration:none; color:#fff;
-  }
-  
+.contest-index thead tr td:nth-child(1),
+.contest-index thead tr th:nth-child(1) {
+    text-align: center;
+}
+
+.contest-index tr td:nth-child(2),
+.contest-index tr th:nth-child(2) {
+    text-align: center;
+}
+
+.contest-index tr td:nth-child(3),
+.contest-index tr th:nth-child(3) {
+    text-align: center;
+}
+
+.contest-index tr td:nth-child(4),
+.contest-index tr th:nth-child(4) {
+    text-align: center;
+}
+
+.nav-pills .nav-link, .nav-pills .show > .nav-link {
+    color: #121416;
+    /* background-color: #5a6268; */
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #6c757d;
+}
