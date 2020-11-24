@@ -148,6 +148,14 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'options' => ['style' => 'min-width:180px'],
                         'enableSorting' => false
                     ],
+                    [
+                        'attribute' => Yii::t('app', 'Update'),
+                        'value' => function ($model, $key, $index, $column) {
+                            return Html::a('<i class="fas fa-sm fa-pen"></i>', ['/homework/update', 'id' => $key], ['class' => 'text-dark']);
+                        },
+                        'format' => 'raw',
+                        'visible' => $model->hasPermission()
+                    ],
                 ],
                 'pager' => [
                     'linkOptions' => ['class' => 'page-link text-dark'],
