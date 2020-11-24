@@ -104,8 +104,8 @@ $this->title = Yii::t('app', 'Problems');
                     'format' => 'ul',
                     'urlParam' => 'tag',
                     'listOptions' => ['style' => 'padding-left:0;'],
-                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block'],
-                    'linkOptions' => ['class' => 'badge badge-light text-secondary']
+                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:0.35rem,padding-top: 0.2rem;padding-bottom: 0.2rem;'],
+                    'linkOptions' => ['class' => 'btn btn-sm btn-secondary']
                 ]) ?>
             </div>
         </div>
