@@ -150,6 +150,10 @@ AppAsset::register($this);
                 }
                 ?>
 
+                <?php if (Yii::$app->setting->get('notice')) : ?>
+                    <div class="alert alert-danger"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>
+                <?php endif; ?>
+
                 <?= Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                     'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",

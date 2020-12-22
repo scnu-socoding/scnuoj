@@ -11,9 +11,16 @@ $this->title = Yii::t('app', 'Setting');
 
 <div class="setting-form">
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <hr>
     <?= Html::beginForm() ?>
+
+    <div class="form-group">
+        <?= Html::textInput('notice', $settings['notice'], ['class' => 'form-control']) ?>
+        <p class="hint-block">
+            开启网站公告后，在网站的导航栏下方，将显示以上文件框中的公告内容。
+        </p>
+    </div>  
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', 'OJ名称'), 'ojName') ?>
