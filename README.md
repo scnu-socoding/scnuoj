@@ -2,7 +2,7 @@
     <a href="http://ss.scnu.edu.cn/" target="_blank">
         <img src="http://statics.scnu.edu.cn/statics/images/scnu/contentlogo.png">
     </a>
-    <h1 align="center"><a href="https://oj.socoding.cn/" target="_blank">South China Normal University Online Judge</a></h1>
+    <h1 align="center"><a href="https://oj-next.socoding.cn/" target="_blank">South China Normal University Online Judge</a></h1>
 </p>
 
 SCNUOJ 派生自 JNOJ，是一个在线判题系统。
