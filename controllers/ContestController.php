@@ -282,8 +282,8 @@ class ContestController extends BaseController
             // 判断是否已经参赛，提交即参加比赛
             if (!$model->isUserInContest()) {
                 Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
-                   'contest_id' => $model->id,
-                   'user_id' => Yii::$app->user->id
+                    'contest_id' => $model->id,
+                    'user_id' => Yii::$app->user->id
                 ])->execute();
             }
             $newClarify->entity = Discuss::ENTITY_CONTEST;
@@ -415,8 +415,7 @@ class ContestController extends BaseController
             'pageSize' => 100
         ]);
         $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
-        if($model->canView())
-        {
+        if ($model->canView()) {
             return $this->redirect(['/contest/standing', 'id' => $model->id]);
         }
         return $this->render('/contest/standing2', [
@@ -440,20 +439,20 @@ class ContestController extends BaseController
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
-        if($pid == -1) {
+        if ($pid == -1) {
             $dataProvider = new ActiveDataProvider([
                 'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
             ]);
-    
+
             return $this->render('/contest/problem_index', [
                 'model' => $model,
                 'dataProvider' => $dataProvider
             ]);
         } else {
             $solution = new Solution();
-    
+
             $problem = $model->getProblemById(intval($pid));
-    
+
             if (!Yii::$app->user->isGuest && $solution->load(Yii::$app->request->post())) {
                 // 判断是否已经参赛，提交即参加比赛
                 if (!$model->isUserInContest()) {
@@ -470,11 +469,23 @@ class ContestController extends BaseController
                     Yii::$app->session->setFlash('error', '比赛已结束。比赛结束五分钟后开放提交。');
                     return $this->refresh();
                 }
-                $solution->problem_id = $problem['id'];
-                $solution->contest_id = $model->id;
-                $solution->status = Solution::STATUS_HIDDEN;
-                $solution->save();
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+                $st = time() - Yii::$app->session['Submit_time'];
+                $jt = intval(Yii::$app->setting->get('submitTime'));
+                if ($st > $jt) {
+                    $solution->problem_id = $problem['id'];
+                    $solution->contest_id = $model->id;
+                    if ($model->language != -1) {
+                        $solution->language = $model->language;
+                    }
+                    $solution->status = Solution::STATUS_HIDDEN;
+                    $solution->save();
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+                    Yii::$app->session['Submit_time'] = time();
+                } else {
+                    $st = $jt - $st;
+                    $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'), $jt, $st);
+                    Yii::$app->session->setFlash('error', $tip);
+                }
                 return $this->refresh();
             }
             $submissions = [];
@@ -497,7 +508,6 @@ class ContestController extends BaseController
                 'submissions' => $submissions
             ]);
         }
-        
     }
 
     /**
