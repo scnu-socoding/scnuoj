@@ -367,6 +367,10 @@ class Solution extends ActiveRecord
      */
     public function canViewSource()
     {
+        //游客不能查看
+        if (Yii::$app->user->isGuest){
+            return false;
+        }
         // 提交代码的作者有权限查看
         if ($this->created_by == Yii::$app->user->id) {
             return true;
