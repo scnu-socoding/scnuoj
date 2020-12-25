@@ -30,7 +30,7 @@ $this->title = Yii::$app->setting->get('ojName');
                         
                             //if the string doesn't contain any space then it will cut without word basis.
                             $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                            $string .= '... <a href="/this/story">继续阅读</a>';
+                            $string .= '... ' . Html::a('继续阅读', ['/site/news', 'id' => $v['id']]);
                         }
                         echo $string;
                     ?>
