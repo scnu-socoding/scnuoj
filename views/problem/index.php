@@ -11,10 +11,77 @@ use justinvoelker\tagging\TaggingWidget;
 
 $this->title = Yii::t('app', 'Problems');
 ?>
+
+
+
+<?= Html::beginForm('', 'post') ?>
+<div class="input-group">
+    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
+    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
+    <span class="input-group-append">
+        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-info']) ?>
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal">高级</button>
+        <!-- 模态框（Modal） -->
+
+    </span>
+</div>
+
+<?= Html::endForm() ?>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:800px!important">
+        <div class="modal-content">
+            <div class="modal-header">
+                高级
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+            </div>
+            <div class="modal-body">
+
+                <?= Html::beginForm('', 'post') ?>
+                <div class="input-group">
+                    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
+                    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
+                    <span class="input-group-append">
+                        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-info']) ?>
+                        <!-- 模态框（Modal） -->
+
+                    </span>
+                </div>
+
+                <p></p>
+                <?= Html::endForm() ?>
+                <?= TaggingWidget::widget([
+                    'items' => $tags,
+                    'url' => ['/problem/index'],
+                    'format' => 'ul',
+                    'urlParam' => 'tag',
+                    'listOptions' => ['style' => 'padding-left:0;'],
+                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:0.35rem,padding-top: 0.2rem;padding-bottom: 0.2rem;'],
+                    'linkOptions' => ['class' => 'badge badge-primary']
+                ]) ?>
+                <p></p>
+                <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))): ?>
+                <ol class="list-group">
+                    <?php foreach ($discusses as $discuss): ?>
+                    <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?php endforeach; ?>
+                </ol>
+                <?php endif; ?>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-danger">关闭</button>
+            </div> -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<br>
 <div class="row">
 
 
-    <div class="col-lg-9 col-md-8">
+    <div class="col">
+
         <?= GridView::widget([
             'layout' => '{items}{pager}',
             'dataProvider' => $dataProvider,
@@ -79,47 +146,5 @@ $this->title = Yii::t('app', 'Problems');
             ]
         ]); ?>
         <p></p>
-    </div>
-    <div class="col-lg-3 col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <?= Html::beginForm('', 'post') ?>
-                <div class="input-group">
-                    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
-                    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
-                    <span class="input-group-append">
-                        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-secondary']) ?>
-                    </span>
-                </div>
-                <?= Html::endForm() ?>
-            </div>
-        </div>
-        <br />
-        <div class="card">
-            <div class="card-header"><?= Yii::t('app', 'Tags') ?></div>
-            <div class="card-body">
-                <?= TaggingWidget::widget([
-                    'items' => $tags,
-                    'url' => ['/problem/index'],
-                    'format' => 'ul',
-                    'urlParam' => 'tag',
-                    'listOptions' => ['style' => 'padding-left:0;'],
-                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:0.35rem,padding-top: 0.2rem;padding-bottom: 0.2rem;'],
-                    'linkOptions' => ['class' => 'btn btn-sm btn-secondary']
-                ]) ?>
-            </div>
-        </div>
-        <p>
-            
-        </p>
-        <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))): ?>
-        <ol class="list-group">
-            <li class="list-group-item text-center"><i class="fas fa-fw fa-comment"></i>最近讨论</li>
-
-            <?php foreach ($discusses as $discuss): ?>
-            <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
-            <?php endforeach; ?>
-        </ol>
-        <?php endif; ?>
     </div>
 </div>
