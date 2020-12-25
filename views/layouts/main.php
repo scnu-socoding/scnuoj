@@ -44,12 +44,12 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container-fluid']
+        'innerContainerOptions' => ['class' => 'container']
     ]);
     $menuItemsLeft = [
-        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+        // ['label' => Yii::$app->setting->get('ojName'), 'url' => ['/site/index']],
         [
             'label' => Yii::t('app', 'Problems'),
             'url' => ['/problem/index'],
@@ -124,12 +124,26 @@ AppAsset::register($this);
 
 
         <?php if ($this->title == Yii::$app->setting->get('ojName')):?>
-        <div class="jumbotron jumbotron-fluid bg-secondary text-white">
+        <section class="py-5 text-center container-fluid">
+            <div class="row py-lg-5">
+                <div class="mx-auto d-none d-md-block">
+                    <br />
+                    <h2>South China Normal University Online Judge</h2>
+                    <p class="lead text-muted">华南师范大学软件学院在线判题系统</p>
+                </div>
+                <div class="mx-auto d-md-none">
+                    <br />
+                    <h2>SCNU Online Judge</h2>
+                    <p class="lead text-muted">华南师范大学软件学院在线判题系统</p>
+                </div>
+            </div>
+        </section>
+        <!-- <div class="jumbotron">
             <?php if (Yii::$app->setting->get('ojName') =="SCNU Online Judge" ):?>
             <div class="text-center d-none d-md-block">
                 <br />
-                <h2>South China Normal University Online Judge</h2>
-                <p>华南师范大学软件学院在线判题系统</p>
+                <h2></h2>
+                <p></p>
             </div>
             <div class="text-center d-md-none">
                 <br />
@@ -142,7 +156,7 @@ AppAsset::register($this);
                 <h2><?= Yii::$app->setting->get('ojName') ?></h2>
             </div>
             <?php endif?>
-        </div>
+        </div> -->
         <?php else: ?>
         <br />
         <p></p>
@@ -152,8 +166,8 @@ AppAsset::register($this);
 
 
 
-        <div class="container-fluid">
-            <div class="col-lg-10 offset-lg-1">
+        <div class="container">
+            <div class="col">
                 <?php
     if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
         $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);

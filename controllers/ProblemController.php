@@ -84,10 +84,21 @@ class ProblemController extends BaseController
             }
         }
 
+        $discusses = (new Query())->select('d.id, d.title, d.created_at, u.nickname, u.username, p.title as ptitle, p.id as pid')
+        ->from('{{%discuss}} as d')
+        ->leftJoin('{{%user}} as u', 'd.created_by=u.id')
+        ->leftJoin('{{%problem}} as p', 'd.entity_id=p.id')
+        ->where(['entity' => Discuss::ENTITY_PROBLEM, 'parent_id' => 0])
+        ->andWhere('DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(d.updated_at)')
+        ->orderBy('d.updated_at DESC')
+        ->limit(10)
+        ->all();
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'tags' => $tags,
-            'solvedProblem' => $solvedProblem
+            'solvedProblem' => $solvedProblem,
+            'discusses' => $discusses
         ]);
     }
 

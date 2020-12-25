@@ -58,7 +58,7 @@ $status = $model->getRunStatus();
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top',
         ],
         'innerContainerOptions' => ['class' => 'container-fluid']
     ]);

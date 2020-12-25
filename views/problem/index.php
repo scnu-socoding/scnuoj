@@ -109,5 +109,17 @@ $this->title = Yii::t('app', 'Problems');
                 ]) ?>
             </div>
         </div>
+        <p>
+            
+        </p>
+        <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))): ?>
+        <ol class="list-group">
+            <li class="list-group-item text-center"><i class="fas fa-fw fa-comment"></i>最近讨论</li>
+
+            <?php foreach ($discusses as $discuss): ?>
+            <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+            <?php endforeach; ?>
+        </ol>
+        <?php endif; ?>
     </div>
 </div>
