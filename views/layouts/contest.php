@@ -63,7 +63,6 @@ $status = $model->getRunStatus();
         'innerContainerOptions' => ['class' => 'container']
     ]);
     $menuItemsLeft = [
-        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
         [
             'label' => Yii::t('app', 'Problems'),
             'url' => ['/problem/index'],
