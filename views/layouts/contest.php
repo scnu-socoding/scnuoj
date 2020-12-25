@@ -44,7 +44,7 @@ $status = $model->getRunStatus();
 <body style="padding-top: 56px;">
 
     <div class="progress hidden-print rounded-0 bg-light">
-        <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60"
+        <div class="progress-bar bg-info" id="contest-progress" role="progressbar" aria-valuenow="60"
             aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
         </div>
     </div>
@@ -58,9 +58,9 @@ $status = $model->getRunStatus();
         'brandLabel' => Yii::$app->setting->get('ojName'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top',
+            'class' => 'navbar navbar-expand-lg navbar-dark bg-primary fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container-fluid']
+        'innerContainerOptions' => ['class' => 'container']
     ]);
     $menuItemsLeft = [
         ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
@@ -135,8 +135,8 @@ $status = $model->getRunStatus();
 
 
 
-        <div class="container-fluid">
-            <div class="col-lg-10 offset-lg-1">
+        <div class="container">
+            <div class="col">
                 <!-- <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
