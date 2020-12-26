@@ -15,40 +15,35 @@ $submit_count = $rankResult['submit_count'];
 <?php if ($model->isScoreboardFrozen()): ?>
 <p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
 <?php endif; ?>
-<table class="table">
-    <thead>
-        <tr>
-            <th style="width:2.5rem">Rank</th>
-            <th style="width:8rem">Number</th>
-            <th>Who</th>
-            <th style="min-width:6.4rem" title="solved / penalty time">Score</th>
+<table class="table table-bordered">
+    <!-- <thead>
+        
+    </thead> -->
+    <tbody style="line-height: 1;">
+        <tr class="bg-tablehead" style="line-height: 2;">
+            <td class="font-weight-bold" style="width:2.5rem">#</td>
+            <td style="width:8rem"></td>
+            <td style="min-width:10rem;text-align:left"></td>
+            <td class="font-weight-bold" style="width:3.5rem" title="Solved / Penalty">=</td>
             <?php foreach($problems as $key => $p): ?>
-            <th style="min-width:6.4rem">
-                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
-                <small>
+            <td style="width:3.5rem">
+                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark font-weight-bold']) ?><br>
+                <!-- <small>
                     <?php
                     // echo "(";
                     if (isset($submit_count[$p['problem_id']]['solved']))
                         echo $submit_count[$p['problem_id']]['solved'];
                     else
                         echo 0;
-                    echo " / ";
-                    if (isset($submit_count[$p['problem_id']]['submit']))
-                        echo $submit_count[$p['problem_id']]['submit'];
-                    else
-                        echo 0;
-                    // echo ")";
                     ?>
-                </small>
-            </th>
+                </small> -->
+            </td>
             <?php endforeach; ?>
         </tr>
-    </thead>
-    <tbody>
         <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?>
         <?php $rank = $result[$i]; ?>
         <tr>
-            <td>
+            <td style="display:table-cell; vertical-align:middle">
                 <?php
                 //线下赛，参加比赛但不参加排名的处理
                 if ($model->scenario == \app\models\Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
@@ -62,21 +57,21 @@ $submit_count = $rankResult['submit_count'];
                 }
                 ?>
             </td>
-            <td>
+            <td style="display:table-cell; vertical-align:middle">
                 <?= Html::encode($rank['student_number']); ?>
             </td>
-            <td>
+            <td style="text-align:left;display:table-cell; vertical-align:middle">
                 <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
 
             </td>
-            <td>
-                <span class="font-weight-bold"><?= $rank['solved'] ?></span> 
-                <small class="text-secondary">
-                <?php if (intval($rank['time'] / 60) < 100000): ?>
-                (<?= intval($rank['time'] / 60) ?>)
-                <?php else:?>
-                (10W+)
-                <?php endif; ?>
+            <td style="display:table-cell; vertical-align:middle">
+                <span class="font-weight-bold"><?= $rank['solved'] ?></span>
+                <small class="text-secondary font-weight-bold ">
+                    <?php if (intval($rank['time'] / 60) < 100000): ?>
+                    <br><?= intval($rank['time'] / 60) ?>
+                    <?php else:?>
+                    <br>10W+
+                    <?php endif; ?>
                 </small>
             </td>
             <?php
@@ -86,7 +81,7 @@ $submit_count = $rankResult['submit_count'];
                 $time = '';
                 if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
                     if ($first_blood[$p['problem_id']] == $rank['user_id']) {
-                        $css_class = 'text-primary font-weight-bold';
+                        $css_class = 'text-success font-weight-bold bg-firstblood';
                     } else {
                         $css_class = 'text-success font-weight-bold';
                     }
@@ -97,10 +92,10 @@ $submit_count = $rankResult['submit_count'];
                         $num = '+' . $rank['wa_count'][$p['problem_id']];
                     }
                     if (intval($rank['ac_time'][$p['problem_id']]) < 100000){
-                        $time = ' <small class="text-secondary">(' . intval($rank['ac_time'][$p['problem_id']]) . ')</small>';
+                        $time = '<br><span class="text-secondary">' . intval($rank['ac_time'][$p['problem_id']]) . '</span>';
                     }
                     else{
-                        $time = ' <small class="text-secondary">(' . '10W+' . ')</small>';
+                        $time = '<br><span class="text-secondary">' . '10W+' . '</span>';
                     }
                     
                 } 
@@ -131,13 +126,12 @@ $submit_count = $rankResult['submit_count'];
                         'cid' => $model->id,
                         'uid' => $rank['user_id']
                     ]);
-                    echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$num}{$time}</td>";
+                    echo "<td class=\"{$css_class}\" style=\"display:table-cell; vertical-align:middle; cursor:pointer\" data-click='submission' data-href='{$url}'>{$num}{$time}</td>";
                 } else {
-                    echo "<td class=\"{$css_class}\">{$num}{$time}</td>";
+                    echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\">{$num}{$time}</td>";
                 }
             }
             ?>
-            </td>
         </tr>
         <?php endfor; ?>
     </tbody>

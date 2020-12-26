@@ -21,7 +21,7 @@ $(".toggle-show-contest-standing input[name='showStandingBeforeEnd']").change(fu
 EOT;
 $this->registerJs($js);
 ?>
-<div class="contest-overview text-center center-block">
+<div class="text-center center-block">
     <?php if ($model->type != Contest::TYPE_OI || $model->isContestEnd()): ?>
     <div class="legend-strip">
         <?php if ($model->isContestEnd()): ?>
