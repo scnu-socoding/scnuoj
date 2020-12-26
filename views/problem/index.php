@@ -58,7 +58,7 @@ $this->title = Yii::t('app', 'Problems');
                     'urlParam' => 'tag',
                     'listOptions' => ['style' => 'padding-left:0;'],
                     'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:0.35rem,padding-top: 0.2rem;padding-bottom: 0.2rem;'],
-                    'linkOptions' => ['class' => 'badge badge-primary']
+                    'linkOptions' => ['class' => 'badge badge-warning']
                 ]) ?>
                 <p></p>
                 <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))): ?>
@@ -94,9 +94,9 @@ $this->title = Yii::t('app', 'Problems');
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
                         $solve = '';
                         if (isset($solvedProblem[$model->id])) {
-                            return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-success']);
+                            return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'badge badge-success']);
                         }
-                        return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'btn-sm btn-secondary']);
+                        return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'badge badge-secondary']);
                     },
                     'format' => 'raw',
                     'options' => ['style' => 'min-width:100px;'],
@@ -114,7 +114,7 @@ $this->title = Yii::t('app', 'Problems');
                             foreach((array)$tags as $tag) {
                                 $res .= Html::a(Html::encode($tag), [
                                     '/problem/index', 'tag' => $tag
-                                ], ['class' => 'btn-sm btn-secondary']);
+                                ], ['class' => 'badge badge-warning']);
                                 $res .= ' ';
                             }
                             $res .= '</span>';
