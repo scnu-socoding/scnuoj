@@ -16,11 +16,10 @@ $this->title = Yii::$app->setting->get('ojName');
     <div class="col">
         <div>
             <?php foreach ($news as $v): ?>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title"><?= Html::a(Html::encode($v['title']), ['/site/news', 'id' => $v['id']], ['class' => 'text-dark']) ?>
-                    </h3>
-                    <?php
+            <h5 class="card-title">
+                <?= Html::a(Html::encode($v['title']), ['/site/news', 'id' => $v['id']], ['class' => 'text-dark']) ?>
+            </h5>
+            <?php
                         $string = strip_tags(Yii::$app->formatter->asMarkdown($v['content']));
                         if (strlen($string) > 1000) {
                         
@@ -34,12 +33,7 @@ $this->title = Yii::$app->setting->get('ojName');
                         }
                         echo $string;
                     ?>
-                </div>
-                <div class="card-footer">
-                    <?= Yii::$app->formatter->asDate($v['created_at']) ?>
-                </div>
-            </div>
-            <p></p>
+            <hr>
             <?php endforeach; ?>
             <?= \yii\widgets\LinkPager::widget([
                 'pagination' => $pages,
