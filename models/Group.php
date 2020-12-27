@@ -151,7 +151,7 @@ class Group extends ActiveRecord
 
     public function getGroupUser()
     {
-        return $this->hasMany(GroupUser::className(), ['group_id' => 'id']);
+        return $this->hasMany(GroupUser::class, ['group_id' => 'id']);
     }
 
     public function hasPermission()

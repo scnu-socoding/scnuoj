@@ -101,7 +101,7 @@ class Discuss extends ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     public function getReply()
@@ -111,6 +111,6 @@ class Discuss extends ActiveRecord
 
     public function getProblem()
     {
-        return $this->hasOne(Problem::className(), ['id' => 'entity_id']);
+        return $this->hasOne(Problem::class, ['id' => 'entity_id']);
     }
 }

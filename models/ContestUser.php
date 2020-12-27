@@ -50,16 +50,16 @@ class ContestUser extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getUserProfile()
     {
-        return $this->hasOne(UserProfile::className(), ['user_id' => 'user_id']);
+        return $this->hasOne(UserProfile::class, ['user_id' => 'user_id']);
     }
 
     public function getContest()
     {
-        return $this->hasOne(Contest::className(), ['id' => 'contest_id']);
+        return $this->hasOne(Contest::class, ['id' => 'contest_id']);
     }
 }

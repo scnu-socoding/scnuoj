@@ -284,12 +284,12 @@ class Solution extends ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     public function getProblem()
     {
-        return $this->hasOne(Problem::className(), ['id' => 'problem_id']);
+        return $this->hasOne(Problem::class, ['id' => 'problem_id']);
     }
 
     public function getUsername()
@@ -299,12 +299,12 @@ class Solution extends ActiveRecord
 
     public function getSolutionInfo()
     {
-        return $this->hasOne(SolutionInfo::className(), ['solution_id' => 'id']);
+        return $this->hasOne(SolutionInfo::class, ['solution_id' => 'id']);
     }
 
     public function getContestProblem()
     {
-        return $this->hasOne(ContestProblem::className(), ['problem_id' => 'problem_id']);
+        return $this->hasOne(ContestProblem::class, ['problem_id' => 'problem_id']);
     }
 
     public function getProblemInContest()

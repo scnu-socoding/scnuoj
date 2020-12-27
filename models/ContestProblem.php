@@ -45,6 +45,6 @@ class ContestProblem extends \yii\db\ActiveRecord
 
     public function getProblem()
     {
-        return $this->hasOne(Problem::className(), ['problem_id' => 'problem_id']);
+        return $this->hasOne(Problem::class, ['problem_id' => 'problem_id']);
     }
 }

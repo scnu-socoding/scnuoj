@@ -136,7 +136,7 @@ class Contest extends \yii\db\ActiveRecord
 
     public function getSolutions()
     {
-        return $this->hasMany(Solution::className(), ['problem_id' => 'problem_id'])
+        return $this->hasMany(Solution::class, ['problem_id' => 'problem_id'])
             ->viaTable(ContestProblem::tableName(), ['contest_id' => 'id']);
     }
 
@@ -169,12 +169,12 @@ class Contest extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     public function getGroup()
     {
-        return $this->hasOne(Group::className(), ['id' => 'group_id']);
+        return $this->hasOne(Group::class, ['id' => 'group_id']);
     }
 
     /**
@@ -230,7 +230,7 @@ class Contest extends \yii\db\ActiveRecord
 
     public function getAnnouncements()
     {
-        return $this->hasMany(ContestAnnouncement::className(), ['contest_id' => 'id']);
+        return $this->hasMany(ContestAnnouncement::class, ['contest_id' => 'id']);
     }
 
     /**
@@ -754,7 +754,7 @@ class Contest extends \yii\db\ActiveRecord
 
     public function getClarifies()
     {
-        return $this->hasMany(Discuss::className(), ['contest_id' => 'id']);
+        return $this->hasMany(Discuss::class, ['contest_id' => 'id']);
     }
 
     /**

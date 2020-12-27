@@ -28,7 +28,7 @@ class ProblemController extends BaseController
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -201,7 +201,7 @@ class ProblemController extends BaseController
             return $this->refresh();
         }
         // $view = ($view == 'view' ? 'view' : 'classic');
-        $view = ($view == 'view' ? 'classic' : 'classic');
+        $view = 'classic';
 
         return $this->render($view, [
             'solution' => $solution,

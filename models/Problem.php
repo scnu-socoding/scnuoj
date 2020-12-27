@@ -198,12 +198,12 @@ class Problem extends ActiveRecord
 
     public function getDiscusses()
     {
-        return $this->hasMany(Discuss::className(), ['problem_id' => 'id']);
+        return $this->hasMany(Discuss::class, ['problem_id' => 'id']);
     }
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     public function getStatisticsData()
