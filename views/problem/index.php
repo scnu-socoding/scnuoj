@@ -69,11 +69,8 @@ $this->title = Yii::t('app', 'Problems');
                 </ol>
                 <?php endif; ?>
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-danger">关闭</button>
-            </div> -->
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div>
+    </div>
 </div>
 
 <br>
