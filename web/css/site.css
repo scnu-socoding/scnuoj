@@ -548,3 +548,14 @@ pre {
 .bg-tablehead {
     background-color: #F9FAFB;
 }
+
+.modal-dialog h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.CodeMirror {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0.25rem;
+}

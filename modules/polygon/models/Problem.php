@@ -145,7 +145,7 @@ class Problem extends \yii\db\ActiveRecord
     public static function getResultList($res = '')
     {
         $results = [
-            '' => 'All',
+            '' => '请选择',
             self::OJ_WT0 => Yii::t('app', 'Pending'),
             self::OJ_WT1 => Yii::t('app', 'Pending Rejudge'),
             self::OJ_CI => Yii::t('app', 'Compiling'),

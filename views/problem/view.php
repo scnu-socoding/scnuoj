@@ -164,7 +164,7 @@ $nextProblemID = $model->getNextProblemID();
             <p></p>
 
             <?php Modal::begin([
-            'title' => '<span style="font-size:1rem">' . Html::encode($model->id . '. ' . $model->title) . '</span>' ,
+            'title' => Yii::t('app', 'Submit') ,
             'size' => Modal::SIZE_LARGE,
             'toggleButton' => [
                 'label' => '<span class="fas fas-fw fa-paper-plane"></span> ' . Yii::t('app', 'Submit'),
@@ -174,14 +174,20 @@ $nextProblemID = $model->getNextProblemID();
             <?php if (Yii::$app->user->isGuest): ?>
             <?= app\widgets\login\Login::widget(); ?>
             <?php else: ?>
+                <div class="input-group"><div class="input-group-prepend"><span class="input-group-text">题目</span></div><input type="text" class="form-control custom-select" disabled="disabled" value="<?=$model->title?>"></div>
+                <p></p>
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select']) ?>
+            <?= $form->field($solution, 'language', [
+                'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">语言</span></div>{input}</div>",
+            ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select']) ?>
 
-            <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+            <?= $form->field($solution, 'source', [
+                'template' => "{input}",
+            ])->widget('app\widgets\codemirror\CodeMirror'); ?>
 
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-outline-secondary', 'id' => 'submit_solution_btn']) ?>
+                <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
             </div>
             <?php ActiveForm::end(); ?>
             <?php endif; ?>
@@ -254,11 +260,11 @@ var submit_btn = document.getElementById("submit_solution_btn");
 function time() {
     if (wait == 0) {
         submit_btn.removeAttribute("disabled");
-        submit_btn.innerHTML = "提交";
+        submit_btn.innerHTML = "<span class=\"fas fas-fw fa-paper-plane\"></span> 提交";
         wait = 5;
     } else {
         submit_btn.setAttribute("disabled", true);
-        submit_btn.innerHTML = "请等待";
+        submit_btn.innerHTML = "若页面没有自动刷新, 请尝试重新提交";
         wait--;
         setTimeout(function () {
             time()

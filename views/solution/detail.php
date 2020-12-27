@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     ?> KB
                 </td>
-                <td><?= Solution::getLanguageList($model->language) ?></td>
+                <td><?= $model->getLang() ?></td>
                 <td><?= $model->code_length ?></td>
                 <td><?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></td>
             </tr>
