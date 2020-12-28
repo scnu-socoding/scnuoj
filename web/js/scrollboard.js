@@ -481,12 +481,12 @@ Board.prototype.showInitBoard = function() {
             var tProblem = team.submitProblemList[this.problemList[key]];
             if (tProblem) {
                 if (tProblem.isUnkonwn)
-                    problemHTML += "<span class=\"label label-warning\">" + tProblem.submitCount + "</span></td>";
+                    problemHTML += "<span class=\"badge badge-warning\">" + tProblem.submitCount + "</span></td>";
                 else {
                     if (tProblem.isAccepted) {
-                        problemHTML += "<span class=\"label label-success\">" + tProblem.submitCount + "/" + parseInt(tProblem.acceptedTime / 1000.0 / 60.0) + "</span></td>";
+                        problemHTML += "<span class=\"badge badge-success\">" + tProblem.submitCount + "/" + parseInt(tProblem.acceptedTime / 1000.0 / 60.0) + "</span></td>";
                     } else {
-                        problemHTML += "<span class=\"label label-danger\">" + tProblem.submitCount + "</span></td>";
+                        problemHTML += "<span class=\"badge badge-danger\">" + tProblem.submitCount + "</span></td>";
                     }
                 }
             }
@@ -555,18 +555,18 @@ Board.prototype.updateTeamStatus = function(team) {
         //构造题目状态HTML
         problemHTML = "";
         if (tProblem.isUnkonwn)
-            problemHTML = "<span class=\"label label-warning\">" + tProblem.submitCount + "</td>";
+            problemHTML = "<span class=\"badge badge-warning\">" + tProblem.submitCount + "</td>";
         else {
             if (tProblem.isAccepted) {
-                problemHTML = "<span class=\"label label-success\">" + tProblem.submitCount + "/" + parseInt(tProblem.acceptedTime / 1000.0 / 60.0) + "</td>";
+                problemHTML = "<span class=\"badge badge-success\">" + tProblem.submitCount + "/" + parseInt(tProblem.acceptedTime / 1000.0 / 60.0) + "</td>";
             } else {
-                problemHTML = "<span class=\"label label-danger\">" + tProblem.submitCount + "</td>";
+                problemHTML = "<span class=\"badge badge-danger\">" + tProblem.submitCount + "</td>";
             }
         }
 
 
         var $problemStatus = $("#team_" + team.teamId + " .problem-status[alphabet-id=\"" + key + "\"]");
-        var $statusSpan = $problemStatus.children('span[class="label label-warning"]');
+        var $statusSpan = $problemStatus.children('span[class="badge badge-warning"]');
 
 
         //让题目状态闪烁，并更新状态

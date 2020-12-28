@@ -12,9 +12,9 @@ use app\models\Solution;
         <?php
         $label = Solution::getResultList($submission['result']);
         if ($submission['result'] == Solution::OJ_AC) {
-            echo "<span class=\"label label-success\">{$label}</span>";
+            echo "<span class=\"badge badge-success\">{$label}</span>";
         } else {
-            echo "<span class=\"label label-danger\">{$label}</span>";
+            echo "<span class=\"badge badge-danger\">{$label}</span>";
         }
         ?>
         →
