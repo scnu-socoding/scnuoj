@@ -67,10 +67,13 @@ $submit_count = $rankResult['submit_count'];
             <td style="display:table-cell; vertical-align:middle">
                 <span class="font-weight-bold"><?= $rank['solved'] ?></span>
                 <small class="text-secondary font-weight-bold ">
+                    <?php if (strtotime($model->end_time) >= 253370736000): ?>
+                    <?php else: ?>
                     <?php if (intval($rank['time'] / 60) < 100000): ?>
                     <br><?= intval($rank['time'] / 60) ?>
                     <?php else:?>
                     <br>10W+
+                    <?php endif; ?>
                     <?php endif; ?>
                 </small>
             </td>
@@ -80,7 +83,7 @@ $submit_count = $rankResult['submit_count'];
                 $num = '';
                 $time = '';
                 if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
-                    if ($first_blood[$p['problem_id']] == $rank['user_id']) {
+                    if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < 253370736000) {
                         $css_class = 'text-success font-weight-bold bg-firstblood';
                     } else {
                         $css_class = 'text-success font-weight-bold';
@@ -97,7 +100,9 @@ $submit_count = $rankResult['submit_count'];
                     else{
                         $time = '<br><span class="text-secondary">' . '10W+' . '</span>';
                     }
-                    
+                    if (strtotime($model->end_time) >= 253370736000) {
+                        $time = '';
+                    }
                 } 
                 // else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
                 //     $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
