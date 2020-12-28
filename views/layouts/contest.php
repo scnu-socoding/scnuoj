@@ -41,13 +41,9 @@ $status = $model->getRunStatus();
     </style>
 </head>
 
-<body style="padding-top: 56px;">
+<body>
 
-    <div class="progress hidden-print rounded-0 bg-light">
-        <div class="progress-bar bg-info" id="contest-progress" role="progressbar" aria-valuenow="60"
-            aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-        </div>
-    </div>
+
 
     <?php $this->beginBody() ?>
 
@@ -60,7 +56,7 @@ $status = $model->getRunStatus();
         'options' => [
             'class' => 'navbar navbar-expand-lg navbar-light bg-light fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container']
+        'innerContainerOptions' => ['class' => 'container-xl']
     ]);
     $menuItemsLeft = [
         [
@@ -131,19 +127,16 @@ $status = $model->getRunStatus();
     ]);
     NavBar::end();
     ?>
+        <br />
+        <p></p>
 
+        <br />
+        <p></p>
 
-
-        <div class="container">
+        <div class="container-xl">
             <div class="col">
-                <!-- <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
-            'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
-        ]) ?> -->
 
-
-                <br />
+                <h3><?= $model->title ?></h3>
                 <?= Alert::widget() ?>
 
                 <?php if (!$model->canView()): ?>
@@ -152,14 +145,14 @@ $status = $model->getRunStatus();
                 <?php
                     $menuItems = [
                     [
-                        'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
-                        'url' => ['contest/view', 'id' => $model->id],
+                        'label' => Yii::t('app', 'Information'),
+                        'url' => ['contest/problem', 'id' => $model->id],
                         'linkOptions' => ['class' => 'text-dark active']
                     ]
                     ];
                 echo Nav::widget([
                     'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
+                    'options' => ['class' => 'nav nav-pills hidden-print', 'style' => 'margin-bottom: 15px'],
                     'encodeLabels' => false
                 ]) ?>
                 <div class="card bg-secondary text-white">
@@ -182,52 +175,46 @@ $status = $model->getRunStatus();
                 </div> -->
                 <?php endif; ?>
                 <?php else: ?>
-                <div class="contest-view">
+                <div>
                     <?php
                 $menuItems = [
                     [
-                        'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
+                        'label' => Yii::t('app', 'Information'),
                         'url' => ['contest/view', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problem'),
+                        'label' => Yii::t('app', 'Problem'),
                         'url' => ['contest/problem', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app' , 'Status'),
+                        'label' => Yii::t('app' , 'Status'),
                         'url' => ['contest/status', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-glass"></span> ' . Yii::t('app', 'Standing'),
+                        'label' => Yii::t('app', 'Standing'),
                         'url' => ['contest/standing', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Clarification'),
+                        'label' => Yii::t('app', 'Clarification'),
                         'url' => ['contest/clarify', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
                     ],
                 ];
                 if ($model->scenario == $model::SCENARIO_OFFLINE && $model->getRunStatus() == $model::STATUS_RUNNING) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-print"></span> 打印服务',
                         'url' => ['/contest/print', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
+
                     ];
                 }
                 if ($model->isContestEnd()) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', 'Editorial'),
                         'url' => ['contest/editorial', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark']
                     ];
                 }
                 echo Nav::widget([
                     'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
+                    'options' => ['class' => 'nav nav-pills hidden-print', 'style' => 'margin-bottom: 15px'],
                     'encodeLabels' => false
                 ]) ?>
                     <?= $content ?>
@@ -269,9 +256,9 @@ $status = $model->getRunStatus();
         var now_time = new Date(n);
         if (now_time < end_time) {
             var rate = (now_time - start_time) / (end_time - start_time) * 100;
-            document.getElementById('contest-progress').style.width = rate + "%";
+            // document.getElementById('contest-progress').style.width = rate + "%";
         } else {
-            document.getElementById('contest-progress').style.width = "100%";
+            // document.getElementById('contest-progress').style.width = "100%";
         }
         setTimeout("clock()", 1000);
     }
