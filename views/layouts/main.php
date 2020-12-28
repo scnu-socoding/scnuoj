@@ -46,7 +46,7 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-light bg-light fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container']
+        'innerContainerOptions' => ['class' => 'container-xl']
     ]);
     $menuItemsLeft = [
         // ['label' => Yii::$app->setting->get('ojName'), 'url' => ['/site/index']],
@@ -166,7 +166,7 @@ AppAsset::register($this);
 
 
 
-        <div class="container">
+        <div class="container-xl">
             <div class="col">
                 <?php
     if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
