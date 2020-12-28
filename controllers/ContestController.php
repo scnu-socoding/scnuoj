@@ -424,59 +424,71 @@ class ContestController extends BaseController
      * @param integer $pid Problem Id
      * @return mixed
      */
-    public function actionProblem($id, $pid = 0)
+    public function actionProblem($id, $pid = -1)
     {
         $model = $this->findModel($id);
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
-        $solution = new Solution();
-
-        $problem = $model->getProblemById(intval($pid));
-
-        if (!Yii::$app->user->isGuest && $solution->load(Yii::$app->request->post())) {
-            // 判断是否已经参赛，提交即参加比赛
-            if (!$model->isUserInContest()) {
-                Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
-                    'contest_id' => $model->id,
-                    'user_id' => Yii::$app->user->id
-                ])->execute();
-            }
-            if ($model->getRunStatus() == Contest::STATUS_NOT_START) {
-                Yii::$app->session->setFlash('error', 'The contest has not started.');
+        if($pid == -1) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+            ]);
+    
+            return $this->render('/contest/problem_index', [
+                'model' => $model,
+                'dataProvider' => $dataProvider
+            ]);
+        } else {
+            $solution = new Solution();
+    
+            $problem = $model->getProblemById(intval($pid));
+    
+            if (!Yii::$app->user->isGuest && $solution->load(Yii::$app->request->post())) {
+                // 判断是否已经参赛，提交即参加比赛
+                if (!$model->isUserInContest()) {
+                    Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
+                        'contest_id' => $model->id,
+                        'user_id' => Yii::$app->user->id
+                    ])->execute();
+                }
+                if ($model->getRunStatus() == Contest::STATUS_NOT_START) {
+                    Yii::$app->session->setFlash('error', 'The contest has not started.');
+                    return $this->refresh();
+                }
+                if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60) {
+                    Yii::$app->session->setFlash('error', '比赛已结束。比赛结束五分钟后开放提交。');
+                    return $this->refresh();
+                }
+                $solution->problem_id = $problem['id'];
+                $solution->contest_id = $model->id;
+                $solution->status = Solution::STATUS_HIDDEN;
+                $solution->save();
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 return $this->refresh();
             }
-            if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60) {
-                Yii::$app->session->setFlash('error', '比赛已结束。比赛结束五分钟后开放提交。');
-                return $this->refresh();
+            $submissions = [];
+            if ((!Yii::$app->user->isGuest) && (!empty($problem))) {
+                $submissions = (new Query())->select('created_at, result, id')
+                    ->from('{{%solution}}')
+                    ->where([
+                        'problem_id' => $problem['id'],
+                        'contest_id' => $model->id,
+                        'created_by' => Yii::$app->user->id
+                    ])
+                    ->orderBy('id DESC')
+                    ->limit(3)
+                    ->all();
             }
-            $solution->problem_id = $problem['id'];
-            $solution->contest_id = $model->id;
-            $solution->status = Solution::STATUS_HIDDEN;
-            $solution->save();
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
-            return $this->refresh();
+            return $this->render('/contest/problem', [
+                'model' => $model,
+                'solution' => $solution,
+                'problem' => $problem,
+                'submissions' => $submissions
+            ]);
         }
-        $submissions = [];
-        if ((!Yii::$app->user->isGuest) && (!empty($problem))) {
-            $submissions = (new Query())->select('created_at, result, id')
-                ->from('{{%solution}}')
-                ->where([
-                    'problem_id' => $problem['id'],
-                    'contest_id' => $model->id,
-                    'created_by' => Yii::$app->user->id
-                ])
-                ->orderBy('id DESC')
-                ->limit(10)
-                ->all();
-        }
-        return $this->render('/contest/problem', [
-            'model' => $model,
-            'solution' => $solution,
-            'problem' => $problem,
-            'submissions' => $submissions
-        ]);
+        
     }
 
     /**
