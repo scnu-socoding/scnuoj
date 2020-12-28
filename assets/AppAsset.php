@@ -19,11 +19,13 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/bootstrap-litera.css',
+        'css/bootstrap-select.min.css',
         'css/site.css',
         'js/katex/katex.min.css',
         'js/highlight/styles/default.css'
     ];
     public $js = [
+        'js/bootstrap-select.min.js',
         'js/highlight/highlight.pack.js',
         'js/katex/katex.min.js',
         'js/socket.io.js',
