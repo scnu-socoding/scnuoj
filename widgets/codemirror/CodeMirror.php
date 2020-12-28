@@ -45,7 +45,7 @@ class CodeMirror extends InputWidget
             lineNumbers: true,
             styleActiveLine: true,
             indentUnit: 4,
-            autofocus: true,
+            autofocus: false,
             matchBrackets: true,
             autoRefresh: true,
             lineWrapping: true, //代码折叠
