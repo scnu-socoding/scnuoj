@@ -15,28 +15,28 @@ use yii\bootstrap4\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'class' => 'form-inline'
+            'class' => ''
         ],
     ]); ?>
 
     <?= $form->field($model, 'id', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span> User ID</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">User ID</span>{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'User ID'])->label(false) ?>
 
     <?= $form->field($model, 'username', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Username'])->label(false) ?>
 
     <?= $form->field($model, 'nickname', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Nickname'])->label(false) ?>
 
     <?= $form->field($model, 'email', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-envelope'></span></span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Email'])->label(false) ?>
 
     <?= $form->field($model, 'role', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">Role</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->dropDownList([
         '' => '所有用户',
         User::ROLE_PLAYER => '参赛用户',

@@ -14,20 +14,20 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'class' => 'form-inline'
+            'class' => ''
         ],
     ]); ?>
 
     <?= $form->field($model, 'id', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span> pid</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Problem ID'])->label(false) ?>
 
     <?= $form->field($model, 'title', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">标题</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
 
     <?= $form->field($model, 'source', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">来源</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Source')])->label(false) ?>
 
     <div class="form-group">
