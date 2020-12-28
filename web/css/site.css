@@ -531,15 +531,6 @@ pre {
     text-align: center;
 }
 
-.nav-pills .nav-link, .nav-pills .show > .nav-link {
-    color: #121416;
-    /* background-color: #5a6268; */
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #6c757d;
-}
 
 .bg-firstblood {
     background-color: #E0FFE4;
