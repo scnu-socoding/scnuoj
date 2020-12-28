@@ -26,7 +26,23 @@ $nextProblemID = $model->getNextProblemID();
 ?>
 
 <h3><?= Html::encode($this->title) ?> </h3>
-
+<?php if (Yii::$app->setting->get('isDiscuss')): ?>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+    <?= Html::a( Yii::t('app', 'Problem'),
+            ['/p/' . $model->id],
+            ['class' => 'nav-link active'])
+        ?>
+    </li>
+    <li class="nav-item">
+        <?= Html::a( Yii::t('app', 'Discuss'),
+            ['/problem/discuss', 'id' => $model->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+</ul>
+<p></p>
+<?php endif; ?>
 <div class="row">
 
     <div class="col-lg-8">
@@ -37,11 +53,11 @@ $nextProblemID = $model->getNextProblemID();
             MB
         </p>
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-        <h5 class="card-title"><?= Yii::t('app', 'Input') ?></h5>
+        <h5><?= Yii::t('app', 'Input') ?></h5>
         <?= Yii::$app->formatter->asMarkdown($model->input) ?>
-        <h5 class="card-title"><?= Yii::t('app', 'Output') ?></h5>
+        <h5><?= Yii::t('app', 'Output') ?></h5>
         <?= Yii::$app->formatter->asMarkdown($model->output) ?>
-        <h5 class="card-title"><?= Yii::t('app', 'Examples') ?></h5>
+        <h5><?= Yii::t('app', 'Examples') ?></h5>
         <div class="sample-test">
             <table class="table table-bordered" style="table-layout:fixed;">
                 <tbody>
@@ -102,13 +118,12 @@ $nextProblemID = $model->getNextProblemID();
         <h5><?= Yii::t('app', 'Hint') ?></h5>
         <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
         <?php endif; ?>
-
-
     </div>
 
 
     <div class="col-lg-4 problem-info">
         <div class="border rounded" style="padding: 1rem 1rem 0rem 1rem">
+
             <?php if (!empty($model->source)): ?>
             <small>
                 来源 <span class="text-info font-weight-bold"><?= $model->source ?></span>.
@@ -129,70 +144,8 @@ $nextProblemID = $model->getNextProblemID();
                     <span class="text-info font-weight-bold"><?= $model->submit ?></span> 提交，其中
                     <span class="text-info font-weight-bold"><?= $model->accepted ?></span> 通过.</small>
             </div>
-            <small>
-                <?php if (Yii::$app->setting->get('isDiscuss')): ?>
-                <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
-            ['/problem/discuss', 'id' => $model->id],
-            ['class' => ''])
-        ?>
-                <?php endif; ?>
-
-                <?= Html::a('<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'),
-            ['/status/index', 'SolutionSearch[problem_id]' => $model->id],
-            ['class' => '']
-        )?>
-
-                <?= Html::a('上一题',
-            $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
-            ['disabled' => !$previousProblemID]
-
-        )?>
-
-                <?= Html::a('下一题',
-            $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
-            ['disabled' => !$nextProblemID]
-        )?>
-
-                <?= Html::a('题目列表', ['/problem/index'])?>
-                <?php if (!empty($model->solution)): ?>
-                <?= Html::a('<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', 'Editorial'),
-            ['/problem/solution', 'id' => $model->id],
-            ['class' => ''])
-        ?>
-                <?php endif; ?>
-            </small>
             <p></p>
 
-            <?php Modal::begin([
-            'title' => Yii::t('app', 'Submit') ,
-            'size' => Modal::SIZE_LARGE,
-            'toggleButton' => [
-                'label' => '<span class="fas fas-fw fa-paper-plane"></span> ' . Yii::t('app', 'Submit'),
-                'class' => 'btn btn-success btn-block'
-            ]
-        ]); ?>
-            <?php if (Yii::$app->user->isGuest): ?>
-            <?= app\widgets\login\Login::widget(); ?>
-            <?php else: ?>
-                <div class="input-group"><div class="input-group-prepend"><span class="input-group-text">题目</span></div><input type="text" class="form-control custom-select" disabled="disabled" value="<?=$model->title?>"></div>
-                <p></p>
-            <?php $form = ActiveForm::begin(); ?>
-
-            <?= $form->field($solution, 'language', [
-                'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">语言</span></div>{input}</div>",
-            ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select']) ?>
-
-            <?= $form->field($solution, 'source', [
-                'template' => "{input}",
-            ])->widget('app\widgets\codemirror\CodeMirror'); ?>
-
-            <div class="form-group">
-                <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
-            <?php endif; ?>
-            <?php Modal::end(); ?>
-            <p></p>
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
             <table class="table" style="line-height: 1;">
                 <tbody>
@@ -239,15 +192,34 @@ $nextProblemID = $model->getNextProblemID();
         </div>
 
 
+    </div>
+</div>
+<div>
+    <?php if (Yii::$app->user->isGuest): ?>
+    <?php else: ?>
+    <p></p>
+    <?php $form = ActiveForm::begin(); ?>
 
-        <?php Modal::begin([
+    <?= $form->field($solution, 'language', [
+                'template' => "{input}",
+            ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
+    <?= $form->field($solution, 'source', [
+                'template' => "{input}",
+            ])->widget('app\widgets\codemirror\CodeMirror'); ?>
+
+    <div class="form-group">
+        <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
+    <?php endif; ?>
+</div>
+<?php Modal::begin([
     'options' => ['id' => 'solution-info']
 ]); ?>
-        <div id="solution-content">
-        </div>
-        <?php Modal::end(); ?>
-    </div>
-    <?php
+<div id="solution-content">
+</div>
+<?php Modal::end(); ?>
+<?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $js = <<<EOF
 
