@@ -13,17 +13,29 @@ use shiyang\infinitescroll\InfiniteScrollPager;
 /* @var $pages yii\data\Pagination */
 
 $this->title = Yii::t('app', 'Discuss');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
-$this->params['breadcrumbs'][] = ['label' => Html::encode($model->id . ' - ' . $model->title), 'url' => ['problem/view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
+// $this->params['breadcrumbs'][] = ['label' => Html::encode($model->id . ' - ' . $model->title), 'url' => ['problem/view', 'id' => $model->id]];
+// $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
 
 ?>
-<div class="card bg-secondary text-white">
-    <div class="card-body">
-        <h3><?= Yii::t('app', 'Discuss') ?></h3>
-    </div>
-</div>
-<br />
+<h3><?= Html::encode($model->id . '. ' . $model->title) ?> </h3>
+<?php if (Yii::$app->setting->get('isDiscuss')): ?>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+    <?= Html::a( Yii::t('app', 'Problem'),
+            ['/p/' . $model->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <li class="nav-item">
+        <?= Html::a( Yii::t('app', 'Discuss'),
+            ['/problem/discuss', 'id' => $model->id],
+            ['class' => 'nav-link active'])
+        ?>
+    </li>
+</ul>
+<p></p>
+<?php endif; ?>
 
 <?php if (!empty($discusses)): ?>
 <div class="list-group">

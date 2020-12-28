@@ -8,23 +8,38 @@ use yii\widgets\ActiveForm;
 /* @var $newDiscuss app\models\Discuss */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
-$this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->id . ' - ' . $model->problem->title), 'url' => ['problem/view', 'id' => $model->problem->id]];
-$this->params['breadcrumbs'][] = ['label' => Html::encode(Yii::t('app', 'Discuss')), 'url' => ['problem/discuss', 'id' => $model->problem->id]];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
+// $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->id . ' - ' . $model->problem->title), 'url' => ['problem/view', 'id' => $model->problem->id]];
+// $this->params['breadcrumbs'][] = ['label' => Html::encode(Yii::t('app', 'Discuss')), 'url' => ['problem/discuss', 'id' => $model->problem->id]];
+// $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
+
+<h3><?= Html::encode($model->problem->id . '. ' . $model->problem->title) ?> </h3>
+<?php if (Yii::$app->setting->get('isDiscuss')): ?>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+    <?= Html::a( Yii::t('app', 'Problem'),
+            ['/p/' . $model->problem->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <li class="nav-item">
+        <?= Html::a( Yii::t('app', 'Discuss'),
+            ['/problem/discuss', 'id' => $model->problem->id],
+            ['class' => 'nav-link active'])
+        ?>
+    </li>
+</ul>
+<p></p>
+<?php endif; ?>
+
 <div class="row">
     <div class="col">
-        <div class="card bg-secondary text-white">
-            <div class="card-body">
-                <h3><?= Html::encode($this->title) ?></h3>
-            </div>
-        </div>
-        <p></p>
         <div class="card">
             <div class="card-body">
+                <h5><?= $model->title ?></h5>
                 <?= Yii::$app->formatter->asMarkdown($model->content) ?>
             </div>
             <div class="card-footer">
