@@ -102,25 +102,6 @@ class ProblemController extends BaseController
         ]);
     }
 
-    // public function actionStatistics($id)
-    // {
-    //     $model = $this->findModel($id);
-
-    //     $dataProvider = new ActiveDataProvider([
-    //         'query' => Solution::find()->with('user')
-    //             ->where(['problem_id' => $model->id, 'result' => Solution::OJ_AC])
-    //             ->orderBy(['time' => SORT_ASC, 'memory' => SORT_ASC, 'code_length' => SORT_ASC]),
-    //         'pagination' => [
-    //             'pageSize' => 10,
-    //         ],
-    //     ]);
-
-    //     return $this->render('stat', [
-    //         'model' => $model,
-    //         'dataProvider' => $dataProvider,
-    //     ]);
-    // }
-
     public function actionDiscuss($id)
     {
         $model = $this->findModel($id);
@@ -177,7 +158,7 @@ class ProblemController extends BaseController
                     'created_by' => Yii::$app->user->id
                 ])
                 ->orderBy('id DESC')
-                ->limit(10)
+                ->limit(3)
                 ->all();
         }
         if ($solution->load(Yii::$app->request->post())) {
