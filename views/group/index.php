@@ -54,7 +54,7 @@ $this->title = Yii::t('app', 'Groups');
     'itemView' => '_group_item',
     'layout' => '<div class="card-columns">{items}</div>{summary}{pager}',
     'pager' => [
-        'linkOptions' => ['class' => 'page-link text-dark'],
+        'linkOptions' => ['class' => 'page-link'],
         'maxButtonCount' => 5,
     ]
 ])?>

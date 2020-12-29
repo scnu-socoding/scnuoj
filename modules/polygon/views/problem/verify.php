@@ -94,7 +94,7 @@ $solution->language = Yii::$app->user->identity->language;
         ]
     ],
     'pager' => [
-        'linkOptions' => ['class' => 'page-link text-dark'],
+        'linkOptions' => ['class' => 'page-link'],
     ]
 ]); ?>
 <hr>

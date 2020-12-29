@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' 
             ]
         ],
         'pager' => [
-            'linkOptions' => ['class' => 'page-link text-dark'],
+            'linkOptions' => ['class' => 'page-link'],
             'maxButtonCount' => 5,
         ]
     ]); ?>

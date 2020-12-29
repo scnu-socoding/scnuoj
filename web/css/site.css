@@ -478,12 +478,6 @@ pre {
     width: 25%!important;
 }
 
-.pagination .page-item.active  .page-link {
-    background-color: #6c757d !important;
-    border-color: #6c757d !important;
-    color: #fff !important;
-}
-
 .list-view .card-columns .card .card-header a{
     color: #212529 !important;
 }

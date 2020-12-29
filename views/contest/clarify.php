@@ -48,7 +48,7 @@ if ($discuss != null) {
                 ],
             ],
             'pager' => [
-                'linkOptions' => ['class' => 'page-link text-dark'],
+                'linkOptions' => ['class' => 'page-link'],
                 'maxButtonCount' => 5,
             ]
         ]);
@@ -66,7 +66,7 @@ if ($discuss != null) {
         <p></p>
         <?= \yii\widgets\LinkPager::widget([
             'pagination' => $pages,
-            'linkOptions' => ['class' => 'page-link text-dark'],
+            'linkOptions' => ['class' => 'page-link'],
             'maxButtonCount' => 5,
         ]); ?>
         <p></p>

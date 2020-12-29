@@ -55,7 +55,7 @@ $this->title = Yii::t('app', 'Homework');
             ]
         ],
         'pager' => [
-            'linkOptions' => ['class' => 'page-link text-dark'],
+            'linkOptions' => ['class' => 'page-link'],
             'maxButtonCount' => 5,
         ]
     ]); ?>

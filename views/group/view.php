@@ -158,7 +158,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     ],
                 ],
                 'pager' => [
-                    'linkOptions' => ['class' => 'page-link text-dark'],
+                    'linkOptions' => ['class' => 'page-link'],
                     'maxButtonCount' => 5,
                 ]
             ]); ?>
@@ -259,7 +259,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     ]
                 ],
                 'pager' => [
-                    'linkOptions' => ['class' => 'page-link text-dark'],
+                    'linkOptions' => ['class' => 'page-link'],
                     'maxButtonCount' => 5,
                 ]
             ]); ?>
