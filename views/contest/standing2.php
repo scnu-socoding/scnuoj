@@ -14,22 +14,22 @@ $this->title = $model->title;
 <?php
     $menuItems = [
         [
-            'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
+            'label' => Yii::t('app', 'Information'),
             'url' => ['contest/view', 'id' => $model->id],
-            'linkOptions' => ['class' => 'text-dark']
         ],
         [
-            'label' => '<span class="glyphicon glyphicon-glass"></span> ' . Yii::t('app', 'Standing'),
+            'label' => Yii::t('app', 'Standing'),
             'url' => Url::toRoute(['/contest/standing2', 'id' => $model->id]),
-            'linkOptions' => ['class' => 'text-dark active'],
+            'linkOptions' => ['class' => 'active'],
             // 'visible' => $model->getRunStatus() != Contest::STATUS_NOT_START
         ]
     ];
     echo Nav::widget([
         'items' => $menuItems,
-        'options' => ['class' => 'nav nav-tabs hidden-print', 'style' => 'margin-bottom: 15px'],
+        'options' => ['class' => 'nav nav-pills hidden-print'],
          'encodeLabels' => false
 ]) ?>
+<p></p>
 <?php echo $this->render('standing', [
     'model' => $model,
     'rankResult' => $rankResult,
