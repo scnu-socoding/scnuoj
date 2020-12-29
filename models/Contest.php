@@ -664,7 +664,7 @@ class Contest extends \yii\db\ActiveRecord
                 continue;
             }
             $submit_count[$pid]['submit']++;
-            if ($row['result'] == Solution::OJ_AC) {
+            if ($row['result'] == Solution::OJ_AC && $this->type == Contest::TYPE_IOI) {
                 // AC
                 $submit_count[$pid]['solved']++;
                 $result[$user]['pending'][$pid] = 0;
@@ -676,18 +676,30 @@ class Contest extends \yii\db\ActiveRecord
                 if (empty($first_blood[$pid])) {
                     $first_blood[$pid] = $user;
                 }
+            } else if ($row['result'] == Solution::OJ_AC) {
+                // OI 赛制遇到 AC 则记录满分，以用于验证最后一次提交是否 AC
+                $result[$user]['full_score'][$pid] = $result[$user]['max_score'][$pid];
+               
             } else if ($row['result'] <= 3) {
                 // 还未测评
                 ++$result[$user]['pending'][$pid];
             }
         }
 
-        foreach ($result as &$v) {
-            foreach ($v['score'] as $s) {
+        foreach ($result as &$v) { // 枚举用户
+            foreach ($v['score'] as $s) { // 枚举题目（最后一次提交）
                 $v['total_score'] += $s;
             }
-            foreach ($v['max_score'] as $s) {
+            foreach ($v['max_score'] as $s) { // 枚举题目（最高分）
                 $v['correction_score'] += $s;
+            }
+            
+            foreach ($problems as $problem) { // 枚举（题目编号）
+                $pid = $problem['problem_id'];
+                if(isset($v['full_score'][$pid]) && $v['full_score'][$pid] == $v['score'][$pid] && $this->type == Contest::TYPE_OI) {
+                    $submit_count[$pid]['solved']++;
+                    $v['solved_flag'][$pid] = 1; // 标记该题已解答
+                }
             }
         }
 
@@ -696,10 +708,8 @@ class Contest extends \yii\db\ActiveRecord
             if ($type == self::TYPE_OI) {
                 if ($a['total_score'] != $b['total_score']) { // 优先测评总分
                     return $a['total_score'] < $b['total_score'];
-                } else if ($a['correction_score'] != $b['correction_score']) { //订正总分
-                    return $a['correction_score'] < $b['correction_score'];
                 } else {
-                    return $a['total_time'] > $b['total_time'];
+                    return $a['correction_score'] < $b['correction_score'];
                 }
             } else { // IOI 只需要最大值的总分排序。
                 if ($a['correction_score'] != $b['correction_score']) {
