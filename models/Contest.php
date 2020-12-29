@@ -702,10 +702,10 @@ class Contest extends \yii\db\ActiveRecord
                     return $a['total_time'] > $b['total_time'];
                 }
             } else { // IOI 只需要最大值的总分排序。
-                if ($a['solved'] != $b['solved']) { //优先解题数
-                    return $a['solved'] < $b['solved'];
-                } else if ($a['correction_score'] != $b['correction_score']) {
+                if ($a['correction_score'] != $b['correction_score']) {
                     return $a['correction_score'] < $b['correction_score'];
+                } else if ($a['solved'] != $b['solved']) { 
+                    return $a['solved'] < $b['solved'];
                 } else {
                     return $a['total_time'] > $b['total_time'];
                 }
