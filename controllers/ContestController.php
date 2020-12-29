@@ -397,7 +397,7 @@ class ContestController extends BaseController
         $this->layout = 'contest';
         $model = $this->findModel($id);
         // 访问权限检查
-        if ($model->status != Contest::STATUS_VISIBLE) {
+        if ($model->status != Contest::STATUS_VISIBLE && !$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
         $rankResult = $model->getRankData(true);
