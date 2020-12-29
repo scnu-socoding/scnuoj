@@ -11,8 +11,8 @@ use yii\web\ForbiddenHttpException;
 /* @var $model app\models\Group */
 
 $this->title = Yii::t('app', 'Create Group');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 
 $DefGp = false;
 if(Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0)

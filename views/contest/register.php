@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Contest */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="card bg-secondary text-white">

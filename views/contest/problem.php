@@ -14,8 +14,8 @@ use app\models\Contest;
 /* @var $submissions array */
 
 $this->title = Html::encode($model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-$this->params['breadcrumbs'][] = $model->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
+// $this->params['breadcrumbs'][] = $model->title;
 $this->params['model'] = $model;
 $submissionStatistics = $model->getSubmissionStatistics();
 

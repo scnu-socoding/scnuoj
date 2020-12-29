@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 $this->title = Yii::t('app', 'Signup');
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?= Yii::$app->session->setFlash('info', '用户名和学号一经设置<b>不可修改</b>，请使用真实学号注册（注册成功后可以设置昵称）。'); ?>

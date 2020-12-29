@@ -9,8 +9,8 @@ use yii\helpers\Html;
 
 $this->title = Html::encode($model->title);
 $this->params['model'] = $model;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contest-editorial">
     <div style="padding: 50px">

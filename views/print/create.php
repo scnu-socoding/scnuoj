@@ -8,9 +8,9 @@ use yii\helpers\Html;
 /* @var $contest app\models\Contest */
 
 $this->title = 'Create Print Source';
-$this->params['breadcrumbs'][] = ['label' => Html::encode($contest->title), 'url' => ['/contest/view', 'id' => $contest->id]];
-$this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $contest->id]];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Html::encode($contest->title), 'url' => ['/contest/view', 'id' => $contest->id]];
+// $this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $contest->id]];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="print-source-create">
 

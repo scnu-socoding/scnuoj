@@ -7,9 +7,9 @@ use yii\widgets\DetailView;
 /* @var $model app\models\ContestPrint */
 
 $this->title = $model->user->nickname . ' [' . $model->user->username . ']';
-$this->params['breadcrumbs'][] = ['label' => $model->contest->title, 'url' => ['/contest/view', 'id' => $model->contest_id]];
-$this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $model->contest_id]];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => $model->contest->title, 'url' => ['/contest/view', 'id' => $model->contest_id]];
+// $this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $model->contest_id]];
+// $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss('
 @media print {

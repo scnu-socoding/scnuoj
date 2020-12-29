@@ -6,7 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 $this->title = '重新发送邮箱验证链接';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-resend-verification-email">
     <h1><?= Html::encode($this->title) ?></h1>
