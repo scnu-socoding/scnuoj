@@ -64,7 +64,7 @@ $submit_count = $rankResult['submit_count'];
             </td>
             <td style="display:table-cell; vertical-align:middle">
                 <span class="font-weight-bold"><?= $rank['solved'] ?></span>
-                <small class="text-secondary font-weight-bold ">
+                <span class="text-secondary font-weight-bold ">
                     <?php if (strtotime($model->end_time) >= 253370736000): ?>
                     <?php else: ?>
                     <?php if (intval($rank['time'] / 60) < 100000): ?>
@@ -73,8 +73,9 @@ $submit_count = $rankResult['submit_count'];
                     <br>10W+
                     <?php endif; ?>
                     <?php endif; ?>
-                </small>
+                </span>
             </td>
+
             <?php
             foreach($problems as $key => $p) {
                 $css_class = '';
@@ -116,11 +117,7 @@ $submit_count = $rankResult['submit_count'];
                 }
                 // 封榜的显示
                 if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                    if ($rank['wa_count'][$p['problem_id']] != 0) {
-                        $num = "-" . $rank['wa_count'][$p['problem_id']] . " <span class=\"text-dark\">/<span> <span class=\"text-warning\">" .  $rank['pending'][$p['problem_id']] . "<span>";
-                    } else {
-                        $num = "<span class=\"text-warning\">" .  $rank['pending'][$p['problem_id']] . "<span>";
-                    }
+                    $num = "<span class=\"text-primary\">?<span>";
                 }
                 if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || (!$model->isScoreboardFrozen() && $model->isContestEnd())) {
                     $url = Url::toRoute([

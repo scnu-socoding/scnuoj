@@ -20,30 +20,23 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
     }
 }
 ?>
-<table class="table table-bordered table-rank" style="margin-top: 15px">
-    <thead>
-    <tr>
-        <th width="60px">Rank</th>
-        <th width="200px">Who</th>
-        <th width="120px">Number</th>
-        <?php if ($model->type == Contest::TYPE_OI): ?>
-        <th width="80px">测评总分</th>
-        <th width="80px">订正总分</th>
-        <?php else: ?>
-        <th width="80px">解答</th>
-        <th width="80px">总分</th>
-        <?php endif; ?>
-        <th width="80px">
-            用时
-            <span data-toggle="tooltip" data-placement="top" title="仅统计比赛期间所有通过题目所需要的总时间（单位：分钟）">
-                <span class="glyphicon glyphicon-question-sign"></span>
-            </span>
-        </th>
-        <?php foreach($problems as $key => $p): ?>
-            <th>
-                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?>
+<table class="table table-bordered">
+
+    <tbody style="line-height: 1;">
+        <tr class="bg-tablehead" style="line-height: 2;">
+            <td class="font-weight-bold" style="width:2.5rem">#</td>
+            <td style="width:8rem"></td>
+            <td style="min-width:10rem;text-align:left"></td>
+            <?php if ($model->type == Contest::TYPE_OI): ?>
+            <td class="font-weight-bold" style="width:3.5rem">=</td>
+            <?php else: ?>
+            <td class="font-weight-bold" style="width:3.5rem">=</td>
+            <?php endif; ?>
+            <?php foreach($problems as $key => $p): ?>
+            <td>
+                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark font-weight-bold']) ?>
                 <br>
-                <span style="color:#7a7a7a; font-size:12px">
+                <!-- <span style="color:#7a7a7a; font-size:12px">
                     <?php
                     if (isset($submit_count[$p['problem_id']]['solved']))
                         echo $submit_count[$p['problem_id']]['solved'];
@@ -57,16 +50,14 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                     else
                         echo 0;
                     ?>
-                </span>
-            </th>
-        <?php endforeach; ?>
-    </tr>
-    </thead>
-    <tbody>
-    <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?>
-    <?php $rank = $result[$i]; ?>
+                </span> -->
+            </td>
+            <?php endforeach; ?>
+        </tr>
+        <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?>
+        <?php $rank = $result[$i]; ?>
         <tr>
-            <th>
+            <td style="display:table-cell; vertical-align:middle">
                 <?php
                 //线下赛，参加比赛但不参加排名的处理
                 if ($model->scenario == Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
@@ -78,28 +69,24 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                     $ranking++;
                 }
                 ?>
-            </th>
-            <th>
-                <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']]) ?>
-            </th>
-            <th>
+            </td>
+            <td style="display:table-cell; vertical-align:middle">
                 <?= Html::encode($rank['student_number']); ?>
-            </th>
-            <?php if ($model->type == Contest::TYPE_OI): ?>
-            <th class="score-solved">
-                <?= $rank['total_score'] ?>
-            </th>
-            <?php else: ?>
-            <th>
-                <?= $rank['solved'] ?>
-            </th>
-            <?php endif ?>
-            <th class="score-time">
-                <?= $rank['correction_score'] ?>
-            </th>
-            <th>
-                <?= intval($rank['total_time']) ?>
-            </th>
+
+            </td>
+            <td style="text-align:left;display:table-cell; vertical-align:middle">
+                <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
+            </td>
+            <td style="display:table-cell; vertical-align:middle">
+                <span class="font-weight-bold ">
+                    <?php if ($model->type == Contest::TYPE_OI): ?>
+                    <?= $rank['total_score'] ?>
+                    <?php else: ?>
+                    <?= $rank['correction_score'] ?>
+                    <?php endif ?>
+                </span>
+            </td>
+
             <?php
             foreach($problems as $key => $p) {
                 $score = '';
@@ -108,13 +95,11 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                 $first = ''; // 题目对应的排名表格第一行字的内容
                 $second = ''; // 第二行字的内容
                 if (isset($rank['solved_flag'][$p['problem_id']])) {
-                    $css_class = 'solved-first'; // 全部正确
-                } else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                    $css_class = 'pending'; // 等待测评
+                    $css_class = 'text-success font-weight-bold '; // 全部正确
                 } else if (isset($rank['score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] > 0) {
-                    $css_class = 'solved'; // 部分正确
+                    $css_class = 'text-warning font-weight-bold '; // 部分正确
                 } else if (isset($rank['score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] == 0) {
-                    $css_class = 'attempted'; // 尝试中
+                    $css_class = 'text-danger font-weight-bold '; // 尝试中
                 }
                 if (isset($rank['score'][$p['problem_id']])) {
                     $score = $rank['score'][$p['problem_id']];
@@ -138,15 +123,14 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                         'cid' => $model->id,
                         'uid' => $rank['user_id']
                     ]);
-                    echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>"
-                        . "{$first}<br><small>{$second}</small></th>";
+                    echo "<td class=\"{$css_class}\" style=\"display:table-cell; vertical-align:middle; cursor:pointer\" data-click='submission' data-href='{$url}'>{$first}</td>";
                 } else {
-                    echo "<th class=\"table-problem-cell {$css_class}\">{$first}<br><small>{$second}</small></th>";
+                    echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\">{$first}</td>";
                 }
             }
             ?>
         </tr>
-    <?php endfor; ?>
+        <?php endfor; ?>
 </table>
 <?php
 $js = "
@@ -170,7 +154,6 @@ $this->registerJs($js);
 <?php Modal::begin([
     'options' => ['id' => 'submission-info']
 ]); ?>
-    <div id="submission-content">
-    </div>
+<div id="submission-content">
+</div>
 <?php Modal::end(); ?>
-
