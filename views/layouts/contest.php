@@ -147,14 +147,15 @@ $status = $model->getRunStatus();
                     [
                         'label' => Yii::t('app', 'Information'),
                         'url' => ['contest/problem', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'text-dark active']
+                        'linkOptions' => ['class' => 'active']
                     ]
                     ];
                 echo Nav::widget([
                     'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-pills hidden-print', 'style' => 'margin-bottom: 15px'],
+                    'options' => ['class' => 'nav nav-pills hidden-print'],
                     'encodeLabels' => false
                 ]) ?>
+                <p></p>
                 <div class="card bg-secondary text-white">
                     <div class="card-body">
                         <h3><?= $model->title ?></h3>
