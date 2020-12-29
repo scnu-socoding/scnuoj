@@ -8,16 +8,10 @@ use yii\bootstrap4\ActiveForm;
 /* @var $model \app\models\Discuss */
 
 $this->title = Html::encode($model->title);
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="news-view">
-    <h1 class="news-title">
-        <?= $this->title ?>
-    </h1>
-    <div class="news-meta">
-        <span class="glyphicon glyphicon-time icon-muted"></span> <?= Yii::$app->formatter->asDate($model->created_at) ?>
-    </div>
-    <div class="news-content">
-        <?= Yii::$app->formatter->asMarkdown($model->content) ?>
-    </div>
+<h3><?= Html::encode($this->title) ?></h3>
+<div class="text-secondary"><i class="fas fa-fw fa-clock"></i> <?= Yii::$app->formatter->asDate($model->created_at) ?>
 </div>
+<hr>
+<?= Yii::$app->formatter->asMarkdown($model->content) ?>
