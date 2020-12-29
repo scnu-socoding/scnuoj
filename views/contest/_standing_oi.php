@@ -96,11 +96,20 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                 $second = ''; // 第二行字的内容
                 if (isset($rank['solved_flag'][$p['problem_id']])) {
                     $css_class = 'text-success font-weight-bold '; // 全部正确
-                } else if (isset($rank['score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] > 0) {
-                    $css_class = 'text-warning font-weight-bold '; // 部分正确
-                } else if (isset($rank['score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] == 0) {
-                    $css_class = 'text-danger font-weight-bold '; // 尝试中
+                } else if ($model->type == Contest::TYPE_IOI) {
+                    if (isset($rank['max_score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] > 0) {
+                        $css_class = 'text-warning font-weight-bold '; // 部分正确
+                    } else if (isset($rank['max_score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] == 0) {
+                        $css_class = 'text-danger font-weight-bold '; // 尝试中
+                    }
+                } else  {
+                    if (isset($rank['score'][$p['problem_id']]) && $rank['score'][$p['problem_id']] > 0) {
+                        $css_class = 'text-warning font-weight-bold '; // 部分正确
+                    } else if (isset($rank['score'][$p['problem_id']]) && $rank['score'][$p['problem_id']] == 0) {
+                        $css_class = 'text-danger font-weight-bold '; // 尝试中
+                    }
                 }
+               
                 if (isset($rank['score'][$p['problem_id']])) {
                     $score = $rank['score'][$p['problem_id']];
                     $max_score = $rank['max_score'][$p['problem_id']];
