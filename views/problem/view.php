@@ -26,23 +26,25 @@ $nextProblemID = $model->getNextProblemID();
 ?>
 
 <h3><?= Html::encode($this->title) ?> </h3>
-<?php if (Yii::$app->setting->get('isDiscuss')): ?>
+
 <ul class="nav nav-pills">
     <li class="nav-item">
-    <?= Html::a( Yii::t('app', 'Problem'),
+        <?= Html::a( Yii::t('app', 'Problem'),
             ['/p/' . $model->id],
             ['class' => 'nav-link active'])
         ?>
     </li>
+    <?php if (Yii::$app->setting->get('isDiscuss')): ?>
     <li class="nav-item">
         <?= Html::a( Yii::t('app', 'Discuss'),
             ['/problem/discuss', 'id' => $model->id],
             ['class' => 'nav-link'])
         ?>
     </li>
+    <?php endif; ?>
 </ul>
 <p></p>
-<?php endif; ?>
+
 <div class="row">
 
     <div class="col-lg-8">
