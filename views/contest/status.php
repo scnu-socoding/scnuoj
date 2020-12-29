@@ -18,9 +18,9 @@ $this->params['model'] = $model;
 $problems = $model->problems;
 
 $nav = [];
-$nav[''] = 'All';
+$nav[''] = '请选择';
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = chr(65 + $key) . '-' . $p['title'];
+    $nav[$p['problem_id']] = chr(65 + $key) . '. ' . $p['title'];
 }
 $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();

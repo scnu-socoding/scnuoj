@@ -10,9 +10,7 @@ use yii\bootstrap4\ActiveForm;
 /* @var $nav string */
 ?>
 
-<div class="solution-search">
-
-    <?php $form = ActiveForm::begin([
+<?php $form = ActiveForm::begin([
         'action' => ['status', 'id' => $contest_id],
         'method' => 'get',
         'options' => [
@@ -20,43 +18,41 @@ use yii\bootstrap4\ActiveForm;
         ],
     ]); ?>
 
-    <div class="row">
-        <div class="col-lg" style="margin-bottom: 3px">
+<div class="row">
+    <div class="col-lg-2" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
         <?= $form->field($model, 'problem_id', [
-            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\"><i class=\"fas fa-fw fa-bars\"></i></span></div>{input}</div>",
+            'template' => "<div class=\"input-group\">{input}</div>",
             'options' => ['class' => ''],
         ])->dropDownList($nav, ['class' => 'form-control custom-select'])->label(false) ?>
-        </div>
-
-        <div class="col-lg" style="margin-bottom: 3px">
-        <?= $form->field($model, 'username', [
-            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\"><i class=\"fas fa-fw fa-user\"></i></span></div>{input}</div>",
-            'options' => ['class' => ''],
-        ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
-        </div>
-
-        <div class="col-lg" style="margin-bottom: 3px">
-        <?= $form->field($model, 'result', [
-            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\"><i class=\"fas fa-fw fa-check\"></i></span></div>{input}</div>",
-            'options' => ['class' => ''],
-        ])->dropDownList($model::getResultList(), ['class' => 'form-control custom-select'])->label(false) ?>
-        </div>
-
-        <div class="col-lg" style="margin-bottom: 3px">
-        <?= $form->field($model, 'language', [
-            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\"><i class=\"fas fa-fw fa-globe\"></i></span></div>{input}</div>",
-            'options' => ['class' => ''],
-        ])->dropDownList($model::getLanguageList(), ['class' => 'form-control custom-select'])->label(false) ?>
-        </div>
-
-        <div class="col-lg" style="margin-bottom: 3px">
-            <div class="btn-group btn-block">
-                <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-secondary']) ?>
-                <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
-            </div>
-        </div>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <div class="col-lg-2" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <?= $form->field($model, 'username', [
+            'template' => "<div class=\"input-group\">{input}</div>",
+            'options' => ['class' => ''],
+        ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
+    </div>
 
+    <div class="col-lg-2" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <?= $form->field($model, 'result', [
+            'template' => "<div class=\"input-group\">{input}</div>",
+            'options' => ['class' => ''],
+        ])->dropDownList($model::getResultList(), ['class' => 'form-control custom-select'])->label(false) ?>
+    </div>
+
+    <div class="col-lg-2" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <?= $form->field($model, 'language', [
+            'template' => "<div class=\"input-group\">{input}</div>",
+            'options' => ['class' => ''],
+        ])->dropDownList($model::getLanguageList(), ['class' => 'form-control custom-select'])->label(false) ?>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <div class="btn-group btn-block">
+            <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> '. Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
+            <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> '. Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
 </div>
+
+<?php ActiveForm::end(); ?>

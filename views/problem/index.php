@@ -78,7 +78,6 @@ $this->title = Yii::t('app', 'Problems');
     </div>
 </div>
 
-<br>
 <div class="row">
 
 

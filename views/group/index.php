@@ -31,28 +31,26 @@ $this->title = Yii::t('app', 'Groups');
             'label' => Yii::t('app', 'My Groups'),
             'url' => ['group/my-group'],
             'visible' => !Yii::$app->user->isGuest,
-            'linkOptions' => ['class' => 'text-dark']
         ],
         [
             'label' => Yii::t('app', 'Explore'),
             'url' => ['group/index'],
-            'linkOptions' => ['class' => 'text-dark']
         ],
         [
             'label' => Yii::t('app', 'Create'),
             'url' => 'create',
             'visible' => $DefGp,
             'options' => ['class' => 'ml-auto'],
-            'linkOptions' => ['class' => 'text-dark']
         ]
     ],
-    'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
+    'options' => ['class' => 'nav-pills']
 ]) ?>
+<p></p>
 
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_group_item',
-    'layout' => '<div class="card-columns">{items}</div>{summary}{pager}',
+    'layout' => '<div class="card-columns">{items}</div>{summary}<p></p>{pager}',
     'pager' => [
         'linkOptions' => ['class' => 'page-link'],
         'maxButtonCount' => 5,
