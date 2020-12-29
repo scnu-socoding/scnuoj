@@ -15,17 +15,23 @@ $this->title = Yii::t('app', 'Problems');
 
 
 <?= Html::beginForm('', 'post') ?>
-<div class="input-group">
-    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
-    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
-    <span class="input-group-append">
-        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-info']) ?>
-        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-fw fa-tags"></i></button>
-        <!-- 模态框（Modal） -->
 
-    </span>
+<div class="row">
+    <div class="input-group">
+        <div class="col-lg-8" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+            <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
+        </div>
+
+        <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+            <div class="btn-group btn-block">
+                <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> 搜索', ['class' => 'btn btn-info']) ?>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i
+                        class="fas fa-fw fa-tags"></i> 高级</button>
+                <!-- 模态框（Modal） -->
+            </div>
+        </div>
+    </div>
 </div>
-
 <?= Html::endForm() ?>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -41,10 +47,9 @@ $this->title = Yii::t('app', 'Problems');
                 <?= Html::beginForm('', 'post') ?>
                 <div class="input-group">
                     <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
-                    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
+                    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
                     <span class="input-group-append">
                         <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-info']) ?>
-                        <!-- 模态框（Modal） -->
 
                     </span>
                 </div>
