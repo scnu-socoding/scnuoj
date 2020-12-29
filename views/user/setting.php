@@ -39,7 +39,7 @@ $this->title = $model->nickname;
         ];
         echo Nav::widget([
             'items' => $menuItems,
-            'options' => ['class' => 'nav nav-tabs']
+            'options' => ['class' => 'nav nav-pills']
         ]) ?>
     </div>
     <div class="user-form" style="padding: 10px 0">
