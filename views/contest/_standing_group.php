@@ -38,7 +38,7 @@ $submit_count = $rankResult['submit_count'];
             </td>
             <?php endforeach; ?>
         </tr>
-        <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?>
+        <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++): ?>
         <?php $rank = $result[$i]; ?>
         <tr>
             <td style="display:table-cell; vertical-align:middle">
@@ -50,7 +50,26 @@ $submit_count = $rankResult['submit_count'];
                 elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
                     echo '*';
                 } else {
-                    echo $ranking;
+                    if($ranking != 1) {
+                        if (strtotime($model->end_time) >= 253370736000) {
+                            if ($result[$i]['solved'] != $result[$i-1]['solved']) {
+                                echo $ranking;
+                                $last_ranking = $ranking;
+                            } else {
+                                echo $last_ranking;
+                            }
+                        } else {
+                            if ($result[$i]['solved'] != $result[$i-1]['solved'] || $result[$i]['time'] != $result[$i-1]['time']) {
+                                echo $ranking;
+                                $last_ranking = $ranking;
+                            } else {
+                                echo $last_ranking;
+                            }
+                        }
+                    } else {
+                        echo $ranking;
+                    }
+                    
                     $ranking++;
                 }
                 ?>
