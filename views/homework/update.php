@@ -59,7 +59,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?= $form->field($model, 'editorial')->widget('app\widgets\editormd\Editormd'); ?>
 
             <?= $form->field($model, 'type')->radioList([
-                Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
+                // Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
                 Contest::TYPE_RANK_GROUP => Yii::t('app', 'ICPC'),
                 Contest::TYPE_HOMEWORK => Yii::t('app', 'Homework'),
                 Contest::TYPE_OI => Yii::t('app', 'OI'),
