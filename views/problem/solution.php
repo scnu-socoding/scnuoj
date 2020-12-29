@@ -8,15 +8,35 @@ use yii\helpers\Html;
 /* @var $submissions array */
 
 $this->title = Yii::t('app', 'Editorial');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id . ' - ' . $model->title, 'url' => ['/problem/view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Editorial');
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => $model->id . ' - ' . $model->title, 'url' => ['/problem/view', 'id' => $model->id]];
+// $this->params['breadcrumbs'][] = Yii::t('app', 'Editorial');
 ?>
-<div class="news-view">
-    <h1 class="news-title">
-        <?= Html::a(Html::encode($this->title), ['/problem/view', 'id' => $model->id]) ?>
-    </h1>
-    <div class="news-content">
-        <?= Yii::$app->formatter->asMarkdown($model->solution) ?>
-    </div>
-</div>
+<h3><?= Html::encode($model->id . '. ' . $model->title) ?> </h3>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <?= Html::a( Yii::t('app', 'Problem'),
+            ['/p/' . $model->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <?php if (Yii::$app->setting->get('isDiscuss')): ?>
+    <li class="nav-item">
+        <?= Html::a( Yii::t('app', 'Discuss'),
+            ['/problem/discuss', 'id' => $model->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <?php endif; ?>
+    <?php if (!empty($model->solution)): ?>
+    <li class="nav-item">
+        <?= Html::a(Yii::t('app', 'Editorial'),
+            ['/problem/solution', 'id' => $model->id],
+            ['class' => 'nav-link active'])
+        ?>
+    </li>
+    <?php endif; ?>
+</ul>
+<p></p>
+
+<?= Yii::$app->formatter->asMarkdown($model->solution) ?>

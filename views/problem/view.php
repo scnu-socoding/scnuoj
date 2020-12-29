@@ -42,6 +42,14 @@ $nextProblemID = $model->getNextProblemID();
         ?>
     </li>
     <?php endif; ?>
+    <?php if (!empty($model->solution)): ?>
+    <li class="nav-item">
+        <?= Html::a(Yii::t('app', 'Editorial'),
+            ['/problem/solution', 'id' => $model->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <?php endif; ?>
 </ul>
 <p></p>
 

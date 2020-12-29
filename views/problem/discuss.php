@@ -19,7 +19,7 @@ $this->title = Yii::t('app', 'Discuss');
 
 ?>
 <h3><?= Html::encode($model->id . '. ' . $model->title) ?> </h3>
-<?php if (Yii::$app->setting->get('isDiscuss')): ?>
+
 <ul class="nav nav-pills">
     <li class="nav-item">
     <?= Html::a( Yii::t('app', 'Problem'),
@@ -27,15 +27,25 @@ $this->title = Yii::t('app', 'Discuss');
             ['class' => 'nav-link'])
         ?>
     </li>
+    <?php if (Yii::$app->setting->get('isDiscuss')): ?>
     <li class="nav-item">
         <?= Html::a( Yii::t('app', 'Discuss'),
             ['/problem/discuss', 'id' => $model->id],
             ['class' => 'nav-link active'])
         ?>
     </li>
+    <?php endif; ?>
+    <?php if (!empty($model->solution)): ?>
+    <li class="nav-item">
+        <?= Html::a(Yii::t('app', 'Editorial'),
+            ['/problem/solution', 'id' => $model->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <?php endif; ?>
 </ul>
 <p></p>
-<?php endif; ?>
+
 
 <?php if (!empty($discusses)): ?>
 <div class="list-group">
@@ -67,7 +77,7 @@ $this->title = Yii::t('app', 'Discuss');
         ])->widget('app\widgets\editormd\Editormd'); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
+        <?= Html::submitButton("<span class=\"fas fas-fw fa-comment\"></span> " . Yii::t('app', 'Create'), ['class' => 'btn btn-block btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

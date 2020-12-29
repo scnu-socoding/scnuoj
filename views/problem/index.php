@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Problems');
     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '输入 ID 或标题或来源']) ?>
     <span class="input-group-append">
         <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-info']) ?>
-        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal">高级</button>
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-fw fa-tags"></i></button>
         <!-- 模态框（Modal） -->
 
     </span>

@@ -33,6 +33,14 @@ $this->title = Html::encode($model->title);
         ?>
     </li>
     <?php endif; ?>
+    <?php if (!empty($model->problem->solution)): ?>
+    <li class="nav-item">
+        <?= Html::a(Yii::t('app', 'Editorial'),
+            ['/problem/solution', 'id' => $model->problem->id],
+            ['class' => 'nav-link'])
+        ?>
+    </li>
+    <?php endif; ?>
 </ul>
 <p></p>
 
@@ -101,7 +109,7 @@ $this->title = Html::encode($model->title);
     <?= $form->field($newDiscuss, 'content')->widget('app\widgets\editormd\Editormd')->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-outline-secondary']) ?>
+        <?= Html::submitButton("<span class=\"fas fas-fw fa-comment\"></span> " . Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
     <?php endif; ?>
