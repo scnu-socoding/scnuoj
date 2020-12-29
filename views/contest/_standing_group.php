@@ -16,15 +16,13 @@ $submit_count = $rankResult['submit_count'];
 <p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
 <?php endif; ?>
 <table class="table table-bordered">
-    <!-- <thead>
-        
-    </thead> -->
+
     <tbody style="line-height: 1;">
         <tr class="bg-tablehead" style="line-height: 2;">
             <td class="font-weight-bold" style="width:2.5rem">#</td>
             <td style="width:8rem"></td>
             <td style="min-width:10rem;text-align:left"></td>
-            <td class="font-weight-bold" style="width:3.5rem" title="Solved / Penalty">=</td>
+            <td class="font-weight-bold" style="width:3.5rem">=</td>
             <?php foreach($problems as $key => $p): ?>
             <td style="width:3.5rem">
                 <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark font-weight-bold']) ?><br>
