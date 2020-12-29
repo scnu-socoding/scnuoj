@@ -15,12 +15,7 @@ $this->title = $model->title;
 $this->params['model'] = $model;
 ?>
 <?php if ($model->status == Contest::STATUS_PRIVATE): ?>
-<div class="card bg-secondary text-white">
-    <div class="card-body">
-        <h3>私密比赛</h3>
-    </div>
-</div>
-<p></p>
+<h3>私密比赛</h3>
 <div class="card">
     <div class="card-body">
         该比赛仅参赛人员可见。
