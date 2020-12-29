@@ -24,17 +24,13 @@ $submissionStatistics = $model->getSubmissionStatistics();
 
 <div class="row">
     <div class="col-lg-8">
-        <div class="card">
-            <div class="card-body">
-                <?php if (strtotime($model->end_time) >= 253370736000): ?>
-                <b>永久开放的题目集</b> 任何时候均可进行作答。
-                <?php else: ?>
-                <b>限时开放的题目集</b> 只有在规定时间内的作答才会被计入比赛正式榜单。
-                <?php endif; ?>
-
-
-
-            </div>
+        <div class="alert alert-light">
+            <i class="fas fa-fw fa-info-circle"></i>
+            <?php if (strtotime($model->end_time) >= 253370736000): ?>
+            <b>永久开放的题目集</b> 任何时候均可进行作答。
+            <?php else: ?>
+            <b>限时开放的题目集</b> 只有在规定时间内的作答才会被计入比赛正式榜单。
+            <?php endif; ?>
         </div>
         <p></p>
         <?php if ($model->description):?>
@@ -81,21 +77,23 @@ $submissionStatistics = $model->getSubmissionStatistics();
             <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span
                     class="text-secondary float-right"><?= $model->start_time ?></span></div>
             <div class="list-group-item"><?= Yii::t('app', 'End time') ?>
-            <?php if (strtotime($model->end_time) >= 253370736000): ?>
-                <span class="text-secondary float-right">一直开放</span></div>
-                <?php else: ?>
-                    <span class="text-secondary float-right"><?= $model->end_time ?></span></div>
-                <?php endif; ?>
-            
-            <div class="list-group-item"><?= Yii::t('app', 'Type') ?><span
-                    class="text-secondary float-right"><?= $model->getType() ?></span></div>
-            <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
-                    class="text-secondary float-right"><?= $model->getRunStatus(true) ?></span></div>
+                <?php if (strtotime($model->end_time) >= 253370736000): ?>
+                <span class="text-secondary float-right">一直开放</span>
+            </div>
+            <?php else: ?>
+            <span class="text-secondary float-right"><?= $model->end_time ?></span>
         </div>
+        <?php endif; ?>
 
-
-
-
+        <div class="list-group-item"><?= Yii::t('app', 'Type') ?><span
+                class="text-secondary float-right"><?= $model->getType() ?></span></div>
+        <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
+                class="text-secondary float-right"><?= $model->getRunStatus(true) ?></span></div>
     </div>
+
+
+
+
+</div>
 
 </div>
