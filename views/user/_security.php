@@ -8,16 +8,22 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
+<div class="card">
+    <div class="card-body">
 
-<?= $form->field($model, 'oldPassword')->passwordInput() ?>
+        <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'newPassword')->passwordInput() ?>
+        <?= $form->field($model, 'oldPassword')->passwordInput() ?>
 
-<?= $form->field($model, 'verifyPassword')->passwordInput() ?>
+        <?= $form->field($model, 'newPassword')->passwordInput() ?>
 
-<div class="form-group">
-    <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary']) ?>
+        <?= $form->field($model, 'verifyPassword')->passwordInput() ?>
+
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+    </div>
 </div>
-
-<?php ActiveForm::end(); ?>
