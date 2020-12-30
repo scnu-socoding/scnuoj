@@ -156,25 +156,58 @@ $status = $model->getRunStatus();
                     'encodeLabels' => false
                 ]) ?>
                 <p></p>
-                <div class="card bg-secondary text-white">
-                    <div class="card-body">
-                        <h3><?= $model->title ?></h3>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="alert alert-light">
+                            <i class="fas fa-fw fa-info-circle"></i>
+                            <?php if (strtotime($model->end_time) >= 253370736000): ?>
+                            <b>永久开放的题目集</b> 任何时候均可进行作答。
+                            <?php else: ?>
+                            <b>限时开放的题目集</b> 只有在规定时间内的作答才会被计入比赛正式榜单。
+                            <?php endif; ?>
+                        </div>
+                        <p></p>
+                        <?php if ($model->description):?>
+                        <div class="card">
+                            <div class="card-body">
+                                <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        <p></p>
+                        <div class="card">
+                            <div class="card-header">
+                                距离题目集开放
+                            </div>
+                            <div class="card-body text-center">
+                                <h1 id="countdown"></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="list-group">
+                            <div class="list-group-item"><?= Yii::t('app', 'Current time') ?><span
+                                    class="text-secondary float-right" id="nowdate"><?= date("Y-m-d H:i:s") ?></span>
+                            </div>
+                            <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span
+                                    class="text-secondary float-right"><?= $model->start_time ?></span></div>
+                            <div class="list-group-item"><?= Yii::t('app', 'End time') ?>
+                                <?php if (strtotime($model->end_time) >= 253370736000): ?>
+                                <span class="text-secondary float-right">一直开放</span>
+                            </div>
+                            <?php else: ?>
+                            <span class="text-secondary float-right"><?= $model->end_time ?></span>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="list-group-item"><?= Yii::t('app', 'Type') ?><span
+                                class="text-secondary float-right"><?= $model->getType() ?></span></div>
+                        <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
+                                class="text-secondary float-right"><?= $model->getRunStatus(true) ?></span></div>
                     </div>
                 </div>
-                <p></p>
-                <div class="card">
-                    <div class="card-header">
-                        距离比赛开始
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 id="countdown"></h1>
-                    </div>
-                </div>
-                <?php if (!empty($model->description)): ?>
-                <!-- <div class="contest-desc">
-                    <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-                </div> -->
-                <?php endif; ?>
+
+
                 <?php else: ?>
                 <div>
                     <?php
