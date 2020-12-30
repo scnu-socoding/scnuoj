@@ -384,7 +384,7 @@ class ContestController extends BaseController
         }
         $pages = new Pagination([
             'totalCount' => count($rankResult['rank_result']),
-            'defaultPageSize' => 50
+            'pageSize' => 100
         ]);
         $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
         return $this->render('/contest/standing', [
@@ -414,8 +414,8 @@ class ContestController extends BaseController
             $rankResult = $model->getRankData(true, time());
         }
         $pages = new Pagination([
-            'totalCount' => count($rankResult),
-            'defaultPageSize' => 50
+            'totalCount' => count($rankResult['rank_result']),
+            'pageSize' => 100
         ]);
         $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
         if($model->canView())
