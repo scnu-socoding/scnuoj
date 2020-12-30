@@ -9,13 +9,15 @@ $this->title = Yii::t('app', 'Signup');
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= Yii::$app->session->setFlash('info', '用户名和学号一经设置<b>不可修改</b>，请使用真实学号注册（注册成功后可以设置昵称）。'); ?>
+
 
 <div class="form-signin">
     <?php if (Yii::$app->setting->get('isUserReg')): ?>    
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 用户名和学号一经设置不可修改。</div>
 
     <?= $form->field($model, 'username', [
             'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-user"></i></span></div>{input}</div>{error}',
@@ -50,7 +52,7 @@ $this->title = Yii::t('app', 'Signup');
            'inputOptions' => [
                 'placeholder' => $model->getAttributeLabel('verifyCode'),
             ],
-        ])->widget(\yii\captcha\Captcha::className(),[
+        ])->widget(\yii\captcha\Captcha::class,[
             'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-check"></i></span></div>{input}</div>
             <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}<span class="text-secondary d-none d-sm-inline">点击图片换图</span></div></div>',
         ])->label(false);
