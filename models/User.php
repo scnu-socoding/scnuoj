@@ -137,8 +137,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function scenarios()
     {
         return [
-            'default' => ['username', 'email'],
-            'profile' => ['nickname'],
+            'profile' => ['nickname', 'username', 'email'],
             'security' => ['oldPassword', 'newPassword', 'verifyPassword'],
         ];
     }
@@ -422,7 +421,7 @@ class User extends ActiveRecord implements IdentityInterface
             'user-admin'
         ];
         $tmp = $colors[0];
-        return "<span>{$nickname}</span>";
+        return "{$nickname}";
         // return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 
@@ -447,7 +446,7 @@ class User extends ActiveRecord implements IdentityInterface
             'user-admin'
         ];
         $tmp = $colors[0];
-        return "<span>{$nickname}</span>";
+        return "{$nickname}";
         // return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
     }
 

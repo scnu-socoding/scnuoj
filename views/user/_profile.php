@@ -7,6 +7,18 @@ use yii\bootstrap4\ActiveForm;
 /* @var $model app\models\User */
 /* @var $profile app\models\UserProfile */
 /* @var $form yii\bootstrap4\ActiveForm */
+
+
+$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['/user/verify-email']);
+
+if ($model->isVerifyEmail()) {
+    $emailTemplate = '{label}<div class="input-group">{input}<div class="input-group-addon">已验证</div></div>{hint}{error}';
+} else {
+    $emailTemplate = '{label}<div class="input-group">{input}<div class="input-group-addon">
+        未验证 <a href="' . $verifyLink . '">发送验证链接</a>
+        </div></div>{hint}{error}';
+}
+
 ?>
 
 
@@ -37,6 +49,18 @@ use yii\bootstrap4\ActiveForm;
         <?= $form->field($profile, 'personal_intro', [
                     'template' => "{input}",
                 ])->widget('app\widgets\editormd\Editormd'); ?>
+
+<div class="form-group">
+            <label for="user-username">用户名</label>
+            <input type="text" class="form-control" disabled="disabled" value="<?=$model->username?>">
+        </div>
+
+        <?= $form->field($model, 'email', [
+            'template' => $emailTemplate
+        ])->textInput() ?>
+
+
+
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
