@@ -11,55 +11,61 @@ use yii\bootstrap4\ActiveForm;
 
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['/user/verify-email']);
 
-if ($model->isVerifyEmail()) {
-    $emailTemplate = '{label}<div class="input-group">{input}<div class="input-group-addon">已验证</div></div>{hint}{error}';
-} else {
-    $emailTemplate = '{label}<div class="input-group">{input}<div class="input-group-addon">
-        未验证 <a href="' . $verifyLink . '">发送验证链接</a>
-        </div></div>{hint}{error}';
-}
+$emailTemplate = '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text">邮箱</span></div>{input}</div>';
 
 ?>
 
+<div class="alert alert-light"><i class="fas fa-fw fa-pen"></i> 基本信息</div>
+
+<div class="input-group">
+    <div class="input-group-prepend"><span class="input-group-text">账户</span></div><input type="text"
+        class="form-control" disabled="disabled" value="<?=$model->username?>">
+</div>
+<p></p>
+
+<div class="input-group">
+    <div class="input-group-prepend"><span class="input-group-text">学号</span></div><input type="text"
+        class="form-control" disabled="disabled" value="<?=$profile->student_number?>">
+</div>
+<p></p>
 
 <?php $form = ActiveForm::begin(); ?>
-<?php echo Yii::$app->setting->get('isChangeNickName'); ?>
+
 <?php if (Yii::$app->setting->get('isChangeNickName') == 1): ?>
-<?= $form->field($model, 'nickname')->textInput() ?>
+<?= $form->field($model, 'nickname', [
+    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">昵称</span></div>{input}</div>",
+    'options' => ['class' => '']])->textInput()->label(false) ?>
+<p></p>
 <?php elseif (Yii::$app->setting->get('isChangeNickName') == 2 && $model->username == $model->nickname ): ?>
-<?= $form->field($model, 'nickname')->textInput() ?>
-<p class="hint-block">
+<?= $form->field($model, 'nickname', [
+    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">昵称</span></div>{input}</div>",
+    'options' => ['class' => '']])->textInput()->label(false) ?>
+<div class="alert alert-light">
     昵称只能修改一次，请谨慎修改。<br>
-</p>
+</div>
+<p></p>
 <?php endif; ?>
 
-<!-- <?= $form->field($profile, 'qq_number')->textInput() ?> -->
+<?= $form->field($profile, 'major', [
+    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">班级</span></div>{input}</div>",
+    'options' => ['class' => '']])->textInput()->label(false) ?>
+<p></p>
 
-<!-- <?= $form->field($profile, 'student_number')->textInput() ?> -->
+<?= $form->field($model, 'email', [ 'options' => ['class' => ''], 'template' => $emailTemplate])->textInput()->label(false) ?>
+<p></p>
 
-<?= $form->field($profile, 'gender')->radioList([Yii::t('app', 'Male'), Yii::t('app', 'Female')]) ?>
 
-<?= $form->field($profile, 'major')->textInput() ?>
 
-<div class="alert alert-info">新功能测试：自定义个人主页展示的内容...</div>
+<div class="alert alert-light"><i class="fas fa-fw fa-pen"></i> 个人主页自定义</div>
 
 <?= $form->field($profile, 'personal_intro', [
                     'template' => "{input}",
                 ])->widget('app\widgets\editormd\Editormd'); ?>
 
-<div class="form-group">
-    <label for="user-username">用户名</label>
-    <input type="text" class="form-control" disabled="disabled" value="<?=$model->username?>">
-</div>
-
-<?= $form->field($model, 'email', [
-            'template' => $emailTemplate
-        ])->textInput() ?>
-
-
-
-
-<div class="form-group">
+<div class="form-group btn-block btn-group">
+    <?php if (! $model->isVerifyEmail()): ?>
+    <a class="btn btn-primary" href="<?= $verifyLink ?>">验证邮箱</a>
+    <?php endif; ?>
     <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 </div>
 

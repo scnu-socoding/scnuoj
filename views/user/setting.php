@@ -26,8 +26,7 @@ $this->title = $model->nickname;
             [
                 'label' => Yii::t('app', '个人主页'),
                 'url' => ['/user/view', 'id' => Yii::$app->user->id],
-                'options' => ['class' => 'ml-auto'],
-                'linkOptions' => ['class' => 'text-dark']
+                'options' => ['class' => 'ml-auto']
             ]
         ];
         echo Nav::widget([
@@ -35,7 +34,8 @@ $this->title = $model->nickname;
             'options' => ['class' => 'nav nav-pills']
         ]) ?>
     </div>
-    <div class="user-form" style="padding: 10px 0">
+    <p></p>
+    <div>
         <?= $this->render('_' . $action, [
             'model' => $model,
             'profile' => $profile
