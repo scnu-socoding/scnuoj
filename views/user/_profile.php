@@ -22,51 +22,45 @@ if ($model->isVerifyEmail()) {
 ?>
 
 
-<div class="card">
-    <div class="card-body">
+<?php $form = ActiveForm::begin(); ?>
+<?php echo Yii::$app->setting->get('isChangeNickName'); ?>
+<?php if (Yii::$app->setting->get('isChangeNickName') == 1): ?>
+<?= $form->field($model, 'nickname')->textInput() ?>
+<?php elseif (Yii::$app->setting->get('isChangeNickName') == 2 && $model->username == $model->nickname ): ?>
+<?= $form->field($model, 'nickname')->textInput() ?>
+<p class="hint-block">
+    昵称只能修改一次，请谨慎修改。<br>
+</p>
+<?php endif; ?>
 
-        <?php $form = ActiveForm::begin(); ?>
+<!-- <?= $form->field($profile, 'qq_number')->textInput() ?> -->
 
-        <?php if (Yii::$app->setting->get('isChangeNickName')==1): ?>
-        <?= $form->field($model, 'nickname')->textInput() ?>
-        <?php elseif (Yii::$app->setting->get('isChangeNickName')==2 && $model->username === $model->nickname ): ?>
-        <?= $form->field($model, 'nickname')->textInput() ?>
-        <p class="hint-block">
-            昵称只能修改一次，请谨慎修改。<br>
-        </p>
-        <?php endif; ?>
+<!-- <?= $form->field($profile, 'student_number')->textInput() ?> -->
 
-        <!-- <?= $form->field($profile, 'qq_number')->textInput() ?> -->
+<?= $form->field($profile, 'gender')->radioList([Yii::t('app', 'Male'), Yii::t('app', 'Female')]) ?>
 
-        <!-- <?= $form->field($profile, 'student_number')->textInput() ?> -->
+<?= $form->field($profile, 'major')->textInput() ?>
 
-        <?= $form->field($profile, 'gender')->radioList([Yii::t('app', 'Male'), Yii::t('app', 'Female')]) ?>
+<div class="alert alert-info">新功能测试：自定义个人主页展示的内容...</div>
 
-        <?= $form->field($profile, 'major')->textInput() ?>
-
-        <div class="alert alert-info">新功能测试：自定义个人主页展示的内容...</div>
-
-        <?= $form->field($profile, 'personal_intro', [
+<?= $form->field($profile, 'personal_intro', [
                     'template' => "{input}",
                 ])->widget('app\widgets\editormd\Editormd'); ?>
 
 <div class="form-group">
-            <label for="user-username">用户名</label>
-            <input type="text" class="form-control" disabled="disabled" value="<?=$model->username?>">
-        </div>
+    <label for="user-username">用户名</label>
+    <input type="text" class="form-control" disabled="disabled" value="<?=$model->username?>">
+</div>
 
-        <?= $form->field($model, 'email', [
+<?= $form->field($model, 'email', [
             'template' => $emailTemplate
         ])->textInput() ?>
 
 
 
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-        </div>
-
-        <?php ActiveForm::end(); ?>
-
-   </div>
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 </div>
+
+<?php ActiveForm::end(); ?>

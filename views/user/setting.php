@@ -11,23 +11,32 @@ use yii\bootstrap4\Nav;
 $this->title = $model->nickname;
 // $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
 ?>
-<div>
-    <div>
-        <?= $this->render('_profile', [
-            'model' => $model,
-            'profile' => $profile
+<div class="user-update">
+    <div class="contest-view">
+        <?php
+        $menuItems = [
+            [
+                'label' => Yii::t('app', 'Profile'),
+                'url' => ['user/setting', 'action' => 'profile']
+            ],
+            [
+                'label' => Yii::t('app', 'Security'),
+                'url' => ['user/setting', 'action' => 'security']
+            ],
+            [
+                'label' => Yii::t('app', '个人主页'),
+                'url' => ['/user/view', 'id' => Yii::$app->user->id],
+                'options' => ['class' => 'ml-auto'],
+                'linkOptions' => ['class' => 'text-dark']
+            ]
+        ];
+        echo Nav::widget([
+            'items' => $menuItems,
+            'options' => ['class' => 'nav nav-pills']
         ]) ?>
     </div>
-    <p></p>
-    <div>
-        <?= $this->render('_account', [
-            'model' => $model,
-            'profile' => $profile
-        ]) ?>
-    </div>
-    <p></p>
-    <div>
-        <?= $this->render('_security', [
+    <div class="user-form" style="padding: 10px 0">
+        <?= $this->render('_' . $action, [
             'model' => $model,
             'profile' => $profile
         ]) ?>
