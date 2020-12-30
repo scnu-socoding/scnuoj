@@ -49,18 +49,21 @@ $this->registerJs($js);
             if ($model->type == $model::TYPE_RANK_SINGLE) {
                 echo $this->render('_standing_single', [
                     'model' => $model,
+                    'pages' => $pages,
                     'showStandingBeforeEnd' => $showStandingBeforeEnd,
                     'rankResult' => $rankResult
                 ]);
             } else if ($model->type == $model::TYPE_OI || $model->type == $model::TYPE_IOI) {
                 echo $this->render('_standing_oi', [
                     'model' => $model,
+                    'pages' => $pages,
                     'showStandingBeforeEnd' => $showStandingBeforeEnd,
                     'rankResult' => $rankResult
                 ]);
             } else {
                 echo $this->render('_standing_group', [
                     'model' => $model,
+                    'pages' => $pages,
                     'showStandingBeforeEnd' => $showStandingBeforeEnd,
                     'rankResult' => $rankResult
                 ]);

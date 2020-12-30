@@ -382,8 +382,14 @@ class ContestController extends BaseController
         } else {
             $rankResult = $model->getRankData(true, time());
         }
+        $pages = new Pagination([
+            'totalCount' => count($rankResult['rank_result']),
+            'defaultPageSize' => 50
+        ]);
+        $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
         return $this->render('/contest/standing', [
             'model' => $model,
+            'pages' => $pages,
             'rankResult' => $rankResult,
             'showStandingBeforeEnd' => $showStandingBeforeEnd
         ]);
@@ -407,12 +413,18 @@ class ContestController extends BaseController
         } else {
             $rankResult = $model->getRankData(true, time());
         }
+        $pages = new Pagination([
+            'totalCount' => count($rankResult),
+            'defaultPageSize' => 50
+        ]);
+        $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
         if($model->canView())
         {
             return $this->redirect(['/contest/standing', 'id' => $model->id]);
         }
         return $this->render('/contest/standing2', [
             'model' => $model,
+            'pages' => $pages,
             'rankResult' => $rankResult,
             'showStandingBeforeEnd' => $showStandingBeforeEnd
         ]);

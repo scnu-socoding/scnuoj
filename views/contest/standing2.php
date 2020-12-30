@@ -32,6 +32,7 @@ $this->title = $model->title;
 <p></p>
 <?php echo $this->render('standing', [
     'model' => $model,
+    'pages' => $pages,
     'rankResult' => $rankResult,
     'showStandingBeforeEnd' => $showStandingBeforeEnd
 ]); ?>

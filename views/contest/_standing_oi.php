@@ -60,30 +60,30 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
         <tr>
             <td style="display:table-cell; vertical-align:middle">
                 <?php
-                 
+                echo $rank['finalrank'];
                 //线下赛，参加比赛但不参加排名的处理
-                if ($model->scenario == Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
-                    echo '*';
-                } elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
-                    echo '*';
-                }  else {
-                   if ($ranking != 1) {
-                        if ($model->type == Contest::TYPE_OI && $result[$i]['total_score'] != $result[$i-1]['total_score']){
-                            echo $ranking;
-                            $last_ranking = $ranking;
-                        } else if ($model->type == Contest::TYPE_IOI && $result[$i]['correction_score'] != $result[$i-1]['correction_score']){
-                            echo $ranking;
-                            $last_ranking = $ranking;
-                        } else {
-                            echo $last_ranking;
-                        }
-                   }
-                   else {
-                     echo $ranking;
-                   }
+                // if ($model->scenario == Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
+                //     echo '*';
+                // } elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
+                //     echo '*';
+                // }  else {
+                //    if ($ranking != 1) {
+                //         if ($model->type == Contest::TYPE_OI && $result[$i]['total_score'] != $result[$i-1]['total_score']){
+                //             echo $ranking;
+                //             $last_ranking = $ranking;
+                //         } else if ($model->type == Contest::TYPE_IOI && $result[$i]['correction_score'] != $result[$i-1]['correction_score']){
+                //             echo $ranking;
+                //             $last_ranking = $ranking;
+                //         } else {
+                //             echo $last_ranking;
+                //         }
+                //    }
+                //    else {
+                //      echo $ranking;
+                //    }
                     
-                    $ranking++;
-                }
+                //     $ranking++;
+                // }
                 ?>
             </td>
             <td style="display:table-cell; vertical-align:middle">

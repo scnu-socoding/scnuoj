@@ -43,35 +43,36 @@ $submit_count = $rankResult['submit_count'];
         <tr>
             <td style="display:table-cell; vertical-align:middle">
                 <?php
+                echo $rank['finalrank'];
                 //线下赛，参加比赛但不参加排名的处理
-                if ($model->scenario == \app\models\Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
-                    echo '*';
-                }
-                elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
-                    echo '*';
-                } else {
-                    if($ranking != 1) {
-                        if (strtotime($model->end_time) >= 253370736000) {
-                            if ($result[$i]['solved'] != $result[$i-1]['solved']) {
-                                echo $ranking;
-                                $last_ranking = $ranking;
-                            } else {
-                                echo $last_ranking;
-                            }
-                        } else {
-                            if ($result[$i]['solved'] != $result[$i-1]['solved'] || $result[$i]['time'] != $result[$i-1]['time']) {
-                                echo $ranking;
-                                $last_ranking = $ranking;
-                            } else {
-                                echo $last_ranking;
-                            }
-                        }
-                    } else {
-                        echo $ranking;
-                    }
+                // if ($model->scenario == \app\models\Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
+                //     echo '*';
+                // }
+                // elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
+                //     echo '*';
+                // } else {
+                //     if($ranking != 1) {
+                //         if (strtotime($model->end_time) >= 253370736000) {
+                //             if ($result[$i]['solved'] != $result[$i-1]['solved']) {
+                //                 echo $ranking;
+                //                 $last_ranking = $ranking;
+                //             } else {
+                //                 echo $last_ranking;
+                //             }
+                //         } else {
+                //             if ($result[$i]['solved'] != $result[$i-1]['solved'] || $result[$i]['time'] != $result[$i-1]['time']) {
+                //                 echo $ranking;
+                //                 $last_ranking = $ranking;
+                //             } else {
+                //                 echo $last_ranking;
+                //             }
+                //         }
+                //     } else {
+                //         echo $ranking;
+                //     }
                     
-                    $ranking++;
-                }
+                //     $ranking++;
+                // }
                 ?>
             </td>
             <td style="display:table-cell; vertical-align:middle">
@@ -155,6 +156,12 @@ $submit_count = $rankResult['submit_count'];
         <?php endfor; ?>
     </tbody>
 </table>
+<p></p>
+<?= \yii\widgets\LinkPager::widget([
+    'pagination' => $pages,
+    'linkOptions' => ['class' => 'page-link'],
+    'maxButtonCount' => 5,
+]); ?>
 <?php
 $js = "
 $('[data-click=submission]').click(function() {

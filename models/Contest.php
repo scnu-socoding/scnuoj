@@ -554,6 +554,27 @@ class Contest extends \yii\db\ActiveRecord
             }
         });
 
+        $lastscore = -1;
+        $lasttime = -1;
+        $lastrank = 1;
+        $finalrank = 1;
+        foreach ($result as &$v) {
+            if ($contest_end_time < 253370736000 && ($v['solved'] != $lastscore || $v['time'] != $lasttime)) {
+                $v['finalrank'] = $finalrank;
+                $lastscore = $v['solved'];
+                $lasttime = $v['time'];
+                $lastrank = $finalrank;
+            } else if ($contest_end_time >= 253370736000 && $v['solved'] != $lastscore) {
+                $v['finalrank'] = $finalrank;
+                $lastscore = $v['solved'];
+                $lasttime = $v['time'];
+                $lastrank = $finalrank;
+            } else {
+                $v['finalrank'] = $lastrank;
+            }
+            $finalrank++;
+        }
+
         return [
             'rank_result' => $result,
             'submit_count' => $submit_count,
@@ -708,19 +729,48 @@ class Contest extends \yii\db\ActiveRecord
             if ($type == self::TYPE_OI) {
                 if ($a['total_score'] != $b['total_score']) { // 优先测评总分
                     return $a['total_score'] < $b['total_score'];
-                } else {
+                } else if ($a['correction_score'] != $b['correction_score']) {
                     return $a['correction_score'] < $b['correction_score'];
+                } else {
+                    return $a['user_id'] < $b['user_id'];
                 }
             } else { // IOI 只需要最大值的总分排序。
                 if ($a['correction_score'] != $b['correction_score']) {
                     return $a['correction_score'] < $b['correction_score'];
                 } else if ($a['solved'] != $b['solved']) { 
                     return $a['solved'] < $b['solved'];
-                } else {
+                } else if ($a['total_time'] != $b['total_time']){
                     return $a['total_time'] > $b['total_time'];
+                }  else {
+                    return $a['user_id'] < $b['user_id'];
                 }
             }
         });
+
+        $lastscore = -1;
+        $lastrank = 1;
+        $finalrank = 1;
+        foreach ($result as &$v) {
+            if ($type == self::TYPE_OI) {
+                if ($v['total_score'] != $lastscore) {
+                    $v['finalrank'] = $finalrank;
+                    $lastscore = $v['total_score'];
+                    $lastrank = $finalrank;
+                } else {
+                    $v['finalrank'] = $lastrank;
+                }
+                $finalrank++;
+            } else { // IOI 只需要最大值的总分排序。
+                if ($v['correction_score'] != $lastscore) {
+                    $v['finalrank'] = $finalrank;
+                    $lastscore = $v['total_score'];
+                    $lastrank = $finalrank;
+                } else {
+                    $v['finalrank'] = $lastrank;
+                }
+                $finalrank++;
+            }
+        }
 
         return [
             'rank_result' => $result,
