@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "426044b6f7e1b7625fb5848105b98d09",
+    "content-hash": "7047e8ea926cbdc2fc03eb920dec1752",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1930,16 +1930,16 @@
         },
         {
             "name": "codeception/verify",
-            "version": "1.5.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "ebf833c857825207a8abec541c07bdd724ea4676"
+                "reference": "1cdac1867c33801ae8e4833015153766ef403c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/ebf833c857825207a8abec541c07bdd724ea4676",
-                "reference": "ebf833c857825207a8abec541c07bdd724ea4676",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/1cdac1867c33801ae8e4833015153766ef403c92",
+                "reference": "1cdac1867c33801ae8e4833015153766ef403c92",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1949,15 +1949,14 @@
                 ]
             },
             "require": {
-                "codeception/phpunit-wrapper": "^7.8.0 | ^8.1.2 | ^9.0.2",
                 "ext-dom": "*",
-                "php": ">= 7.1",
-                "phpunit/phpunit": ">= 7.0"
+                "php": "^7.3 || ^8.0",
+                "phpunit/phpunit": "^9.3"
             },
             "type": "library",
             "autoload": {
                 "files": [
-                    "src/Codeception/function.php"
+                    "src/Codeception/bootstrap.php"
                 ],
                 "psr-4": {
                     "Codeception\\": "src\\Codeception"
@@ -1980,9 +1979,9 @@
             "description": "BDD assertion library for PHPUnit",
             "support": {
                 "issues": "https://github.com/Codeception/Verify/issues",
-                "source": "https://github.com/Codeception/Verify/tree/master"
+                "source": "https://github.com/Codeception/Verify/tree/2.1.1"
             },
-            "time": "2020-08-29T00:28:24+00:00"
+            "time": "2020-12-18T16:18:31+00:00"
         },
         {
             "name": "doctrine/instantiator",
