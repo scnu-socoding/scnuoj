@@ -56,7 +56,7 @@ $status = $model->getRunStatus();
         'options' => [
             'class' => 'navbar navbar-expand-lg navbar-light bg-light fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container-xl']
+        'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
     $menuItemsLeft = [
         [
@@ -84,7 +84,12 @@ $status = $model->getRunStatus();
             'label' => Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
-        ]
+        ],
+        [
+            'label' => 'SCNUCPC2020',
+            'url' => ['/board/scnucpc2020'],
+            'active' => Yii::$app->controller->id == 'board'
+        ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItemsRight[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];

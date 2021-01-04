@@ -46,7 +46,7 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-light bg-light fixed-top',
         ],
-        'innerContainerOptions' => ['class' => 'container-xl']
+        'innerContainerOptions' => ['class' => 'container-fluid']
     ]);
     $menuItemsLeft = [
         // ['label' => Yii::$app->setting->get('ojName'), 'url' => ['/site/index']],
@@ -75,6 +75,11 @@ AppAsset::register($this);
             'label' => Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
+        ],
+        [
+            'label' => 'SCNUCPC2020',
+            'url' => ['/board/scnucpc2020'],
+            'active' => Yii::$app->controller->id == 'board'
         ],
     ];
     if (Yii::$app->user->isGuest) {
