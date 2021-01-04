@@ -54,7 +54,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             </td>
             <?php endforeach; ?>
         </tr>
-       
+
         <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++): ?>
         <?php $rank = $result[$i]; ?>
         <tr>
@@ -156,6 +156,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             ?>
         </tr>
         <?php endfor; ?>
+    </tbody>
 </table>
 <?php
 $js = "

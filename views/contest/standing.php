@@ -25,21 +25,21 @@ $this->registerJs($js);
     <?php if ($model->type != Contest::TYPE_OI || $model->isContestEnd()): ?>
     <div class="legend-strip">
         <?php if ($model->isContestEnd()): ?>
-            <?= Html::beginForm(
+        <?= Html::beginForm(
                 ['/contest/standing', 'id' => $model->id],
                 'get',
                 ['class' => 'toggle-show-contest-standing pull-left', 'style' => 'margin-top: 6px;']
             ); ?>
-            <div class="checkbox float-right">
-                <label>
-                    <?php if ($showStandingBeforeEnd): ?>
-                        <?= Html::hiddenInput('showStandingBeforeEnd', 0) ?>
-                    <?php endif; ?>
-                    <?= Html::checkbox('showStandingBeforeEnd', $showStandingBeforeEnd) ?>
-                    显示比赛期间榜单
-                </label>
-            </div>
-            <?= Html::endForm(); ?>
+        <div class="checkbox float-right">
+            <label>
+                <?php if ($showStandingBeforeEnd): ?>
+                <?= Html::hiddenInput('showStandingBeforeEnd', 0) ?>
+                <?php endif; ?>
+                <?= Html::checkbox('showStandingBeforeEnd', $showStandingBeforeEnd) ?>
+                显示比赛期间榜单
+            </label>
+        </div>
+        <?= Html::endForm(); ?>
         <?php endif; ?>
     </div>
     <?php endif; ?>
@@ -70,11 +70,10 @@ $this->registerJs($js);
             }
         ?>
     </div>
-    <!-- <?php if ($model->type == Contest::TYPE_IOI): ?>
-    <p class="float-left">注：表格第一个数字为所通过样例的得分。第二个数字为最好一次解答时距离比赛开始提交的时间。若无第二个数字，则表明是比赛结束后的提交。</p>
-    <?php elseif ($model->type == Contest::TYPE_OI): ?>
-    <p>注：表格第一个数字为最后一次提交时所通过样例的得分。第二个数字为所有提交中通过样例最大的得分。</p>
-    <?php else: ?>
-    <p>注：表格第一个数字为距离比赛开始第一次通过时提交的时间（单位：分钟），若为 0，则表示比赛结束后的提交。</p>
-    <?php endif; ?> -->
+    <p></p>
+    <?= \yii\widgets\LinkPager::widget([
+    'pagination' => $pages,
+    'linkOptions' => ['class' => 'page-link'],
+    'maxButtonCount' => 5,
+]); ?>
 </div>
