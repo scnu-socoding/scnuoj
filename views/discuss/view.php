@@ -26,7 +26,7 @@ $this->title = Html::encode($model->title);
         <i class="fas fa-fw fa-user"></i>
         <?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->username], ['class' => 'text-secondary']) ?>
         <i class="fas fa-fw fa-clock"></i>
-        <?= Yii::$app->formatter->asDate($model->created_at) ?>
+        <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
 
         <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $model->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)): ?>
         <span class="float-right">
@@ -54,7 +54,7 @@ $this->title = Html::encode($model->title);
         <i class="fas fa-fw fa-user"></i>
         <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id], ['class' => 'text-secondary']) ?>
         <i class="fas fa-fw fa-clock"></i>
-        <?= Yii::$app->formatter->asDate($reply->created_at) ?>
+        <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
 
         <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $reply->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)): ?>
         <span class="float-right">

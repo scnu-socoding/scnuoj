@@ -16,7 +16,7 @@ $this->title = Html::encode($model->title);
     新闻与公告
     <i class="fas fa-fw fa-user"></i>
     管理员
-    <i class="fas fa-fw fa-clock"></i> <?= Yii::$app->formatter->asDate($model->created_at) ?>
+    <i class="fas fa-fw fa-clock"></i> <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
 </div>
 <hr>
 <?= Yii::$app->formatter->asMarkdown($model->content) ?>

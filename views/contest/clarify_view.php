@@ -16,35 +16,26 @@ $this->params['model'] = $model;
 ?>
 <div class="row">
     <div class="col">
-        <div class="card bg-secondary text-white">
-            <div class="card-body">
-                <h3><?= Html::encode($clarify->title) ?></h3>
-            </div>
+        <h5><?= Html::encode($clarify->title) ?></h5>
+        <div class="text-secondary">
+            <i class="fas fa-fw fa-user"></i>
+            <?= Html::a(Html::encode($clarify->user->nickname), ['/user/view', 'id' => $clarify->user->id], ['class' => 'text-secondary']) ?>
+            <i class="fas fa-fw fa-clock"></i>
+            <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
         </div>
-        <p></p>
-        <div class="card">
-            <div class="card-body">
-                <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
-            </div>
-            <div class="card-footer">
-                <?= Html::a(Html::encode($clarify->user->nickname), ['/user/view', 'id' => $clarify->user->id], ['class' => 'text-dark']) ?>
-                /
-                <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
-            </div>
-        </div>
+        <hr>
+        <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
+        <hr>
         <p></p>
         <?php foreach ($clarify->reply as $reply): ?>
-        <div class="card">
-            <div class="card-body">
-                <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
-            </div>
-            <div class="card-footer">
-                <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id], ['class' => 'text-dark']) ?>
-                /
+        <p class="text-secondary"><small> <i class="fas fa-fw fa-user"></i>
+                <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id], ['class' => 'text-secondary']) ?>
+                <i class="fas fa-fw fa-clock"></i>
                 <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
-            </div>
-        </div>
-        <p></p>
+            </small></p>
+
+        <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
+        <hr>
         <?php endforeach; ?>
         <div class="well">
             <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
