@@ -25,6 +25,8 @@ $this->title = Yii::t('app', 'Groups');
         $DefGp = false;  
     }
 ?>
+
+<?php if(!Yii::$app->user->isGuest):?>
 <?= Nav::widget([
     'items' => [
         [
@@ -46,6 +48,8 @@ $this->title = Yii::t('app', 'Groups');
     'options' => ['class' => 'nav-pills']
 ]) ?>
 <p></p>
+<?php endif; ?>
+
 
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
