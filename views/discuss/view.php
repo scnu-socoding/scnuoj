@@ -16,42 +16,18 @@ $this->title = Html::encode($model->title);
 
 ?>
 
-<h3><?= Html::encode($model->problem->id . '. ' . $model->problem->title) ?></h3>
+<h3><?= Html::encode($model->title) ?></h3>
 
-<ul class="nav nav-pills">
-    <li class="nav-item">
-        <?= Html::a( Yii::t('app', 'Problem'),
-            ['/p/' . $model->problem->id],
-            ['class' => 'nav-link'])
+<p><span class="text-secondary">
+        <i class="fas fa-fw fa-question"></i>
+        <?= Html::a( Html::encode($model->problem->title),
+            ['/p/' . $model->problem->id], ['class' => 'text-secondary'])
         ?>
-    </li>
-    <?php if (Yii::$app->setting->get('isDiscuss')): ?>
-    <li class="nav-item">
-        <?= Html::a( Yii::t('app', 'Discuss'),
-            ['/problem/discuss', 'id' => $model->problem->id],
-            ['class' => 'nav-link active'])
-        ?>
-    </li>
-    <?php endif; ?>
-    <?php if (!empty($model->problem->solution)): ?>
-    <li class="nav-item">
-        <?= Html::a(Yii::t('app', 'Editorial'),
-            ['/problem/solution', 'id' => $model->problem->id],
-            ['class' => 'nav-link'])
-        ?>
-    </li>
-    <?php endif; ?>
-</ul>
-<p></p>
-
-<h5><?= Html::encode($model->title) ?></h5>
-<p><small class="text-secondary">
-        <i class="fas fa-fw fa-comment"></i>
-        1楼
         <i class="fas fa-fw fa-user"></i>
         <?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->username], ['class' => 'text-secondary']) ?>
         <i class="fas fa-fw fa-clock"></i>
-        <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
+        <?= Yii::$app->formatter->asDate($model->created_at) ?>
+
         <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $model->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)): ?>
         <span class="float-right">
             <?= Html::a('<i class="fas fa-fw fa-pen"></i>', ['/discuss/update', 'id' => $model->id], ['class' => 'text-dark']) ?>
@@ -64,8 +40,9 @@ $this->title = Html::encode($model->title);
                     ]) ?>
             <?php endif; ?>
         </span>
-    </small>
+    </span>
 </p>
+<hr>
 <?= Yii::$app->formatter->asMarkdown($model->content) ?>
 <hr>
 <?php $cnt = 2; ?>
@@ -77,7 +54,7 @@ $this->title = Html::encode($model->title);
         <i class="fas fa-fw fa-user"></i>
         <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id], ['class' => 'text-secondary']) ?>
         <i class="fas fa-fw fa-clock"></i>
-        <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
+        <?= Yii::$app->formatter->asDate($reply->created_at) ?>
 
         <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $reply->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)): ?>
         <span class="float-right">
