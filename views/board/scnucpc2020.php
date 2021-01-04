@@ -1,3 +1,7 @@
+<?php
+$this->title = "SCNUCPC2020";
+?>
+
 <body style="padding-top: 4.5rem;">
         <div class="container-fluid">
                 <div class="row">
