@@ -156,7 +156,12 @@ $submit_count = $rankResult['submit_count'];
         <?php endfor; ?>
     </tbody>
 </table>
-
+<p></p>
+<?= \yii\widgets\LinkPager::widget([
+    'pagination' => $pages,
+    'linkOptions' => ['class' => 'page-link'],
+    'maxButtonCount' => 5,
+]); ?>
 <?php
 $js = "
 $('[data-click=submission]').click(function() {

@@ -158,6 +158,12 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
         <?php endfor; ?>
     </tbody>
 </table>
+<p></p>
+<?= \yii\widgets\LinkPager::widget([
+    'pagination' => $pages,
+    'linkOptions' => ['class' => 'page-link'],
+    'maxButtonCount' => 5,
+]); ?>
 <?php
 $js = "
 $(function () {

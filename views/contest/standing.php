@@ -70,10 +70,4 @@ $this->registerJs($js);
             }
         ?>
     </div>
-    <p></p>
-    <?= \yii\widgets\LinkPager::widget([
-    'pagination' => $pages,
-    'linkOptions' => ['class' => 'page-link'],
-    'maxButtonCount' => 5,
-]); ?>
 </div>
