@@ -169,31 +169,38 @@ class GroupController extends BaseController
         } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
-        $newGroupUser = new GroupUser();
-        $newContest = new Contest();
-        $newContest->type = Contest::TYPE_RANK_GROUP;
-        $contestDataProvider = new ActiveDataProvider([
-            'query' => Contest::find()->where([
-                'group_id' => $model->id
-            ])->orderBy(['id' => SORT_DESC]),
+        
+        return $this->render('view', [
+            'model' => $model,
         ]);
+    }
+
+    /**
+     * Displays a single Group model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
+     */
+    public function actionMember($id)
+    {
+        $model = $this->findModel($id);
+        $role = $model->getRole();
+        if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
+                                    $role == GroupUser::ROLE_APPLICATION ||
+                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
+                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
+            return $this->redirect(['/group/accept', 'id' => $model->id]);
+        } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+        $newGroupUser = new GroupUser();
 
         $userDataProvider = new ActiveDataProvider([
             'query' => GroupUser::find()->where([
                 'group_id' => $model->id
             ])->with('user')->orderBy(['role' => SORT_DESC, 'created_at' => SORT_ASC])
         ]);
-
-        if ($newContest->load(Yii::$app->request->post())) {
-            if (!$model->hasPermission()) {
-                throw new ForbiddenHttpException('You are not allowed to perform this action.');
-            }
-            $newContest->group_id = $model->id;
-            $newContest->scenario = Contest::SCENARIO_ONLINE;
-            $newContest->status = Contest::STATUS_PRIVATE;
-            $newContest->save();
-            return $this->refresh();
-        }
 
         if ($newGroupUser->load(Yii::$app->request->post())) {
             if (!$model->hasPermission()) {
@@ -238,11 +245,54 @@ class GroupController extends BaseController
             return $this->refresh();
         }
 
-        return $this->render('view', [
+        return $this->render('member', [
             'model' => $model,
-            'contestDataProvider' => $contestDataProvider,
             'userDataProvider' => $userDataProvider,
             'newGroupUser' => $newGroupUser,
+        ]);
+    }
+
+    /**
+     * Displays a single Group model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
+     */
+    public function actionContest($id)
+    {
+        $model = $this->findModel($id);
+        $role = $model->getRole();
+        if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
+                                    $role == GroupUser::ROLE_APPLICATION ||
+                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
+                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
+            return $this->redirect(['/group/accept', 'id' => $model->id]);
+        } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+        $newContest = new Contest();
+        $newContest->type = Contest::TYPE_RANK_GROUP;
+        $contestDataProvider = new ActiveDataProvider([
+            'query' => Contest::find()->where([
+                'group_id' => $model->id
+            ])->orderBy(['id' => SORT_DESC]),
+        ]);
+
+        if ($newContest->load(Yii::$app->request->post())) {
+            if (!$model->hasPermission()) {
+                throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            }
+            $newContest->group_id = $model->id;
+            $newContest->scenario = Contest::SCENARIO_ONLINE;
+            $newContest->status = Contest::STATUS_PRIVATE;
+            $newContest->save();
+            return $this->refresh();
+        }
+
+        return $this->render('contest', [
+            'model' => $model,
+            'contestDataProvider' => $contestDataProvider,
             'newContest' => $newContest
         ]);
     }
