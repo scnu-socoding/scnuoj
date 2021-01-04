@@ -221,7 +221,7 @@ $nextProblemID = $model->getNextProblemID();
         <p></p>
         <div class="list-group" style="max-height:30rem;overflow-y: auto;">
             <?php if($previousProblemID):?>
-            <?= Html::a('<span class="fas fa-fw fa-arrow-left"></span> 上一题 ' . $previousProblemID,
+            <?= Html::a('<span class="fas fa-fw fa-arrow-left"></span> 上一题 ' . '<span class="float-right">' .  $previousProblemID. '</span>',
                 $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
                 ['class' => 'list-group-item list-group-item-action']
             )?>
@@ -230,7 +230,7 @@ $nextProblemID = $model->getNextProblemID();
             <?php endif; ?>
 
             <?php if($nextProblemID):?>
-            <?= Html::a('<span class="fas fa-fw fa-arrow-right"></span> 下一题 ' . $nextProblemID,
+            <?= Html::a('<span class="fas fa-fw fa-arrow-right"></span> 下一题 ' . '<span class="float-right">' . $nextProblemID . '</span>',
                 $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
                 ['class' => 'list-group-item list-group-item-action']
             )?>
