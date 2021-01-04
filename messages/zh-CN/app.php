@@ -88,7 +88,7 @@ return [
     'User Password' => '用户密码',
     'Verify Password' => '确认密码',
     'Female' => '女',
-    'Major' => '专业',
+    'Major' => '班级',
     'Contest' => '比赛',
     'Title' => '标题',
     'Type' => '类型',
