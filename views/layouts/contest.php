@@ -143,19 +143,19 @@ $status = $model->getRunStatus();
                 <?= $content ?>
                 <?php elseif ($status == $model::STATUS_NOT_START): ?>
                 <?php
-                    $menuItems = [
-                    [
-                        'label' => Yii::t('app', 'Information'),
-                        'url' => ['contest/problem', 'id' => $model->id],
-                        'linkOptions' => ['class' => 'active']
-                    ]
-                    ];
-                echo Nav::widget([
-                    'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-pills hidden-print'],
-                    'encodeLabels' => false
-                ]) ?>
-                <p></p>
+                //     $menuItems = [
+                //     [
+                //         'label' => Yii::t('app', 'Information'),
+                //         'url' => ['contest/problem', 'id' => $model->id],
+                //         'linkOptions' => ['class' => 'active']
+                //     ]
+                //     ];
+                // echo Nav::widget([
+                //     'items' => $menuItems,
+                //     'options' => ['class' => 'nav nav-pills hidden-print'],
+                //     'encodeLabels' => false
+                // ]) ?>
+                <!-- <p></p> -->
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="alert alert-light">
