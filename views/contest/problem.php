@@ -209,7 +209,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
         <p></p>
         <div class="list-group" style="max-height:30rem;overflow-y: auto;">
             <?php foreach ($problems as $key => $p): ?>
-            <?= Html::a('Problem ' . chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action', 'style' => 'padding-top: 0.5rem;padding-bottom: 0.5rem']); ?>
+            <?= Html::a('Problem ' . chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']); ?>
             <?php endforeach; ?>
         </div>
     </div>

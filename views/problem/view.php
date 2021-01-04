@@ -221,21 +221,21 @@ $nextProblemID = $model->getNextProblemID();
         <p></p>
         <div class="list-group" style="max-height:30rem;overflow-y: auto;">
             <?php if($previousProblemID):?>
-            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> 上一题',
+            <?= Html::a('<span class="fas fa-fw fa-arrow-left"></span> 上一题 ' . $previousProblemID,
                 $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
                 ['class' => 'list-group-item list-group-item-action']
             )?>
             <?php else:?>
-            <div class="list-group-item text-secondary">已经是第一题了</div>
+            <div class="list-group-item text-secondary"><span class="fas fa-fw fa-check"></span> 已经是第一题了</div>
             <?php endif; ?>
 
             <?php if($nextProblemID):?>
-            <?= Html::a('下一题 <span class="glyphicon glyphicon-arrow-right"></span>',
+            <?= Html::a('<span class="fas fa-fw fa-arrow-right"></span> 下一题 ' . $nextProblemID,
                 $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
                 ['class' => 'list-group-item list-group-item-action']
             )?>
             <?php else:?>
-            <div class="list-group-item text-secondary">已经是最后一题了</div>
+            <div class="list-group-item text-secondary"><span class="fas fa-fw fa-check"></span> 已经是最后一题了</div>
             <?php endif; ?>
 
         </div>
