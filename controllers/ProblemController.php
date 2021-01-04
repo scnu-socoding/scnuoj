@@ -158,7 +158,7 @@ class ProblemController extends BaseController
                     'created_by' => Yii::$app->user->id
                 ])
                 ->orderBy('id DESC')
-                ->limit(3)
+                ->limit(10)
                 ->all();
         }
         if ($solution->load(Yii::$app->request->post())) {

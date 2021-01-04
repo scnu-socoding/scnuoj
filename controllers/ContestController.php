@@ -490,7 +490,7 @@ class ContestController extends BaseController
                         'created_by' => Yii::$app->user->id
                     ])
                     ->orderBy('id DESC')
-                    ->limit(3)
+                    ->limit(10)
                     ->all();
             }
             return $this->render('/contest/problem', [
