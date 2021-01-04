@@ -13,104 +13,24 @@ $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
 ?>
 
-<div class="card bg-secondary text-white">
-    <div class="card-body">
-        <h3><?= $model->getColorName() ?></h3>
-    </div>
-</div>
+<h3><?= Html::encode($model->getColorName()) ?></h3>
 <p></p>
 <?php if ($model->role != \app\models\User::ROLE_PLAYER): ?>
 <div class="row">
-
-    <div class="col-md-8 col-lg-9">
-
-        <div class="card">
-            <div class="card-header">个人档案</div>
-            <div class="card-body">
-                <?php if($model->profile->personal_intro != ''):?>
-                <?= Yii::$app->formatter->asMarkdown($model->profile->personal_intro) ?>
-                <?php else:?>
-                没有找到数据。
-                <?php endif;?>
-            </div>
-        </div>
-        <p></p>
-
-
-        <div class="card d-none d-md-block">
-            <div class="card-header">最近提交</div>
-            <div class="card-body">
-                <?php if(!empty($recentSubmission)):?>
-                <div class="list-group">
-                    <?php foreach ($recentSubmission as $submission): ?>
-                    <a href="<?= \yii\helpers\Url::toRoute(['/solution/detail', 'id' => $submission['id']]) ?>"
-                        class="list-group-item list-group-item-action">
-                        <span>
-                            <?= Html::encode($submission['problem_id'] . '. '. $submission['title']) ?>
-                        </span>
-                        <span style="float: right">
-                            <?= \app\models\Solution::getResultList($submission['result']) ?> /
-                            <?= Yii::$app->formatter->asRelativeTime($submission['created_at']) ?>
-                        </span>
-                    </a>
-                    <?php endforeach; ?>
-                </div>
-                <?php else:?>
-                没有找到数据。
-                <?php endif;?>
-            </div>
-        </div>
-        <p></p>
-
-        <div class="card d-none d-md-block">
-            <div class="card-header">已解答 <small class="text-secondary"><?= count($solutionStats['solved_problem']) ?>
-                    Problem<?php if(count($solutionStats['solved_problem'])!=1) echo"s"; ?></small></div>
-            <div class="card-body">
-                <?php if(count($solutionStats['solved_problem']) != 0):?>
-                <?php foreach ($solutionStats['solved_problem'] as $p): ?>
-                <?= Html::a('<code>' . $p . '</code>', ['/problem/view', 'id' => $p], ['class' => 'badge badge-light text-secondary']) ?>
-                <?php endforeach; ?>
-                <?php else:?>
-                没有找到数据。
-                <?php endif;?>
-            </div>
-        </div>
-        <p></p>
-
-
-        <div class="card d-none d-md-block">
-            <div class="card-header">未解答 <small class="text-secondary"><?= count($solutionStats['unsolved_problem']) ?>
-                    Problem<?php if(count($solutionStats['unsolved_problem'])!=1) echo"s"; ?></small></div>
-            <div class="card-body">
-                <?php if(count($solutionStats['unsolved_problem']) != 0):?>
-                <?php foreach ($solutionStats['unsolved_problem'] as $p): ?>
-                <?= Html::a('<code>' . $p . '</code>', ['/problem/view', 'id' => $p], ['class' => 'badge badge-light text-secondary']) ?>
-                <?php endforeach; ?>
-                <?php else:?>
-                没有找到数据。
-                <?php endif;?>
-            </div>
-        </div>
-        <p></p>
-    </div>
-    <div class="col-md-4 col-lg-3">
+    <div class="col-lg-4">
 
         <?php
-        $hash = md5(strtolower(trim($model->email)));
-        $uri = 'https://www.gravatar.com/avatar/' . $hash . '?&s=512&d=mm';
-        $headers = @get_headers($uri);
-        if (preg_match("|200|", $headers[0])) {
-            echo '<div class="d-none d-md-block"><img class="img-fluid rounded img-thumbnail" onerror="errorImg(this)" src="'. $uri .'"><p></p></div>';
-        }
+        // $hash = md5(strtolower(trim($model->email)));
+        // $uri = 'https://cdn.v2ex.com/gravatar/' . $hash . '?&s=512&d=mm';
+        // $headers = @get_headers($uri);
+        // if (preg_match("|200|", $headers[0])) {
+        //     echo '<div class="d-none d-md-block"><img class="img-fluid rounded img-thumbnail" onerror="errorImg(this)" src="'. $uri .'"><p></p></div>';
+        // }
         ?>
         <div class="list-group">
             <div class="list-group-item">
                 <?= Yii::t('app', 'Username') ?><span
                     class="float-right text-secondary"><?= Html::encode($model->username)?></span>
-            </div>
-            <div class="list-group-item">
-                <?= Yii::t('app', 'Nickname') ?><span
-                    class="float-right text-secondary"><?= Html::encode($model->nickname)?></span>
             </div>
             <div class="list-group-item">
                 <?= Yii::t('app', 'Major') ?><span
@@ -148,7 +68,54 @@ $recentSubmission = $model->getRecentSubmission();
                 编译错误<span class="float-right text-secondary"> <?= $solutionStats['ce_count'] ?></span>
             </div>
         </div>
+        <p></p>
     </div>
+    <div class="col-lg-8">
+
+        <div class="card">
+            <!-- <div class="card-header">个人档案</div> -->
+            <div class="card-body">
+                <?php if($model->profile->personal_intro != ''):?>
+                <?= Yii::$app->formatter->asMarkdown($model->profile->personal_intro) ?>
+                <?php else:?>
+                没有找到数据。
+                <?php endif;?>
+            </div>
+        </div>
+        <p></p>
+
+        <div class="card">
+            <div class="card-header">已解答 <small class="text-secondary"><?= count($solutionStats['solved_problem']) ?>
+                    Problem<?php if(count($solutionStats['solved_problem'])!=1) echo"s"; ?></small></div>
+            <div class="card-body">
+                <?php if(count($solutionStats['solved_problem']) != 0):?>
+                <?php foreach ($solutionStats['solved_problem'] as $p): ?>
+                <?= Html::a('<code>' . $p . '</code>', ['/problem/view', 'id' => $p], ['class' => 'btn-sm bg-light text-dark', 'style' => "margin-bottom:0.5rem"]) ?>
+                <?php endforeach; ?>
+                <?php else:?>
+                没有找到数据。
+                <?php endif;?>
+            </div>
+        </div>
+        <p></p>
+
+
+        <div class="card">
+            <div class="card-header">未解答 <small class="text-secondary"><?= count($solutionStats['unsolved_problem']) ?>
+                    Problem<?php if(count($solutionStats['unsolved_problem'])!=1) echo"s"; ?></small></div>
+            <div class="card-body">
+                <?php if(count($solutionStats['unsolved_problem']) != 0):?>
+                <?php foreach ($solutionStats['unsolved_problem'] as $p): ?>
+                <?= Html::a('<code>' . $p . '</code>', ['/problem/view', 'id' => $p], ['class' => 'btn-sm bg-light text-dark', 'style' => "margin-bottom:0.5rem"]) ?>
+                <?php endforeach; ?>
+                <?php else:?>
+                没有找到数据。
+                <?php endif;?>
+            </div>
+        </div>
+        <p></p>
+    </div>
+
 </div>
 
 
