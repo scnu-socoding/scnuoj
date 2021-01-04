@@ -8,7 +8,7 @@ use app\models\GroupUser;
 /* @var $groupUser app\models\GroupUser */
 ?>
 
-<h3>管理用户：<?= Html::a(Html::encode($groupUser->user->nickname), ['/group/view', 'id' => $groupUser->user->id]) ?></h3>
+<h3>管理用户：<?= Html::a(Html::encode($groupUser->user->nickname), ['/user/view', 'id' => $groupUser->user->id]) ?></h3>
 <hr>
 <h4>当前角色：<?= $groupUser->getRole() ?></h4>
 <?php if ($groupUser->role == GroupUser::ROLE_APPLICATION): ?>

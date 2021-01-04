@@ -362,7 +362,7 @@ class GroupController extends BaseController
         if ($group->hasPermission() && $groupUser->role != GroupUser::ROLE_LEADER) {
             Yii::$app->cache->delete('role' . $group->id . '_' . $groupUser->user_id);
             $groupUser->delete();
-            return $this->redirect(['/group/view', 'id' => $group->id]);
+            return $this->redirect(['/group/member', 'id' => $group->id]);
         }
 
         throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -406,7 +406,7 @@ class GroupController extends BaseController
         if ($role != 0) {
             $groupUser->update();
             Yii::$app->cache->delete('role' . $group->id . '_' . $groupUser->user_id);
-            return $this->redirect(['/group/view', 'id' => $group->id]);
+            return $this->redirect(['/group/member', 'id' => $group->id]);
         }
 
         return $this->renderAjax('user_manager', [

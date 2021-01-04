@@ -236,7 +236,7 @@ class HomeworkController extends BaseController
         $groupId = $model->group_id;
         $model->delete();
         Yii::$app->session->setFlash('success', Yii::t('app', '已删除'));
-        return $this->redirect(['/group/view', 'id' => $groupId]);
+        return $this->redirect(['/group/contest', 'id' => $groupId]);
     }
 
     /**
