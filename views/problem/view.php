@@ -128,6 +128,24 @@ $nextProblemID = $model->getNextProblemID();
         <h5><?= Yii::t('app', 'Hint') ?></h5>
         <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
         <?php endif; ?>
+        <p></p>
+        <?php if (Yii::$app->user->isGuest): ?>
+        <?php else: ?>
+        <p></p>
+        <?php $form = ActiveForm::begin(); ?>
+
+        <?= $form->field($solution, 'language', [
+                'template' => "{input}",
+            ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
+        <?= $form->field($solution, 'source', [
+                'template' => "{input}",
+            ])->widget('app\widgets\codemirror\CodeMirror'); ?>
+
+        <div class="form-group">
+            <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
+        <?php endif; ?>
     </div>
 
 
@@ -200,36 +218,35 @@ $nextProblemID = $model->getNextProblemID();
             </table>
             <?php endif; ?>
         </div>
+        <p></p>
+        <div class="list-group" style="max-height:30rem;overflow-y: auto;">
+            <?php if($previousProblemID):?>
+            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> 上一题',
+                $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
+                ['class' => 'list-group-item list-group-item-action']
+            )?>
+            <?php else:?>
+            <div class="list-group-item text-secondary">已经是第一题了</div>
+            <?php endif; ?>
 
+            <?php if($nextProblemID):?>
+            <?= Html::a('下一题 <span class="glyphicon glyphicon-arrow-right"></span>',
+                $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
+                ['class' => 'list-group-item list-group-item-action']
+            )?>
+            <?php else:?>
+            <div class="list-group-item text-secondary">已经是最后一题了</div>
+            <?php endif; ?>
 
+        </div>
     </div>
-</div>
-<div>
-    <?php if (Yii::$app->user->isGuest): ?>
-    <?php else: ?>
-    <p></p>
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($solution, 'language', [
-                'template' => "{input}",
-            ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
-    <?= $form->field($solution, 'source', [
-                'template' => "{input}",
-            ])->widget('app\widgets\codemirror\CodeMirror'); ?>
-
-    <div class="form-group">
-        <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
-    <?php endif; ?>
-</div>
-<?php Modal::begin([
+    <?php Modal::begin([
     'options' => ['id' => 'solution-info']
 ]); ?>
-<div id="solution-content">
-</div>
-<?php Modal::end(); ?>
-<?php
+    <div id="solution-content">
+    </div>
+    <?php Modal::end(); ?>
+    <?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $js = <<<EOF
 

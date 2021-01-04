@@ -114,6 +114,30 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
         <?php endif; ?>
         <?php endif; ?>
+        <p></p>
+        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
+        <p></p>
+        <div class="alert text-dark">比赛已结束。比赛结束五分钟后开放提交。</div>
+        <?php else: ?>
+        <?php if (Yii::$app->user->isGuest): ?>
+        <?php else: ?>
+        <p></p>
+        <?php $form = ActiveForm::begin(); ?>
+
+        <?= $form->field($solution, 'language', [
+                    'template' => "{input}",
+                ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
+
+        <?= $form->field($solution, 'source', [
+                    'template' => "{input}",
+                ])->widget('app\widgets\codemirror\CodeMirror'); ?>
+
+        <div class="form-group">
+            <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
+        <?php endif; ?>
+        <?php endif; ?>
 
     </div>
     <div class="col-lg-4 problem-info">
@@ -182,34 +206,18 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
             </table>
             <?php endif; ?>
         </div>
+        <p></p>
+        <div class="list-group" style="max-height:30rem;overflow-y: auto;">
+            <?php foreach ($problems as $key => $p): ?>
+            <?= Html::a('Problem ' . chr(65 + $key) . '. ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action', 'style' => 'padding-top: 0.5rem;padding-bottom: 0.5rem']); ?>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col">
 
-        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
-        <p></p>
-        <div class="alert text-dark">比赛已结束。比赛结束五分钟后开放提交。</div>
-        <?php else: ?>
-        <?php if (Yii::$app->user->isGuest): ?>
-        <?php else: ?>
-        <p></p>
-        <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($solution, 'language', [
-                    'template' => "{input}",
-                ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
-
-        <?= $form->field($solution, 'source', [
-                    'template' => "{input}",
-                ])->widget('app\widgets\codemirror\CodeMirror'); ?>
-
-        <div class="form-group">
-            <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
-        <?php endif; ?>
-        <?php endif; ?>
     </div>
 </div>
 <?php Modal::begin([
