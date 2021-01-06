@@ -12,14 +12,12 @@ $this->params['model'] = $model;
 // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="contest-editorial">
-    <div style="padding: 50px">
-        <?php
+<div>
+    <?php
         if ($model->editorial != NULL) {
             echo Yii::$app->formatter->asMarkdown($model->editorial);
         } else {
-            echo '出题人去火星旅游了，这里什么也没有～';
+            echo '<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 出题人去火星旅游了，这里什么也没有。</div>';
         }
         ?>
-    </div>
 </div>
