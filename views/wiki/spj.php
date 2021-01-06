@@ -1,3 +1,6 @@
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 本页面已被隐藏，如果你不是 SCNUOJ 开发组或出题人，本页面可能对你帮助不大。
+</div>
+
 <h3>Special Judge</h3>
 <p>　　Special Judge 是指判题系统将使用一个特定的程序来判断提交的程序的输出是不是正确的，而不是单纯地看提交的程序的输出是否和标准输出一模一样。一般使用 Special Judge 都是因为题目的答案不唯一，更具体一点说的话一般是两种情况：</p>
 

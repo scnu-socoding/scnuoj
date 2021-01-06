@@ -1,5 +1,8 @@
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 本页面已被隐藏，如果你不是 SCNUOJ 开发组或出题人，本页面可能对你帮助不大。
+</div>
+
 <h3>启用 OI 模式</h3>
-<p>　　OI 模式默认已开启。如果意外情况发生，你是判题系统管理员且知道如何登录学院服务器，可以使用下面的方式启用 OI 模式：</p>
+<p>　　可以使用下面的方式启用 OI 模式：</p>
 <ol>
     <li>在网站后台设置页面选择启用 OI 模式。</li>
     <li>在启动判题机时，加上 <code>-o</code> 选项。</li>

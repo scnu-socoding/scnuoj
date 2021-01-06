@@ -3,6 +3,9 @@ use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 ?>
 
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 本页面已被隐藏，如果你不是 SCNUOJ 开发组或出题人，本页面可能对你帮助不大。
+</div>
+
 <h3>Polygon System</h3>
 
 <p>　　为了方便课程助教和部分有需要的同学和老师，我们开放了造题系统 <?= Html::a(Yii::t('app', 'Polygon System'), ['/polygon']) ?>。所有注册用户都可以在该平台上面创建题目，非管理员用户只能查看自己创建的题目，管理员可以查看所有用户的题目，并将题目加入公共题库或比赛中。</p>
