@@ -103,11 +103,6 @@ class SiteController extends BaseController
         ]);
     }
 
-    public function actionPrint()
-    {
-        return $this->render('print');
-    }
-
     /**
      * Login action.
      *
