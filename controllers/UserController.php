@@ -84,21 +84,21 @@ class UserController extends BaseController
      * @return mixed
      * @throws ForbiddenHttpException if the model cannot be viewed
      */
-    public function actionSetting($action = 'profile')
+    public function actionSetting($action = 'default')
     {
         $model = User::findOne(Yii::$app->user->id);
         if ($model->role === User::ROLE_PLAYER) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
         switch ($action) {
-            case 'profile':
-                $model->scenario = 'profile';
+            case 'default':
+                $model->scenario = 'default';
                 break;
             case 'security':
                 $model->scenario = 'security';
                 break;
             default:
-                $action = 'profile';
+                $action = 'default';
                 break;
         }
         $oldEmail = $model->email;
@@ -151,7 +151,7 @@ class UserController extends BaseController
         } else {
             Yii::$app->session->setFlash('error', '验证邮箱发送失败。可能原因：1. 该邮箱不存在；2. 本网站系统邮箱配置信息有误，需联系管理员检查系统的发送邮箱配置信息。');
         }
-        $this->redirect(['/user/setting', 'action' => 'profile']);
+        $this->redirect(['/user/setting', 'action' => 'default']);
     }
 
     /**

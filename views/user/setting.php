@@ -17,7 +17,7 @@ $this->title = $model->nickname;
         $menuItems = [
             [
                 'label' => Yii::t('app', 'Profile'),
-                'url' => ['user/setting', 'action' => 'profile']
+                'url' => ['user/setting', 'action' => 'default']
             ],
             [
                 'label' => Yii::t('app', 'Security'),

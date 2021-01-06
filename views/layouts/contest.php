@@ -111,7 +111,7 @@ $status = $model->getRunStatus();
         }
         $menuItemsRight[] =  [
             'label' => Yii::t('app', 'Setting'),
-            'url' => ['/user/setting', 'action' => 'profile'],
+            'url' => ['/user/setting', 'action' => 'default'],
         ];
         $menuItemsRight[] = [
             'label' => Yii::t('app', 'Logout'),
