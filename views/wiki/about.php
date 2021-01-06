@@ -1,6 +1,7 @@
-<img src="<?= Yii::getAlias('@web') . '/images/error-header.jpg' ?>" class="img-fluid rounded d-none d-sm-block">
-
-<p></p>
+<div class="d-none d-sm-block">
+    <img src="<?= Yii::getAlias('@web') . '/images/error-header.jpg' ?>" class="img-fluid rounded">
+    <p></p>
+</div>
 <div class="list-group">
 
     <div class="list-group-item">
@@ -15,7 +16,7 @@
             Version <?= date("Y.m.d", filemtime(Yii::getAlias('@app/CHANGELOG.md'))) ?>
         </span>
     </div>
-    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/scnu-socoding/scnuoj">
+    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/SCNU-SoCoding/scnuoj">
         <b>项目网址</b>
         <span class="float-right text-secondary">
             <i class="fas fa-fw fa-angle-right"></i>
@@ -27,7 +28,8 @@
             <i class="fas fa-fw fa-angle-right"></i>
         </span>
     </a>
-    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/SCNU-SoCoding/scnuoj/graphs/contributors">
+    <a class="list-group-item list-group-item-action" target="_blank"
+        href="//github.com/SCNU-SoCoding/scnuoj/graphs/contributors">
         <b>贡献者名单</b>
         <span class="float-right text-secondary">
             <i class="fas fa-fw fa-angle-right"></i>
@@ -38,6 +40,6 @@
 <p></p>
 <div class="list-group">
     <div class="text-right text-secondary list-group-item">
-SCNUOJ 的诞生离不开 JNOJ，在此特别鸣谢 JNOJ 开发组
+        SCNUOJ 的诞生离不开 JNOJ，在此特别鸣谢 JNOJ 开发组
     </div>
 </div>
