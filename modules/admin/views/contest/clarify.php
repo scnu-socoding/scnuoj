@@ -31,7 +31,7 @@ if ($discuss != null) {
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->user->username . ' [' . $model->user->nickname . ']', ['/user/view', 'id' => $model->user->id]);
+                    return Html::a(Html::encode($model->user->username) . ' [' . Html::encode($model->user->nickname) . ']', ['/user/view', 'id' => $model->user->id]);
                 },
                 'format' => 'raw'
             ],
