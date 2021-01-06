@@ -34,11 +34,15 @@
 <p></p>
 <h5>结果</h5>
 
+<?php if(!Yii::$app->setting->get('oiMode')): ?>
 <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> OI
     模式目前处于<b>关闭</b>状态，系统在遇到第一个无法通过的测试点时将立刻停止评测并该测试点的返回结果。</div>
 
 <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 在当前状态下，在 IOI/OI 赛制的比赛提交代码将无法得到准确的分数。</div>
-
+<?php else: ?>
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> OI
+    模式目前处于<b>开启</b>状态，系统将对所有测试点逐一进行评测。</div>
+<?php endif; ?>
 
 
 <div class="list-group">
