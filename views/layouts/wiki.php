@@ -12,12 +12,26 @@ $this->title = Yii::t('app', 'Wiki');;
 
 <?= Nav::widget([
             'items' => [
-                ['label' => Yii::t('app', '判题'), 'url' => ['wiki/index']],
-                ['label' => Yii::t('app', 'Contest'), 'url' => ['wiki/contest']],
-                // ['label' => Yii::t('app', '出题要求'), 'url' => ['wiki/problem']],
-                // ['label' => Yii::t('app', 'Special Judge'), 'url' => ['wiki/spj']],
-                // ['label' => Yii::t('app', 'OI 模式'), 'url' => ['wiki/oi']],
-                ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']]
+                [
+                    'label' => Yii::t('app', '判题说明'), 'url' => ['wiki/index']
+                ],
+                ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']],
+                [
+                    'label' => Yii::t('app', 'Contest'), 'url' => ['wiki/contest'],
+                    'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
+                ],
+                [
+                    'label' => Yii::t('app', '出题要求'), 'url' => ['wiki/problem'],
+                    'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
+                ],
+                [
+                    'label' => Yii::t('app', 'Special Judge'), 'url' => ['wiki/spj'],
+                    'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
+                ],
+                [
+                    'label' => Yii::t('app', 'OI 模式'), 'url' => ['wiki/oi'],
+                    'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
+                ]
             ],
             'options' => ['class' => 'nav nav-pills']
         ]) ?>
