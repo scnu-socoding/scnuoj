@@ -41,7 +41,7 @@ if ($discuss != null) {
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
-                        return $model->content;
+                        return Html::encode($model->content);
                     },
                     'format' => 'html',
                     'enableSorting' => false

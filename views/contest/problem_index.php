@@ -28,21 +28,21 @@ $submissionStatistics = $model->getSubmissionStatistics();
             <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
             <?php foreach ($problems as $key => $p): ?>
             <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
+            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . Html::encode($p['title']) . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
             <?php else: ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-warning']) ?>
+            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . Html::encode($p['title']) . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-warning']) ?>
             <?php endif; ?>
             <?php endforeach; ?>
             <?php else: ?>
             <?php foreach ($problems as $key => $p): ?>
             <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
+            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . Html::encode($p['title']) . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']) ?>
             <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-success']) ?>
+            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . Html::encode($p['title']) . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-success']) ?>
             <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-warning']) ?>
+            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . Html::encode($p['title']) . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-warning']) ?>
             <?php else: ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . $p['title'] . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-danger']) ?>
+            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' . Html::encode($p['title']) . '<span class="float-right">' . $submissionStatistics[$p['problem_id']]['solved'] . ' 通过 / ' . $submissionStatistics[$p['problem_id']]['submit'] . ' 提交</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action list-group-item-danger']) ?>
             <?php endif; ?>
             <?php endforeach; ?>
             <?php endif; ?>
