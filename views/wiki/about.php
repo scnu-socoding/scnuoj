@@ -1,10 +1,43 @@
-<h3>在线判题系统</h3>
-<p>　　正如系统的名称所示，在线判题系统允许用户可以在线提交程序多种程序源代码，系统对源代码进行编译和执行，并通过预先设计的测试数据来检验程序源代码的正确性。</p>
+<img src="<?= Yii::getAlias('@web') . '/images/error-header.jpg' ?>" class="img-fluid rounded d-none d-sm-block">
 
-<p>　　系统分为前台页面、后台页面、造题系统和评测程序四部分，前台页面从数据库获取题目、比赛列表在浏览器上显示，用户通过浏览器提交的代码直接保存到数据库。评测程序负责从数据库中取出用户刚刚提交的代码，保存到文件，然后编译、执行和评判，最后将评判结果写回数据库。测评程序会不断扫描数据库，一旦出现没有评判的题目会立即进行评判。同时，为了防止用户提交恶意代码破坏系统，测评程序会对所提交程序调用的函数及程序运行权限进行限制。</p>
+<p></p>
+<div class="list-group">
 
-<br />
+    <div class="list-group-item">
+        <b>名称</b>
+        <span class="float-right text-secondary">
+            <?=  Yii::$app->setting->get('schoolName') ?>在线评测系统
+        </span>
+    </div>
+    <div class="list-group-item">
+        <b>SCNUOJ 版本</b>
+        <span class="float-right text-secondary">
+            Version <?= date("Y.m.d", filemtime(Yii::getAlias('@app/CHANGELOG.md'))) ?>
+        </span>
+    </div>
+    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/scnu-socoding/scnuoj">
+        <b>项目网址</b>
+        <span class="float-right text-secondary">
+            <i class="fas fa-fw fa-angle-right"></i>
+        </span>
+    </a>
+    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/SCNU-SoCoding/scnuoj/issues">
+        <b>问题反馈</b>
+        <span class="float-right text-secondary">
+            <i class="fas fa-fw fa-angle-right"></i>
+        </span>
+    </a>
+    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/SCNU-SoCoding/scnuoj/graphs/contributors">
+        <b>贡献者名单</b>
+        <span class="float-right text-secondary">
+            <i class="fas fa-fw fa-angle-right"></i>
+        </span>
+    </a>
+</div>
 
-<h3>SCNU Online Judge</h3>
-
-<p>　　华南师范大学（软件学院）在线判题系统由软件协会香农先修班负责人、技术部和 OJ 项目组维护。2020/2021 版在线判题系统相比早期版本增加了赛时答疑、小组比赛、造题系统等功能。由于时间紧、任务重，本系统难免存在漏洞，我们欢迎大家在 <a href="https://github.com/scnu-socoding/scnuoj" target="_blank">scnu-socoding/scnuoj</a> 提供反馈意见或是贡献代码。2020/2021 版在线判题系统的诞生离不开 JNOJ，在此特别鸣谢 JNOJ 开发组。</p>
+<p></p>
+<div class="list-group">
+    <div class="text-right text-secondary list-group-item">
+SCNUOJ 的诞生离不开 JNOJ，在此特别鸣谢 JNOJ 开发组
+    </div>
+</div>
