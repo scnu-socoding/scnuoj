@@ -9,7 +9,20 @@ use yii\helpers\Html;
 $this->title = Yii::$app->setting->get('ojName');
 ?>
 
-
+<section class="py-5 text-center">
+    <div class="row py-lg-5">
+        <div class="mx-auto d-none d-md-block">
+            <br />
+            <h2>South China Normal University Online Judge</h2>
+            <p class="lead text-muted">华南师范大学软件学院在线评测系统</p>
+        </div>
+        <div class="mx-auto d-md-none">
+            <br />
+            <h2>SCNU Online Judge</h2>
+            <p class="lead text-muted">华南师范大学软件学院在线评测系统</p>
+        </div>
+    </div>
+</section>
 
 <p></p>
 <div class="row">

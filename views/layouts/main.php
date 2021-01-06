@@ -125,51 +125,9 @@ AppAsset::register($this);
     ?>
         <br />
         <p></p>
-
-
-
-        <?php if ($this->title == Yii::$app->setting->get('ojName')):?>
-        <section class="py-5 text-center container-fluid">
-            <div class="row py-lg-5">
-                <div class="mx-auto d-none d-md-block">
-                    <br />
-                    <h2>South China Normal University Online Judge</h2>
-                    <p class="lead text-muted">华南师范大学软件学院在线评测系统</p>
-                </div>
-                <div class="mx-auto d-md-none">
-                    <br />
-                    <h2>SCNU Online Judge</h2>
-                    <p class="lead text-muted">华南师范大学软件学院在线评测系统</p>
-                </div>
-            </div>
-        </section>
-        <!-- <div class="jumbotron">
-            <?php if (Yii::$app->setting->get('ojName') =="SCNU Online Judge" ):?>
-            <div class="text-center d-none d-md-block">
-                <br />
-                <h2></h2>
-                <p></p>
-            </div>
-            <div class="text-center d-md-none">
-                <br />
-                <h2>SCNU Online Judge</h2>
-                <p>华南师范大学软件学院在线判题系统</p>
-            </div>
-            <?php else: ?>
-                <div class="text-center">
-                <br />
-                <h2><?= Yii::$app->setting->get('ojName') ?></h2>
-            </div>
-            <?php endif?>
-        </div> -->
-        <?php else: ?>
+        
         <br />
         <p></p>
-        <?php endif?>
-
-
-
-
 
         <div class="container-xl">
             <div class="col">
