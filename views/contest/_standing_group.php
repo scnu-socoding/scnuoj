@@ -13,7 +13,8 @@ $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
 <?php if ($model->isScoreboardFrozen()): ?>
-<p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。</div>
+<p></p>
 <?php endif; ?>
 <table class="table table-bordered">
 
@@ -26,15 +27,13 @@ $submit_count = $rankResult['submit_count'];
             <?php foreach($problems as $key => $p): ?>
             <td style="width:3.5rem">
                 <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark font-weight-bold']) ?><br>
-                <!-- <small>
-                    <?php
-                    // echo "(";
-                    if (isset($submit_count[$p['problem_id']]['solved']))
-                        echo $submit_count[$p['problem_id']]['solved'];
-                    else
-                        echo 0;
+                <?php
+                    // // echo "(";
+                    // if (isset($submit_count[$p['problem_id']]['solved']))
+                    //     echo $submit_count[$p['problem_id']]['solved'];
+                    // else
+                    //     echo 0;
                     ?>
-                </small> -->
             </td>
             <?php endforeach; ?>
         </tr>
@@ -44,35 +43,6 @@ $submit_count = $rankResult['submit_count'];
             <td style="display:table-cell; vertical-align:middle">
                 <?php
                 echo $rank['finalrank'];
-                //线下赛，参加比赛但不参加排名的处理
-                // if ($model->scenario == \app\models\Contest::SCENARIO_OFFLINE && $rank['role'] != \app\models\User::ROLE_PLAYER) {
-                //     echo '*';
-                // }
-                // elseif ($rank['role'] == \app\models\User::ROLE_ADMIN) {
-                //     echo '*';
-                // } else {
-                //     if($ranking != 1) {
-                //         if (strtotime($model->end_time) >= 253370736000) {
-                //             if ($result[$i]['solved'] != $result[$i-1]['solved']) {
-                //                 echo $ranking;
-                //                 $last_ranking = $ranking;
-                //             } else {
-                //                 echo $last_ranking;
-                //             }
-                //         } else {
-                //             if ($result[$i]['solved'] != $result[$i-1]['solved'] || $result[$i]['time'] != $result[$i-1]['time']) {
-                //                 echo $ranking;
-                //                 $last_ranking = $ranking;
-                //             } else {
-                //                 echo $last_ranking;
-                //             }
-                //         }
-                //     } else {
-                //         echo $ranking;
-                //     }
-                    
-                //     $ranking++;
-                // }
                 ?>
             </td>
             <td style="display:table-cell; vertical-align:middle">
