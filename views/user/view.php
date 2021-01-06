@@ -13,7 +13,7 @@ $solutionStats = $model->getSolutionStats();
 $recentSubmission = $model->getRecentSubmission();
 ?>
 
-<h3><?= Html::encode($model->getColorName()) ?></h3>
+<h3><?= Html::encode($model->nickname) ?></h3>
 <p></p>
 <?php if ($model->role != \app\models\User::ROLE_PLAYER): ?>
 <div class="row">

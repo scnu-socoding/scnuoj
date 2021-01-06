@@ -32,7 +32,7 @@ $this->title = Yii::t('app', 'Status');
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
+                        return Html::a($model->user->nickname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',

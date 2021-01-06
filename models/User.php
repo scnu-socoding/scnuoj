@@ -396,60 +396,6 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
 
-    /**
-     * 根据段位返回颜色
-     * 该方法在榜单显示时调用
-     *
-     * @param string $nickname
-     * @param integer $rating
-     * @return string 含有颜色的HTML昵称
-     */
-    public static function getColorNameByRating($nickname, $rating)
-    {
-        $nickname = Html::encode($nickname);
-        $colors = [
-            'user-black',
-            'user-gray',
-            'user-green',
-            'user-cyan',
-            'user-blue',
-            'user-orange',
-            'user-violet',
-            'user-yellow',
-            'user-fire',
-            'user-red',
-            'user-admin'
-        ];
-        $tmp = $colors[0];
-        return "{$nickname}";
-        // return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
-    }
-
-    /**
-     * 根据段位返回颜色
-     */
-    public function getColorName()
-    {
-        $rating = $this->rating;
-        $nickname = Html::encode($this->nickname);
-        $colors = [
-            'user-black',
-            'user-gray',
-            'user-green',
-            'user-cyan',
-            'user-blue',
-            'user-orange',
-            'user-violet',
-            'user-yellow',
-            'user-fire',
-            'user-red',
-            'user-admin'
-        ];
-        $tmp = $colors[0];
-        return "{$nickname}";
-        // return "<span class=\"{$tmp} rated-user\">{$nickname}</span>";
-    }
-
     public function isAdmin()
     {
         return $this->role == self::ROLE_ADMIN;
