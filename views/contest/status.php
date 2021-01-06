@@ -27,7 +27,7 @@ $isContestEnd = $model->isContestEnd();
 ?>
 <div class="solution-index">
     <?php if ($model->isScoreboardFrozen()) :?>
-        <p class="text-center">现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</p>
+        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</p>
     <?php endif; ?>
     <?php if ($model->type != Contest::TYPE_OI || $isContestEnd): ?>
     <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
@@ -53,7 +53,7 @@ $isContestEnd = $model->isContestEnd();
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->colorname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
+                        return Html::a($model->user->nickname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
