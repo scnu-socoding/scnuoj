@@ -38,6 +38,7 @@ $this->title = Yii::t('app', 'Rating');
                     <tr>
                         <th>#</th>
                         <th>Who</th>
+                        <th></th>
                         <th>Solved</th>
                     </tr>
                     </thead>
@@ -48,6 +49,9 @@ $this->title = Yii::t('app', 'Rating');
                             <th scope="row"><?= $num ?></th>
                             <td>
                                 <?= Html::a(Html::encode($user['nickname']), ['/user/view', 'id' => $user['id']], ['class' => 'text-dark']) ?>
+                            </td>
+                            <td>
+                                <?= $user['student_number'] ?>
                             </td>
                             <td>
                                 <?= $user['solved'] ?>
