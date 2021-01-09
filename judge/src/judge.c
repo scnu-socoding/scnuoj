@@ -637,7 +637,7 @@ void record_data(problem_struct problem,
                  char * infile, char * outfile, char * userfile)
 {
     const int rsize = 200; // 需要记录的字符数
-    const char * omit_str = "...";
+    const char omit_str[] = "...";
     int tmp_size;
     FILE * fp = NULL;
     if (problem.isspj) {
@@ -1463,10 +1463,10 @@ int main(int argc, char** argv)
             test_result_rec[run_result]++;
             if (run_result == OJ_AC) {
                 pass_count++;
-            } else {
-                // 记录该数据点的运行信息
-                record_data(problem, &verdict_res, infile, outfile, userfile);
-            }
+            } 
+            // 记录该数据点的运行信息
+            record_data(problem, &verdict_res, infile, outfile, userfile);
+            
             cJSON * case_json_object = create_case_object(verdict_res);
             cJSON_AddItemToArray(cases_array, case_json_object);
             if (oi_mode) {
