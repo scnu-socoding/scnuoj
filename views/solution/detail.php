@@ -90,7 +90,7 @@ $this->title = $model->id;
 <?php if ($model->canViewResult()) : ?>
     <div class="alert alert-light">
         <i class="fas fa-fw fa-info-circle"></i>
-        <?php if ($model->getPassedTestCount()) : ?>
+        <?php if ($model->getTestCount()) : ?>
             本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
         <?php else : ?>
             暂时无法获取本题测试点信息。
