@@ -20,8 +20,8 @@ $this->title = $model->id;
                 <th style="min-width:150px"><?= Yii::t('app', 'Author') ?></th>
                 <th style="min-width:200px"><?= Yii::t('app', 'Problem ID') ?></th>
                 <th style="min-width:100px"><?= Yii::t('app', 'Verdict') ?></th>
-                <?php if (Yii::$app->setting->get('oiMode')): ?>
-                <th width="100px"><?= Yii::t('app', 'Score') ?></th>
+                <?php if (Yii::$app->setting->get('oiMode')) : ?>
+                    <th width="100px"><?= Yii::t('app', 'Score') ?></th>
                 <?php endif; ?>
                 <th style="min-width:100px"><?= Yii::t('app', 'Time') ?></th>
                 <th style="min-width:100px"><?= Yii::t('app', 'Memory') ?></th>
@@ -46,16 +46,16 @@ $this->title = $model->id;
                         echo Solution::getResultList(Solution::OJ_WT0);
                     } ?>
                 </td>
-                <?php if (Yii::$app->setting->get('oiMode')): ?>
-                <td>
-                    <?php
-                            if ($model->canViewResult()) {
-                                echo $model->score;
-                            } else {
-                                echo '-';
-                            }
+                <?php if (Yii::$app->setting->get('oiMode')) : ?>
+                    <td>
+                        <?php
+                        if ($model->canViewResult()) {
+                            echo $model->score;
+                        } else {
+                            echo '-';
+                        }
                         ?>
-                </td>
+                    </td>
                 <?php endif; ?>
                 <td>
                     <?php
@@ -83,33 +83,42 @@ $this->title = $model->id;
     </table>
 </div>
 
-<?php if ($model->canViewSource()): ?>
-<pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
+<?php if ($model->canViewSource()) : ?>
+    <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
 <?php endif; ?>
 
-<?php if ($model->canViewResult()): ?>
-<div class="border rounded">
-    <div class="card-body">
-        <h3 style="margin:0">测试点信息 <small class="text-secondary"><?= $model->getPassedTestCount() ?> Accepted /
-                <?= $model->getTestCount() ?> Total</small></h3>
+<?php if ($model->canViewResult()) : ?>
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i>
+        <?php if ($model->getPassedTestCount()) : ?>
+            本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
+        <?php else : ?>
+            暂时无法获取本题测试点信息。
+        <?php endif; ?>
     </div>
-</div>
 <?php endif; ?>
 
-<?php if ($model->solutionInfo != null && $model->canViewErrorInfo()): ?>
+<?php if ($model->solutionInfo != null && $model->canViewErrorInfo()) : ?>
     <p></p>
-<div id="run-info" class="list-group">
-</div>
-<?php
-$json = $model->solutionInfo->run_info;
-$json = str_replace(PHP_EOL,"<br>",$json);
-$json = str_replace("\\n","<br>",$json);
-$json = str_replace("'","\'",$json);
-$json = str_replace("\\r", "", $json);
-$oiMode = Yii::$app->setting->get('oiMode');
-$verdict = $model->result;
-$CE = Solution::OJ_CE;
-$js = <<<EOF
+    <?php if ($model->result != Solution::OJ_CE) : ?>
+        <div id="run-info" class="list-group">
+        </div>
+    <?php else : ?>
+        <div class="list-group">
+            <div class="list-group-item"><pre id="run-info"></pre></div>
+        </div>
+    <?php endif; ?>
+    </div>
+    <?php
+    $json = $model->solutionInfo->run_info;
+    $json = str_replace(PHP_EOL, "<br>", $json);
+    $json = str_replace("\\n", "<br>", $json);
+    $json = str_replace("'", "\'", $json);
+    $json = str_replace("\\r", "", $json);
+    $oiMode = Yii::$app->setting->get('oiMode');
+    $verdict = $model->result;
+    $CE = Solution::OJ_CE;
+    $js = <<<EOF
 
 var oiMode = $oiMode;
 var verdict = $verdict;
@@ -145,7 +154,64 @@ if (verdict == CE) {
     $("#run-info").append(json);
 }
 EOF;
-$this->registerJs($js);
-?>
+    $this->registerJs($js);
+    ?>
+<?php elseif ($model->canViewResult()) : ?>
+    <p></p>
+    <?php if ($model->result != Solution::OJ_CE) : ?>
+        <div id="run-info" class="list-group">
+        </div>
+    <?php else : ?>
+        <div class="list-group">
+            <div class="list-group-item"><pre id="run-info"></pre></div>
+        </div>
+    <?php endif; ?>
+    <?php
+    $json = $model->solutionInfo->run_info;
+    $json = str_replace(PHP_EOL, "<br>", $json);
+    $json = str_replace("\\n", "<br>", $json);
+    $json = str_replace("'", "\'", $json);
+    $json = str_replace("\\r", "", $json);
+    $oiMode = Yii::$app->setting->get('oiMode');
+    $verdict = $model->result;
+    $CE = Solution::OJ_CE;
+    $js = <<<EOF
+
+var oiMode = $oiMode;
+var verdict = $verdict;
+var CE = $CE;
+
+var json = '$json';
+if (verdict != CE) {
+    json = JSON.parse(json);
+    var subtasks = json.subtasks;
+    var testId = 1;
+    for (var i = 0; i < subtasks.length; i++) {
+        var cases = subtasks[i].cases;
+        var score = subtasks[i].score;
+        var isSubtask = (subtasks.length != 1);
+        if (isSubtask) {
+            var verdict = cases[cases.length - 1].verdict;
+            $("#run-info").append(subtaskHtml(i + 1, score, verdict));
+            for (var j = 0; j < cases.length; j++) {
+                var id = i + 1;
+                $('#subtask-body-' + id).append(testHtmlMinDetail(testId, cases[j]));
+                testId++;
+            }
+        } else {
+            for (var j = 0; j < cases.length; j++) {
+                $("#run-info").append(testHtmlMinDetail(testId, cases[j]));
+                testId++;
+            }
+        }
+    }
+    json = "";
+}
+if (verdict == CE) {
+    $("#run-info").append(json);
+}
+EOF;
+    $this->registerJs($js);
+    ?>
 
 <?php endif; ?>
