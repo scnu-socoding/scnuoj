@@ -69,19 +69,6 @@ function testHtml(id, caseJsonObject) {
     </div>';
 }
 
-function testHtmlMinDetail(id, caseJsonObject) {
-  return '<div class="list-group-item test-for-popup"> \
-        <div role="tab" id="heading' + id + '"> \
-                <span class="collapsed text-dark"> \
-                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
-                    测试点 <span class="test" style="width: 50px">' + id + '</span> / \
-                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
-                    <span class="float-right text-secondary d-none d-md-inline">评测信息暂不可用</span></div> \
-                </span> \
-        </div> \
-    </div>';
-}
-
 function subtaskHtml(id, score, verdict) {
   var scoregot = score;
   var csscolor = 'panel-success';
