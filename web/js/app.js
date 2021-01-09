@@ -48,19 +48,19 @@ function testHtml(id, caseJsonObject) {
             <div class="panel-body"><hr>\
                 <div class="sample-test">\
                     <div class="input">\
-                        <h4>输入</h4>\
+                        <h6>标准输入</h6>\
                         <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
                     </div>\
                     <div class="output">\
-                        <h4>输出</h4>\
+                        <h6>标准输出</h6>\
                         <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
                     </div>\
                     <div class="output">\
-                        <h4>答案</h4>\
+                        <h6>答案</h6>\
                         <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
-                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h4>检查日志</h4><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
+                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
     + '<div class="output">\
-                        <h4>系统信息</h4>\
+                        <h6>系统信息</h6>\
                         <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
                     </div>\
                 </div>\
@@ -68,6 +68,20 @@ function testHtml(id, caseJsonObject) {
         </div>\
     </div>';
 }
+
+function testHtmlMinDetail(id, caseJsonObject) {
+  return '<div class="list-group-item test-for-popup"> \
+        <div role="tab" id="heading' + id + '"> \
+                <span class="collapsed text-dark"> \
+                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
+                    测试点 <span class="test" style="width: 50px">' + id + '</span> / \
+                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
+                    <span class="float-right text-secondary d-none d-md-inline">评测信息暂不可用</span></div> \
+                </span> \
+        </div> \
+    </div>';
+}
+
 function subtaskHtml(id, score, verdict) {
   var scoregot = score;
   var csscolor = 'panel-success';
