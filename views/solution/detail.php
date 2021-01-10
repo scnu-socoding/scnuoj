@@ -83,6 +83,8 @@ $this->title = $model->id;
     </table>
 </div>
 
+<?php $flag = 0; ?>
+
 <?php if ($model->canViewSource()) : ?>
     <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
 <?php endif; ?>
@@ -93,7 +95,8 @@ $this->title = $model->id;
         <?php if ($model->getTestCount()) : ?>
             本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
         <?php else : ?>
-            暂时无法获取本题测试点信息。
+            暂时无法获取本题测试点详情。
+            <?php $flag = 1; ?>
         <?php endif; ?>
     </div>
 <?php endif; ?>
@@ -105,7 +108,9 @@ $this->title = $model->id;
         </div>
     <?php else : ?>
         <div class="list-group">
-            <div class="list-group-item"><pre id="run-info"></pre></div>
+            <div class="list-group-item">
+                <pre id="run-info"></pre>
+            </div>
         </div>
     <?php endif; ?>
     </div>
@@ -156,14 +161,16 @@ if (verdict == CE) {
 EOF;
     $this->registerJs($js);
     ?>
-<?php elseif ($model->canViewResult()) : ?>
+<?php elseif ($model->solutionInfo != null && $model->canViewResult()) : ?>
     <p></p>
     <?php if ($model->result != Solution::OJ_CE) : ?>
         <div id="run-info" class="list-group">
         </div>
     <?php else : ?>
         <div class="list-group">
-            <div class="list-group-item"><pre id="run-info"></pre></div>
+            <div class="list-group-item">
+                <pre id="run-info"></pre>
+            </div>
         </div>
     <?php endif; ?>
     <?php
@@ -214,4 +221,9 @@ EOF;
     $this->registerJs($js);
     ?>
 
+<?php elseif ($flag == 0): ?>
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i>
+        暂时无法获取本题测试点详情。
+    </div>
 <?php endif; ?>
