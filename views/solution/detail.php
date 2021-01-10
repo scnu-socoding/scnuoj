@@ -156,4 +156,62 @@ if (verdict == CE) {
 EOF;
     $this->registerJs($js);
     ?>
+<?php elseif ($model->canViewResult()) : ?>
+    <p></p>
+    <?php if ($model->result != Solution::OJ_CE) : ?>
+        <div id="run-info" class="list-group">
+        </div>
+    <?php else : ?>
+        <div class="list-group">
+            <div class="list-group-item"><pre id="run-info"></pre></div>
+        </div>
+    <?php endif; ?>
+    <?php
+    $json = $model->solutionInfo->run_info;
+    $json = str_replace(PHP_EOL, "<br>", $json);
+    $json = str_replace("\\n", "<br>", $json);
+    $json = str_replace("'", "\'", $json);
+    $json = str_replace("\\r", "", $json);
+    $oiMode = Yii::$app->setting->get('oiMode');
+    $verdict = $model->result;
+    $CE = Solution::OJ_CE;
+    $js = <<<EOF
+
+var oiMode = $oiMode;
+var verdict = $verdict;
+var CE = $CE;
+
+var json = '$json';
+if (verdict != CE) {
+    json = JSON.parse(json);
+    var subtasks = json.subtasks;
+    var testId = 1;
+    for (var i = 0; i < subtasks.length; i++) {
+        var cases = subtasks[i].cases;
+        var score = subtasks[i].score;
+        var isSubtask = (subtasks.length != 1);
+        if (isSubtask) {
+            var verdict = cases[cases.length - 1].verdict;
+            $("#run-info").append(subtaskHtml(i + 1, score, verdict));
+            for (var j = 0; j < cases.length; j++) {
+                var id = i + 1;
+                $('#subtask-body-' + id).append(testHtmlMinDetail(testId, cases[j]));
+                testId++;
+            }
+        } else {
+            for (var j = 0; j < cases.length; j++) {
+                $("#run-info").append(testHtmlMinDetail(testId, cases[j]));
+                testId++;
+            }
+        }
+    }
+    json = "";
+}
+if (verdict == CE) {
+    $("#run-info").append(json);
+}
+EOF;
+    $this->registerJs($js);
+    ?>
+
 <?php endif; ?>
