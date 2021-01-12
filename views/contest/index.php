@@ -11,6 +11,8 @@ $this->title = Yii::t('app', 'Contests');
 ?>
 <div class="contest-index">
 
+<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
