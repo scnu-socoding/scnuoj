@@ -63,7 +63,7 @@ class ContestSearch extends Contest
             '<>', 'status', Contest::STATUS_HIDDEN
         ])->andWhere([
             'group_id' => 0
-        ])->orderBy(['id' => SORT_DESC]);
+        ])->orderBy(['start_time' => SORT_DESC, 'end_time' => SORT_ASC, 'id' => SORT_DESC]);
 
         return $dataProvider;
     }
