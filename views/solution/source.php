@@ -12,20 +12,20 @@ if (!$model->canViewSource()) {
 }
 ?>
 <div class="solution-view">
-    <div class="row">
-        <div class="col-md-6">
-            <p><?= Yii::t('app', 'Submit Time') ?>：<?= $model->created_at ?></p>
-        </div>
-        <div class="col-md-6">
-            <p>运行 ID: <?= Html::a($model->id, ['/solution/detail', 'id' => $model->id]) ?></p>
-        </div>
+    <div class="list-group">
+        <?= Html::a(
+            '运行 ID ' . $model->id . '<span class="float-right">提交于 ' . $model->created_at . '</span>',
+            ['/solution/detail', 'id' => $model->id],
+            ['class' => 'list-group-item list-group-item-action']
+        ) ?>
     </div>
-    <div class="pre"><p><?= Html::encode($model->source) ?></p></div>
+    <p></p>
+    <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
 </div>
 <script type="text/javascript">
-    (function ($) {
-        $(document).ready(function () {
-            $('.pre p').each(function(i, block) {  // use <pre><p>
+    (function($) {
+        $(document).ready(function() {
+            $('.pre p').each(function(i, block) { // use <pre><p>
                 hljs.highlightBlock(block);
             });
         })
