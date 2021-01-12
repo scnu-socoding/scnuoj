@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use app\models\ContestAnnouncement;
 use app\models\ContestUser;
 use app\models\Contest;
+use app\models\ContestSearch;
 use app\models\Solution;
 use app\models\SolutionSearch;
 use app\models\Discuss;
@@ -47,16 +48,12 @@ class ContestController extends BaseController
      */
     public function actionIndex()
     {
-        $this->layout = 'main';
-        $dataProvider = new ActiveDataProvider([
-            'query' => Contest::find()->where([
-                '<>', 'status', Contest::STATUS_HIDDEN
-            ])->andWhere([
-                'group_id' => 0
-            ])->orderBy(['id' => SORT_DESC]),
-        ]);
+        $searchModel = new ContestSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $this->layout = 'main';
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
