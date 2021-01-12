@@ -131,6 +131,34 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             ?>
         </tr>
         <?php endfor; ?>
+        <tr class="bg-tablehead" style="line-height: 1;">
+            <td class="font-weight-bold" style="width:2.5rem;display:table-cell; vertical-align:middle">#</td>
+            <td style="width:8rem"></td>
+            <td style="min-width:10rem;text-align:left"></td>
+            <td class="font-weight-bold" style="width:3.5rem;display:table-cell; vertical-align:middle">=</td>
+            <?php foreach ($problems as $key => $p) : ?>
+                <td style="width:3.5rem">
+                    <span class="font-weight-bold text-success">
+                        <?php
+                        if (isset($submit_count[$p['problem_id']]['solved']))
+                            echo $submit_count[$p['problem_id']]['solved'];
+                        else
+                            echo 0;
+                        ?>
+                    </span>
+                    <br>
+                    <span class="font-weight-bold text-secondary">
+                        <?php
+                        if (isset($submit_count[$p['problem_id']]['submit']))
+                            echo $submit_count[$p['problem_id']]['submit'];
+                        else
+                            echo 0;
+                        ?>
+                    </span>
+                </td>
+            <?php endforeach; ?>
+        </tr>
+
     </tbody>
 </table>
 <p></p>
