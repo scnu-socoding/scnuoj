@@ -50,6 +50,7 @@ $this->title = Yii::t('app', 'Groups');
 <p></p>
 <?php endif; ?>
 
+<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
