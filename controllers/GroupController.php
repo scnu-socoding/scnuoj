@@ -66,10 +66,10 @@ class GroupController extends BaseController
             'params' => [':id' => Yii::$app->user->id],
             'totalCount' => $count,
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 50,
             ],
         ]);
-        return $this->render('index', [
+        return $this->render('my-group', [
             'dataProvider' => $dataProvider,
         ]);
     }
