@@ -276,7 +276,12 @@ pre {
 }
 
 .problem-index-list tr td:nth-child(1),
-.problem-index-list tr th:nth-child(1) {
+.problem-index-list tr th:nth-child(1),
+.problem-index-list tr td:nth-child(3),
+.problem-index-list tr th:nth-child(3),
+.problem-index-list tr td:nth-child(4),
+.problem-index-list tr th:nth-child(4)
+ {
     text-align: center;
 }
 
@@ -285,10 +290,7 @@ pre {
     text-align: center;
 }
 
-.problem-index-list tr td:nth-child(3),
-.problem-index-list tr th:nth-child(3) {
-    text-align: center;
-}
+
 .contest-countdown {
     padding: 20px;
     font-size: 100px;

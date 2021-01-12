@@ -100,7 +100,7 @@ $this->title = Yii::t('app', 'Problems');
                         return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'badge badge-secondary']);
                     },
                     'format' => 'raw',
-                    'options' => ['style' => 'min-width:100px;'],
+                    'options' => ['style' => 'width:100px;'],
                     // 'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ],
@@ -136,9 +136,20 @@ $this->title = Yii::t('app', 'Problems');
                         ], ['class' => 'text-dark']);
                     },
                     'format' => 'raw',
-                    // 'options' => ['width' => '100px'],
+                    'options' => ['style' => 'width:80px;'],
                     'enableSorting' => false,
-                    'options' => ['style' => 'min-width:100px;'],
+                ],
+                [
+                    'attribute' => 'submit',
+                    'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
+                        return Html::a($model->submit, [
+                            '/solution/index',
+                            'SolutionSearch[problem_id]' => $model->id
+                        ], ['class' => 'text-dark']);
+                    },
+                    'format' => 'raw',
+                    'options' => ['style' => 'width:80px;'],
+                    'enableSorting' => false,
                 ]
             ],
             'pager' => [

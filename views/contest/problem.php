@@ -37,182 +37,187 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 <h5>Problem <?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h5>
 
 <div class="row">
-    <div class="col-lg-8">
-        <p><b>单点时限:</b>
-            <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?><br>
-            <b>内存限制:</b> <?= $problem['memory_limit'] ?>
-            MB
-        </p>
+    <div class="col-lg-9">
 
-        <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == ''): ?>
-        <div class="alert text-dark border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
-        <?php else: ?>
-        <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
-        <h5><?= Yii::t('app', 'Input') ?></h5>
-        <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-        <h5><?= Yii::t('app', 'Output') ?></h5>
-        <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-        <h5><?= Yii::t('app', 'Examples') ?></h5>
-        <table class="table table-bordered" style="table-layout:fixed;">
-            <tbody>
-                <tr class="bg-tablehead" style="line-height: 1;">
-                    <td width="50%">标准输入</td>
-                    <td width="50%">标准输出</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
-                    </td>
-                    <td>
-                        <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
-        <table class="table table-bordered" style="table-layout:fixed;">
-            <tbody>
-                <tr class="bg-tablehead" style="line-height: 1;">
-                    <td width="50%">标准输入</td>
-                    <td width="50%">标准输出</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre style="margin:0"><?= Html::encode($sample_input[1]) ?></pre>
-                    </td>
-                    <td>
-                        <pre style="margin:0"><?= Html::encode($sample_output[1]) ?></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php endif; ?>
-        <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
-        <table class="table table-bordered" style="table-layout:fixed;">
-            <tbody>
-                <tr class="bg-tablehead" style="line-height: 1;">
-                    <td width="50%">标准输入</td>
-                    <td width="50%">标准输出</td>
-                </tr>
-                <tr>
-                    <td>
-                        <pre style="margin:0"><?= Html::encode($sample_input[2]) ?></pre>
-                    </td>
-                    <td>
-                        <pre style="margin:0"><?= Html::encode($sample_output[2]) ?></pre>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php endif; ?>
+        <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == '') : ?>
+            <div class="alert text-dark border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
+        <?php else : ?>
+            <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
+            <h5><?= Yii::t('app', 'Input') ?></h5>
+            <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
+            <h5><?= Yii::t('app', 'Output') ?></h5>
+            <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+            <h5><?= Yii::t('app', 'Examples') ?></h5>
+            <table class="table table-bordered" style="table-layout:fixed;">
+                <tbody>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td width="50%">标准输入</td>
+                        <td width="50%">标准输出</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
+                        </td>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <?php if ($sample_input[1] != '' || $sample_output[1] != '') : ?>
+                <table class="table table-bordered" style="table-layout:fixed;">
+                    <tbody>
+                        <tr class="bg-tablehead" style="line-height: 1;">
+                            <td width="50%">标准输入</td>
+                            <td width="50%">标准输出</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre style="margin:0"><?= Html::encode($sample_input[1]) ?></pre>
+                            </td>
+                            <td>
+                                <pre style="margin:0"><?= Html::encode($sample_output[1]) ?></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+            <?php if ($sample_input[2] != '' || $sample_output[2] != '') : ?>
+                <table class="table table-bordered" style="table-layout:fixed;">
+                    <tbody>
+                        <tr class="bg-tablehead" style="line-height: 1;">
+                            <td width="50%">标准输入</td>
+                            <td width="50%">标准输出</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre style="margin:0"><?= Html::encode($sample_input[2]) ?></pre>
+                            </td>
+                            <td>
+                                <pre style="margin:0"><?= Html::encode($sample_output[2]) ?></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <?php endif; ?>
 
 
-        <?php if (!empty($problem['hint'])): ?>
+            <?php if (!empty($problem['hint'])) : ?>
 
-        <h5><?= Yii::t('app', 'Hint') ?></h5>
-        <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                <h5><?= Yii::t('app', 'Hint') ?></h5>
+                <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
 
-        <?php endif; ?>
+            <?php endif; ?>
         <?php endif; ?>
         <p></p>
-        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
-        <p></p>
-        <div class="alert text-dark">比赛已结束。比赛结束五分钟后开放提交。</div>
-        <?php else: ?>
-        <?php if (Yii::$app->user->isGuest): ?>
-        <?php else: ?>
-        <p></p>
-        <?php $form = ActiveForm::begin(); ?>
+        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60) : ?>
+            <p></p>
+            <div class="alert text-dark">比赛已结束。比赛结束五分钟后开放提交。</div>
+        <?php else : ?>
+            <?php if (Yii::$app->user->isGuest) : ?>
+            <?php else : ?>
+                <p></p>
+                <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($solution, 'language', [
+                <?= $form->field($solution, 'language', [
                     'template' => "{input}",
                 ])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
 
-        <?= $form->field($solution, 'source', [
+                <?= $form->field($solution, 'source', [
                     'template' => "{input}",
                 ])->widget('app\widgets\codemirror\CodeMirror'); ?>
 
-        <div class="form-group">
-            <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
-        <?php endif; ?>
+                <div class="form-group">
+                    <?= Html::submitButton("<span class=\"fas fas-fw fa-paper-plane\"></span> " . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block', 'id' => 'submit_solution_btn']) ?>
+                </div>
+                <?php ActiveForm::end(); ?>
+            <?php endif; ?>
         <?php endif; ?>
 
     </div>
-    <div class="col-lg-4 problem-info">
-        <div class="border rounded" style="padding: 1rem 1rem 0rem 1rem">
-            <div><small>
-                    比赛 <span class="text-info font-weight-bold"><?= Html::encode($model->title) ?></span>.
-                </small>
+    <div class="col-lg-3">
+        <div class="list-group list-group-flush">
+
+            <div class="list-group-item">
+                单点时限 <a href="#" class="text-dark" data-toggle="tooltip" title="Java / Python 有 2s 额外运行时间">
+                    <span class="fas fa-fw fa-info-circle"></span>
+                </a>
+                <span class="float-right">
+                    <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>
+                </span>
             </div>
-            <div><small>
-                    <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
-                    <?= '共 <span class="text-info">' . $submissionStatistics[$problem['id']]['submit'] . '</span> 提交.' ?>
-                    <?php else: ?>
-                    <?= '共 <span class="text-info font-weight-bold">' . $submissionStatistics[$problem['id']]['submit'] . '</span> 提交，其中 <span class="text-info font-weight-bold">' . $submissionStatistics[$problem['id']]['solved'] . '</span> 通过.' ?>
-                    <?php endif; ?>
-                </small></div>
-            <p></p>
 
-            <?php if (!Yii::$app->user->isGuest && !empty($submissions)): ?>
+            <div class="list-group-item">
+                内存限制 <a href="#" class="text-dark" data-toggle="tooltip" title="Java / Python 有 64M 额外空间">
+                    <span class="fas fa-fw fa-info-circle"></span>
+                </a>
+                <span class="float-right">
+                    <?= $problem['memory_limit'] ?> MB
+                </span>
+            </div>
+            <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
+            <?php else : ?>
 
-            <table class="table" style="line-height: 1;">
-                <tbody>
-                    <?php foreach($submissions as $sub): ?>
-                    <tr>
-                        <td title="<?= $sub['created_at'] ?>">
-                            <?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>
-                        </td>
-                        <td>
-                            <?php
-                            if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
-                                $waitingHtmlDom = 'waiting="true"';
-                                $loadingImg = "<img src=\"{$loadingImgUrl}\">";
-                            } else {
-                                $waitingHtmlDom = 'waiting="false"';
-                                $loadingImg = "";
-                            }
-                            // OI 比赛过程中结果不可见
-                            if ($model->type == \app\models\Contest::TYPE_OI && !$model->isContestEnd()) {
-                                $waitingHtmlDom = 'waiting="false"';
-                                $loadingImg = "";
-                                $sub['result'] = 0;
-                            }
-                            $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
-                            if ($sub['result'] == Solution::OJ_AC) {
-                                $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
-                                echo Html::a($span,
-                                    ['/solution/source', 'id' => $sub['id']],
-                                    ['onclick' => 'return false', 'data-click' => "solution_info"]
-                                );
-                            } else {
-                                $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
-                                echo Html::a($span,
-                                    ['/solution/result', 'id' => $sub['id']],
-                                    ['onclick' => 'return false', 'data-click' => "solution_info"]
-                                );
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <?= Html::a('<i class="fas fa-sm fa-edit"></i>',
-                                ['/solution/source', 'id' => $sub['id']],
-                                ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                <div class="list-group-item">
+                    提交
+                    <span class="float-right">
+                        <?= $submissionStatistics[$problem['id']]['submit'] ?>
+                    </span>
+                </div>
+                <div class="list-group-item">
+                    通过
+                    <span class="float-right">
+                        <?= $submissionStatistics[$problem['id']]['solved']  ?>
+                    </span>
+                </div>
             <?php endif; ?>
         </div>
+
         <p></p>
-        <div class="list-group" style="max-height:30rem;overflow-y: auto;">
-            <?php foreach ($problems as $key => $p): ?>
-            <?= Html::a('<b>Problem ' . chr(65 + $key) . '.</b> ' .  $p['title'], ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action']); ?>
+
+        <div class="list-group list-group-flush  noscrollbar" style="max-height:17.5rem;overflow-y:auto;">
+            <?php foreach ($problems as $key => $p) : ?>
+                <?= Html::a('<b>' . chr(65 + $key) . '</b> <span class="float-right">' .  $p['title'] . '</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action'] ); ?>
             <?php endforeach; ?>
         </div>
+        <p></p>
+
+        <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
+
+            <div class="list-group list-group-flush noscrollbar" style="max-height:17.5rem;overflow-y:auto;">
+                <?php foreach ($submissions as $sub) : ?>
+                    <?php
+                    if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
+                        $waitingHtmlDom = 'waiting="true"';
+                        $loadingImg = "<img src=\"{$loadingImgUrl}\">";
+                    } else {
+                        $waitingHtmlDom = 'waiting="false"';
+                        $loadingImg = "";
+                    }
+                    // OI 比赛过程中结果不可见
+                    if ($model->type == \app\models\Contest::TYPE_OI && !$model->isContestEnd()) {
+                        $waitingHtmlDom = 'waiting="false"';
+                        $loadingImg = "";
+                        $sub['result'] = 0;
+                    }
+                    $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
+                    if ($sub['result'] == Solution::OJ_AC) {
+                        $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong><span class="float-right"> ' .  Yii::$app->formatter->asRelativeTime($sub['created_at']) . '</span>';
+                    } else {
+                        $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong><span class="float-right"> ' .  Yii::$app->formatter->asRelativeTime($sub['created_at']) . '</span>';
+                    }
+                    ?>
+                    <?= Html::a(
+                        $span,
+                        ['/solution/source', 'id' => $sub['id']],
+                        ['class' => 'list-group-item list-group-item-action', 'onclick' => 'return false', 'data-click' => "solution_info"]
+                    ) ?>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
+    <p></p>
+
 </div>
 <div class="row">
     <div class="col">
@@ -221,6 +226,8 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     </div>
 </div>
 <?php Modal::begin([
+    'title' => '查看提交',
+    'size' => Modal::SIZE_LARGE,
     'options' => ['id' => 'solution-info']
 ]); ?>
 <div id="solution-content">
@@ -314,6 +321,11 @@ if (waitingCount > 0) {
     }
     interval = setInterval(testWaitingsDone, 1000);
 }
+
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
 EOF;
 $this->registerJs($js);
 ?>
