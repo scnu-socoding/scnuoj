@@ -80,25 +80,11 @@ class GroupController extends BaseController
      */
     public function actionIndex()
     {
-        // $searchModel = new GroupSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new GroupSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        // return $this->render('index', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
-
-        $count = Yii::$app->db->createCommand('
-            SELECT COUNT(*) FROM {{%group}} AS g')->queryScalar();
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT g.id,g.name,g.description FROM {{%group}} AS g',
-            'params' => [':id' => Yii::$app->user->id],
-            'totalCount' => $count,
-            'pagination' => [
-                'pageSize' => 30,
-            ],
-        ]);
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
