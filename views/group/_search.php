@@ -8,26 +8,36 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="group-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+<?php $form = ActiveForm::begin([
+    'action' => ['index'],
+    'method' => 'get',
+    'options' => [
+        'class' => ''
+    ],
+]); ?>
+<div class="row">
 
-    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <?= $form->field($model, 'name', [
+            'template' => "<div class=\"input-group\">{input}</div>",
+            'options' => ['class' => ''],
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
 
-    <?= $form->field($model, 'description') ?>
-
-    <?= $form->field($model, 'status') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+    </div>
+    <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <?= $form->field($model, 'description', [
+            'template' => "<div class=\"input-group\">{input}</div>",
+            'options' => ['class' => ''],
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Description')])->label(false) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+        <div class="btn-group btn-block">
+            <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
+            <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> ' . Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>
