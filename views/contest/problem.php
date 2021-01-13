@@ -31,6 +31,9 @@ if (empty($problems)) {
 $sample_input = unserialize($problem['sample_input']);
 $sample_output = unserialize($problem['sample_output']);
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
+
+$loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
+
 ?>
 
 
@@ -175,9 +178,22 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
         <p></p>
 
-        <div class="list-group list-group-flush  noscrollbar" style="max-height:17.5rem;overflow-y:auto;">
+        <div>
             <?php foreach ($problems as $key => $p) : ?>
-                <?= Html::a('<b>' . chr(65 + $key) . '</b> <span class="float-right">' .  $p['title'] . '</span>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'list-group-item list-group-item-action'] ); ?>
+                <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
+                    <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
+                <?php else : ?>
+                    <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])) : ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
+                    <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC) : ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-success btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
+                    <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4) : ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
+                    <?php else : ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-danger btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+
             <?php endforeach; ?>
         </div>
         <p></p>
