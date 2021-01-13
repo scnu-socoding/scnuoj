@@ -21,10 +21,10 @@ $this->registerJs($js);
 
 
 <div class="row">
-
-
     <div class="col">
-
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i> 仅展示最近三十则讨论消息，在问题页可以查看该问题下的所有讨论。
+    </div>
         <ol class="list-group">
             <?php foreach ($discusses as $discuss) : ?>
                 <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
