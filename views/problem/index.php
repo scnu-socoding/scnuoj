@@ -10,6 +10,13 @@ use justinvoelker\tagging\TaggingWidget;
 /* @var $solvedProblem array */
 
 $this->title = Yii::t('app', 'Problems');
+
+$js = <<<EOT
+$(".toggle-show-contest-standing input[name='showTags']").change(function () {
+    $(".toggle-show-contest-standing").submit();
+});
+EOT;
+$this->registerJs($js);
 ?>
 
 
@@ -25,8 +32,7 @@ $this->title = Yii::t('app', 'Problems');
         <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
             <div class="btn-group btn-block">
                 <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> 搜索', ['class' => 'btn btn-info']) ?>
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i
-                        class="fas fa-fw fa-tags"></i> 高级</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-fw fa-tags"></i> 高级</button>
                 <!-- 模态框（Modal） -->
             </div>
         </div>
@@ -66,12 +72,12 @@ $this->title = Yii::t('app', 'Problems');
                     'linkOptions' => ['class' => 'badge badge-warning']
                 ]) ?>
                 <p></p>
-                <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))): ?>
-                <ol class="list-group">
-                    <?php foreach ($discusses as $discuss): ?>
-                    <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?php endforeach; ?>
-                </ol>
+                <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))) : ?>
+                    <ol class="list-group">
+                        <?php foreach ($discusses as $discuss) : ?>
+                            <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+                        <?php endforeach; ?>
+                    </ol>
                 <?php endif; ?>
             </div>
         </div>
@@ -82,6 +88,20 @@ $this->title = Yii::t('app', 'Problems');
 
 
     <div class="col">
+
+
+        <?= Html::beginForm(
+            ['/problem/index'],
+            'get',
+            ['class' => 'toggle-show-contest-standing pull-left', 'style' => 'margin-top: 6px;']
+        ); ?>
+        <div class="checkbox float-right">
+            <label>
+                <?= Html::checkbox('showTags', $showTags) ?>
+                显示题目标签
+            </label>
+        </div>
+        <?= Html::endForm(); ?>
 
         <?= GridView::widget([
             'layout' => '{items}{pager}',
@@ -106,13 +126,13 @@ $this->title = Yii::t('app', 'Problems');
                 ],
                 [
                     'attribute' => 'title',
-                    'value' => function ($model, $key, $index, $column) {
+                    'value' => function ($model, $key, $index, $column) use ($showTags) {
                         $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key], ['class' => 'text-dark']);
                         $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
                         $tagsCount = count($tags);
-                        if ($tagsCount > 0) {
+                        if ($showTags && $tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
-                            foreach((array)$tags as $tag) {
+                            foreach ((array)$tags as $tag) {
                                 $res .= Html::a(Html::encode($tag), [
                                     '/problem/index', 'tag' => $tag
                                 ], ['class' => 'badge badge-warning']);
