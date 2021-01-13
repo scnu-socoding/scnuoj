@@ -48,7 +48,9 @@ $this->title = Yii::t('app', 'Login');
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-block btn-primary btn-success', 'name' => 'login-button']) ?>
-            <?= Html::a('忘记密码', ['site/request-password-reset'], ['class' => 'btn btn-block pull-right text-secondary']) ?>
+            <div class="btn-group btn-block">
+            <?= Html::a('忘记密码', ['site/request-password-reset'], ['class' => 'btn text-secondary']) ?>
+            <?= Html::a('注册新帐号', ['site/signup'], ['class' => 'btn text-secondary']) ?>
         </div>
 
     <?php ActiveForm::end(); ?>

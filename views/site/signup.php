@@ -60,6 +60,7 @@ $this->title = Yii::t('app', 'Signup');
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-success btn-block', 'name' => 'signup-button']) ?>
+        <?= Html::a('已有帐号', ['site/login'], ['class' => 'btn btn-block text-secondary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
     <?php else: ?>
