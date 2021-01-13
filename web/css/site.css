@@ -531,3 +531,8 @@ pre {
 .noscrollbar {
     scrollbar-width: none;
 }
+
+nav div li div.dropdown-menu.show {
+    right: 0;
+    left: auto;
+}

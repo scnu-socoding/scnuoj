@@ -23,15 +23,15 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title>
-        <?= Html::encode($this->title) ?><?php if(Html::encode($this->title) != Yii::$app->setting->get('ojName')) echo " - " . Yii::$app->setting->get('ojName');?>
+        <?= Html::encode($this->title) ?><?php if (Html::encode($this->title) != Yii::$app->setting->get('ojName')) echo " - " . Yii::$app->setting->get('ojName'); ?>
     </title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
     <script>
-    function errorImg(img) {
-        img.src = "<?= Yii::getAlias('@web') ?>/images/default.jpg";
-        img.onerror = null;
-    }
+        function errorImg(img) {
+            img.src = "<?= Yii::getAlias('@web') ?>/images/default.jpg";
+            img.onerror = null;
+        }
     </script>
 </head>
 
@@ -40,109 +40,121 @@ AppAsset::register($this);
 
     <div>
         <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->setting->get('ojName'),
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-light bg-light fixed-top',
-        ],
-        'innerContainerOptions' => ['class' => 'container-fluid']
-    ]);
-    $menuItemsLeft = [
-        // ['label' => Yii::$app->setting->get('ojName'), 'url' => ['/site/index']],
-        [
-            'label' => Yii::t('app', 'Problems'),
-            'url' => ['/problem/index'],
-            'active' => Yii::$app->controller->id == 'problem'
-        ],
-        ['label' => Yii::t('app', 'Status'), 'url' => ['/solution/index']],
-        [
-            'label' => Yii::t('app', 'Rating'),
-            'url' => ['/rating/index'],
-            'active' => Yii::$app->controller->id == 'rating'
-        ],
-        [
-            'label' => Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
-            'active' => Yii::$app->controller->id == 'group'
-        ],
-        [
-            'label' => Yii::t('app', 'Contests'), 
-            'url' => ['/contest/index'],
-            'active' => Yii::$app->controller->id == 'contest'
-        ],
-        [
-            'label' => Yii::t('app', 'Wiki'),
-            'url' => ['/wiki/index'],
-            'active' => Yii::$app->controller->id == 'wiki'
-        ],
-        [
-            'label' => 'SCNUCPC2020',
-            'url' => ['/board/scnucpc2020'],
-            'active' => Yii::$app->controller->id == 'board'
-        ],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItemsRight[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItemsRight[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
-    } else {
-        if (Yii::$app->user->identity->isAdmin()) {
+        NavBar::begin([
+            'brandLabel' => Yii::$app->setting->get('ojName'),
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
+                'style' => 'background: #e9ecef;border-bottom: 2px solid #4582ec;'
+            ],
+            'innerContainerOptions' => ['class' => 'container-fluid']
+        ]);
+        $menuItemsLeft = [
+            [
+                'label' => '<i class="fas fa-fw fa-book-open"></i> ' . Yii::t('app', 'Problems'),
+                'url' => ['/problem/index'],
+                'active' => Yii::$app->controller->id == 'problem',
+            ],
+            [
+                'label' => '<i class="fas fa-fw fa-tasks"></i> ' . Yii::t('app', 'Status'),
+                'url' => ['/solution/index'],
+                'active' => Yii::$app->controller->id == 'solution'
+            ],
+            [
+                'label' => '<i class="fas fa-fw fa-chart-line"></i> ' . Yii::t('app', 'Rating'),
+                'url' => ['/rating/index'],
+                'active' => Yii::$app->controller->id == 'rating'
+            ],
+            [
+                'label' => '<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Discuss'),
+                'url' => ['/discuss/index'],
+                'active' => Yii::$app->controller->id == 'discuss'
+            ],
+            [
+                'label' => '<i class="fas fa-fw fa-users"></i> ' . Yii::t('app', 'Group'),
+                'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
+                'active' => Yii::$app->controller->id == 'group'
+            ],
+            [
+                'label' => '<i class="fas fa-fw fa-trophy"></i> ' .  Yii::t('app', 'Contests'),
+                'url' => ['/contest/index'],
+                'active' => Yii::$app->controller->id == 'contest'
+            ],
+            [
+                'label' => '<i class="fas fa-fw fa-file"></i> ' . Yii::t('app', 'Wiki'),
+                'url' => ['/wiki/index'],
+                'active' => Yii::$app->controller->id == 'wiki'
+            ]
+        ];
+
+        if (Yii::$app->user->isGuest) {
             $menuItemsRight[] = [
-                'label' => Yii::t('app', 'Backend'),
-                'url' => ['/admin'],
-                'active' => Yii::$app->controller->module->id == 'admin'
+                'label' => '<i class="fas fa-fw fa-sign-in-alt"></i> ' . Yii::t('app', 'Login'),
+                'url' => ['/site/login']
+            ];
+        } else {
+            $menuItemsRight[] =  [
+                'label' => '<i class="fas fa-fw fa-user"></i> ' .  Html::encode(Yii::$app->user->identity->nickname),
+                'items' => [
+                    [
+                        'label' => '<i class="fas fa-fw fa-sliders-h"></i> ' . Yii::t('app', 'Backend'),
+                        'url' => ['/admin'],
+                        'visible' => Yii::$app->user->identity->isAdmin()
+                    ],
+                    [
+                        'label' => '<i class="fas fa-fw fa-sliders-h"></i> ' . Yii::t('app', 'Backend'),
+                        'url' => ['/admin/problem'],
+                        'visible' => Yii::$app->user->identity->isVip()
+                    ],
+                    [
+                        'label' => '<i class="fas fa-fw fa-home"></i> ' . Yii::t('app', 'Profile'),
+                        'url' => ['/user/view', 'id' => Yii::$app->user->id],
+                    ],
+                    [
+                        'label' => '<i class="fas fa-fw fa-wrench"></i> ' . Yii::t('app', 'Setting'),
+                        'url' => ['/user/setting', 'action' => 'default'],
+                    ],
+                    [
+                        'label' => '<i class="fas fa-fw fa-sign-out-alt"></i> ' . Yii::t('app', 'Logout'),
+                        'url' => ['/site/logout'],
+                    ]
+                ]
             ];
         }
-        if  (Yii::$app->user->identity->isVip()) {
-            $menuItemsRight[] = [
-                'label' => Yii::t('app', 'Backend'),
-                'url' => ['/admin/problem'],
-                'active' => Yii::$app->controller->module->id == 'admin'
-            ];
-        }
-        $menuItemsRight[] =  [
-            'label' => Yii::t('app', 'Setting'),
-            'url' => ['/user/setting', 'action' => 'default'],
-        ];
-        $menuItemsRight[] = [
-            'label' => Yii::t('app', 'Logout'),
-            'url' => ['/site/logout'],
-        ];
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav mr-auto'],
-        'items' => $menuItemsLeft,
-        'encodeLabels' => false,
-        'activateParents' => true
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => $menuItemsRight,
-        'encodeLabels' => false,
-        'activateParents' => true
-    ]);
-    NavBar::end();
-    ?>
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav mr-auto'],
+            'items' => $menuItemsLeft,
+            'encodeLabels' => false,
+            'activateParents' => true
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav '],
+            'items' => $menuItemsRight,
+            'encodeLabels' => false,
+            'activateParents' => true
+        ]);
+        NavBar::end();
+        ?>
         <br />
         <p></p>
-        
+
         <br />
         <p></p>
 
         <div class="container-xl">
             <div class="col">
                 <?php
-    if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
-        $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
-        echo "<div class=\"alert alert-danger\">请前往设置页面验证您的邮箱：{$a}</div>";
-    }
-    ?>
-      
+                if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
+                    $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
+                    echo "<div class=\"alert alert-danger\">请前往设置页面验证您的邮箱：{$a}</div>";
+                }
+                ?>
+
                 <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
-            'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
-        ]) ?>
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    'itemTemplate' => "<li class=\"breadcrumb-item\">{link}</li>\n",
+                    'activeItemTemplate' => "<li class=\"breadcrumb-item active\">{link}</li>\n"
+                ]) ?>
                 <?= Alert::widget() ?>
                 <?= $content ?>
             </div>
