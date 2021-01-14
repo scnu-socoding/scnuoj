@@ -10,10 +10,10 @@ class EditormdAsset extends AssetBundle
 {
     public $sourcePath = '@app/widgets/editormd/assets';
     public $js = [
-        'editormd.min.js'
+        'editormd.js'
     ];
     public $css = [
-        'css/editormd.min.css',
+        'css/editormd.css',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
