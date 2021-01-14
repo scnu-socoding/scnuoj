@@ -450,7 +450,7 @@ void set_path()
 
 void display_usage()
 {
-    fprintf(stderr, "Judge server for JNOJ.\n\n");
+    fprintf(stderr, "Judge server for SCNUOJ.\n\n");
     fprintf(stderr, "  Options may be given in one of two forms: either a single\n");
     fprintf(stderr, "  character preceded by a -, or a name preceded by --.\n");
     fprintf(stderr, "  -d ...... --debug\n");
