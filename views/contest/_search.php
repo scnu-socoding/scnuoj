@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 <div class="row">
 
 
-    <div class="col-lg-8" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+    <div class="col-lg-8" style="margin-bottom: 1rem;">
         <?= $form->field($model, 'title', [
             'template' => "<div class=\"input-group\">{input}</div>",
             'options' => ['class' => ''],
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     </div>
 
-    <div class="col-lg-4" style="margin-bottom: 1rem; padding-right:5px; padding-left:5px;">
+    <div class="col-lg-4" style="margin-bottom: 1rem;">
         <div class="btn-group btn-block">
             <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
             <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> ' . Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
