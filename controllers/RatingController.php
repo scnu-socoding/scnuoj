@@ -11,7 +11,13 @@ class RatingController extends BaseController
 {
     public function actionIndex()
     {
-        $query = User::find()->orderBy('rating DESC');
+        // $query = User::find()->orderBy('rating DESC');
+        $query = (new Query())->select('u.id, u.nickname, p.student_number, u.rating, s.solved')
+            ->from('{{%user}} AS u')
+            ->leftJoin('(SELECT COUNT(DISTINCT problem_id) AS solved, created_by FROM {{%solution}} WHERE result=4 GROUP BY created_by ORDER BY solved DESC) as s',
+                'u.id=s.created_by')
+            ->leftJoin('`user_profile` `p` ON `p`.`user_id`=`u`.`id`')
+            ->orderBy('rating DESC, id');
         $top3users = $query->limit(3)->all();
         $defaultPageSize = 50;
         $countQuery = clone $query;
