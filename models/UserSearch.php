@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+use yii\Model\UserProfile;
 
 /**
  * SolutionSearch represents the model behind the search form of `app\models\Solution`.
@@ -13,13 +14,14 @@ use yii\db\Query;
 class UserSearch extends User
 {
     public $username;
+    public $student_number;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'student_number'], 'integer'],
             [['username', 'email', 'nickname'], 'string'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['role', 'in', 'range' => [self::ROLE_PLAYER, self::ROLE_USER, self::ROLE_VIP, self::ROLE_ADMIN]]
@@ -60,10 +62,18 @@ class UserSearch extends User
             return $dataProvider;
         }
 
+        $user_id = (new Query())->select('user_id')
+                ->from('{{%user_profile}}')
+                ->andWhere('student_number=:name', [':name' => $this->student_number]);
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'role' => $this->role,
+        ]);
+        
+        $query->andFilterWhere([
+            'id' => $user_id,
         ]);
 
         $query->andFilterWhere(['like', 'nickname', $this->nickname])
