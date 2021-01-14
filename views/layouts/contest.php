@@ -154,6 +154,10 @@ $status = $model->getRunStatus();
         <div class="container-xl">
             <div class="col">
 
+                <?php if (Yii::$app->setting->get('notice')) : ?>
+                    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>
+                <?php endif; ?>
+
                 <h3><?= $model->title ?></h3>
                 <?= Alert::widget() ?>
 

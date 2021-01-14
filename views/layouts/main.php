@@ -151,7 +151,7 @@ AppAsset::register($this);
                 ?>
 
                 <?php if (Yii::$app->setting->get('notice')) : ?>
-                    <div class="alert alert-danger"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>
+                    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>
                 <?php endif; ?>
 
                 <?= Breadcrumbs::widget([
