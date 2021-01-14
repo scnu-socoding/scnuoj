@@ -80,7 +80,7 @@ class SolutionSearch extends Solution
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy(['id' => SORT_DESC]),
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 50,
             ],
         ]);
 
