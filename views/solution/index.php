@@ -25,7 +25,7 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
                 
             ],
             [
@@ -64,13 +64,13 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'score',
                 'visible' => Yii::$app->setting->get('oiMode'),
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'time',
@@ -79,7 +79,7 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'memory',
@@ -88,7 +88,7 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'language',
@@ -104,13 +104,13 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'code_length',
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'created_at',
@@ -119,7 +119,7 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ]
         ],
         'pager' => [
