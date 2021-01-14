@@ -91,7 +91,7 @@ $this->registerJs($js);
 
 
         <?= Html::beginForm(
-            ['/problem/index'],
+            ['/problem/index', 'page' => $page],
             'get',
             ['class' => 'toggle-show-contest-standing pull-left', 'style' => 'margin-top: 6px;']
         ); ?>
