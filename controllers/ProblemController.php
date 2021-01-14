@@ -41,7 +41,7 @@ class ProblemController extends BaseController
      * Lists all Problem models.
      * @return mixed
      */
-    public function actionIndex($showTags = 0, $page = 1)
+    public function actionIndex($showTags = 0, $page = 1, $tag = '')
     {
         $query = Problem::find();
 
@@ -100,7 +100,8 @@ class ProblemController extends BaseController
             'solvedProblem' => $solvedProblem,
             'discusses' => $discusses,
             'showTags' => $showTags,
-            'page' => $page
+            'page' => $page,
+            'tag' => $tag
         ]);
     }
 
