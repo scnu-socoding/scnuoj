@@ -112,7 +112,7 @@ $this->registerJs($js);
                         return $solve . Html::a($model->id, ['/problem/view', 'id' => $key], ['class' => 'badge badge-secondary']);
                     },
                     'format' => 'raw',
-                    'options' => ['style' => 'width:100px;'],
+                    'options' => ['style' => 'width:100px;min-width:100px;'],
                     // 'options' => ['width' => '100px'],
                     'enableSorting' => false
                 ],
@@ -148,7 +148,7 @@ $this->registerJs($js);
                         ], ['class' => 'text-dark']);
                     },
                     'format' => 'raw',
-                    'options' => ['style' => 'width:80px;'],
+                    'options' => ['style' => 'width:80px;min-width:80px;'],
                     'enableSorting' => false,
                 ],
                 [
@@ -160,7 +160,7 @@ $this->registerJs($js);
                         ], ['class' => 'text-dark']);
                     },
                     'format' => 'raw',
-                    'options' => ['style' => 'width:80px;'],
+                    'options' => ['style' => 'width:80px;min-width:80px;'],
                     'enableSorting' => false,
                 ]
             ],

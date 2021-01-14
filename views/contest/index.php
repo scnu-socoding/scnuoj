@@ -27,7 +27,7 @@ $this->title = Yii::t('app', 'Contests');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:300px;']
+                'headerOptions' => ['style' => 'min-width:350px;']
             ],
             [
                 'attribute' => 'status',
@@ -48,12 +48,12 @@ $this->title = Yii::t('app', 'Contests');
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'width:150px;min-width:150px;']
             ],
             [
                 'attribute' => 'start_time',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:180px;']
+                'headerOptions' => ['style' => 'width:180px;min-width:180px;']
             ],
             [
                 'attribute' => 'end_time',
@@ -66,7 +66,7 @@ $this->title = Yii::t('app', 'Contests');
                     return $column;
                 },
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:180px;']
+                'headerOptions' => ['style' => 'width:180px;min-width:180px;']
             ]
         ],
         'pager' => [
