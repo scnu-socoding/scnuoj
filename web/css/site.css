@@ -253,33 +253,6 @@ pre {
     width:3.5rem
 }
 
-.rating-top {
-    text-align: center;
-}
-.rating-one {
-    font-size: 120px;
-    color: gold;
-}
-.rating-two {
-    margin-top: 20px;
-    font-size: 100px;
-    color: silver;
-}
-.rating-three {
-    margin-top: 40px;
-    font-size: 80px;
-    color: #B87333
-}
-.rating-one-name {
-    margin-top: 0;
-}
-.rating-two-name {
-    margin-top: 9px;
-}
-.rating-three-name {
-    margin-top: 17px;
-}
-
 .problem-index-list tr td:nth-child(1),
 .problem-index-list tr th:nth-child(1),
 .problem-index-list tr td:nth-child(3),
@@ -295,16 +268,6 @@ pre {
     text-align: center;
 }
 
-
-.contest-countdown {
-    padding: 20px;
-    font-size: 100px;
-}
-.contest-desc {
-    text-align: left;
-    background-color: #fff;
-    margin: 0 25%;
-}
 .solved {
     background-color: #AAE2AB;
 }
@@ -324,36 +287,6 @@ pre {
 
 .legend-strip {
     clear: both;
-}
-
-.legend-strip .table-legend:not(:first-child) {
-    margin-left: 20px;
-}
-
-.table-legend {
-    border: 1px solid #CBCBCB;
-    padding: 4px;
-    display: inline;
-    border-radius: 4px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-    color: #82868b;
-}
-.table-legend div {
-    display: inline;
-}
-.table-legend .legend-status, .table-legend .legend-leader, .table-legend .legend-whoami {
-    width: 23px;
-    height: 23px;
-    border-radius: 2px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.table-legend .legend-label {
-    display: inline;
-    font-size: 14px;
-    margin-top: 2px;
 }
 
 .table-rank th {
@@ -408,57 +341,6 @@ pre {
     transition-timing-function: ease;
     transition-duration: 0.2s;
     transition-property: background-color;
-}
-
-.rated-user {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-decoration: none !important;
-    font-weight: bold;
-}
-
-.user-black {
-    color: black !important;
-    font-weight: normal !important;
-}
-
-.user-red {
-    color: red !important;
-}
-
-.user-fire {
-    color: red !important;
-}
-
-.user-yellow {
-    color: #bb0 !important;
-}
-
-.user-violet {
-    color: #a0a !important;
-}
-
-.user-orange {
-    color: #FF8C00 !important;
-}
-
-.user-blue {
-    color: blue !important;
-}
-
-.user-cyan {
-    color: #03A89E !important;
-}
-
-.user-green {
-    color: green !important;
-}
-
-.user-gray {
-    color: gray !important;
-}
-
-.user-admin {
-    color: black !important;
 }
 
 .test-for-popup {
