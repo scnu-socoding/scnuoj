@@ -4238,32 +4238,6 @@ hr.editormd-page-break {
   height: 0;
 }
 
-.editormd-preview-close-btn {
-  color: #fff;
-  padding: 4px 6px;
-  font-size: 18px;
-  -webkit-border-radius: 500px;
-  -moz-border-radius: 500px;
-  -ms-border-radius: 500px;
-  -o-border-radius: 500px;
-  border-radius: 500px;
-  display: none;
-  background-color: #ccc;
-  position: absolute;
-  top: 25px;
-  right: 35px;
-  z-index: 19;
-  -webkit-transition: background-color 300ms ease-out;
-  /* Safari, Chrome */
-  -moz-transition: background-color 300ms ease-out;
-  /* Firefox 4.0~16.0 */
-  transition: background-color 300ms ease-out;
-  /* IE >9, FF >15, Opera >12.0 */
-}
-.editormd-preview-close-btn:hover {
-  background-color: #999;
-}
-
 .editormd-preview-active {
   width: 100%;
   padding: 40px;
