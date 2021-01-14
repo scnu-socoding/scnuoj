@@ -20,7 +20,7 @@ use yii\bootstrap4\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'id', [
-        'template' => "{label}\n<div class=\"input-group\">User ID</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}</div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'User ID'])->label(false) ?>
 
     <?= $form->field($model, 'username', [
