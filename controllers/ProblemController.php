@@ -84,21 +84,10 @@ class ProblemController extends BaseController
             }
         }
 
-        $discusses = (new Query())->select('d.id, d.title, d.created_at, u.nickname, u.username, p.title as ptitle, p.id as pid')
-        ->from('{{%discuss}} as d')
-        ->leftJoin('{{%user}} as u', 'd.created_by=u.id')
-        ->leftJoin('{{%problem}} as p', 'd.entity_id=p.id')
-        ->where(['entity' => Discuss::ENTITY_PROBLEM, 'parent_id' => 0])
-        ->andWhere('DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(d.updated_at)')
-        ->orderBy('d.updated_at DESC')
-        ->limit(10)
-        ->all();
-
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'tags' => $tags,
             'solvedProblem' => $solvedProblem,
-            'discusses' => $discusses,
             'showTags' => $showTags,
             'page' => $page,
             'tag' => $tag
@@ -171,15 +160,15 @@ class ProblemController extends BaseController
             }
             $st = time() - Yii::$app->session['Submit_time'];
             $jt = intval(Yii::$app->setting->get('submitTime'));
-            if($st > $jt) {
+            if ($st > $jt) {
                 $solution->problem_id = $model->id;
                 $solution->status = Solution::STATUS_VISIBLE;
                 $solution->save();
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
-                Yii::$app->session['Submit_time']= time();
+                Yii::$app->session['Submit_time'] = time();
             } else {
                 $st = $jt - $st;
-                $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'),$jt,$st);
+                $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'), $jt, $st);
                 Yii::$app->session->setFlash('error', $tip);
             }
             return $this->refresh();
@@ -222,7 +211,7 @@ class ProblemController extends BaseController
             $isVisible = ($model->status == Problem::STATUS_VISIBLE);
             $isPrivate = ($model->status == Problem::STATUS_PRIVATE);
             if ($isVisible || ($isPrivate && !Yii::$app->user->isGuest &&
-                               (Yii::$app->user->identity->role === User::ROLE_VIP || Yii::$app->user->identity->role === User::ROLE_ADMIN))) {
+                (Yii::$app->user->identity->role === User::ROLE_VIP || Yii::$app->user->identity->role === User::ROLE_ADMIN))) {
                 return $model;
             } else {
                 throw new ForbiddenHttpException('You are not allowed to perform this action.');

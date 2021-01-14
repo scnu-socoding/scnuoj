@@ -71,14 +71,6 @@ $this->registerJs($js);
                     'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:0.35rem,padding-top: 0.2rem;padding-bottom: 0.2rem;'],
                     'linkOptions' => ['class' => 'badge badge-warning']
                 ]) ?>
-                <p></p>
-                <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))) : ?>
-                    <ol class="list-group">
-                        <?php foreach ($discusses as $discuss) : ?>
-                            <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
-                        <?php endforeach; ?>
-                    </ol>
-                <?php endif; ?>
             </div>
         </div>
     </div>
