@@ -21,7 +21,6 @@ class m210114_100353_add_setting_option extends Migration
     public function safeDown()
     {
         $this->delete('{{%setting}}', ['key' => 'notice']);
-        return false;
     }
 
     /*
