@@ -50,7 +50,7 @@ class UserSearch extends User
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy(['id' => SORT_DESC]),
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 50,
             ],
         ]);
 
@@ -63,18 +63,21 @@ class UserSearch extends User
         }
 
         $user_id = (new Query())->select('user_id')
-                ->from('{{%user_profile}}')
-                ->andWhere('student_number=:name', [':name' => $this->student_number]);
+            ->from('{{%user_profile}}')
+            ->andWhere('student_number=:name', [':name' => $this->student_number]);
 
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'role' => $this->role,
         ]);
-        
-        $query->andFilterWhere([
-            'id' => $user_id,
-        ]);
+
+        if ($this->student_number) {
+            $query->andFilterWhere([
+                'id' => $user_id,
+            ]);
+        }
+
 
         $query->andFilterWhere(['like', 'nickname', $this->nickname])
             ->andFilterWhere(['like', 'username', $this->username])
