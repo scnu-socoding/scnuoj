@@ -89,18 +89,9 @@ function subtaskHtml(id, score, verdict) {
     scoregot = 0;
     csscolor = 'panel-warning';
   }
-  return '<div class="list-group-item ' + csscolor + ' test-for-popup"> \
-        <div class="panel-heading" role="tab" id="subtask-heading-' + id + '"> \
-                <a role="button" data-toggle="collapse" \
-                    href="#subtask-' + id + '" aria-expanded="false" aria-controls="subtask-' + id + '"> \
-                    子任务 #' + id + ', 分数: ' + score + ', 得分: ' + scoregot + ' \
-                </a> \
-        </div> \
-        <div id="subtask-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="subtask-heading-' + id + '"> \
-            <div id="subtask-body-' + id + '" class="panel-body"> \
-            </div> \
-        </div> \
-    </div>';
+  return (id == 1 ? '' : '<p></p>') + '<div class="alert alert-light"><i class="fas fa-fw fa-tasks"></i> 子任务 ' + id + '<span class="float-right text-secondary">得分 ' + scoregot + ' / 总分 ' + score +
+    '</span></div><div id = "subtask-body-' + id + '" class="panel-body" > \
+    </div> ';
 }
 $(document).ready(function () {
 
