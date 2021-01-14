@@ -51,7 +51,9 @@ if (Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0) {
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_group_item',
-    'layout' => '<div class="card-columns">{items}</div>{summary}<p></p>{pager}',
+    'itemOptions' => ['tag' => false],
+    'layout' => '{items}<p></p>{pager}',
+    'options' => ['class' => 'list-group'],
     'pager' => [
         'linkOptions' => ['class' => 'page-link'],
         'maxButtonCount' => 5,
