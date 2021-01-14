@@ -234,20 +234,25 @@ pre {
     text-align: left;
 }
 
-.rating-index tr td:nth-child(1),
-.rating-index tr th:nth-child(1),
-.rating-index tr td:nth-child(3),
-.rating-index tr th:nth-child(3) {
+
+.rating-index tr td:nth-child(2),
+.rating-index tr th:nth-child(2) {
+    width:8rem;
     text-align: center;
-    width: 60px;
 }
 
+.rating-index tr td:nth-child(1),
+.rating-index tr th:nth-child(1){
+    text-align: center;
+    width:2.5rem
+}
 
 .rating-index tr td:nth-child(4),
-.rating-index tr th:nth-child(4) {
+.rating-index tr th:nth-child(4){
     text-align: center;
-    width: 100px;
+    width:3.5rem
 }
+
 .rating-top {
     text-align: center;
 }
@@ -535,4 +540,12 @@ pre {
 nav div li div.dropdown-menu.show {
     right: 0;
     left: auto;
+}
+
+.table thead tr {
+    background-color: #F9FAFB;
+}
+
+.table thead th {
+    border-bottom: 0;
 }

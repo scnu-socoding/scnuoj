@@ -31,24 +31,26 @@ $this->title = Yii::t('app', 'Rating');
     <div class="col">
         <div class="rating-index">
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Who</th>
-                            <th>=</th>
-                        </tr>
-                    </thead>
+                <table class="table table-bordered">
                     <tbody>
+                        <tr class="bg-tablehead">
+                            <td><b>#</b></td>
+                            <td></td>
+                            <td></td>
+                            <td><b>=</b></td>
+                        </tr>
                         <?php foreach ($users as $k => $user) : ?>
                             <?php $num = $k + $currentPage * $defaultPageSize + 1; ?>
                             <tr>
-                                <th scope="row"><?= $num ?></th>
+                                <td><?= $num ?></td>
                                 <td>
-                                    <?= Html::a(Html::encode($user->nickname), ['/user/view', 'id' => $user->id], ['class' => 'text-dark']) ?>
+                                    <?= $user['student_number'] ?>
                                 </td>
                                 <td>
-                                    <?= $user->rating ?>
+                                    <?= Html::a(Html::encode($user['nickname']), ['/user/view', 'id' => $user['id']], ['class' => 'text-dark']) ?>
+                                </td>
+                                <td>
+                                    <?= $user['rating'] ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
