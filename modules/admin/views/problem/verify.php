@@ -56,12 +56,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                     ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                 );
                             } else {
-                                $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($solution['result']) . $loadingImg . '</strong>';
-                                echo Html::a(
-                                    $span,
-                                    ['/solution/result', 'id' => $solution['id']],
-                                    ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                );
+                                echo '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($solution['result']) . $loadingImg . '</strong>';
                             }
                             ?>
                         </th>

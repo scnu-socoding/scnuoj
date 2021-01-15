@@ -48,15 +48,7 @@ $solution->language = Yii::$app->user->identity->language;
         [
             'attribute' => 'result',
             'value' => function ($model, $key, $index, $column) {
-                if ($model->result == Solution::OJ_CE || $model->result == Solution::OJ_WA
-                    || $model->result == Solution::OJ_RE) {
-                    return Html::a($model->getResult(),
-                        ['/solution/result', 'id' => $model->id],
-                        ['onclick' => 'return false', 'data-click' => "solution_info"]
-                    );
-                } else {
-                    return $model->getResult();
-                }
+                return $model->getResult();
             },
             'format' => 'raw'
         ],

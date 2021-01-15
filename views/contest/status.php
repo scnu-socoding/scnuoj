@@ -86,14 +86,7 @@ $isContestEnd = $model->isContestEnd();
                     }
                     $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode'));
                     $createdBy = (!Yii::$app->user->isGuest && ($model->created_by == Yii::$app->user->id || Yii::$app->user->id == $solution->created_by));
-                    if ($otherCan || $createdBy || $model->type == Contest::TYPE_HOMEWORK || ($userInContest && $isContestEnd)) {
-                        return Html::a($solution->getResult(),
-                            ['/solution/result', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info"]
-                        );
-                    } else {
-                        return $solution->getResult();
-                    }
+                    return $solution->getResult();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,

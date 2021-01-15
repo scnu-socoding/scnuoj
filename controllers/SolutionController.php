@@ -91,23 +91,6 @@ class SolutionController extends BaseController
     }
 
     /**
-     * 提交记录的出错信息。如因 Wrong Answer、Runtime Error、Compile Error 所记录的信息
-     * @param integer $id
-     * @return mixed
-     * @throws ForbiddenHttpException if the model cannot be viewed.
-     * @throws NotFoundHttpException
-     */
-    public function actionResult($id)
-    {
-        $this->layout = false;
-        $model = $this->findModel($id);
-
-        return $this->render('result', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * 提交记录的详细信息
      * @param $id
      * @return mixed

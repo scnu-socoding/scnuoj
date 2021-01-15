@@ -96,15 +96,7 @@ foreach ($problems as $key => $p) {
                     [
                         'attribute' => 'result',
                         'value' => function ($model, $key, $index, $column) {
-                            if ($model->result == $model::OJ_CE || $model->result == $model::OJ_WA
-                                || $model->result == $model::OJ_RE) {
-                                return Html::a($model->getResult(),
-                                    ['/solution/result', 'id' => $model->id],
-                                    ['onclick' => 'return false', 'data-click' => "solution_info"]
-                                );
-                            } else {
-                                return $model->getResult();
-                            }
+                            return $model->getResult();
                         },
                         'format' => 'raw'
                     ],
