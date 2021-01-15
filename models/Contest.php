@@ -487,12 +487,12 @@ class Contest extends \yii\db\ActiveRecord
             if (!isset($first_blood[$pid]))
                 $first_blood[$pid] = '';
 
+            $submit_count[$pid]['submit']++;
+
             // 已经 Accepted
             if ($result[$user]['ac_time'][$pid] >= 0) {
                 continue;
             }
-
-            $submit_count[$pid]['submit']++;
 
             // 封榜，比赛结束后的一定时间解榜，解榜时间 scoreboardFrozenTime 变量的设置详见后台设置页面
             if ($lock && $lock_time <= $created_at &&
