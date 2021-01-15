@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Modal;
 use app\models\Contest;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */
@@ -17,13 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $problems = $model->problems;
 ?>
-<div class="contest-view">
+<div>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
     <p>
-        <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
-        <?= Html::a(Yii::t('app', 'Source Print Queue'), ['/print', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
+        <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
+            <?= Html::a(Yii::t('app', 'Source Print Queue'), ['/print', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
         <?php endif; ?>
         <?= Html::a(Yii::t('app', 'Clarification'), ['clarify', 'id' => $model->id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?= Html::a(Yii::t('app', 'Submit records'), ['status', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
@@ -45,9 +46,9 @@ $problems = $model->problems;
         <?= Html::a(Yii::t('app', 'Print Rank'), ['rank', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
         <?= Html::a('任何用户均可访问的榜单链接', ['/contest/standing2', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
     </p>
-    <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
+    <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
         <?php Modal::begin([
-            'title' => '<h3>'.Yii::t('app','Scroll Scoreboard').'</h3>',
+            'title' => '<h3>' . Yii::t('app', 'Scroll Scoreboard') . '</h3>',
             'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-success'],
         ]); ?>
         <?= Html::beginForm(['contest/scroll-scoreboard', 'id' => $model->id], 'get', ['target' => '_blank']) ?>
@@ -99,11 +100,10 @@ $problems = $model->problems;
         ],
     ]) ?>
 
-    <hr>
     <h3>
         <?= Yii::t('app', 'Announcements') ?>
         <?php Modal::begin([
-            'title' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
+            'title' => Yii::t('app', 'Make an announcement'),
             'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-success'],
         ]); ?>
         <?php $form = ActiveForm::begin(); ?>
@@ -118,7 +118,7 @@ $problems = $model->problems;
         <?php Modal::end(); ?>
     </h3>
 
-    <?= \yii\grid\GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $announcements,
         'columns' => [
             'content:ntext',
@@ -131,13 +131,13 @@ $problems = $model->problems;
         <?= Yii::t('app', 'Problems') ?>
     </h3>
     <?php Modal::begin([
-        'title' => '<h3>'.Yii::t('app','设置题目来源').'</h3>',
+        'title' => '<h3>' . Yii::t('app', '设置题目来源') . '</h3>',
         'toggleButton' => ['label' => '设置下列所有题目的来源', 'class' => 'btn btn-success'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-source', 'id' => $model->id]) ?>
-    <div class="form-group">   
+    <div class="form-group">
         <?= Html::label(Yii::t('app', 'Source'), 'problem_id') ?>
-        <?= Html::textInput('source', $model->title,['class' => 'form-control']) ?>
+        <?= Html::textInput('source', $model->title, ['class' => 'form-control']) ?>
         <p class="hint-block">
             设置题目来源有利于在首页题库中根据题目来源来搜索题目。此操作会修改题目的“来源”信息。
         </p>
@@ -149,7 +149,7 @@ $problems = $model->problems;
     <?php Modal::end(); ?>
 
     <?php Modal::begin([
-        'title' => '<h3>'.Yii::t('app','设置下列所有题目在前台显示状态').'</h3>',
+        'title' => '<h3>' . Yii::t('app', '设置下列所有题目在前台显示状态') . '</h3>',
         'toggleButton' => ['label' => '设置题目在前台显示状态', 'class' => 'btn btn-success'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-status', 'id' => $model->id]) ?>
@@ -182,35 +182,73 @@ $problems = $model->problems;
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
-            <tr>
-                <th width="70px">#</th>
-                <th width="120px">Problem ID</th>
-                <th><?= Yii::t('app', 'Problem Name') ?></th>
-                <th width="200px"><?= Yii::t('app', 'Operation') ?></th>
-            </tr>
+                <tr>
+                    <th width="70px">#</th>
+                    <th width="120px">Problem ID</th>
+                    <th><?= Yii::t('app', 'Problem Name') ?></th>
+                    <th width="200px"><?= Yii::t('app', 'Operation') ?></th>
+                </tr>
             </thead>
             <tbody>
-            <?php foreach ($problems as $key => $p): ?>
+                <?php foreach ($problems as $key => $p) : ?>
+                    <tr>
+                        <th><?= Html::a(chr(65 + $key), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></th>
+                        <th><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></th>
+                        <td><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
+                        <th>
+                            <?php Modal::begin([
+                                'title' => '<h3>' . Yii::t('app', 'Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                                'toggleButton' => ['label' => Yii::t('app', 'Modify'), 'class' => 'btn btn-success'],
+                            ]); ?>
+
+                            <?= Html::beginForm(['contest/updateproblem', 'id' => $model->id]) ?>
+
+                            <div class="form-group">
+                                <?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?>
+                                <?= Html::textInput('problem_id', $p['problem_id'], ['class' => 'form-control', 'readonly' => 1]) ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?>
+                                <?= Html::textInput('new_problem_id', $p['problem_id'], ['class' => 'form-control']) ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                            </div>
+                            <?= Html::endForm(); ?>
+
+                            <?php Modal::end(); ?>
+                            <?= Html::a(Yii::t('app', 'Delete'), [
+                                'deleteproblem',
+                                'id' => $model->id,
+                                'pid' => $p['problem_id']
+                            ], [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+                        </th>
+                    </tr>
+                <?php endforeach; ?>
                 <tr>
-                    <th><?= Html::a(chr(65 + $key), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></th>
-                    <th><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></th>
-                    <td><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
+                    <th></th>
+                    <th></th>
                     <th>
                         <?php Modal::begin([
-                            'title' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
-                            'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
+                            'title' => '<h3>' . Yii::t('app', 'Add a problem') . '</h3>',
+                            'toggleButton' => ['label' => Yii::t('app', 'Add a problem'), 'class' => 'btn btn-success'],
                         ]); ?>
 
-                        <?= Html::beginForm(['contest/updateproblem', 'id' => $model->id]) ?>
+                        <?= Html::beginForm(['contest/addproblem', 'id' => $model->id]) ?>
 
                         <div class="form-group">
-                            <?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?>
-                            <?= Html::textInput('problem_id', $p['problem_id'],['class' => 'form-control', 'readonly' => 1]) ?>
-                        </div>
-
-                        <div class="form-group">
-                            <?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?>
-                            <?= Html::textInput('new_problem_id', $p['problem_id'],['class' => 'form-control']) ?>
+                            <p class="hint-block">1.如果有几个题目，可以用空格或逗号键分开。</p>
+                            <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>
+                            <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
+                            <?= Html::textInput('problem_id', '', ['class' => 'form-control']) ?>
                         </div>
 
                         <div class="form-group">
@@ -219,53 +257,15 @@ $problems = $model->problems;
                         <?= Html::endForm(); ?>
 
                         <?php Modal::end(); ?>
-                        <?= Html::a(Yii::t('app', 'Delete'), [
-                                'deleteproblem',
-                                'id' => $model->id,
-                                'pid' => $p['problem_id']
-                            ],[
-                            'class' => 'btn btn-danger',
-                            'data' => [
-                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                'method' => 'post',
-                            ],
-                        ]) ?>
                     </th>
+                    <th></th>
                 </tr>
-            <?php endforeach; ?>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>
-                    <?php Modal::begin([
-                        'title' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
-                        'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
-                    ]); ?>
-
-                    <?= Html::beginForm(['contest/addproblem', 'id' => $model->id]) ?>
-
-                    <div class="form-group">
-                        <p class="hint-block">1.如果有几个题目，可以用空格或逗号键分开。</p>
-                        <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>     
-                        <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
-                        <?= Html::textInput('problem_id', '',['class' => 'form-control']) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-                    </div>
-                    <?= Html::endForm(); ?>
-
-                    <?php Modal::end(); ?>
-                </th>
-                <th></th>
-            </tr>
             </tbody>
         </table>
     </div>
 </div>
 <?php Modal::begin([
-    'title' => '<h3>'.Yii::t('app','Information').'</h3>',
+    'title' => '<h3>' . Yii::t('app', 'Information') . '</h3>',
     'options' => ['id' => 'modal-info'],
     'size' => Modal::SIZE_LARGE
 ]); ?>
