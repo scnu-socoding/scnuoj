@@ -70,7 +70,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             </td>
             <td style="display:table-cell; vertical-align:middle">
                 <span class="font-weight-bold ">
-                    <?php if ($model->type == Contest::TYPE_OI): ?>
+                    <?php if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1): ?>
                     <?= $rank['total_score'] ?>
                     <?php else: ?>
                     <?= $rank['correction_score'] ?>
@@ -104,11 +104,11 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                 if (isset($rank['score'][$p['problem_id']])) {
                     $score = $rank['score'][$p['problem_id']];
                     $max_score = $rank['max_score'][$p['problem_id']];
-                    if ($model->type == Contest::TYPE_OI) {
+                    if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) {
                         $first = $score;
                         $second = $max_score;
                     // IOI 模式下没必要记录最后一次得分，显示解答时间与得分
-                    } else if ($model->type == Contest::TYPE_IOI) {
+                    } else {
                         $first = $max_score;
                         if (isset($rank['submit_time'][$p['problem_id']])) {
                             $min = intval($rank['submit_time'][$p['problem_id']]);
