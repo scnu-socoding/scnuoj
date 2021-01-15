@@ -50,34 +50,44 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
             <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
             <h5><?= Yii::t('app', 'Output') ?></h5>
             <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-            <h5><?= Yii::t('app', 'Examples') ?></h5>
-            <table class="table table-bordered" style="table-layout:fixed;">
-                <tbody>
-                    <tr class="bg-tablehead" style="line-height: 1;">
-                        <td width="50%">标准输入</td>
-                        <td width="50%">标准输出</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
-                        </td>
-                        <td>
-                            <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <?php if ($sample_input[0] != '' || $sample_output[0] != '') : ?>
+                <h5><?= Yii::t('app', 'Examples') ?></h5>
+                <table class="table table-bordered" style="table-layout:fixed;">
+                    <tbody>
+                        <tr class="bg-tablehead" style="line-height: 1;">
+                            <td>标准输入</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
+                            </td>
+                        </tr>
+                        <tr class="bg-tablehead" style="line-height: 1;">
+                            <td>标准输出</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <?php endif; ?>
             <?php if ($sample_input[1] != '' || $sample_output[1] != '') : ?>
                 <table class="table table-bordered" style="table-layout:fixed;">
                     <tbody>
                         <tr class="bg-tablehead" style="line-height: 1;">
-                            <td width="50%">标准输入</td>
-                            <td width="50%">标准输出</td>
+                            <td>标准输入</td>
                         </tr>
                         <tr>
                             <td>
                                 <pre style="margin:0"><?= Html::encode($sample_input[1]) ?></pre>
                             </td>
+                        </tr>
+                        <tr class="bg-tablehead" style="line-height: 1;">
+                            <td>标准输出</td>
+                        </tr>
+                        <tr>
                             <td>
                                 <pre style="margin:0"><?= Html::encode($sample_output[1]) ?></pre>
                             </td>
@@ -89,13 +99,17 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                 <table class="table table-bordered" style="table-layout:fixed;">
                     <tbody>
                         <tr class="bg-tablehead" style="line-height: 1;">
-                            <td width="50%">标准输入</td>
-                            <td width="50%">标准输出</td>
+                            <td>标准输入</td>
                         </tr>
                         <tr>
                             <td>
                                 <pre style="margin:0"><?= Html::encode($sample_input[2]) ?></pre>
                             </td>
+                        </tr>
+                        <tr class="bg-tablehead" style="line-height: 1;">
+                            <td>标准输出</td>
+                        </tr>
+                        <tr>
                             <td>
                                 <pre style="margin:0"><?= Html::encode($sample_output[2]) ?></pre>
                             </td>
