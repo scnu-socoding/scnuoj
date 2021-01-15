@@ -55,7 +55,7 @@ if ($discuss != null) {
     }
     ?>
     
-    <div class="alert alert-info">如果你认为题目表述不清，可以在这里提问。</div>
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 如果你认为题目表述不清，可以在这里提问。</div>
 
     <?php if (!empty($clarifies)): ?>
         <div class="list-group">
@@ -87,11 +87,11 @@ if ($discuss != null) {
         ])->widget('app\widgets\editormd\Editormd'); ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-outline-secondary btn-block']) ?>
+            <?= Html::submitButton('<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Create'), ['class' => 'btn btn-success btn-block']) ?>
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
-        <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
+        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
         <?php endif; ?>
     </div>
 </div>

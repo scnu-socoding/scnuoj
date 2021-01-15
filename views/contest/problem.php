@@ -129,7 +129,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
         <p></p>
         <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60) : ?>
             <p></p>
-            <div class="alert text-dark">比赛已结束。比赛结束五分钟后开放提交。</div>
+            <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛已结束。比赛结束五分钟后开放提交。</div>
         <?php else : ?>
             <?php if (Yii::$app->user->isGuest) : ?>
             <?php else : ?>
