@@ -99,12 +99,12 @@ $files = $model->getDataFiles();
                                 <a href="<?= Url::toRoute(['/polygon/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                    target="_blank"
                                    title="<?= Yii::t('app', 'View') ?>">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    <span class="fas fa-sm fa-eye"></span>
                                 </a>
                                 &nbsp;
                                 <a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                    title="<?= Yii::t('app', 'Delete') ?>">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <span class="fas fa-sm fa-trash"></span>
                                 </a>
                             </th>
                         </tr>
@@ -138,12 +138,12 @@ $files = $model->getDataFiles();
                                 <a href="<?= Url::toRoute(['/polygon/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                    target="_blank"
                                    title="<?= Yii::t('app', 'View') ?>">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    <span class="fas fa-sm fa-eye"></span>
                                 </a>
                                 &nbsp;
                                 <a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                    title="<?= Yii::t('app', 'Delete') ?>">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <span class="fas fa-sm fa-trash"></span>
                                 </a>
                             </th>
                         </tr>
