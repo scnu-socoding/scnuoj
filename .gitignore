@@ -47,6 +47,7 @@ tests/_support/_generated
 /judge/etc/judge.pid
 
 #polygon
+/polygon/polygon
 /polygon/?
 /polygon/run/*
 /polygon/data/*
