@@ -67,11 +67,11 @@ $this->params['model'] = $model;
                             <th><?= date('Y-m-d H:i', $file['time']) ?></th>
                             <th>
                                 <a href="<?= Url::toRoute(['/admin/problem/viewfile', 'id' => $model->id, 'name' => $file['name']]) ?>" target="_blank" title="<?= Yii::t('app', 'View') ?>">
-                                    <span class="fas fa-sm fa-trash"></span>
+                                    <span class="fas fa-sm fa-eye"></span>
                                 </a>
                                 &nbsp;
                                 <a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id, 'name' => $file['name']]) ?>" title="<?= Yii::t('app', 'Delete') ?>">
-                                    <span class="fas fa-sm fa-eye"></span>
+                                    <span class="fas fa-sm fa-trash"></span>
                                 </a>
                             </th>
                         </tr>
