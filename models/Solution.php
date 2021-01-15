@@ -282,6 +282,18 @@ class Solution extends ActiveRecord
         return $status === '' ? $arr : $arr[$status];
     }
 
+    public static function getLanguageLiteList($status = '')
+    {
+        $arr = [
+            '' => '请选择',
+            '0' => 'C',
+            '1' => 'C++',
+            '2' => 'Java',
+            '3' => 'Python'
+        ];
+        return $status === '' ? $arr : $arr[$status];
+    }
+
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'created_by']);
