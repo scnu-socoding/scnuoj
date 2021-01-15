@@ -682,7 +682,7 @@
   float: left;
   border-right: 1px solid #ddd;
   font-size: 14px;
-  font-family: "YaHei Consolas Hybrid", Consolas, "微软雅黑", "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, "Monaco", courier, monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   line-height: 1.6;
   margin-top: 35px;
 }
