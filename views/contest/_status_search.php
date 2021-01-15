@@ -44,7 +44,7 @@ use yii\bootstrap4\ActiveForm;
         <?= $form->field($model, 'language', [
             'template' => "<div class=\"input-group\">{input}</div>",
             'options' => ['class' => ''],
-        ])->dropDownList($model::getLanguageList(), ['class' => 'form-control custom-select'])->label(false) ?>
+        ])->dropDownList($model::getLanguageLiteList(), ['class' => 'form-control custom-select'])->label(false) ?>
     </div>
 
     <div class="col-lg-4" style="margin-bottom: 1rem;">
