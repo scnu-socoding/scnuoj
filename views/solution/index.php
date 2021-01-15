@@ -32,7 +32,7 @@ $this->title = Yii::t('app', 'Status');
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->user)) {
-                        return Html::a($model->user->nickname, ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
+                        return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     }
                 },
                 'format' => 'raw',
@@ -53,14 +53,7 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'result',
                 'value' => function ($model, $key, $index, $column) {
-                    if ($model->canViewErrorInfo()) {
-                        return Html::a($model->getResult(),
-                            ['/solution/result', 'id' => $model->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info"]
-                        );
-                    } else {
-                        return $model->getResult();
-                    }
+                    return $model->getResult();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -93,14 +86,7 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'language',
                 'value' => function ($model, $key, $index, $column) {
-                    if ($model->canViewSource()) {
-                        return Html::a($model->getLang(),
-                            ['/solution/source', 'id' => $model->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
-                        );
-                    } else {
-                        return $model->getLang();
-                    }
+                    return $model->getLang();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
