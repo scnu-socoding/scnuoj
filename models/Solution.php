@@ -177,7 +177,7 @@ class Solution extends ActiveRecord
                 $res = 'Java';
                 break;
             case Solution::PYLANG:
-                $res = 'Python3';
+                $res = 'Python';
                 break;
             default:
                 $res = 'not set';
