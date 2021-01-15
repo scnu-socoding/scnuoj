@@ -31,15 +31,6 @@ var OJ_VERDICT_COLOR = new Array(
   "text-danger",  // SE
   "text-danger"
 );
-
-function HTMLEncode(html) {
-  var temp = document.createElement("div");
-  (temp.textContent != null) ? (temp.textContent = html) : (temp.innerText = html);
-  var output = temp.innerHTML;
-  temp = null;
-  return output;
-}
-
 function testHtml(id, caseJsonObject) {
   return '<div class="list-group-item test-for-popup"> \
         <div role="tab" id="heading' + id + '"> \
@@ -58,16 +49,16 @@ function testHtml(id, caseJsonObject) {
                 <div class="sample-test">\
                     <div class="input">\
                         <h6>标准输入</h6>\
-                        <pre class="list-group-item">' + HTMLEncode(caseJsonObject.input) + '</pre>\
+                        <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
                     </div>\
                     <div class="output">\
                         <h6>标准输出</h6>\
-                        <pre class="list-group-item">' + HTMLEncode(caseJsonObject.user_output) + '</pre>\
+                        <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
                     </div>\
                     <div class="output">\
                         <h6>答案</h6>\
-                        <pre class="list-group-item">' + HTMLEncode(caseJsonObject.output) + '</pre>\
-                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + HTMLEncode(caseJsonObject.checker_log) + '</pre></div>')
+                        <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
+                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
       + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
                         <h6>系统信息</h6>\
                         <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
