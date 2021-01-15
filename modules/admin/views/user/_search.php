@@ -45,7 +45,7 @@ use yii\bootstrap4\ActiveForm;
         '' => '所有用户',
         User::ROLE_PLAYER => '参赛用户',
         User::ROLE_USER => '普通用户',
-        User::ROLE_VIP => 'VIP 用户',
+        User::ROLE_VIP => '助教',
         User::ROLE_ADMIN => '管理员',
 
     ])->label(false) ?>

@@ -67,7 +67,7 @@ $this->title = Yii::t('app', 'Users');
                     } else if ($model->role == \app\models\User::ROLE_USER) {
                         return '普通用户';
                     } else if ($model->role == \app\models\User::ROLE_VIP) {
-                        return 'VIP 用户';
+                        return '助教';
                     } else if ($model->role == \app\models\User::ROLE_ADMIN) {
                         return '管理员';
                     }

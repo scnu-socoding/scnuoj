@@ -117,7 +117,7 @@ class HomeworkController extends BaseController
                     if ($problemStatus == null || (isset($problemSetter) && User::findOne($problemSetter)->isAdmin() && $problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)){
                         Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
                     } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER || Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
-                        Yii::$app->session->setFlash('error', Yii::t('app', '私有题目，仅 VIP 用户可选用'));
+                        Yii::$app->session->setFlash('error', Yii::t('app', '私有题目，仅助教可选用'));
                     } else {
                         $problemInContest = (new Query())->select('problem_id')
                             ->from('{{%contest_problem}}')
