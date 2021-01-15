@@ -45,7 +45,7 @@ function testHtml(id, caseJsonObject) {
                 </a> \
         </div> \
         <div id="test-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + id + '"> \
-            <div class="panel-body"><hr>\
+            <div class="panel-body"><hr>' + (caseJsonObject.verdict != 4 ? ('\
                 <div class="sample-test">\
                     <div class="input">\
                         <h6>标准输入</h6>\
@@ -59,7 +59,7 @@ function testHtml(id, caseJsonObject) {
                         <h6>答案</h6>\
                         <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
                     </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
-    + '<div class="output">\
+      + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
                         <h6>系统信息</h6>\
                         <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
                     </div>\

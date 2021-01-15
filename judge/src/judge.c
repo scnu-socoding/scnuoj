@@ -1463,9 +1463,11 @@ int main(int argc, char** argv)
             test_result_rec[run_result]++;
             if (run_result == OJ_AC) {
                 pass_count++;
-            } 
-            // 记录该数据点的运行信息
-            record_data(problem, &verdict_res, infile, outfile, userfile);
+            } else {
+                // 记录该数据点的运行信息
+                record_data(problem, &verdict_res, infile, outfile, userfile);
+            }
+            
             
             cJSON * case_json_object = create_case_object(verdict_res);
             cJSON_AddItemToArray(cases_array, case_json_object);
