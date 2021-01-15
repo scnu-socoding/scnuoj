@@ -655,6 +655,9 @@ class Contest extends \yii\db\ActiveRecord
             if ($created_at <= $contest_end_time) {
                 $result[$user]['score'][$pid] = $score;
             }
+
+            $submit_count[$pid]['submit']++;
+
             // 已经 AC
             if (isset($result[$user]['solved_flag'][$pid])) {
                 continue;
@@ -684,8 +687,7 @@ class Contest extends \yii\db\ActiveRecord
                 ++$result[$user]['pending'][$pid];
                 continue;
             }
-            $submit_count[$pid]['submit']++;
-            if ($row['result'] == Solution::OJ_AC && $this->type == Contest::TYPE_IOI) {
+            if ($row['result'] == Solution::OJ_AC && ($this->type == Contest::TYPE_IOI || $endtime != $contest_end_time)) {
                 // AC
                 $submit_count[$pid]['solved']++;
                 $result[$user]['pending'][$pid] = 0;
@@ -717,7 +719,7 @@ class Contest extends \yii\db\ActiveRecord
             
             foreach ($problems as $problem) { // 枚举（题目编号）
                 $pid = $problem['problem_id'];
-                if(isset($v['full_score'][$pid]) && $v['full_score'][$pid] == $v['score'][$pid] && $this->type == Contest::TYPE_OI) {
+                if(isset($v['full_score'][$pid]) && $v['full_score'][$pid] == $v['score'][$pid] && $this->type == Contest::TYPE_OI && $endtime == $contest_end_time) {
                     $submit_count[$pid]['solved']++;
                     $v['solved_flag'][$pid] = 1; // 标记该题已解答
                 }
@@ -725,8 +727,8 @@ class Contest extends \yii\db\ActiveRecord
         }
 
         $type = $this->type;
-        usort($result, function($a, $b) use ($type) {
-            if ($type == self::TYPE_OI) {
+        usort($result, function($a, $b) use ($type, $endtime, $contest_end_time) {
+            if ($type == self::TYPE_OI && $endtime == $contest_end_time) {
                 if ($a['total_score'] != $b['total_score']) { // 优先测评总分
                     return $a['total_score'] < $b['total_score'];
                 } else if ($a['correction_score'] != $b['correction_score']) {
@@ -751,7 +753,7 @@ class Contest extends \yii\db\ActiveRecord
         $lastrank = 1;
         $finalrank = 1;
         foreach ($result as &$v) {
-            if ($type == self::TYPE_OI) {
+            if ($type == self::TYPE_OI && $endtime == $contest_end_time) {
                 if ($v['total_score'] != $lastscore) {
                     $v['finalrank'] = $finalrank;
                     $lastscore = $v['total_score'];
@@ -760,10 +762,10 @@ class Contest extends \yii\db\ActiveRecord
                     $v['finalrank'] = $lastrank;
                 }
                 $finalrank++;
-            } else { // IOI 只需要最大值的总分排序。
+            } else { // IOI 只需要最大值的总分排序。    
                 if ($v['correction_score'] != $lastscore) {
                     $v['finalrank'] = $finalrank;
-                    $lastscore = $v['total_score'];
+                    $lastscore = $v['correction_score'];
                     $lastrank = $finalrank;
                 } else {
                     $v['finalrank'] = $lastrank;
