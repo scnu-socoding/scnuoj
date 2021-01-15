@@ -90,6 +90,12 @@ $submit_count = $rankResult['submit_count'];
                         if (strtotime($model->end_time) >= 253370736000) {
                             $time = '';
                         }
+
+                        if ($rank['ac_time'][$p['problem_id']] == 0) {
+                            // 补题
+                            $time = '';
+                            $css_class = 'text-primary font-weight-bold';
+                        }
                     }
                     // else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
                     //     $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
