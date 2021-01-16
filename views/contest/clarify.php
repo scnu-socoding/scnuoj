@@ -54,14 +54,14 @@ if ($discuss != null) {
         ]);
     }
     ?>
-    
+
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 如果你认为题目表述不清，可以在这里提问。</div>
 
-    <?php if (!empty($clarifies)): ?>
+    <?php if (!empty($clarifies)) : ?>
         <div class="list-group">
-        <?php foreach ($clarifies as $clarify): ?>
-            <?= Html::a(Html::encode($clarify->title) . '<span class="float-right">' . Html::encode($clarify->user->nickname) . ' / '. Yii::$app->formatter->asRelativeTime($clarify->updated_at) . '</span>', ['/contest/clarify', 'id' => $clarify->entity_id, 'cid' => $clarify->id], ['class' => 'list-group-item text-dark list-group-item-action']) ?>
-        <?php endforeach; ?>
+            <?php foreach ($clarifies as $clarify) : ?>
+                <?= Html::a(Html::encode($clarify->title) . '<span class="float-right">' . Html::encode($clarify->user->nickname) . ' / ' . Yii::$app->formatter->asRelativeTime($clarify->updated_at) . '</span>', ['/contest/clarify', 'id' => $clarify->entity_id, 'cid' => $clarify->id], ['class' => 'list-group-item text-dark list-group-item-action']) ?>
+            <?php endforeach; ?>
         </div>
         <p></p>
         <?= \yii\widgets\LinkPager::widget([
@@ -72,26 +72,26 @@ if ($discuss != null) {
         <p></p>
     <?php endif; ?>
 
-    
+
 
     <div class="well">
-        <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
-        <?php $form = ActiveForm::begin(); ?>
+        <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING) : ?>
+            <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($newClarify, 'title', [
-            'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Title') ."</span></div>{input}</div>",
-        ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->label(false) ?>
+            <?= $form->field($newClarify, 'title', [
+                'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">" . Yii::t('app', 'Title') . "</span></div>{input}</div>",
+            ])->textInput(['maxlength' => 128, 'autocomplete' => 'off'])->label(false) ?>
 
-        <?= $form->field($newClarify, 'content', [
-            'template' => "{input}",
-        ])->widget('app\widgets\editormd\Editormd'); ?>
+            <?= $form->field($newClarify, 'content', [
+                'template' => "{input}",
+            ])->widget('app\widgets\editormd\Editormd'); ?>
 
-        <div class="form-group">
-            <?= Html::submitButton('<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Create'), ['class' => 'btn btn-success btn-block']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
-        <?php else: ?>
-        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
+            <div class="form-group">
+                <?= Html::submitButton('<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Create'), ['class' => 'btn btn-success btn-block']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
+        <?php else : ?>
+            <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
         <?php endif; ?>
     </div>
 </div>

@@ -27,28 +27,28 @@ $this->params['model'] = $model;
         <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
         <hr>
         <p></p>
-        <?php foreach ($clarify->reply as $reply): ?>
-        <p class="text-secondary"><small> <i class="fas fa-fw fa-user"></i>
-                <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id], ['class' => 'text-secondary']) ?>
-                <i class="fas fa-fw fa-clock"></i>
-                <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
-            </small></p>
+        <?php foreach ($clarify->reply as $reply) : ?>
+            <p class="text-secondary"><small> <i class="fas fa-fw fa-user"></i>
+                    <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id], ['class' => 'text-secondary']) ?>
+                    <i class="fas fa-fw fa-clock"></i>
+                    <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
+                </small></p>
 
-        <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
-        <hr>
+            <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
+            <hr>
         <?php endforeach; ?>
         <div class="well">
-            <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING) : ?>
+                <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+                <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
 
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-outline-secondary']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
-            <?php else: ?>
-            <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-outline-secondary']) ?>
+                </div>
+                <?php ActiveForm::end(); ?>
+            <?php else : ?>
+                <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
             <?php endif; ?>
         </div>
     </div>
