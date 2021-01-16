@@ -80,7 +80,7 @@ echo Nav::widget([
             'istoday' => true,
             'type' => 'datetime'
         ]
-    ])->hint("如果不需要封榜请留空，当前会在比赛结束{$scoreboardFrozenTime}小时后才会自动在前台页面解除封榜限制。
+    ])->hint("封榜仅对 ICPC 或作业有效。如果不需要封榜请留空，当前会在比赛结束{$scoreboardFrozenTime}小时后才会自动在前台页面解除封榜限制。
     如需提前结束封榜也可选择清空该表单项。
     ") ?>
 
