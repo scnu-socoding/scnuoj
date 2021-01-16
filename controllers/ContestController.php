@@ -300,7 +300,7 @@ class ContestController extends BaseController
                 Yii::$app->session->setFlash('error', '标题不能为空');
                 return $this->refresh();
             }
-            $newClarify->status = Discuss::STATUS_PUBLIC;
+            $newClarify->status = Discuss::STATUS_PRIVATE;
             $newClarify->save();
 
             // 给所有管理员发送弹窗提醒
