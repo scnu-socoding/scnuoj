@@ -64,7 +64,8 @@ class Formatter extends \yii\i18n\Formatter
         return $this->katex_markup_single($this->katex_markup_double($content));
     }
 
-    public function katex_markup_single( $content ) {
+    public function katex_markup_single($content)
+    {
 
         //匹配行内$公式
         $regexTeXInline = '
@@ -79,7 +80,7 @@ class Formatter extends \yii\i18n\Formatter
 		\$ # Dollar preceded by zero slashes
 		%ix';
 
-        $textarr = $this->wp_html_split( $content );
+        $textarr = $this->wp_html_split($content);
 
         // 初始化参数
         $count = 0;
@@ -89,54 +90,56 @@ class Formatter extends \yii\i18n\Formatter
 
             //判断是否在code里面
             if ($count > 0) {
-                ++ $count;
+                ++$count;
             }
 
             // 判断是否是<pre>然后开始计数，此时为第一行
-            if ( htmlspecialchars_decode( $element ) == "<pre>" ) {
+            if (htmlspecialchars_decode($element) == "<pre>") {
                 $count = 1;
             }
 
             // 当读到第三行时，判断是code标签嘛，如果是，说明是代码，则后续不进行处理
-            if ( $count == 3 && strpos( htmlspecialchars_decode( $element ), "<code class=" ) === 0 ) {
+            if ($count == 3 && strpos(htmlspecialchars_decode($element), "<code class=") === 0) {
                 $preg = false;
             }
 
             // 如果发现是</pre>标签，则表示代码部分结束，继续处理
-            if ( htmlspecialchars_decode( $element ) == "</pre>" ) {
+            if (htmlspecialchars_decode($element) == "</pre>") {
                 $preg = true;
             }
 
             // 如果在代码中，则跳出本次循环
-            if ( ! $preg ) {
+            if (!$preg) {
                 continue;
             }
 
             // 跳出循环
-            if ( '' === $element || '<' === $element[0] ) {
+            if ('' === $element || '<' === $element[0]) {
                 continue;
             }
 
-            if ( false === stripos( $element, '$' ) ) {
+            if (false === stripos($element, '$')) {
                 continue;
             }
 
-            $element = preg_replace_callback( $regexTeXInline, array( $this, 'katex_src_inline' ), $element );
+            $element = preg_replace_callback($regexTeXInline, array($this, 'katex_src_inline'), $element);
         }
 
-        return implode( '', $textarr );
+        return implode('', $textarr);
     }
 
-    public function katex_src_inline( $matches ) {
+    public function katex_src_inline($matches)
+    {
 
         $katex = $matches[1];
 
-        $katex = $this->katex_entity_decode_editormd( $katex );
+        $katex = $this->katex_entity_decode_editormd($katex);
 
         return '<span class="katex math inline" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">' . $katex . '</span>';
     }
 
-    public function katex_markup_double( $content ) {
+    public function katex_markup_double($content)
+    {
 
         //匹配行内$公式
         $regexTeXInline = '
@@ -151,59 +154,60 @@ class Formatter extends \yii\i18n\Formatter
 		\$\$ # Dollar preceded by zero slashes
 		%ix';
 
-        $textarr = $this->wp_html_split( $content );
+        $textarr = $this->wp_html_split($content);
 
         // 初始化参数
         $count = 0;
         $preg  = true;
 
-        foreach ( $textarr as &$element ) {
+        foreach ($textarr as &$element) {
 
             //判断是否在code里面
-            if ( $count > 0 ) {
-                ++ $count;
+            if ($count > 0) {
+                ++$count;
             }
 
             // 判断是否是<pre>然后开始计数，此时为第一行
-            if ( htmlspecialchars_decode( $element ) == "<pre>" ) {
+            if (htmlspecialchars_decode($element) == "<pre>") {
                 $count = 1;
             }
 
             // 当读到第三行时，判断是code标签嘛，如果是，说明是代码，则后续不进行处理
-            if ( $count == 3 && strpos( htmlspecialchars_decode( $element ), "<code class=" ) === 0 ) {
+            if ($count == 3 && strpos(htmlspecialchars_decode($element), "<code class=") === 0) {
                 $preg = false;
             }
 
             // 如果发现是</pre>标签，则表示代码部分结束，继续处理
-            if ( htmlspecialchars_decode( $element ) == "</pre>" ) {
+            if (htmlspecialchars_decode($element) == "</pre>") {
                 $preg = true;
             }
 
             // 如果在代码中，则跳出本次循环
-            if ( ! $preg ) {
+            if (!$preg) {
                 continue;
             }
 
             // 跳出循环
-            if ( '' === $element || '<' === $element[0] ) {
+            if ('' === $element || '<' === $element[0]) {
                 continue;
             }
 
-            if ( false === stripos( $element, '$$' ) ) {
+            if (false === stripos($element, '$$')) {
                 continue;
             }
 
-            $element = preg_replace_callback( $regexTeXInline, array( $this, 'katex_src_multiline' ), $element );
+            $element = preg_replace_callback($regexTeXInline, array($this, 'katex_src_multiline'), $element);
         }
 
-        return implode( '', $textarr );
+        return implode('', $textarr);
     }
 
-    public function katex_src_multiline( $matches ) {
+    public function katex_src_multiline($matches)
+    {
 
         $katex = $matches[1];
 
-        $katex = $this->katex_entity_decode_editormd( $katex );
+        $katex = $this->katex_entity_decode_editormd($katex);
 
         return '<span class="katex math multi-line">' . $katex . '</span>';
     }
@@ -215,21 +219,25 @@ class Formatter extends \yii\i18n\Formatter
      *
      * @return mixed
      */
-    public function katex_entity_decode_editormd( $katex ) {
+    public function katex_entity_decode_editormd($katex)
+    {
         return str_replace(
-            array( '&lt;', '&gt;', '&quot;', '&#039;', '&#038;', '&amp;', "\n", "\r", '&#60;', '&#62;', "&#40;", "&#41;", "&#95;", "&#33;", "&#123;", "&#125;", "&#94;", "&#43;","&#92;" ),
-            array( '<', '>', '"', "'", '&', '&', ' ', ' ', '<', '>', '(', ')', '_', '!', '{', '}', '^', '+','\\\\' ),
-            $katex );
+            array('&lt;', '&gt;', '&quot;', '&#039;', '&#038;', '&amp;', "\n", "\r", '&#60;', '&#62;', "&#40;", "&#41;", "&#95;", "&#33;", "&#123;", "&#125;", "&#94;", "&#43;", "&#92;"),
+            array('<', '>', '"', "'", '&', '&', ' ', ' ', '<', '>', '(', ')', '_', '!', '{', '}', '^', '+', '\\\\'),
+            $katex
+        );
     }
 
-    public function wp_html_split( $input ) {
-        return preg_split($this->get_html_split_regex(), $input, -1, PREG_SPLIT_DELIM_CAPTURE );
+    public function wp_html_split($input)
+    {
+        return preg_split($this->get_html_split_regex(), $input, -1, PREG_SPLIT_DELIM_CAPTURE);
     }
 
-    public function get_html_split_regex() {
+    public function get_html_split_regex()
+    {
         static $regex;
 
-        if ( ! isset( $regex ) ) {
+        if (!isset($regex)) {
             $comments =
                 '!'           // Start of comment, after the <.
                 . '(?:'         // Unroll the loop: Consume everything until --> is found.

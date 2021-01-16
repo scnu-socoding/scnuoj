@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use Yii;
@@ -86,7 +87,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['nickname'], 'string', 'max' => 16],
             ['password', 'string', 'min' => 6, 'max' => 16],
             ['username', 'match', 'pattern' => '/^(?!_)(?!.*?_$)(?!\d{4,16}$)[a-z\d_]{4,16}$/i', 'message' => '用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 16 位之间'],
-            ['username', 'match', 'pattern' => '/^(?!c[\d]+user[\d])/', 'message' => '以c+数字+user+数字作为账户名系统保留', 'when' => function($model) {
+            ['username', 'match', 'pattern' => '/^(?!c[\d]+user[\d])/', 'message' => '以c+数字+user+数字作为账户名系统保留', 'when' => function ($model) {
                 return $model->role != User::ROLE_PLAYER;
             }],
             ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
@@ -201,7 +202,8 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::findOne([
             'verification_token' => $token,
         ]);
@@ -368,7 +370,8 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public function getRecentSubmission() {
+    public function getRecentSubmission()
+    {
         return (new Query())->select('s.id, p.title, p.id as problem_id, s.created_at, s.result')
             ->from('{{%solution}} s')
             ->leftJoin('{{%problem}} p', 'p.id=s.problem_id')
@@ -387,11 +390,9 @@ class User extends ActiveRecord implements IdentityInterface
         }
         if ($this->role == self::ROLE_VIP) {
             return Yii::t('app', 'Assistants');
-        }
-        else if ($rating == NULL){
+        } else if ($rating == NULL) {
             return Yii::t('app', 'Unrated');
-        }
-        else {
+        } else {
             return Yii::t('app', 'Challenger');
         }
     }

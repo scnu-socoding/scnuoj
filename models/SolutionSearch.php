@@ -65,7 +65,7 @@ class SolutionSearch extends Solution
                     $query->andWhere('created_by=:uid', [
                         ':uid' => Yii::$app->user->id
                     ]);
-                // 设定了封榜时间则查询封榜时间前的提交记录
+                    // 设定了封榜时间则查询封榜时间前的提交记录
                 } else if (!empty($lockTime) && $lockTime <= $currentTime && $currentTime <= $endTime + Yii::$app->setting->get('scoreboardFrozenTime')) {
                     $query->andWhere('created_by=:uid OR created_at < :lock_board_time', [
                         ':uid' => Yii::$app->user->id,

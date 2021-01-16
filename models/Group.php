@@ -140,7 +140,7 @@ class Group extends ActiveRecord
         $cache = Yii::$app->cache;
         $data = $cache->get($key);
         if ($data === false) {
-            $data = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid',[
+            $data = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
                 ':uid' => Yii::$app->user->id,
                 ':gid' => $this->id
             ])->queryScalar();

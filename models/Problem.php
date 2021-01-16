@@ -69,12 +69,18 @@ class Problem extends ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'input', 'output', 'sample_input', 'sample_output', 'hint', 'test_status',
-                'solution','tags'], 'string'],
-            [['sample_input_2', 'sample_output_2', 'sample_input_3', 'sample_output_3', 'created_at',
-              'updated_at', ], 'string'],
-            [['id', 'time_limit', 'memory_limit', 'accepted', 'submit', 'solved', 'status', 'contest_id', 'created_by',
-                'polygon_problem_id'], 'integer'],
+            [[
+                'description', 'input', 'output', 'sample_input', 'sample_output', 'hint', 'test_status',
+                'solution', 'tags'
+            ], 'string'],
+            [[
+                'sample_input_2', 'sample_output_2', 'sample_input_3', 'sample_output_3', 'created_at',
+                'updated_at',
+            ], 'string'],
+            [[
+                'id', 'time_limit', 'memory_limit', 'accepted', 'submit', 'solved', 'status', 'contest_id', 'created_by',
+                'polygon_problem_id'
+            ], 'integer'],
             [['title'], 'string', 'max' => 200],
             [['spj'], 'integer', 'max' => 1],
             [['source'], 'string', 'max' => 100],
@@ -162,12 +168,12 @@ class Problem extends ActiveRecord
     {
         $input = unserialize($this->sample_input);
         $output = unserialize($this->sample_output);
-        if(!empty($input)){
+        if (!empty($input)) {
             $this->sample_input = $input[0];
             $this->sample_input_2 = $input[1];
             $this->sample_input_3 = $input[2];
         }
-        if(!empty($output)){
+        if (!empty($output)) {
             $this->sample_output = $output[0];
             $this->sample_output_2 = $output[1];
             $this->sample_output_3 = $output[2];
@@ -176,7 +182,7 @@ class Problem extends ActiveRecord
 
     public function getDataFiles()
     {
-        $path = Yii::$app->params['judgeProblemDataPath'] . $this->id ;
+        $path = Yii::$app->params['judgeProblemDataPath'] . $this->id;
         $files = [];
         try {
             if ($handler = opendir($path)) {
@@ -187,11 +193,11 @@ class Problem extends ActiveRecord
                 }
                 closedir($handler);
             }
-            usort($files, function($a, $b) {
+            usort($files, function ($a, $b) {
                 return (int) $a['name'] >  (int) $b['name'];
             });
-        } catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage();
+        } catch (\Exception $e) {
+            echo 'Message: ' . $e->getMessage();
         }
         return $files;
     }
@@ -210,7 +216,8 @@ class Problem extends ActiveRecord
     {
         $data = Yii::$app->db->createCommand(
             'SELECT created_by, result FROM {{%solution}} WHERE problem_id=:pid AND contest_id is null',
-            [':pid' => $this->id])->queryAll();
+            [':pid' => $this->id]
+        )->queryAll();
         $users = [];
         $accepted_submission = 0;
         $tle_submission = 0;
@@ -248,7 +255,8 @@ class Problem extends ActiveRecord
      * @return false|string|null
      * @throws \yii\db\Exception
      */
-    public function getPreviousProblemID() {
+    public function getPreviousProblemID()
+    {
         return Yii::$app->db->createCommand('SELECT id FROM {{%problem}} WHERE id < :id AND status = :status ORDER BY id DESC limit 1')
             ->bindValues([':id' => $this->id, ':status' => Problem::STATUS_VISIBLE])
             ->queryScalar();
@@ -259,7 +267,8 @@ class Problem extends ActiveRecord
      * @return false|string|null
      * @throws \yii\db\Exception
      */
-    public function getNextProblemID() {
+    public function getNextProblemID()
+    {
         return Yii::$app->db->createCommand('SELECT id FROM {{%problem}} WHERE id > :id AND status = :status LIMIT 1')
             ->bindValues([':id' => $this->id, ':status' => Problem::STATUS_VISIBLE])
             ->queryScalar();

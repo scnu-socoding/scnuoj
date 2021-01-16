@@ -23,7 +23,8 @@ class ResendVerificationEmailForm extends Model
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'exist',
+            [
+                'email', 'exist',
                 'targetClass' => '\app\models\User',
                 'filter' => ['status' => User::STATUS_INACTIVE],
                 'message' => '不存在使用这个邮箱的用户或该邮箱的用户已激活'

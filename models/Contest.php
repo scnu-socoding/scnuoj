@@ -239,7 +239,7 @@ class Contest extends \yii\db\ActiveRecord
     public function getProblems()
     {
         $dependency = new \yii\caching\DbDependency([
-            'sql'=>'SELECT COUNT(*) FROM {{%contest_problem}} WHERE contest_id=:cid',
+            'sql' => 'SELECT COUNT(*) FROM {{%contest_problem}} WHERE contest_id=:cid',
             'params' => [':cid' => $this->id]
         ]);
         return Yii::$app->db->cache(function ($db) {
@@ -301,7 +301,7 @@ class Contest extends \yii\db\ActiveRecord
                 . '_RunID[' . $solution['id'] . ']'
                 . '_Username[' . $solution['username'] . ']'
                 . '.' . Solution::getLangFileExtension($solution['language']);
-            
+
             $fp = fopen($path . $fileName, 'w');
             fputs($fp, $solution['source']);
             fclose($fp);
@@ -333,7 +333,7 @@ class Contest extends \yii\db\ActiveRecord
     public function getContestUser()
     {
         $dependency = new \yii\caching\DbDependency([
-            'sql'=>'SELECT COUNT(*) FROM {{%contest_user}} WHERE contest_id=:cid',
+            'sql' => 'SELECT COUNT(*) FROM {{%contest_user}} WHERE contest_id=:cid',
             'params' => [':cid' => $this->id]
         ]);
         return Yii::$app->db->cache(function ($db) {
@@ -383,8 +383,10 @@ class Contest extends \yii\db\ActiveRecord
             }
             $res[$pid]['submit']++;
             // 不记录封榜后提交情况
-            if ($isScoreboardFrozen && $createdAt > $lockBoardTime &&
-                $createdAt < $contestEndTime) {
+            if (
+                $isScoreboardFrozen && $createdAt > $lockBoardTime &&
+                $createdAt < $contestEndTime
+            ) {
                 continue;
             }
             if ($solution['result'] == Solution::OJ_AC) {
@@ -495,8 +497,10 @@ class Contest extends \yii\db\ActiveRecord
             }
 
             // 封榜，比赛结束后的一定时间解榜，解榜时间 scoreboardFrozenTime 变量的设置详见后台设置页面
-            if ($lock && $lock_time <= $created_at &&
-                time() <= $contest_end_time + Yii::$app->setting->get('scoreboardFrozenTime')) {
+            if (
+                $lock && $lock_time <= $created_at &&
+                time() <= $contest_end_time + Yii::$app->setting->get('scoreboardFrozenTime')
+            ) {
                 ++$result[$user]['pending'][$pid];
                 continue;
             }
@@ -540,7 +544,7 @@ class Contest extends \yii\db\ActiveRecord
             }
         }
 
-        usort($result, function($a, $b) {
+        usort($result, function ($a, $b) {
             if ($a['solved'] != $b['solved']) { //优先解题数
                 return $a['solved'] < $b['solved'];
             } else if ($a['time'] != $b['time']) { //按时间（分数）
@@ -682,8 +686,10 @@ class Contest extends \yii\db\ActiveRecord
                 $first_blood[$pid] = '';
 
             // 封榜，比赛结束后的一定时间解榜，解榜时间 scoreboardFrozenTime 变量的设置详见后台设置页面
-            if ($lock && $lock_time <= $created_at &&
-                time() <= $contest_end_time + Yii::$app->setting->get('scoreboardFrozenTime')) {
+            if (
+                $lock && $lock_time <= $created_at &&
+                time() <= $contest_end_time + Yii::$app->setting->get('scoreboardFrozenTime')
+            ) {
                 ++$result[$user]['pending'][$pid];
                 continue;
             }
@@ -702,7 +708,6 @@ class Contest extends \yii\db\ActiveRecord
             } else if ($row['result'] == Solution::OJ_AC) {
                 // OI 赛制遇到 AC 则记录满分，以用于验证最后一次提交是否 AC
                 $result[$user]['full_score'][$pid] = $result[$user]['max_score'][$pid];
-               
             } else if ($row['result'] <= 3) {
                 // 还未测评
                 ++$result[$user]['pending'][$pid];
@@ -716,10 +721,10 @@ class Contest extends \yii\db\ActiveRecord
             foreach ($v['max_score'] as $s) { // 枚举题目（最高分）
                 $v['correction_score'] += $s;
             }
-            
+
             foreach ($problems as $problem) { // 枚举（题目编号）
                 $pid = $problem['problem_id'];
-                if(isset($v['full_score'][$pid]) && $v['full_score'][$pid] == $v['score'][$pid] && $this->type == Contest::TYPE_OI && $endtime == $contest_end_time) {
+                if (isset($v['full_score'][$pid]) && $v['full_score'][$pid] == $v['score'][$pid] && $this->type == Contest::TYPE_OI && $endtime == $contest_end_time) {
                     $submit_count[$pid]['solved']++;
                     $v['solved_flag'][$pid] = 1; // 标记该题已解答
                 }
@@ -727,7 +732,7 @@ class Contest extends \yii\db\ActiveRecord
         }
 
         $type = $this->type;
-        usort($result, function($a, $b) use ($type, $endtime, $contest_end_time) {
+        usort($result, function ($a, $b) use ($type, $endtime, $contest_end_time) {
             if ($type == self::TYPE_OI && $endtime == $contest_end_time) {
                 if ($a['total_score'] != $b['total_score']) { // 优先测评总分
                     return $a['total_score'] < $b['total_score'];
@@ -739,11 +744,11 @@ class Contest extends \yii\db\ActiveRecord
             } else { // IOI 只需要最大值的总分排序。
                 if ($a['correction_score'] != $b['correction_score']) {
                     return $a['correction_score'] < $b['correction_score'];
-                } else if ($a['solved'] != $b['solved']) { 
+                } else if ($a['solved'] != $b['solved']) {
                     return $a['solved'] < $b['solved'];
-                } else if ($a['total_time'] != $b['total_time']){
+                } else if ($a['total_time'] != $b['total_time']) {
                     return $a['total_time'] > $b['total_time'];
-                }  else {
+                } else {
                     return $a['user_id'] < $b['user_id'];
                 }
             }
@@ -960,14 +965,15 @@ class Contest extends \yii\db\ActiveRecord
      */
     public function isScoreboardFrozen()
     {
-       return !empty($this->lock_board_time) && strtotime($this->lock_board_time) <= time() &&
-           time() <= strtotime($this->end_time) + Yii::$app->setting->get('scoreboardFrozenTime');
+        return !empty($this->lock_board_time) && strtotime($this->lock_board_time) <= time() &&
+            time() <= strtotime($this->end_time) + Yii::$app->setting->get('scoreboardFrozenTime');
     }
 
     /**
      * 是否可以编辑比赛信息
      */
-    public function isContestAdmin() {
+    public function isContestAdmin()
+    {
         if (Yii::$app->user->isGuest) {
             return false;
         }
@@ -993,7 +999,8 @@ class Contest extends \yii\db\ActiveRecord
      * @param $pid integer Problem ID
      * @throws \Throwable
      */
-    public function deleteProblem($pid) {
+    public function deleteProblem($pid)
+    {
         $db = Yii::$app->db;
         $cid = $this->id;
         $db->transaction(function () use ($pid, $cid) {

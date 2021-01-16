@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use yii\base\InvalidArgumentException;

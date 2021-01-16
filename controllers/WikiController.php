@@ -23,15 +23,14 @@ class WikiController extends BaseController
     public function actionContest()
     {
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
-             return $this->render('contest');
+            return $this->render('contest');
         }
         throw new ForbiddenHttpException('You are not allowed to perform this action.');
-       
     }
 
     public function actionProblem()
     {
-        if (!Yii::$app->user->isGuest &&Yii::$app->user->identity->isAdmin()) {
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
             return $this->render('problem');
         }
         throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -39,7 +38,7 @@ class WikiController extends BaseController
 
     public function actionSpj()
     {
-        if (!Yii::$app->user->isGuest &&Yii::$app->user->identity->isAdmin()) {
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
             return $this->render('spj');
         }
         throw new ForbiddenHttpException('You are not allowed to perform this action.');

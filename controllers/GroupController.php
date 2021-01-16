@@ -57,7 +57,8 @@ class GroupController extends BaseController
      */
     public function actionMyGroup()
     {
-        $count = Yii::$app->db->createCommand('
+        $count = Yii::$app->db->createCommand(
+            '
             SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id',
             [':id' => Yii::$app->user->id]
         )->queryScalar();
@@ -162,14 +163,14 @@ class GroupController extends BaseController
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
-                                    $role == GroupUser::ROLE_APPLICATION ||
-                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
-                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
+            $role == GroupUser::ROLE_APPLICATION ||
+            $model->join_policy == Group::JOIN_POLICY_FREE ||
+            $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
             return $this->redirect(['/group/accept', 'id' => $model->id]);
         } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
-        
+
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -187,9 +188,9 @@ class GroupController extends BaseController
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
-                                    $role == GroupUser::ROLE_APPLICATION ||
-                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
-                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
+            $role == GroupUser::ROLE_APPLICATION ||
+            $model->join_policy == Group::JOIN_POLICY_FREE ||
+            $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
             return $this->redirect(['/group/accept', 'id' => $model->id]);
         } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -206,42 +207,42 @@ class GroupController extends BaseController
             if (!$model->hasPermission()) {
                 throw new ForbiddenHttpException('You are not allowed to perform this action.');
             }
-            $usernames = str_replace("\r","",$newGroupUser->username);
+            $usernames = str_replace("\r", "", $newGroupUser->username);
             $usernames = explode("\n", trim($usernames));
             $count = count($usernames);
             $join = 0;
             $role = $newGroupUser->role;
-		for ($i = 0; $i < $count; ++$i) {
-			if (empty($usernames[$i]))
-            	continue;
-     		    $newGroupUser = new GroupUser();            
+            for ($i = 0; $i < $count; ++$i) {
+                if (empty($usernames[$i]))
+                    continue;
+                $newGroupUser = new GroupUser();
                 $newGroupUser->username = $usernames[$i];
-	            //　查找用户ID 以及查看是否已经加入比赛中
-	            $query = (new Query())->select('u.id as user_id, count(g.user_id) as exist')
-	                ->from('{{%user}} as u')
-	                ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id')
-	                ->where('u.username=:name and g.group_id=:gid', [':name' => $newGroupUser->username, ':gid' => $model->id])
-	                ->one();
-	            if (!isset($query['user_id'])) {
-	                Yii::$app->session->setFlash('error', $newGroupUser->username.',不存在该用户');
-	            } else if (!$query['exist']) {
+                //　查找用户ID 以及查看是否已经加入比赛中
+                $query = (new Query())->select('u.id as user_id, count(g.user_id) as exist')
+                    ->from('{{%user}} as u')
+                    ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id')
+                    ->where('u.username=:name and g.group_id=:gid', [':name' => $newGroupUser->username, ':gid' => $model->id])
+                    ->one();
+                if (!isset($query['user_id'])) {
+                    Yii::$app->session->setFlash('error', $newGroupUser->username . ',不存在该用户');
+                } else if (!$query['exist']) {
                     $newGroupUser->role = $role;
-                    if(User::findOne($query['user_id'])->isAdmin()){
+                    if (User::findOne($query['user_id'])->isAdmin()) {
                         $newGroupUser->role = GroupUser::ROLE_MANAGER;
                     }
-	                $newGroupUser->created_at = new Expression('NOW()');
-	                $newGroupUser->user_id = $query['user_id'];
-	                $newGroupUser->group_id = $model->id;
-	                $newGroupUser->save();
-	                ++$join;
-	            } else {
-	                Yii::$app->db->createCommand()->update('{{%group_user}}', [
-	                    'role' => $role
-	                ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
-	                ++$join;
-	            }
+                    $newGroupUser->created_at = new Expression('NOW()');
+                    $newGroupUser->user_id = $query['user_id'];
+                    $newGroupUser->group_id = $model->id;
+                    $newGroupUser->save();
+                    ++$join;
+                } else {
+                    Yii::$app->db->createCommand()->update('{{%group_user}}', [
+                        'role' => $role
+                    ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
+                    ++$join;
+                }
             }
-            Yii::$app->session->setFlash('success', $join.'个用户已邀请');
+            Yii::$app->session->setFlash('success', $join . '个用户已邀请');
             return $this->refresh();
         }
 
@@ -264,9 +265,9 @@ class GroupController extends BaseController
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
-                                    $role == GroupUser::ROLE_APPLICATION ||
-                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
-                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
+            $role == GroupUser::ROLE_APPLICATION ||
+            $model->join_policy == Group::JOIN_POLICY_FREE ||
+            $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
             return $this->redirect(['/group/accept', 'id' => $model->id]);
         } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -391,18 +392,18 @@ class GroupController extends BaseController
             $groupUser->role = GroupUser::ROLE_MANAGER;
         } else if ($role == 5 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为普通成员
             $groupUser->role = GroupUser::ROLE_MEMBER;
-        } else if ($role == 6 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置密码
+        } else if ($role == 6 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role == GroupUser::ROLE_MEMBER) { // 重置密码
             Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'password_hash' => Yii::$app->security->generatePasswordHash('123456')
-                ], ['id' => $groupUser->user_id])->execute();
-            Yii::$app->session->setFlash('success', $groupUser->user->username.'的密码已经重置为：123456');
-        } else if ($role == 7 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置昵称
+                'password_hash' => Yii::$app->security->generatePasswordHash('123456')
+            ], ['id' => $groupUser->user_id])->execute();
+            Yii::$app->session->setFlash('success', $groupUser->user->username . '的密码已经重置为：123456');
+        } else if ($role == 7 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role == GroupUser::ROLE_MEMBER) { // 重置昵称
             Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'nickname' =>  $groupUser->user->username
-                ], ['id' => $groupUser->user_id])->execute();
-            Yii::$app->session->setFlash('success', $groupUser->user->username.'的昵称已经重置！');
+                'nickname' =>  $groupUser->user->username
+            ], ['id' => $groupUser->user_id])->execute();
+            Yii::$app->session->setFlash('success', $groupUser->user->username . '的昵称已经重置！');
         }
-        
+
         if ($role != 0) {
             $groupUser->update();
             Yii::$app->cache->delete('role' . $group->id . '_' . $groupUser->user_id);

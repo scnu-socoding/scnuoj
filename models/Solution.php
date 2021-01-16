@@ -83,8 +83,10 @@ class Solution extends ActiveRecord
     public function rules()
     {
         return [
-            [['problem_id', 'created_by', 'time', 'memory', 'result', 'language', 'contest_id', 'status',
-              'code_length', 'score'], 'integer'],
+            [[
+                'problem_id', 'created_by', 'time', 'memory', 'result', 'language', 'contest_id', 'status',
+                'code_length', 'score'
+            ], 'integer'],
             [['created_at', 'judgetime'], 'safe'],
             [['language', 'source'], 'required'],
             [['language'], 'in', 'range' => [0, 1, 2, 3], 'message' => 'Please select a language'],
@@ -156,12 +158,12 @@ class Solution extends ActiveRecord
 
     public function getTestCount()
     {
-        return intval(substr(strstr($this->pass_info,'/'), 1));
+        return intval(substr(strstr($this->pass_info, '/'), 1));
     }
 
     public function getPassedTestCount()
     {
-        return intval(strstr($this->pass_info,'/', true));
+        return intval(strstr($this->pass_info, '/', true));
     }
 
     public function getLang()
@@ -380,7 +382,7 @@ class Solution extends ActiveRecord
     public function canViewSource()
     {
         //游客不能查看
-        if (Yii::$app->user->isGuest){
+        if (Yii::$app->user->isGuest) {
             return false;
         }
         // 提交代码的作者有权限查看

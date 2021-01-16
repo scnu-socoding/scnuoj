@@ -103,6 +103,6 @@ class GroupUser extends \yii\db\ActiveRecord
             'text-primary',
             'text-success'
         ];
-        return '<span class="' . $rolesColor[$this->role] . '">' . $roles[$this->role] . '</span>' ;
+        return '<span class="' . $rolesColor[$this->role] . '">' . $roles[$this->role] . '</span>';
     }
 }

@@ -59,11 +59,11 @@ class ContestSearch extends Contest
 
         // grid filtering conditions
         $query->FilterWhere(['like', 'title', $this->title])
-        ->andwhere([
-            '<>', 'status', Contest::STATUS_HIDDEN
-        ])->andWhere([
-            'group_id' => 0
-        ])->orderBy(['start_time' => SORT_DESC, 'end_time' => SORT_ASC, 'id' => SORT_DESC]);
+            ->andwhere([
+                '<>', 'status', Contest::STATUS_HIDDEN
+            ])->andWhere([
+                'group_id' => 0
+            ])->orderBy(['start_time' => SORT_DESC, 'end_time' => SORT_ASC, 'id' => SORT_DESC]);
 
         return $dataProvider;
     }

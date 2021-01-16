@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use Yii;
@@ -81,8 +82,10 @@ class SignupForm extends Model
             // 发送邮箱
             $user->generateEmailVerificationToken();
             if (!$this->sendEmail($user)) {
-                Yii::$app->session->setFlash('error',
-                    '验证邮箱发送失败。可能原因：1. 该邮箱不存在；2. 本网站系统邮箱配置信息有误，需联系管理员检查系统的发送邮箱配置信息。');
+                Yii::$app->session->setFlash(
+                    'error',
+                    '验证邮箱发送失败。可能原因：1. 该邮箱不存在；2. 本网站系统邮箱配置信息有误，需联系管理员检查系统的发送邮箱配置信息。'
+                );
                 return null;
             }
             $user->status = User::STATUS_INACTIVE;
