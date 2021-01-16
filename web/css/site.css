@@ -431,3 +431,9 @@ nav div li div.dropdown-menu.show {
 .table thead th {
     border-bottom: 0;
 }
+
+.user-index tr td:nth-child(1),
+.user-index tr th:nth-child(1) {
+    width:8rem;
+    text-align: center;
+}

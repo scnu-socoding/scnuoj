@@ -13,16 +13,25 @@ $this->title = $model->title;
 // $this->params['breadcrumbs'][] = Yii::t('app', 'User');
 ?>
 
-<div class="contest-index">
+<div class='user-index'>
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $provider,
         // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
-        'tableOptions' => ['class' => 'table'],
+        'tableOptions' => ['class' => 'table table-bordered'],
         'options' => ['class' => 'table-responsive'],
         'columns' => [
             [
-                'attribute' => 'participants',
+                'label' => '　',
+                'value' => function ($model, $key, $index, $column) {
+                    return Html::a(Html::encode($model->userProfile->student_number), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
+                },
+                'format' => 'raw',
+                'enableSorting' => false,
+                'options' => ['style' => 'width:8rem;']
+            ],
+            [
+                'label' => '　',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
                 },
