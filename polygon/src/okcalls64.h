@@ -18,10 +18,11 @@
  */
 //c & c++
 int LANG_CV[512] = {
+	SYS_dup3, SYS_exit,
 	SYS_read, SYS_write, SYS_mprotect, SYS_munmap, SYS_brk, SYS_arch_prctl, SYS_pread64, SYS_open, SYS_writev,
 	SYS_time, SYS_futex, SYS_set_thread_area, SYS_access, SYS_clock_gettime, SYS_exit_group, SYS_mq_open,
 	SYS_ioprio_get, SYS_unshare, SYS_set_robust_list, SYS_splice, SYS_close, SYS_stat, SYS_fstat, SYS_execve,
-	SYS_uname, SYS_lseek, SYS_readlink, SYS_mmap, SYS_sysinfo, 0};
+	SYS_uname, SYS_lseek, SYS_readlink, SYS_mmap, SYS_sysinfo, 0x1FF, 0};
 //java
 int LANG_JV[512] = {
 	SYS_read, SYS_mprotect, SYS_getuid, SYS_getgid, SYS_geteuid, SYS_getegid, SYS_munmap, SYS_getppid, SYS_getpgrp,
