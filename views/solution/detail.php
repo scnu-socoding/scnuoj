@@ -16,18 +16,18 @@ $this->title = $model->id;
     <table class="table table-rank">
         <thead>
             <tr>
-                <th style="min-width:100px"><?= Yii::t('app', 'Run ID') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Run ID') ?></th>
                 <th style="min-width:150px"><?= Yii::t('app', 'Author') ?></th>
                 <th style="min-width:200px"><?= Yii::t('app', 'Problem ID') ?></th>
-                <th style="min-width:100px"><?= Yii::t('app', 'Verdict') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Verdict') ?></th>
                 <?php if (Yii::$app->setting->get('oiMode')) : ?>
-                    <th width="100px"><?= Yii::t('app', 'Score') ?></th>
+                    <th width="90px"><?= Yii::t('app', 'Score') ?></th>
                 <?php endif; ?>
-                <th style="min-width:100px"><?= Yii::t('app', 'Time') ?></th>
-                <th style="min-width:100px"><?= Yii::t('app', 'Memory') ?></th>
-                <th style="min-width:100px"><?= Yii::t('app', 'Lang') ?></th>
-                <th style="min-width:100px"><?= Yii::t('app', 'Code Length') ?></th>
-                <th style="min-width:100px"><?= Yii::t('app', 'Submit Time') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Time') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Memory') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Lang') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Code Length') ?></th>
+                <th style="min-width:90px"><?= Yii::t('app', 'Submit Time') ?></th>
             </tr>
         </thead>
         <tbody>
