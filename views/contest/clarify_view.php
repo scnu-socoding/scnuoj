@@ -41,7 +41,9 @@ $this->params['model'] = $model;
             <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING) : ?>
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+                <?= $form->field($newClarify, 'content', [
+                    'template' => "{input}",
+                ])->widget('app\widgets\editormd\Editormd'); ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-success']) ?>
