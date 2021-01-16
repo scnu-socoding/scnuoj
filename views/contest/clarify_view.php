@@ -44,7 +44,7 @@ $this->params['model'] = $model;
                 <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-outline-secondary']) ?>
+                    <?= Html::submitButton('<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Reply'), ['class' => 'btn btn-block btn-success']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             <?php else : ?>
