@@ -165,9 +165,7 @@ class ContestController extends BaseController
             Yii::$app->session->setFlash('success', '成功注册');
             return $this->redirect(['/contest/view', 'id' => $model->id]);
         }
-        return $this->render('register', [
-            'model' => $model
-        ]);
+        return $this->redirect(['view', 'id' => $model->id]);
     }
 
     /**
