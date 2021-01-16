@@ -686,14 +686,6 @@ class Contest extends \yii\db\ActiveRecord
             if (!isset($first_blood[$pid]))
                 $first_blood[$pid] = '';
 
-            // 封榜，比赛结束后的一定时间解榜，解榜时间 scoreboardFrozenTime 变量的设置详见后台设置页面
-            if (
-                $lock && $lock_time <= $created_at &&
-                time() <= $contest_end_time + Yii::$app->setting->get('scoreboardFrozenTime')
-            ) {
-                ++$result[$user]['pending'][$pid];
-                continue;
-            }
             if ($row['result'] == Solution::OJ_AC && ($this->type == Contest::TYPE_IOI || $endtime != $contest_end_time)) {
                 // AC
                 $submit_count[$pid]['solved']++;
