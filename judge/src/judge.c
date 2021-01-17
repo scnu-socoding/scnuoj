@@ -887,7 +887,7 @@ void judge_solution(problem_struct problem,
 void print_runtimeerror(char * err)
 {
     FILE *ferr = fopen("error.out", "a+");
-    fprintf(ferr, "Runtime Error:%s\n", err);
+    fprintf(ferr, "Runtime Error: %s\n", err);
     fclose(ferr);
 }
 
@@ -1031,7 +1031,7 @@ void watch_solution(problem_struct problem,
         } else { //do not limit JVM syscall for using different JVM
             verdict_res->verdict = OJ_RE;
             char error[BUFFER_SIZE];
-            sprintf(error, " syscall %u not allowed.\n非常抱歉，这可能是判题机内部错误。\n请按照帮助文档 -> 常见问题 -> 系统调用，检查自己的代码并申请代码复核。",
+            sprintf(error, "[ERROR] A not allowed system call, call ID: %u",
                     call_id);
             write_log(error);
             print_runtimeerror(error);
