@@ -990,7 +990,7 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
         } else { //do not limit JVM syscall for using different JVM
             *ACflg = OJ_RE;
             char error[BUFFER_SIZE];
-            sprintf(error, "[ERROR] A not allowed system call.\nCall ID:%u",
+            sprintf(error, "[ERROR] A not allowed system call.\nCall ID: %u",
                 call_id);
             write_log(error);
             print_runtimeerror(error);
