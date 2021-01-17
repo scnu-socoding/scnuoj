@@ -43,7 +43,7 @@ $this->title = Html::encode($model->name);
                 return $model->getRole(true);
             },
             'format' => 'raw',
-            'options' => ['width' => '150px'],
+            'options' => ['style' => 'width:100px;min-width:100px'],
             'enableSorting' => false
         ],
         [
@@ -52,13 +52,14 @@ $this->title = Html::encode($model->name);
                 return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
             },
             'format' => 'raw',
+            'options' => ['style' => 'min-width:200px'],
         ],
         [
             'attribute' => 'created_at',
             'value' => function ($model, $key, $index, $column) {
                 return Yii::$app->formatter->asRelativeTime($model->created_at);
             },
-            'options' => ['width' => '150px'],
+            'options' => ['style' => 'min-width:100px;width:100px'],
             'enableSorting' => false
         ]
     ],
