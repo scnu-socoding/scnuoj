@@ -46,7 +46,7 @@
     <div class="list-group-item">
         系统调用<br>
         <small>
-            如果检查日志中需要你申请代码复核，你可能使用了判题机禁止使用的系统调用。判题机采用的是白名单机制，允许的系统调用在 <a href="https://github.com/SCNU-SoCoding/scnuoj/blob/master/judge/src/okcalls64.h">这个文件</a> 有列举。<br>
+            如果检查日志中需要你申请代码复核，你可能使用了判题机禁止使用的系统调用。判题机采用的是白名单机制，允许的系统调用在 <a href="https://github.com/SCNU-SoCoding/scnuoj/blob/master/judge/src/okcalls64.h" target="_blank">这个文件</a> 有列举。<br>
             如果你希望我们复核你的代码并调整白名单设置，请先确认你的代码中不包含 <code>system("pause");</code> 这样的语句，如果有则请先删除后尝试重新提交。<br>
             如果你正在参加一场公开赛，如 AK 杯程序设计精神、蓝桥杯热身赛、天梯赛选拔赛等比赛，请通过比赛答疑系统联系 SCNUOJ 开发组，我们将尽快处理。<br>
             在非公开赛比赛场合，请通过 <a href="/discuss/view?id=1" target="_blank">运行出错反馈专帖</a> 联系 SCNUOJ 开发组。
