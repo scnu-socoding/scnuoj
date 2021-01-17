@@ -28,7 +28,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 <h3><?= Html::encode($this->title) ?></h3>
 
 <?php
-    $menuItems = [
+$menuItems = [
     [
         'label' => Yii::t('app', 'Information'),
         'url' => ['group/view', 'id' => $model->id],
@@ -41,50 +41,50 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         'label' => Yii::t('app', 'Member'),
         'url' => ['group/member', 'id' => $model->id],
     ]
-    ];
-    echo Nav::widget([
-        'items' => $menuItems,
-        'options' => ['class' => 'nav nav-pills hidden-print'],
-        'encodeLabels' => false
-    ]) ?>
+];
+echo Nav::widget([
+    'items' => $menuItems,
+    'options' => ['class' => 'nav nav-pills hidden-print'],
+    'encodeLabels' => false
+]) ?>
 <p></p>
 
 
-<?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
-<?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-outline-danger btn-block']) ?>
-<p></p>
-<?php endif; ?>
+
 
 <div class="row">
 
 
 
     <div class="col-lg-8">
-        <?php if($model->description != ''): ?>
-        <div class="alert alert-light">
-        <i class="fas fa-fw fa-info-circle"></i>
-            <?= $model->description ?>
-        </div>
-        <p></p>
-        <?php endif;?>
+        <?php if ($model->description != '') : ?>
+            <div class="alert alert-light">
+                <i class="fas fa-fw fa-info-circle"></i>
+                <?= $model->description ?>
+            </div>
+            <p></p>
+        <?php endif; ?>
         <div class="card">
             <div class="card-body">
-                <?php if($model->kanban != ''): ?>
-                <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
-                <?php else: ?>
-                没有找到数据。
-                <?php endif;?>
+                <?php if ($model->kanban != '') : ?>
+                    <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
+                <?php else : ?>
+                    没有找到数据。
+                <?php endif; ?>
             </div>
         </div>
         <p></p>
     </div>
     <div class="col-lg-4">
         <div class="list-group">
-            <div class="list-group-item"><?= Yii::t('app', 'Join Policy') ?><span
-                    class="float-right text-secondary"><?= $model->getJoinPolicy() ?></span></div>
-            <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span
-                    class="float-right text-secondary"><?= $model->getStatus() ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Join Policy') ?><span class="float-right text-secondary"><?= $model->getJoinPolicy() ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span class="float-right text-secondary"><?= $model->getStatus() ?></span></div>
         </div>
+        <?php if (!Yii::$app->user->isGuest && ($model->role == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())) : ?>
+            <p></p>
+            <?= Html::a(Yii::t('app', 'Setting'), ['/group/update', 'id' => $model->id], ['class' => 'btn btn-outline-primary btn-block']) ?>
+
+        <?php endif; ?>
     </div>
 </div>
 

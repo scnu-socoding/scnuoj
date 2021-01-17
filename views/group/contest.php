@@ -53,7 +53,7 @@ echo Nav::widget([
         'toggleButton' => [
             'label' => Yii::t('app', 'Create'),
             'tag' => 'a',
-            'class' => 'btn btn-block btn-outline-danger'
+            'class' => 'btn btn-block btn-outline-primary'
         ],
         'size' => Modal::SIZE_LARGE
     ]); ?>

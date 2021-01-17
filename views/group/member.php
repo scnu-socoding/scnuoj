@@ -55,7 +55,7 @@ echo Nav::widget([
         'toggleButton' => [
             'label' => Yii::t('app', 'Invite Member'),
             'tag' => 'a',
-            'class' => 'btn btn-outline-danger btn-block'
+            'class' => 'btn btn-outline-primary btn-block'
         ]
     ]); ?>
     <?php $form = ActiveForm::begin(); ?>
