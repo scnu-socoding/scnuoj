@@ -647,7 +647,7 @@ void record_data(problem_struct problem,
     }
     if (fp != NULL) {
         tmp_size = read_file(verdict_res->checker_log, rsize, fp);
-        if (tmp_size >= rsize) {
+        if (tmp_size >= rsize - 1) {
             strcat(verdict_res->checker_log, omit_str);
         }
         fclose(fp);
@@ -659,7 +659,7 @@ void record_data(problem_struct problem,
     
     if (in_file != NULL) {
         tmp_size = read_file(verdict_res->input, rsize, in_file);
-        if (tmp_size >= rsize) {
+        if (tmp_size >= rsize - 1) {
             strcat(verdict_res->input, omit_str);
         }
         fclose(in_file);
@@ -667,7 +667,7 @@ void record_data(problem_struct problem,
     
     if (out_file != NULL) {
         tmp_size = read_file(verdict_res->output, rsize, out_file);
-        if (tmp_size >= rsize) {
+        if (tmp_size >= rsize - 1) {
             strcat(verdict_res->output, omit_str);
         }
         fclose(out_file);
@@ -675,7 +675,7 @@ void record_data(problem_struct problem,
 
     if (user_file != NULL) {
         tmp_size = read_file(verdict_res->user_output, rsize, user_file);
-        if (tmp_size >= rsize) {
+        if (tmp_size >= rsize - 1) {
             strcat(verdict_res->user_output, omit_str);
         }
         fclose(user_file);
@@ -1031,8 +1031,8 @@ void watch_solution(problem_struct problem,
         } else { //do not limit JVM syscall for using different JVM
             verdict_res->verdict = OJ_RE;
             char error[BUFFER_SIZE];
-            sprintf(error, "[ERROR] A not allowed system call.\nCall ID:%u",
-                call_id);
+            sprintf(error, " syscall %u not allowed.\n非常抱歉，这可能是判题机内部错误。\n请按照帮助文档 -> 常见问题 -> 系统调用，检查自己的代码并申请代码复核。",
+                    call_id);
             write_log(error);
             print_runtimeerror(error);
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
