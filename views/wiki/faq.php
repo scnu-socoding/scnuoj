@@ -46,7 +46,7 @@
     <div class="list-group-item">
         系统调用<br>
         <small>
-            如果检查日志中提示 <code>syscall X not allowed</code>，你可能使用了判题机禁止使用的系统调用。判题机采用的是白名单机制，允许的系统调用在 <a href="https://github.com/SCNU-SoCoding/scnuoj/blob/master/judge/src/okcalls64.h" target="_blank">这个文件</a> 有列举。<br>
+            如果检查日志中提示 <code>A not allowed system call</code>，你可能使用了判题机禁止使用的系统调用。判题机采用的是白名单机制，允许的系统调用在 <a href="https://github.com/SCNU-SoCoding/scnuoj/blob/master/judge/src/okcalls64.h" target="_blank">这个文件</a> 有列举。<br>
             请确认你的代码中不包含 <code>system("pause");</code> 这样的语句，如果有则请删除后尝试重新提交。<br>
         </small>
     </div>
