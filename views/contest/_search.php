@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 
     <div class="col-lg-6" style="margin-bottom: 1rem;">
         <div class="btn-group btn-block">
-            <?= Html::a('<i class="fas fa-fw fa-trophy"></i> ' . 'SCNUCPC 2020', ['/board/scnucpc2020'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fas fa-fw fa-trophy"></i> ' . 'SCNUCPC', ['/board/scnucpc2020'], ['class' => 'btn btn-success']) ?>
             <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
             <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> ' . Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
         </div>
