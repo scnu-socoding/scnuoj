@@ -20,6 +20,11 @@ class WikiController extends BaseController
         return $this->render('about');
     }
 
+    public function actionFaq()
+    {
+        return $this->render('faq');
+    }
+
     public function actionContest()
     {
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {

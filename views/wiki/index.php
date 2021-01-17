@@ -1,145 +1,165 @@
-<h5>编译参数</h5>
-
-<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <b>Java</b> 和 <b>Python</b> 程序在题目所标时空限制的基础上有
-    <b>2s</b> 的额外运行时间和 <b>64M</b> 的额外空间。
-</div>
+<h5>结果</h5>
 
 <div class="list-group">
     <div class="list-group-item">
-        <b>C</b> (GCC 9.3.0)
-        <span class="float-right">
-            <code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c11 -DONLINE_JUDGE</code>
-        </span>
+        <b>等待测评</b> Pending<br>
+        <small>
+            你的答案在排队等待，请耐心等待。如果你的提交长时间未被评测，请联系管理员。
+        </small>
+    </div>
+    <div class="list-group-item text-secondary">
+        <b>等待重测</b> Pending Rejudge<br>
+        <small>
+            此结果已经被弃用，当管理员发起重测后，你的提交将被显示为等待评测。
+        </small>
     </div>
     <div class="list-group-item">
-        <b>C++</b> (GCC 9.3.0)
-        <span class="float-right">
-            <code>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code>
-        </span>
+        <b>正在编译</b> Compiling<br>
+        <small>
+            评测机正在编译你的程序。
+        </small>
     </div>
     <div class="list-group-item">
-        <b>Java</b> (OpenJDK 11.0.9)
-        <span class="float-right">
-            <code>javac -J-Xms32m -J-Xmx256m Main.java</code>
-        </span>
+        <b>正在测评</b> Running & Judging<br>
+        <small>
+            评测机正在运行你的程序，并根据事先准备的测试数据评测你的程序。
+        </small>
     </div>
     <div class="list-group-item">
-        <b>Python</b> (3.8.5)
-        <span class="float-right text-secondary">
-            无
-        </span>
+        <b>通过</b> Accepted<br>
+        <small>
+            恭喜你，你的程序通过了评测。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>输出格式错误</b> Presentation Error<br>
+        <small>
+            答案基本正确，但是格式不对，请检查你的空格和换行是否符合要求。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>解答错误</b> Wrong Answer<br>
+        <small>
+            答案不对，仅通过样例数据的测试并不一定就正确，一定还有你没想到的地方。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>运行超时</b> Time Limit Exceeded<br>
+        <small>
+            运行超出时间限制，检查下是否有死循环，或者应该有更快的计算方法。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>内存超限</b> Memory Limit Exceeded<br>
+        <small>
+            超出内存限制，数据可能需要压缩，检查内存是否有泄露。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>输出超限</b> Output Limit Exceeded<br>
+        <small>
+            输出超过限制，你的输出比正确答案长了两倍或以上。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>运行出错</b> Runtime Error<br>
+        <small>
+            运行时错误，可能是非法的内存访问，数组越界，指针漂移，调用禁用的系统函数。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>编译错误</b> Compile Error<br>
+        <small>
+            编译错误，请访问评测详情页获得编译器的详细输出。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>编译错误</b> Compile Error<br>
+        <small>
+            编译错误，请访问评测详情页获得编译器的详细输出。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>系统错误</b> System Error<br>
+        <small>
+            很遗憾，评测机出现了故障，请尽快联系管理员。
+        </small>
+    </div>
+    <div class="list-group-item">
+        <b>无评测数据</b> No Testdata<br>
+        <small>
+            管理员尚未上传此题的测试数据，请耐心等候管理员上传测试数据并重测你的提交。
+        </small>
     </div>
 </div>
 
 <p></p>
-<h5>结果</h5>
 
-<?php if(!Yii::$app->setting->get('oiMode')): ?>
-<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> OI
-    模式目前处于<b>关闭</b>状态，系统在遇到第一个无法通过的测试点时将立刻停止评测并该测试点的返回结果。</div>
-
-<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 在当前状态下，在 IOI/OI 赛制的比赛提交代码将无法得到准确的分数。</div>
-<?php else: ?>
-<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> OI
-    模式目前处于<b>开启</b>状态，系统将对所有测试点逐一进行评测。</div>
-<?php endif; ?>
-
+<h5>编译参数</h5>
 
 <div class="list-group">
     <div class="list-group-item">
-        <b>等待测评</b> Pending
-        <span class="float-right text-secondary">
-            系统忙，你的答案在排队等待
-        </span>
+        <b>C</b> (GCC 9.3.0)<br>
+        <small>
+            <code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c11 -DONLINE_JUDGE</code>
+        </small>
     </div>
     <div class="list-group-item">
-        <b>等待重测</b> Pending Rejudge
-        <span class="float-right text-secondary">
-            因为数据更新或其他原因，系统将重新判你的答案
-        </span>
+        <b>C++</b> (GCC 9.3.0)<br>
+        <small>
+            <code>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code>
+        </small>
     </div>
     <div class="list-group-item">
-        <b>正在编译</b> Compiling
-        <span class="float-right text-secondary">
-            正在编译
-        </span>
+        <b>Java</b> (OpenJDK 11.0.9)<br>
+        <small>
+            <code>javac -J-Xms32m -J-Xmx256m Main.java</code>
+        </small>
     </div>
-    <div class="list-group-item">
-        <b>正在测评</b> Running & Judging
-        <span class="float-right text-secondary">
-            正在运行和判断
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>通过</b> Accepted
-        <span class="float-right text-secondary">
-            程序通过
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>输出格式错误</b> Presentation Error
-        <span class="float-right text-secondary">
-            答案基本正确，但是格式不对
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>解答错误</b> Wrong Answer
-        <span class="float-right text-secondary">
-            答案不对，仅通过样例数据的测试并不一定就正确，一定还有你没想到的地方
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>运行超时</b> Time Limit Exceeded
-        <span class="float-right text-secondary">
-            运行超出时间限制，检查下是否有死循环，或者应该有更快的计算方法
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>内存超限</b> Memory Limit Exceeded
-        <span class="float-right text-secondary">
-            超出内存限制，数据可能需要压缩，检查内存是否有泄露
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>输出超限</b> Output Limit Exceeded
-        <span class="float-right text-secondary">
-            输出超过限制，你的输出比正确答案长了两倍
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>运行出错</b> Runtime Error
-        <span class="float-right text-secondary">
-            运行时错误，非法的内存访问，数组越界，指针漂移，调用禁用的系统函数
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>编译错误</b> Compile Error
-        <span class="float-right text-secondary">
-            编译错误，请点击后获得编译器的详细输出
-        </span>
+    <div class="list-group-item text-secondary">
+        <b>Python</b> (3.8.5)<br>
+        <small>
+            编译参数不可用。
+        </small>
     </div>
 </div>
-
 <p></p>
 <h5>赛制</h5>
 
 <div class="list-group">
     <div class="list-group-item">
-        <b>ICPC</b>
-        <span class="float-right text-secondary">
-            比赛期间提供判题结果反馈，排名按解题数量排序，解题数量相同按罚时排序
-        </span>
+        <b>ICPC</b><br>
+        <small>
+            无部分分，比赛期间提供判题结果反馈，排名按解题数量排序，解题数量相同按罚时排序。
+        </small>
     </div>
-    <div class="list-group-item">
-        <b>IOI</b>
-        <span class="float-right text-secondary">
-            比赛期间提供判题结果反馈，排名按每题最高得分总和排序
-        </span>
-    </div>
-    <div class="list-group-item">
-        <b>OI</b>
-        <span class="float-right text-secondary">
-            比赛期间不提供判题结果反馈，排名按每题最后一次提交得分总和排序
-        </span>
-    </div>
+    <?php if (!Yii::$app->setting->get('oiMode')) : ?>
+        <div class="list-group-item text-secondary">
+            <b>IOI</b><br>
+            <small>
+                有部分分，比赛期间提供判题结果反馈，排名按每题最高得分总和排序。<br>
+                OI 模式未开启，在 IOI 赛制的比赛提交代码将无法得到准确的分数。
+            </small>
+        </div>
+        <div class="list-group-item text-secondary">
+            <b>OI</b><br>
+            <small>
+                有部分分，比赛期间不提供判题结果反馈，排名按每题最后一次提交得分总和排序。<br>
+                OI 模式未开启，在 OI 赛制的比赛提交代码将无法得到准确的分数。
+            </small>
+        </div>
+    <?php else : ?>
+        <div class="list-group-item">
+            <b>IOI</b><br>
+            <small>
+                有部分分，比赛期间提供判题结果反馈，排名按每题最高得分总和排序。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>OI</b><br>
+            <small>
+                有部分分，比赛期间不提供判题结果反馈，排名按每题最后一次提交得分总和排序。
+            </small>
+        </div>
+    <?php endif; ?>
 </div>
