@@ -1,38 +1,96 @@
-SCNUOJ 更新
-==========
+# SCNUOJ 升级指引
 
-当前 SCNUOJ 还在不断开发中，仍然存在不少已知的未知的Bug，你可以在 [CHANGELOG.md](../CHANGELOG.md) 文件中查看目前的版本更新情况。
+可以从管理员后台或是 [`CHANGELOG.md`](../CHANGELOG.md) 文件中查看目前的版本更新情况。
 
-在你部署 SCNUOJ 后，若需要更新到最新版，需要在 scnuoj 目录下执行以下命令：
+## 从 JNOJ 升级
 
-```bash
-git pull                  # 获取GitHub上最新代码
+### 警告
 
-./yii migrate             # 数据库迁移工具，用于更新数据库的变化情况
+**尽管 SCNUOJ 是由 JNOJ 迭代而来的，我们不为此类升级提供支持。**
 
-sudo rm -rf runtime/*     # 清空缓存文件
-cd judge                  # 进入 judge 目录
-sudo pkill -9 dispatcher  # 结束判题机进程
-make                      # 重新编译 judge
-sudo ./dispatcher         # 运行判题机进程。对于 OI 模式的，请使用 sudo ./dispatcher -o
-cd ../polygon             # 进入 polygon 目录
-sudo pkill -9 polygon     # 结束Polygon进程
-make                      # 重新编译 Polygon
-sudo ./polygon            # 运行Polygon进程
+SCNUOJ 相比 JNOJ **至少**有以下的**破坏性变化**：
+
+* 移除了个人排位赛的支持，如果已经存在相应赛制的比赛将会报错。
+* 移除了打星支持，如果已经存在线下比赛，排名数据将会更新。
+* 重写了 OI 赛制和 IOI 赛制的排名规则，如果已经存在 OI/IOI 比赛，排名数据将会更新。
+* 部分页面的永久链接发生变化，涉及小组、个人设置等页面。
+* 做题量计算规则发生了变化，部分躲在小组里面偷偷学习的卷王从此浮出水面（雾）。
+
+**在升级开始前，请先确认你的 JNOJ 已经更新到 [`67a9d4106d`](https://github.com/shi-yang/jnoj/tree/67a9d4106dee62727e840ee9318f6ddd45daab84) 或更高版本，且环境符合 SCNUOJ 部署的要求。**
+
+### 执行升级
+
+请不要尝试原地升级。根据 [安装指引](./installation.md) 从零开始部署 SCNUOJ，配置数据库时直接使用原数据库。
+
+如果在访问 SCNUOJ 时遇到 Yii 提示某些字段缺失，尝试执行：
+
 ```
-> 提示：以上命令并不是每次更新都需要一一执行完，若你在 [CHANGELOG.md](../CHANGELOG.md) 文件中看到最新版本相对于你正在使用的版本只改变了 Web 部分，只需要执行 `git pull` 即可。若涉及到数据库变动，就需要执行 `./yii migrate`；若涉及到判题部分的变动，才需要执行剩下的部分。
-
-在执行 `git pull` 时，可能会因你修改过本地文件而导致发生冲突。例如：
-
-```
-shiyang@dr:/var/www/html/scnuoj$ git pull
-Updating 293eabfa..d1e5c814
-error: Your local changes to the following files would be overwritten by merge:
-	judge/dispatcher
-	judge/judge
-Please commit your changes or stash them before you merge.
-Aborting
+$ ./yii migrate
 ```
 
-如对 git 不熟悉，你可用搜索引擎搜索`git pull 冲突` 的解决办法。
-或者对发生冲突的文件，通过执行 `git checkout -- file_path`，把其中的 `file_path` 改成具体的冲突文件路径，该命令会撤销你对该文件的全部修改。在如上所示的错误信息中，可以通过执行 `git checkout -- judge/dispatcher`，`git checkout -- judge/judge` 来撤销修改，再执行 `git pull` 即可。
+接下来结束 JNOJ 的判题机进程，迁移题目数据：
+
+```
+# cp -rpf /path/to/jnoj/judge/data/. /path/to/scnuoj/judge/data
+# cp -rpf /path/to/jnoj/polygon/data/. /path/to/scnuoj/polygon/data
+```
+
+将 `/path/to/jnoj` 和 `/path/to/scnuoj` 替换为正确的路径。
+
+随后根据 [安装指引](./installation.md) 或下面 "从旧版 SCNUOJ 升级" 一节编译并启动 SCNUOJ 的判题机。
+
+如果你在使用 JNOJ 时曾经使用 Editor.md 上传过图片，你还需要迁移这些资源：
+
+```
+# cp -rpf /path/to/jnoj/web/uploads/. /path/to/scnuoj/web/uploads
+```
+
+## 从旧版 SCNUOJ 升级
+
+在 `scnuoj` 目录下执行以下命令。
+
+首先拉取最新代码。如果你做了二次开发，你可能需要自行处理相关的冲突：
+
+```
+$ git pull
+```
+
+更新 Composer 依赖：
+
+```
+$ composer install
+```
+
+更新数据库的变化情况：
+
+```
+$ ./yii migrate
+```
+
+重新编译并启动主题库判题机：
+
+```
+# cd judge
+# pkill -9 dispatcher
+# make
+# ./dispatcher
+# cd ..
+```
+
+重新编译并启动 Polygon 判题机：
+
+```
+# cd polygon
+# pkill -9 polygon
+# make
+# ./polygon
+# cd ..
+```
+
+如果你之前应用了 `scnuoj-patches` 中的补丁，你可能需要重新应用。
+
+最后你可能希望清除 Web 应用程序的缓存文件，在 `scnuoj/runtime` 和 `scnuoj/web/assets` 下分别执行：
+
+```
+# rm -rf *
+```
