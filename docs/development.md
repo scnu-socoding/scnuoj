@@ -281,7 +281,7 @@ $query = (new Query())->select('u.id, u.nickname, u.rating, s.solved')
 
 你会发现 AC 了的测试点不会显示测试点数据，而且 Web 应用程序也没有方法调，那就可以猜到是判题机的问题了，很快啊你就能找到这样一个函数：
 
-```
+```c
 void record_data(problem_struct problem,
                  verdict_struct * verdict_res,
                  char * infile, char * outfile, char * userfile);
@@ -291,7 +291,7 @@ void record_data(problem_struct problem,
 
 接下来就看看哪里调用了这个函数：
 
-```
+```c
 if (run_result == OJ_AC) {
     pass_count++;
 } else {

@@ -20,13 +20,13 @@
 
 拉取代码仓库，执行：
 
-```
+```plain
 $ git clone https://git.lug.ustc.edu.cn/bobby285271/scnuoj.git
 ```
 
 获取项目所需的依赖，在 `scnuoj` 目录下执行：
 
-```
+```plain
 $ composer install
 ```
 
@@ -36,7 +36,7 @@ $ composer install
 
 使用任意编辑器编辑 `scnuoj/config/db.php`：
 
-```
+```php
 <?php
 
 return [
@@ -59,7 +59,7 @@ return [
 
 在 `/etc/nginx/sites-enabled/` 下创建配置文件：
 
-```
+```plain
 server {
     listen 80;
     listen [::]:80;
@@ -82,7 +82,7 @@ server {
 
 重启 NGINX：
 
-```
+```plain
 # nginx -t
 # systemctl restart nginx
 ```
@@ -93,7 +93,7 @@ server {
 
 在 `scnuoj` 目录下执行：
 
-```
+```plain
 $ ./yii install
 ```
 
@@ -109,7 +109,7 @@ $ ./yii install
 
 在 `scnuoj/scnuoj-patches` 目录下执行：
 
-```
+```plain
 $ ./apply.sh
 ```
 
@@ -119,7 +119,7 @@ $ ./apply.sh
 
 编辑 `scnuoj/web/index.php`，注释下面的两行：
 
-```
+```php
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 ```
@@ -130,7 +130,7 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 
 创建一个用于判题的用户，执行：
 
-```
+```plain
 # useradd -m -u 1536 judge
 ```
 
@@ -138,13 +138,13 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 
 编译判题机，在 `scnuoj/judge` 目录下执行：
 
-```
+```plain
 # make
 ```
 
 启动判题机，在同一目录下执行：
 
-```
+```plain
 # ./dispatcher
 ```
 
@@ -158,13 +158,13 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 
 编译判题机，在 `scnuoj/polygon` 目录下执行：
 
-```
+```plain
 # make
 ```
 
 启动判题机，在同一目录下执行：
 
-```
+```plain
 # ./polygon
 ```
 

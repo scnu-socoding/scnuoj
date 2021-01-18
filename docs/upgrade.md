@@ -24,13 +24,13 @@ SCNUOJ 相比 JNOJ **至少**有以下的**破坏性变化**：
 
 如果在访问 SCNUOJ 时遇到 Yii 提示某些字段缺失，尝试执行：
 
-```
+```plain
 $ ./yii migrate
 ```
 
 接下来结束 JNOJ 的判题机进程，迁移题目数据：
 
-```
+```plain
 # cp -rpf /path/to/jnoj/judge/data/. /path/to/scnuoj/judge/data
 # cp -rpf /path/to/jnoj/polygon/data/. /path/to/scnuoj/polygon/data
 ```
@@ -41,7 +41,7 @@ $ ./yii migrate
 
 如果你在使用 JNOJ 时曾经使用 Editor.md 上传过图片，你还需要迁移这些资源：
 
-```
+```plain
 # cp -rpf /path/to/jnoj/web/uploads/. /path/to/scnuoj/web/uploads
 ```
 
@@ -51,25 +51,25 @@ $ ./yii migrate
 
 首先拉取最新代码。如果你做了二次开发，你可能需要自行处理相关的冲突：
 
-```
+```plain
 $ git pull
 ```
 
 更新 Composer 依赖：
 
-```
+```plain
 $ composer install
 ```
 
 更新数据库的变化情况：
 
-```
+```plain
 $ ./yii migrate
 ```
 
 重新编译并启动主题库判题机：
 
-```
+```plain
 # cd judge
 # pkill -9 dispatcher
 # make
@@ -79,7 +79,7 @@ $ ./yii migrate
 
 重新编译并启动 Polygon 判题机：
 
-```
+```plain
 # cd polygon
 # pkill -9 polygon
 # make
@@ -91,6 +91,6 @@ $ ./yii migrate
 
 最后你可能希望清除 Web 应用程序的缓存文件，在 `scnuoj/runtime` 和 `scnuoj/web/assets` 下分别执行：
 
-```
+```plain
 # rm -rf *
 ```
