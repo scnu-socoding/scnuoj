@@ -174,4 +174,4 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 
 ## 下一步
 
-由于 SCNUOJ 基于华南师大软院的实际情况做了一系列的修改，你可能需要阅读 [二次开发指南](./development.md)
+由于 SCNUOJ 基于华南师大软院的实际情况做了一系列的修改，你可能需要阅读 [二次开发指南](./development.md)。
