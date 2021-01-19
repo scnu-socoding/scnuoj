@@ -50,7 +50,7 @@ $this->title = Yii::t('app', 'Discuss');
 <?php if (!empty($discusses)): ?>
 <div class="list-group">
     <?php foreach ($discusses as $discuss): ?>
-    <?= Html::a(Html::encode($discuss->title) . '<span class="float-right">' .Html::encode($discuss->user->nickname) . ' / ' . Yii::$app->formatter->asRelativeTime($discuss->updated_at) . '</span>', ['/discuss/view', 'id' => $discuss->id], ['class' => 'text-dark list-group-item list-group-item-action']) ?>
+    <?= Html::a(Html::encode($discuss->title) . '<br><small>' .Html::encode($discuss->user->nickname) . ' 发表于 ' . Yii::$app->formatter->asRelativeTime($discuss->created_at) . ' · 关联问题 ' . Html::encode($model->title) . '</small>', ['/discuss/view', 'id' => $discuss->id], ['class' => 'text-dark list-group-item list-group-item-action']) ?>
     <?php endforeach; ?>
 </div>
 <p></p>
