@@ -43,6 +43,8 @@ class Formatter extends \yii\i18n\Formatter
         $output = str_replace("</code></pre>", "</p></code></pre>", $output);
         // 下面这行是给表格添加 bootstrap 样式的
         $output = str_replace(array("<table>", "</table>"), array("<table class='table'>", "</table>"), $output);
+        // 给图片也来点样式（捂脸）
+        $output = str_replace(array("<img src=", ">"), array("<img class='img-thumbnail img-fluid' src=", ">"), $output);
         return '<div class="markdown">' . $output . '</div>';
     }
 
