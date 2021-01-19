@@ -27,7 +27,7 @@ $this->registerJs($js);
     </div>
         <ol class="list-group">
             <?php foreach ($discusses as $discuss) : ?>
-                <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+                <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . ' 发表于 ' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . ' · 关联问题 ' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
             <?php endforeach; ?>
         </ol>
     </div>

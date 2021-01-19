@@ -60,7 +60,7 @@ if ($discuss != null) {
     <?php if (!empty($clarifies)) : ?>
         <div class="list-group">
             <?php foreach ($clarifies as $clarify) : ?>
-                <?= Html::a(Html::encode($clarify->title) . '<span class="float-right">' . Html::encode($clarify->user->nickname) . ' / ' . Yii::$app->formatter->asRelativeTime($clarify->updated_at) . '</span>', ['/contest/clarify', 'id' => $clarify->entity_id, 'cid' => $clarify->id], ['class' => 'list-group-item text-dark list-group-item-action']) ?>
+                <?= Html::a(Html::encode($clarify->title) . '<br><small>' . Html::encode($clarify->user->nickname) . ' 发表于 ' . Yii::$app->formatter->asRelativeTime($clarify->updated_at) . '</small>', ['/contest/clarify', 'id' => $clarify->entity_id, 'cid' => $clarify->id], ['class' => 'list-group-item text-dark list-group-item-action']) ?>
             <?php endforeach; ?>
         </div>
         <p></p>
