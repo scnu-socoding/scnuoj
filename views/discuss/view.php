@@ -32,7 +32,7 @@ $this->title = Html::encode($model->title);
             关联问题
             <?= Html::a(
                 Html::encode($model->problem->title),
-                ['/problem/view', 'id' => $model->problem->id],
+                ['/problem/view', 'id' => $model->problem->id]
             )
             ?>
 
