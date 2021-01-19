@@ -158,7 +158,7 @@ $status = $model->getRunStatus();
                     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>
                 <?php endif; ?>
 
-                <h3><?= $model->title ?></h3>
+                <h3><?= Html::encode($model->title) ?></h3>
                 <?= Alert::widget() ?>
 
                 <?php if (!$model->canView()) : ?>
