@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
         Group::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('可见：用户可在探索页面发现。') ?>
 
-    <div class="alert alert-info">新功能测试：小组看板...</div>
+    <div class="alert alert-light">小组公告：仅小组成员可见。</div>
 
     <?= $form->field($model, 'kanban', [
             'template' => "{input}",

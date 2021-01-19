@@ -77,8 +77,8 @@ $recentSubmission = $model->getRecentSubmission();
                         <?= Yii::$app->formatter->asMarkdown($model->profile->personal_intro) ?>
                     </div>
                 <?php else : ?>
-                    <div class="card-body">
-                        没有找到数据。
+                    <div class="card-body text-secondary">
+                        用户还没有填写个人介绍信息哦。
                     </div>
                 <?php endif; ?>
             </div>

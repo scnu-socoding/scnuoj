@@ -65,6 +65,12 @@ $this->params['model'] = $model;
                         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
                     </div>
                 </div>
+            <?php else : ?>
+                <div class="card">
+                    <div class="card-body text-seconary">
+                        管理员还没有上传比赛描述信息哦。
+                    </div>
+                </div>
             <?php endif; ?>
             <p></p>
             <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
@@ -78,7 +84,7 @@ $this->params['model'] = $model;
                 <div class="card">
                     <div class="card-body">
                         <p>您尚未报名参加该比赛，请报名参赛或比赛结束后再来访问。</p>
-                        <?php if (! Yii::$app->user->isGuest) : ?>
+                        <?php if (!Yii::$app->user->isGuest) : ?>
                             <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success btn-block']) ?>
                         <?php else : ?>
                             <div class="btn btn-success btn-block disabled">请先登录</div>

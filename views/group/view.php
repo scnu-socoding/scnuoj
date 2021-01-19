@@ -70,8 +70,8 @@ echo Nav::widget([
                     <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
                 </div>
             <?php else : ?>
-                <div class="card-body">
-                    没有找到数据。
+                <div class="card-body text-secondary">
+                    暂时没有新的消息哦。
                 </div>
             <?php endif; ?>
 
