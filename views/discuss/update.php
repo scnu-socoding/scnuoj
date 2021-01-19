@@ -10,6 +10,8 @@ use yii\widgets\ActiveForm;
 
 ?>
 
+<h3>编辑帖子</h3>
+
 <div class="contest-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -18,10 +20,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?php endif; ?>
 
-    <?= $form->field($model, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+    <?= $form->field($model, 'content')->widget('app\widgets\editormd\Editormd')->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton("<span class=\"fas fas-fw fa-check\"></span> " . Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
