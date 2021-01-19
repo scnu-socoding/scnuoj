@@ -65,13 +65,16 @@ echo Nav::widget([
             <p></p>
         <?php endif; ?>
         <div class="card">
-            <div class="card-body">
-                <?php if ($model->kanban != '') : ?>
+            <?php if ($model->kanban != '') : ?>
+                <div class="card-body" style="padding-bottom: 0.25rem;">
                     <?= Yii::$app->formatter->asMarkdown($model->kanban) ?>
-                <?php else : ?>
+                </div>
+            <?php else : ?>
+                <div class="card-body">
                     没有找到数据。
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
+
         </div>
         <p></p>
     </div>

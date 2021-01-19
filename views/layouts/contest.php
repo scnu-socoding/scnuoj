@@ -192,7 +192,7 @@ $status = $model->getRunStatus();
                             <p></p>
                             <?php if ($model->description) : ?>
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-body" style="padding-bottom: 0.25rem;">
                                         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
                                     </div>
                                 </div>
