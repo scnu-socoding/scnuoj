@@ -1,5 +1,5 @@
 <?php
-$this->title = "SCNUCPC2020";
+$this->title = "SCNUCPC 2020";
 ?>
 
 <body style="padding-top: 4.5rem;">
