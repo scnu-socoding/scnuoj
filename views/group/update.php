@@ -11,11 +11,7 @@ $this->title = $model->name;
 
 ?>
 
-<div class="card bg-secondary text-white">
-    <div class="card-body">
-        <h3><?= Html::encode($this->title) ?></h3>
-    </div>
-</div>
+<h3><?= Html::encode($this->title) ?></h3>
 <div class="group-update">
 
     <p></p>
