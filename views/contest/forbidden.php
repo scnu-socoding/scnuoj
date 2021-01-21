@@ -67,7 +67,7 @@ $this->params['model'] = $model;
                 </div>
             <?php else : ?>
                 <div class="card">
-                    <div class="card-body text-seconary">
+                    <div class="card-body text-secondary">
                         管理员还没有上传比赛描述信息哦。
                     </div>
                 </div>
