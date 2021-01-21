@@ -91,6 +91,7 @@ $this->params['model'] = $model;
                         <?php endif; ?>
                     </div>
                 </div>
+                <p></p>
             <?php endif; ?>
         </div>
         <div class="col-lg-4">
