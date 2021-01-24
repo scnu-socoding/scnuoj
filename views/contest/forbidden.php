@@ -97,7 +97,7 @@ $this->params['model'] = $model;
                                 <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success btn-block']) ?>
                             <?php endif; ?>
                         <?php else : ?>
-                            <div class="btn btn-success btn-block disabled">请先登录</div>
+                            <div class="btn btn-secondary btn-block disabled">请先登录</div>
                         <?php endif; ?>
                     </div>
                 </div>
