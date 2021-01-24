@@ -66,6 +66,9 @@ class ContestController extends BaseController
     public function actionStatus($id)
     {
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         $searchModel = new SolutionSearch();
         // 访问权限检查
         if (!$model->canView()) {
@@ -91,6 +94,9 @@ class ContestController extends BaseController
     {
         $this->layout = false;
         $model = $this->findModel($cid);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
 
         // 访问权限检查，比赛结束前提交列表仅作者可见，比赛结束后所有人可见
         if (!$model->isContestEnd() && $model->type == Contest::TYPE_OI) {
@@ -118,6 +124,9 @@ class ContestController extends BaseController
     {
         $this->layout = 'main';
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         $provider = new ActiveDataProvider([
             'query' => ContestUser::find()->where(['contest_id' => $model->id])->with('user')->with('userProfile'),
             'pagination' => [
@@ -146,7 +155,9 @@ class ContestController extends BaseController
             return $this->redirect(['/site/login']);
         }
         $model = $this->findModel($id);
-
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 线下赛只能在后台加入，在此处不给注册
         if ($model->scenario == Contest::SCENARIO_OFFLINE) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -178,6 +189,10 @@ class ContestController extends BaseController
     public function actionPrint($id)
     {
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
+
         $newContestPrint = new ContestPrint();
 
         // 访问权限检查
@@ -217,6 +232,9 @@ class ContestController extends BaseController
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
@@ -240,7 +258,9 @@ class ContestController extends BaseController
     public function actionEditorial($id)
     {
         $model = $this->findModel($id);
-
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 只能在比赛结束时访问
         if ($model->getRunStatus() == Contest::STATUS_ENDED) {
             return $this->render('/contest/editorial', [
@@ -261,6 +281,9 @@ class ContestController extends BaseController
     public function actionClarify($id, $cid = -1)
     {
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
@@ -368,6 +391,9 @@ class ContestController extends BaseController
     public function actionStanding($id, $showStandingBeforeEnd = 1)
     {
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
@@ -397,6 +423,9 @@ class ContestController extends BaseController
     {
         $this->layout = 'contest';
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if ($model->status != Contest::STATUS_VISIBLE && !$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
@@ -433,6 +462,9 @@ class ContestController extends BaseController
     public function actionProblem($id, $pid = -1)
     {
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
