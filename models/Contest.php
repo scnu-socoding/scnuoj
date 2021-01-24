@@ -448,6 +448,8 @@ class Contest extends \yii\db\ActiveRecord
             $result[$user['user_id']]['nickname'] = $user['nickname'];
             $result[$user['user_id']]['student_number'] = $user['student_number'];
             $result[$user['user_id']]['user_id'] = $user['user_id'];
+
+            $result[$user['user_id']]['totalwa'] = 0;
         }
 
         if (!empty($this->lock_board_time)) {
@@ -511,27 +513,17 @@ class Contest extends \yii\db\ActiveRecord
                 $result[$user]['pending'][$pid] = 0;
 
                 if (empty($first_blood[$pid])) {
-                    if ($this->type == self::TYPE_RANK_SINGLE) {
-                        $result[$user]['time'] += 0.1 * self::BASIC_SCORE;
-                    }
                     $first_blood[$pid] = $user;
                 }
                 $sec = $created_at - $start_time;
                 ++$result[$user]['solved'];
-                // 单人赛计分，详见 view/wiki/contest.php。
-                if ($this->type == self::TYPE_RANK_SINGLE) {
-                    $score = 0.5 * self::BASIC_SCORE + max(0, self::BASIC_SCORE - 2 * $sec / 60 - $result[$user]['wa_count'][$pid] * 50);
-                    $result[$user]['ac_time'][$pid] = $score;
-                    $result[$user]['time'] += $score;
+                // 记录解答时间
+                if ($created_at < $contest_end_time) {
+                    $result[$user]['ac_time'][$pid] = $sec / 60;
                 } else {
-                    // 记录解答时间
-                    if ($created_at < $contest_end_time) {
-                        $result[$user]['ac_time'][$pid] = $sec / 60;
-                    } else {
-                        $result[$user]['ac_time'][$pid] = 0;
-                    }
-                    $result[$user]['time'] += $sec + $result[$user]['wa_count'][$pid] * 60 * 20;
+                    $result[$user]['ac_time'][$pid] = 0;
                 }
+                $result[$user]['time'] += $sec + $result[$user]['wa_count'][$pid] * 60 * 20;
             } else if ($row['result'] <= 3) {
                 // 还未测评
                 ++$result[$user]['pending'][$pid];
@@ -541,20 +533,19 @@ class Contest extends \yii\db\ActiveRecord
             } else {
                 // 其它情况
                 ++$result[$user]['wa_count'][$pid];
+                ++$result[$user]['totalwa'];
             }
         }
 
-        usort($result, function ($a, $b) {
+        usort($result, function ($a, $b) use ($contest_end_time) {
             if ($a['solved'] != $b['solved']) { //优先解题数
                 return $a['solved'] < $b['solved'];
-            } else if ($a['time'] != $b['time']) { //按时间（分数）
-                if ($this->type == self::TYPE_RANK_SINGLE) {
-                    return $a['time'] < $b['time'];
-                } else {
-                    return $a['time'] > $b['time'];
-                }
+            } else if ($contest_end_time >= 253370736000 && $a['totalwa'] != $b['totalwa']) { // 永久题目集按 wa 次数
+                return $a['totalwa'] > $b['totalwa'];
+            } else if ($contest_end_time < 253370736000 && $a['time'] != $b['time']) { //按时间（分数）
+                return $a['time'] > $b['time'];
             } else {
-                return $a['submit'] < $b['submit'];
+                return $a['user_id'] < $b['user_id'];
             }
         });
 
@@ -568,10 +559,10 @@ class Contest extends \yii\db\ActiveRecord
                 $lastscore = $v['solved'];
                 $lasttime = $v['time'];
                 $lastrank = $finalrank;
-            } else if ($contest_end_time >= 253370736000 && $v['solved'] != $lastscore) {
+            } else if ($contest_end_time >= 253370736000 && ($v['solved'] != $lastscore || $v['totalwa'] != $lasttime)) {
                 $v['finalrank'] = $finalrank;
                 $lastscore = $v['solved'];
-                $lasttime = $v['time'];
+                $lasttime = $v['totalwa'];
                 $lastrank = $finalrank;
             } else {
                 $v['finalrank'] = $lastrank;
