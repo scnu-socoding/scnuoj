@@ -11,7 +11,7 @@ $this->title = Yii::t('app', 'Contests');
 ?>
 <div class="contest-index">
 
-<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
@@ -23,6 +23,12 @@ $this->title = Yii::t('app', 'Contests');
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
+                    if ($model->ext_link) {
+                        if ($model->invite_code) {
+                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags"><span class="badge badge-secondary"><code class="text-white">' . $model->invite_code . '</code>' . '</span> <span class="badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span></span>';
+                        }
+                        return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span>';
+                    }
                     return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'badge badge-info']) . '</span>';
                 },
                 'format' => 'raw',
@@ -36,14 +42,19 @@ $this->title = Yii::t('app', 'Contests');
                     if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
                         $link = '<span class="well-done">' . Yii::t('app', 'Registration completed') . '</span>';
                     }
-                    if ($model->status == Contest::STATUS_VISIBLE &&
+                    if (
+                        $model->status == Contest::STATUS_VISIBLE &&
                         !$model->isContestEnd() &&
-                        $model->scenario == Contest::SCENARIO_ONLINE) {
+                        $model->scenario == Contest::SCENARIO_ONLINE
+                    ) {
                         $column = $model->getRunStatus(true) . ' ' . $link;
                     } else {
                         $column = $model->getRunStatus(true);
                     }
                     $userCount = $model->getContestUserCount();
+                    if ($model->ext_link) {
+                        $column = $model->getRunStatus(true);
+                    }
                     return $column;
                 },
                 'format' => 'raw',
