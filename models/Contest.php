@@ -511,6 +511,7 @@ class Contest extends \yii\db\ActiveRecord
                 // AC
                 $submit_count[$pid]['solved']++;
                 $result[$user]['pending'][$pid] = 0;
+                $result[$user]['totalwa'] += $result[$user]['wa_count'][$pid];
 
                 if (empty($first_blood[$pid])) {
                     $first_blood[$pid] = $user;
@@ -533,7 +534,6 @@ class Contest extends \yii\db\ActiveRecord
             } else {
                 // 其它情况
                 ++$result[$user]['wa_count'][$pid];
-                ++$result[$user]['totalwa'];
             }
         }
 
