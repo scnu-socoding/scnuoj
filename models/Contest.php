@@ -105,7 +105,9 @@ class Contest extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'status' => Yii::t('app', 'Status'),
             'type' => Yii::t('app', 'Type'),
-            'scenario' => Yii::t('app', 'Scenario')
+            'scenario' => Yii::t('app', 'Scenario'),
+            'ext_link' => '站外比赛',
+            'invite_code' => '邀请码',
         ];
     }
 
