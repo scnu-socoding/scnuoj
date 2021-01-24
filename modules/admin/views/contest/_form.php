@@ -54,8 +54,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
     <?= $form->field($model, 'scenario')->radioList([
         $model::SCENARIO_ONLINE => Yii::t('app', 'Online'),
-        $model::SCENARIO_OFFLINE => Yii::t('app', 'Offline'),
-    ])->hint('线下场景会有额外的功能：滚榜；在该比赛的页面开放打印链接；限定参赛账号．' . '参考：' . Html::a('线下赛与线上赛的区别', ['/wiki/contest'], ['target' => '_blank'])) ?>
+        // $model::SCENARIO_OFFLINE => Yii::t('app', 'Offline'),
+    ])->hint('被淘汰的选项，请选择线上赛') ?>
 
     <?= $form->field($model, 'type')->radioList([
         // Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
