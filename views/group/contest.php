@@ -60,8 +60,10 @@ echo Nav::widget([
 
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($newContest, 'title')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
-    <?= $form->field($newContest, 'ext_link')->textInput() ?>
-    <?= $form->field($newContest, 'invite_code')->textInput() ?>
+    <?= $form->field($newContest, 'ext_link')->textInput()->hint("填写 URL。从比赛列表访问此比赛将重定向至此链接。
+    站外链接请带上 https:// 开头。填写此项将使本比赛的问题列表、答疑、榜单公告等功能失效。") ?>
+    <?= $form->field($newContest, 'invite_code')->textInput()->hint("需同时填写站外比赛一栏，届时邀请码将马上在前台（比赛列表）展示，适合指引用户参加 vjudge 私有比赛等场景；
+    如果站外比赛一栏留空，邀请码将不会发挥作用。") ?>
     <?= $form->field($newContest, 'start_time')->widget('app\widgets\laydate\LayDate', [
         'clientOptions' => [
             'istoday' => true,
@@ -82,7 +84,7 @@ echo Nav::widget([
             'istoday' => true,
             'type' => 'datetime'
         ]
-    ])->hint("封榜仅对 ICPC 或作业有效。如果不需要封榜请留空，当前会在比赛结束{$scoreboardFrozenTime}小时后才会自动在前台页面解除封榜限制。
+    ])->hint("封榜仅对 ICPC 或作业有效，请不要在其它赛制启用，否则可能出现未知行为。如果不需要封榜请留空，当前会在比赛结束{$scoreboardFrozenTime}小时后才会自动在前台页面解除封榜限制。
     如需提前结束封榜也可选择清空该表单项。
     ") ?>
 
