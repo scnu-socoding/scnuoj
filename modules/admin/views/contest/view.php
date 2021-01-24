@@ -23,9 +23,7 @@ $problems = $model->problems;
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
     <p>
-        <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
-            <?= Html::a(Yii::t('app', 'Source Print Queue'), ['/print', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
-        <?php endif; ?>
+        <?= Html::a(Yii::t('app', 'Source Print Queue'), ['/print', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
         <?= Html::a(Yii::t('app', 'Clarification'), ['clarify', 'id' => $model->id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?= Html::a(Yii::t('app', 'Submit records'), ['status', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
     </p>
@@ -46,39 +44,47 @@ $problems = $model->problems;
         <?= Html::a(Yii::t('app', 'Print Rank'), ['rank', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
         <?= Html::a('任何用户均可访问的榜单链接', ['/contest/standing2', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
     </p>
-    <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
-        <?php Modal::begin([
-            'title' => '<h3>' . Yii::t('app', 'Scroll Scoreboard') . '</h3>',
-            'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-success'],
-        ]); ?>
-        <?= Html::beginForm(['contest/scroll-scoreboard', 'id' => $model->id], 'get', ['target' => '_blank']) ?>
-        <div class="form-group">
-            <?= Html::label(Yii::t('app', 'Number of gold medals'), 'gold') ?>
-            <?= Html::textInput('gold', round($model->getContestUserCount() * 0.1), ['class' => 'form-control']) ?>
-        </div>
-        <div class="form-group">
-            <?= Html::label(Yii::t('app', 'Number of silver medals'), 'silver') ?>
-            <?= Html::textInput('silver', round($model->getContestUserCount() * 0.2), ['class' => 'form-control']) ?>
-        </div>
-        <div class="form-group">
-            <?= Html::label(Yii::t('app', 'Number of bronze medals'), 'bronze') ?>
-            <?= Html::textInput('bronze', round($model->getContestUserCount() * 0.3), ['class' => 'form-control']) ?>
-        </div>
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-primary']) ?>
-        </div>
-        <p class="hint-block">
-            1. 填写上述奖牌数，在滚榜页面会对获奖队伍有颜色的区分。暂无冠亚季军颜色区分，若有此需求，请将其包含在金牌数中。
-        </p>
-        <p class="hint-block">
-            2. 打开滚榜页面后，通过不断按<code>回车</code>来进行滚动。
-        </p>
-        <p class="hint-block">
-            3. 建议把浏览器设为全屏显示（打开页面后，按<code>F11</code>键）体验更佳。
-        </p>
-        <?= Html::endForm(); ?>
-        <?php Modal::end(); ?>
-    <?php endif; ?>
+    <?php Modal::begin([
+        'title' => Yii::t('app', 'Scroll Scoreboard'),
+        'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-success'],
+        'size' => Modal::SIZE_LARGE
+    ]); ?>
+    <?= Html::beginForm(['contest/scroll-scoreboard', 'id' => $model->id], 'get', ['target' => '_blank']) ?>
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', 'Number of gold medals'), 'gold') ?>
+        <?= Html::textInput('gold', round($model->getContestUserCount() * 0.1), ['class' => 'form-control']) ?>
+    </div>
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', 'Number of silver medals'), 'silver') ?>
+        <?= Html::textInput('silver', round($model->getContestUserCount() * 0.2), ['class' => 'form-control']) ?>
+    </div>
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', 'Number of bronze medals'), 'bronze') ?>
+        <?= Html::textInput('bronze', round($model->getContestUserCount() * 0.3), ['class' => 'form-control']) ?>
+    </div>
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-primary']) ?>
+    </div>
+    <div class="alert alert-light">
+        如果题目过多或比赛时长为数日甚至数个月，会因栏数过多或罚时位数过多导致滚榜的样式乱掉，需要按需使用浏览器缩放或修改滚榜各栏宽度。
+    </div>
+    <div class="alert alert-danger">
+        在比赛未结束或未填写封榜或非 ICPC 或作业赛制下滚榜属于未定义行为，这个榜单不能用于展示实时排名信息。
+    </div>
+    <div class="alert alert-danger">
+        不要随意调节滚榜速度，如果速度过快过题信息将无法正确更新。
+    </div>
+    <p class="hint-block">
+        1. 填写上述奖牌数，在滚榜页面会对获奖队伍有颜色的区分。暂无冠亚季军颜色区分，若有此需求，请将其包含在金牌数中。
+    </p>
+    <p class="hint-block">
+        2. 打开滚榜页面后，通过不断按<code>回车</code>来进行滚动。
+    </p>
+    <p class="hint-block">
+        3. 建议把浏览器设为全屏显示（打开页面后，按<code>F11</code>键）体验更佳。
+    </p>
+    <?= Html::endForm(); ?>
+    <?php Modal::end(); ?>
     <hr>
     <h3>
         <?= Yii::t('app', 'Information') ?>
