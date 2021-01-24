@@ -148,7 +148,7 @@ class ContestController extends BaseController
      * @throws NotFoundHttpException if the contest cannot be found
      * @throws ForbiddenHttpException
      */
-    public function actionRegister($id, $register = 0)
+    public function actionRegister($id, $q = null, $register = 0)
     {
         $this->layout = 'main';
         if (Yii::$app->user->isGuest) {
@@ -168,7 +168,10 @@ class ContestController extends BaseController
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
 
-        if ($register == 1 && !$model->isUserInContest()) {
+        if (
+            $register == 1 && !$model->isUserInContest() &&
+            (($model->invite_code && $q == $model->invite_code) || !$model->invite_code)
+        ) {
             Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
                 'contest_id' => $model->id,
                 'user_id' => Yii::$app->user->id
@@ -176,7 +179,13 @@ class ContestController extends BaseController
             Yii::$app->session->setFlash('success', '成功注册');
             return $this->redirect(['/contest/view', 'id' => $model->id]);
         }
-        return $this->redirect(['view', 'id' => $model->id]);
+        if (
+            $register == 1 && !$model->isUserInContest() &&
+            $model->invite_code && $q != $model->invite_code
+        ) {
+            Yii::$app->session->setFlash('danger', '邀请码无效');
+        }
+        return $this->redirect(['/contest/view', 'id' => $model->id]);
     }
 
     /**
