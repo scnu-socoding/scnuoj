@@ -60,6 +60,8 @@ echo Nav::widget([
 
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($newContest, 'title')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
+    <?= $form->field($newContest, 'ext_link')->textInput() ?>
+    <?= $form->field($newContest, 'invite_code')->textInput() ?>
     <?= $form->field($newContest, 'start_time')->widget('app\widgets\laydate\LayDate', [
         'clientOptions' => [
             'istoday' => true,
@@ -111,6 +113,12 @@ echo Nav::widget([
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
+                    if ($model->ext_link) {
+                        if ($model->invite_code) {
+                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags"><span class="badge badge-secondary"><code class="text-white">' . $model->invite_code . '</code>' . '</span> <span class="badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span></span>';
+                        }
+                        return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span>';
+                    }
                     return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'badge badge-info']) . '</span>';
                 },
                 'format' => 'raw',

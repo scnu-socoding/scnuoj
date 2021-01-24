@@ -28,6 +28,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'ext_link')->textInput() ?>
+    <?= $form->field($model, 'invite_code')->textInput() ?>
     <?= $form->field($model, 'start_time')->widget('app\widgets\laydate\LayDate', [
         'clientOptions' => [
             'istoday' => true,
