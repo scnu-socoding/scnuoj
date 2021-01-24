@@ -23,6 +23,8 @@ use yii\caching\TagDependency;
  * @property int $type
  * @property int $scenario
  * @property int $created_by
+ * @property string $ext_link
+ * @property string $invite_code
  */
 class Contest extends \yii\db\ActiveRecord
 {
@@ -82,7 +84,7 @@ class Contest extends \yii\db\ActiveRecord
         return [
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
-            [['description', 'editorial'], 'string'],
+            [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
             [['id', 'status', 'type', 'scenario', 'created_by', 'group_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
