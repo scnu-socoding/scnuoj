@@ -58,18 +58,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
             'format' => 'raw'
         ],
         [
-            'attribute' => 'user_password',
-            'value' => function ($contestUser, $key, $index, $column) use ($model) {
-                if ($model->scenario == Contest::SCENARIO_OFFLINE) {
-                    return $contestUser->user_password;
-                } else {
-                    return '线上赛无法提供密码';
-                }
-            },
-            'format' => 'raw',
-            'visible' => $model->scenario == Contest::SCENARIO_OFFLINE
-        ],
-        [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{delete}',
             'buttons' => [
