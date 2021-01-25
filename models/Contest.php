@@ -85,7 +85,7 @@ class Contest extends \yii\db\ActiveRecord
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_print', 'enable_clarify'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
