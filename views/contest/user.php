@@ -24,7 +24,11 @@ $this->title = $model->title;
             [
                 'label' => '　',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->userProfile->student_number), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
+                    if (isset($model->userProfile->student_number)) {
+                        return Html::a(Html::encode($model->userProfile->student_number), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
+                    } else {
+                        return "";
+                    }
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
