@@ -19,6 +19,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
 ?>
 <h1><?= Html::encode($model->title) ?></h1>
 
+<?= Html::a('设置打星', ['contest/star', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
+
+
 <?php Modal::begin([
     'title' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
     'toggleButton' => ['label' => Yii::t('app', 'Add participating user'), 'class' => 'btn btn-success'],

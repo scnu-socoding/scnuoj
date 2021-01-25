@@ -453,27 +453,20 @@ class ContestController extends Controller
         $model = $this->findModel($id);
         $generatorForm = new GenerateUserForm();
 
-        if ($generatorForm->load(Yii::$app->request->post())) {
-            $generatorForm->contest_id = $model->id;
-            $generatorForm->prefix = 'c' . $model->id . 'user';
-            $generatorForm->save();
-            return $this->refresh();
-        }
         if (Yii::$app->request->isPost) {
             if (Yii::$app->request->get('uid')) {
-                // 删除已参赛用户
+                // 删除打星用户
                 $uid = Yii::$app->request->get('uid');
                 $inContest = Yii::$app->db->createCommand('SELECT count(1) FROM {{%contest_user}} WHERE user_id=:uid AND contest_id=:cid', [
                     ':uid' => $uid,
                     ':cid' => $model->id
                 ])->queryScalar();
                 if ($inContest) {
-                    ContestUser::deleteAll(['user_id' => $uid, 'contest_id' => $model->id]);
-                    Solution::deleteAll(['created_by' => $uid, 'contest_id' => $model->id]);
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'Deleted successfully'));
+                    ContestUser::updateAll(['is_out_of_competition' => '0'], ['user_id' => $uid, 'contest_id' => $model->id]);
+                    Yii::$app->session->setFlash('success', Yii::t('app', '设置成功'));
                 }
             } else {
-                //　添加参赛用户
+                //　添加打星用户
                 $users = Yii::$app->request->post('user');
                 $users = explode("\n", trim($users));
                 $message = "";
@@ -488,13 +481,19 @@ class ContestController extends Controller
                     if (!isset($query['user_id'])) {
                         $message .= $username . " 不存在该用户<br>";
                     } else if (!$query['exist']) {
-                        Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
+                        // Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
+                        //     'user_id' => $query['user_id'],
+                        //     'contest_id' => $model->id,
+                        // ])->execute();
+                        $message .= $username . " 未参加比赛<br>";
+                    } else {
+                        Yii::$app->db->createCommand()->update('{{%contest_user}}', [
+                            'is_out_of_competition' => '1',
+                        ], [
                             'user_id' => $query['user_id'],
                             'contest_id' => $model->id,
                         ])->execute();
-                        $message .= $username . " 添加成功<br>";
-                    } else {
-                        $message .= $username . " 已参加比赛<br>";
+                        $message .= $username . " 设置打星成功<br>";
                     }
                 }
                 Yii::$app->session->setFlash('info', $message);
@@ -503,7 +502,7 @@ class ContestController extends Controller
         }
 
         $dataProvider = new ActiveDataProvider([
-            'query' => ContestUser::find()->where(['contest_id' => $model->id])->with('user')->with('contest'),
+            'query' => ContestUser::find()->where(['contest_id' => $model->id, 'is_out_of_competition' => '1'])->with('user')->with('contest'),
             'pagination' => [
                 'pageSize' => 100
             ]
