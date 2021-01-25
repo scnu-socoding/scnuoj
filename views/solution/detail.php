@@ -33,7 +33,7 @@ $this->title = $model->id;
         <tbody>
             <tr>
                 <td><?= $model->id ?></td>
-                <td><?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']) ?>
+                <td><?= Html::a(Html::encode($model->user->nickname ?? '临时用户'), ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']) ?>
                 </td>
                 <td><?= Html::a(Html::encode($model->problem_id . ' - ' . $model->problem->title), ['/problem/view', 'id' => $model->problem_id], ['class' => 'text-dark']) ?>
                 </td>

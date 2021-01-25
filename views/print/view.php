@@ -41,7 +41,7 @@ $this->title = '查看打印详情';
                 <?= Html::a(Html::encode($model->contest->title), ['/contest/view', 'id' => $model->contest_id], ['class' => 'text-dark']); ?>
                 </td>
                 <td>
-                    <?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']); ?>
+                    <?= Html::a(Html::encode($model->user->nickname ?? '临时用户'), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']); ?>
                 </td>
                 <td>
                 <?= Html::a(Html::encode($model->user->username), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']); ?>
