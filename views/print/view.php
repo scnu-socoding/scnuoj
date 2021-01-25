@@ -6,42 +6,53 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\ContestPrint */
 
-$this->title = $model->user->nickname . ' [' . $model->user->username . ']';
+$this->title = '查看打印详情';
 // $this->params['breadcrumbs'][] = ['label' => $model->contest->title, 'url' => ['/contest/view', 'id' => $model->contest_id]];
 // $this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $model->contest_id]];
 // $this->params['breadcrumbs'][] = $this->title;
-
-$this->registerCss('
-@media print {
-.breadcrumb {
-    display: none;
-}
-}
-');
 ?>
 <div class="print-source-view">
-    <h1>
-        <span class="glyphicon glyphicon-user"></span> <?= Html::encode($this->title) ?>
-    </h1>
-    <p class="hidden-print">
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-    <?php if (Yii::$app->user->identity->role === \app\models\User::ROLE_ADMIN): ?>
-        <div class="alert alert-warning alert-dismissible fade in hidden-print" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <p>提示：可以使用浏览器打印功能来快速打印
-                （Chrome 浏览器可在页面上用鼠标“右键”-“打印”，其它浏览器请自行利用搜索引擎获取使用方法）。</p>
-        </div>
-    <?php endif; ?>
-    <hr>
-    <p><span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></p>
-    <pre><p><?= Html::encode($model->source) ?></p></pre>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width:4rem;min-width:4rem">
+                    #
+                </th>
+                <th>
+                    比赛
+                </th>
+                <th>
+                    用户
+                </th>
+                <th>
+                    账户
+                </th>
+                <th style="width:7rem;min-width:7rem">
+                    时间
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <?= $model->id ?>
+                </td>
+                <td>
+                    <?= $model->contest->title ?>
+                </td>
+                <td>
+                    <?= $model->user->nickname ?>
+                </td>
+                <td>
+                    <?= $model->user->username ?>
+                </td>
+                <td>
+                    <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre><code class="pre"><p><?= Html::encode($model->source) ?></p></code></pre>
 
 </div>
