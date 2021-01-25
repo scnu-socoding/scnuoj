@@ -444,6 +444,78 @@ class ContestController extends Controller
     }
 
     /**
+     * 显示打星用户
+     * @param $id
+     * @return string|\yii\web\Response
+     */
+    public function actionStar($id)
+    {
+        $model = $this->findModel($id);
+        $generatorForm = new GenerateUserForm();
+
+        if ($generatorForm->load(Yii::$app->request->post())) {
+            $generatorForm->contest_id = $model->id;
+            $generatorForm->prefix = 'c' . $model->id . 'user';
+            $generatorForm->save();
+            return $this->refresh();
+        }
+        if (Yii::$app->request->isPost) {
+            if (Yii::$app->request->get('uid')) {
+                // 删除已参赛用户
+                $uid = Yii::$app->request->get('uid');
+                $inContest = Yii::$app->db->createCommand('SELECT count(1) FROM {{%contest_user}} WHERE user_id=:uid AND contest_id=:cid', [
+                    ':uid' => $uid,
+                    ':cid' => $model->id
+                ])->queryScalar();
+                if ($inContest) {
+                    ContestUser::deleteAll(['user_id' => $uid, 'contest_id' => $model->id]);
+                    Solution::deleteAll(['created_by' => $uid, 'contest_id' => $model->id]);
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Deleted successfully'));
+                }
+            } else {
+                //　添加参赛用户
+                $users = Yii::$app->request->post('user');
+                $users = explode("\n", trim($users));
+                $message = "";
+                foreach ($users as $username) {
+                    //　查找用户ID 以及查看是否已经加入比赛中
+                    $username = trim($username);
+                    $query = (new Query())->select('u.id as user_id, count(c.user_id) as exist')
+                        ->from('{{%user}} as u')
+                        ->leftJoin('{{%contest_user}} as c', 'c.user_id=u.id')
+                        ->where('u.username=:name and c.contest_id=:cid', [':name' => $username, ':cid' => $model->id])
+                        ->one();
+                    if (!isset($query['user_id'])) {
+                        $message .= $username . " 不存在该用户<br>";
+                    } else if (!$query['exist']) {
+                        Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
+                            'user_id' => $query['user_id'],
+                            'contest_id' => $model->id,
+                        ])->execute();
+                        $message .= $username . " 添加成功<br>";
+                    } else {
+                        $message .= $username . " 已参加比赛<br>";
+                    }
+                }
+                Yii::$app->session->setFlash('info', $message);
+            }
+            return $this->refresh();
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => ContestUser::find()->where(['contest_id' => $model->id])->with('user')->with('contest'),
+            'pagination' => [
+                'pageSize' => 100
+            ]
+        ]);
+        return $this->render('star', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'generatorForm' => $generatorForm
+        ]);
+    }
+
+    /**
      * 显示该比赛的所有提交记录
      * @param integer $id
      * @param integer $active 该值等于 0 就什么也不做，等于 1 就将所有提交记录显示在前台的提交记录列表，等于 2 就隐藏提交记录
