@@ -43,8 +43,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
     'title' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
     'toggleButton' => ['label' => Yii::t('app', 'Generate user for the contest'), 'class' => 'btn btn-success'],
 ]); ?>
-<p class="text-muted">在线下举行比赛时，可在此处批量创建账号。</p>
-<p class="text-danger">注意：在同一场比赛中，重复使用此功能会删除之前已经生成的帐号，请勿在比赛开始后进行此操作。</p>
+<div class="alert alert-light">在线下举行比赛时，可在此处批量创建账号。</div>
+<div class="alert alert-danger">警告：在同一场比赛中，重复使用此功能会删除之前已经生成的帐号（所有 user_password is not nul 的账号），操作前建议备份原注册名单！！请勿在比赛开始后进行此操作。</div>
 <?php $form = ActiveForm::begin(); ?>
 
 <?= $form->field($generatorForm, 'prefix')->textInput([
