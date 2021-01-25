@@ -13,6 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 $model->status = $model::STATUS_HIDDEN;
 $model->type = $model::TYPE_RANK_GROUP;
 $model->scenario = $model::SCENARIO_ONLINE;
+$model->enable_clarify = 1;
+$model->enable_print = 0;
 ?>
 <div class="contest-create">
 
