@@ -209,7 +209,7 @@ class ContestController extends BaseController
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
         // 只能在线下赛未结束时访问
-        if ($model->scenario != Contest::SCENARIO_OFFLINE || $model->getRunStatus() == Contest::STATUS_ENDED) {
+        if (($model->scenario == Contest::SCENARIO_OFFLINE && $model->enable_print == 0) || $model->getRunStatus() == Contest::STATUS_ENDED) {
             throw new ForbiddenHttpException('该比赛现不提供打印服务功能。');
         }
 
