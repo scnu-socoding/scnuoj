@@ -36,7 +36,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             'istoday' => true,
             'type' => 'datetime'
         ]
-    ]) ?>
+    ])->hint('如需启用永久题目集，结束时间设置为 9999 年任意一天即可，直接按格式填写日期，选单是选不了这个日期的') ?>
 
     <?= $form->field($model, 'lock_board_time')->widget('app\widgets\laydate\LayDate', [
         'clientOptions' => [
@@ -52,10 +52,21 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         Contest::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('公开：任何用户均可参加比赛（线下赛场景除外）。私有：任何时候比赛均只能由参赛用户访问，且比赛用户需要在后台手动添加。隐藏：前台无法看到比赛') ?>
 
+
+    <?= $form->field($model, 'enable_print')->radioList([
+        '0' => Yii::t('app', 'No'),
+        '1' => Yii::t('app', 'Yes'),
+    ])->hint('开启打印功能，适合线下赛场景使用。默认为否') ?>
+
+<?= $form->field($model, 'enable_clarify')->radioList([
+        '0' => Yii::t('app', 'No'),
+        '1' => Yii::t('app', 'Yes'),
+    ])->hint('开启答疑功能，默认为是。注意用户发布的答疑默认隐藏，因此不能用于普通题目集讨论。') ?>
+
     <?= $form->field($model, 'scenario')->radioList([
         $model::SCENARIO_ONLINE => Yii::t('app', 'Online'),
         // $model::SCENARIO_OFFLINE => Yii::t('app', 'Offline'),
-    ])->hint('被淘汰的选项，请选择线上赛') ?>
+    ])->hint('被淘汰的选项，请选择线上赛，后续版本将移除本选项') ?>
 
     <?= $form->field($model, 'type')->radioList([
         // Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
@@ -63,7 +74,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         Contest::TYPE_HOMEWORK => Yii::t('app', 'Homework'),
         Contest::TYPE_OI => Yii::t('app', 'OI'),
         Contest::TYPE_IOI => Yii::t('app', 'IOI'),
-    ])->hint('不同类型的区别只在于榜单的排名方式。详见：' . Html::a('比赛类型', ['/wiki/contest'], ['target' => '_blank']) . '。如需使用OI比赛，请在后台设置页面启用OI模式。') ?>
+    ])->hint('不同类型的区别只在于榜单的排名方式。详见：' . Html::a('比赛类型', ['/wiki/contest'], ['target' => '_blank']) .
+     '如需使用 OI 或 IOI 比赛，请在后台设置页面启用 OI 模式，判题机启动时带上 -o 参数，否则遇到第一个非 AC 测试点就会结束评测。') ?>
 
     <?= $form->field($model, 'description')->widget('app\widgets\editormd\Editormd')->label(); ?>
     <div class="form-group">
