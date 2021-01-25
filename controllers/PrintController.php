@@ -103,7 +103,7 @@ class PrintController extends BaseController
     {
         $model = new ContestPrint();
         $contest = Contest::findOne($id);
-        if ($contest === null || $contest->scenario != Contest::SCENARIO_OFFLINE) {
+        if ($contest === null || ($contest->scenario == Contest::SCENARIO_ONLINE && $contest->enable_print == 0)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
@@ -113,11 +113,13 @@ class PrintController extends BaseController
             Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
-        return $this->render('create', [
-            'contest' => $contest,
-            'model' => $model,
-        ]);
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+            return $this->render('create', [
+                'contest' => $contest,
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['/contest/print', 'id' => $id]);
     }
 
     /**
@@ -164,7 +166,7 @@ class PrintController extends BaseController
      */
     protected function findModel($id)
     {
-        if (($model = ContestPrint::findOne($id)) !== null || !Yii::$app->user->isGuest) {
+        if (($model = ContestPrint::findOne($id)) !== null && !Yii::$app->user->isGuest) {
             if ($model->user_id == Yii::$app->user->id || Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                 return $model;
             }
