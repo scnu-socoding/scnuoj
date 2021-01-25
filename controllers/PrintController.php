@@ -51,13 +51,14 @@ class PrintController extends BaseController
     public function actionIndex($id)
     {
         $contest = Contest::findOne($id);
-        if ($contest === null || $contest->scenario != Contest::SCENARIO_OFFLINE) {
+        if ($contest === null || ($contest->scenario == Contest::SCENARIO_ONLINE && $contest->enable_print == 0)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             $query = ContestPrint::find()->where(['contest_id' => $contest->id])->with('user');
         } else {
-            $query = ContestPrint::find()->where(['contest_id' => $contest->id, 'user_id' => Yii::$app->user->id])->with('user');
+            return $this->redirect(['/contest/print', 'id' => $id]);
+            // $query = ContestPrint::find()->where(['contest_id' => $contest->id, 'user_id' => Yii::$app->user->id])->with('user');
         }
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('id DESC'),
