@@ -844,7 +844,7 @@ class Contest extends \yii\db\ActiveRecord
             SELECT `u`.`id` as `user_id`, `rating`, `rating_change`
             FROM `user` `u`
             LEFT JOIN `contest_user` `c` ON `c`.`contest_id`=:cid
-            WHERE u.id=c.user_id ORDER BY `c`.`id`
+            WHERE u.id=c.user_id AND c.is_out_of_competition=0 ORDER BY `c`.`id`
         ', [':cid' => $this->id])->queryAll();
 
         if ($this->type == self::TYPE_OI) {
