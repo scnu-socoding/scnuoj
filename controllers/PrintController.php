@@ -132,6 +132,10 @@ class PrintController extends BaseController
     {
         $model = $this->findModel($id);
 
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -150,6 +154,11 @@ class PrintController extends BaseController
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $cid = $model->contest_id;
         $model->delete();
 
