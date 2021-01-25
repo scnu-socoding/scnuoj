@@ -277,11 +277,11 @@ var submit_btn = document.getElementById("submit_solution_btn");
 function time() {
     if (wait == 0) {
         submit_btn.removeAttribute("disabled");
-        submit_btn.innerHTML = "提交";
+        submit_btn.innerHTML = "<span class=\"fas fas-fw fa-paper-plane\"></span> 提交";
         wait = 5;
     } else {
         submit_btn.setAttribute("disabled", true);
-        submit_btn.innerHTML = "请等待";
+        submit_btn.innerHTML = "若页面没有自动刷新, 请尝试重新提交";
         wait--;
         setTimeout(function () {
             time()
