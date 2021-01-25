@@ -558,6 +558,10 @@ class Contest extends \yii\db\ActiveRecord
         $lastrank = 1;
         $finalrank = 1;
         foreach ($result as &$v) {
+            if ($this->isUserOutOfCompetition($v['user_id'])) {
+                $v['finalrank'] = '*';
+                continue;
+            }
             if ($contest_end_time < 253370736000 && ($v['solved'] != $lastscore || $v['time'] != $lasttime)) {
                 $v['finalrank'] = $finalrank;
                 $lastscore = $v['solved'];
@@ -746,6 +750,10 @@ class Contest extends \yii\db\ActiveRecord
         $lastrank = 1;
         $finalrank = 1;
         foreach ($result as &$v) {
+            if ($this->isUserOutOfCompetition($v['user_id'])) {
+                $v['finalrank'] = '*';
+                continue;
+            }
             if ($type == self::TYPE_OI && $endtime == $contest_end_time) {
                 if ($v['total_score'] != $lastscore) {
                     $v['finalrank'] = $finalrank;
@@ -783,6 +791,19 @@ class Contest extends \yii\db\ActiveRecord
         return Yii::$app->db->createCommand('SELECT count(*) FROM {{%contest_user}} WHERE user_id=:uid AND contest_id=:cid', [
             ':uid' => Yii::$app->user->id,
             ':cid' => $this->id
+        ])->queryScalar();
+    }
+
+    /**
+     * 判断用户是否打星
+     * @return boolean
+     */
+    public function isUserOutOfCompetition($id)
+    {
+        return Yii::$app->db->createCommand('SELECT count(*) FROM {{%contest_user}} WHERE user_id=:uid AND contest_id=:cid AND is_out_of_competition=:sta', [
+            ':uid' => $id,
+            ':cid' => $this->id,
+            ':sta' => '1'
         ])->queryScalar();
     }
 
