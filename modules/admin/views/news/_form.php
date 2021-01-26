@@ -13,17 +13,23 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title', [
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">标题</span></div>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput()->label(false) ?>
+    <p></p>
 
-    <?= $form->field($model, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+    <?= $form->field($model, 'content', [
+        'template' => "{input}",
+    ])->widget('app\widgets\editormd\Editormd'); ?>
 
     <?= $form->field($model, 'status')->radioList([
-        1 => Yii::t('app', 'Visible'),
-        0 => Yii::t('app', 'Hidden')
-    ]) ?>
+        1 => '设为可见',
+        0 => '设为隐藏'
+    ])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

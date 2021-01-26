@@ -11,19 +11,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="discuss-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <p class="lead"> 预览《<?= Html::encode($model->title) ?>》发布渲染效果。</p>
+
+
+    <div class="btn-group btn-block">
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-outline-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+            'class' => 'btn btn-outline-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
-    <span><?= $model->created_at ?></span>
+    </div>
+    <p></p>
 
-    <?= Yii::$app->formatter->asMarkdown($model->content) ?>
+    <div class="list-group">
+        <div class="list-group-item">
+         <?= Yii::$app->formatter->asMarkdown($model->content) ?> </div>
+    </div>
 </div>

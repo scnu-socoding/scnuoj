@@ -7,14 +7,14 @@ use yii\helpers\Html;
 /* @var $model app\models\Discuss */
 
 $this->title = Yii::t('app', 'Release news');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 
 $model->status = $model::STATUS_PUBLIC;
 ?>
 <div class="discuss-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<p class="lead">创建并发布一则新闻。</p>
 
     <?= $this->render('_form', [
         'model' => $model,
