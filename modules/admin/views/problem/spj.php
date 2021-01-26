@@ -15,33 +15,23 @@ $this->params['model'] = $model;
 
 ?>
 <div class="solutions-view">
-    <h1>
-        <?= Html::encode($model->title) ?>
-    </h1>
-    <?php if ($model->spj): ?>
-        <p>
-            如果该题目需要特判的，请在下面填写特判程序。参考：<?= Html::a('如何编写特判程序？', ['/wiki/spj']) ?>
-        </p>
-        <hr>
 
-        <?= Html::beginForm() ?>
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i> 请在下面填写特判程序，具体可上网搜索 Testlib 并阅读 <?= Html::a('帮助文档', ['/wiki/spj']) ?>。
+    </div>
 
-        <div class="form-group">
-            <?= Html::textInput('spjLang', 'C、C++', ['disabled' => true, 'class' => 'form-control']); ?>
-            <p class="hint-block">当前仅支持 C\C++ 语言。</p>
-        </div>
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i> 目前仅支持使用 C/C++ 编写特判程序。
+    </div>
 
-        <div class="form-group">
-            <?= Html::label(Yii::t('app', 'Spj'), 'spj', ['class' => 'sr-only']) ?>
+    <?= Html::beginForm() ?>
 
-            <?= \app\widgets\codemirror\CodeMirror::widget(['name' => 'spjContent', 'value' => $spjContent]);  ?>
-        </div>
+    <div class="form-group">
+        <?= \app\widgets\codemirror\CodeMirror::widget(['name' => 'spjContent', 'value' => $spjContent]);  ?>
+    </div>
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-        </div>
-        <?= Html::endForm(); ?>
-    <?php else: ?>
-        <p>当前题目不是 SPJ 判题，如需启用 SPJ 判题，请先到题目信息编辑页面将 Special Judge 改为是。</p>
-    <?php endif; ?>
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+    </div>
+    <?= Html::endForm(); ?>
 </div>
