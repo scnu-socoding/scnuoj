@@ -14,7 +14,7 @@ $this->title = Yii::t('app', 'Problems');
     <p class="lead">创建、导入和管理题目数据。</p>
     <div class=" d-none d-md-block">
         <div class="btn-group btn-block">
-            <?= Html::a('常规', ['create'], ['class' => 'btn btn-outline-primary']) ?>
+            <?= Html::a('创建', ['create'], ['class' => 'btn btn-outline-primary']) ?>
             <?= Html::a('Polygon', ['create-from-polygon'], ['class' => 'btn btn-outline-primary']) ?>
             <?= Html::a('HUSTOJ', ['import'], ['class' => 'btn btn-outline-primary']) ?>
             <?php if (Yii::$app->user->identity->isAdmin()) : ?>
