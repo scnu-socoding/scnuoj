@@ -12,90 +12,136 @@ $this->params['model'] = $model;
 
 ?>
 <div class="row">
-    <div class="col-md-9 problem-view">
+    <div class="col-lg-9">
 
-        <h1><?= Html::encode($this->title) ?></h1>
+        <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+        <p class="lead"><?= Yii::t('app', 'Input') ?></p>
+        <?= Yii::$app->formatter->asMarkdown($model->input) ?>
+        <p class="lead"><?= Yii::t('app', 'Output') ?></p>
+        <?= Yii::$app->formatter->asMarkdown($model->output) ?>
 
-        <div class="content-wrapper">
-            <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-        </div>
-
-        <h3><?= Yii::t('app', 'Input') ?></h3>
-        <div class="content-wrapper">
-            <?= Yii::$app->formatter->asMarkdown($model->input) ?>
-        </div>
-
-        <h3><?= Yii::t('app', 'Output') ?></h3>
-        <div class="content-wrapper">
-            <?= Yii::$app->formatter->asMarkdown($model->output) ?>
-        </div>
-
-        <h3><?= Yii::t('app', 'Examples') ?></h3>
-        <div class="content-wrapper">
-            <div class="sample-test">
-                <div class="input">
-                    <h4><?= Yii::t('app', 'Input') ?></h4>
-                    <pre><?= Html::encode($model->sample_input) ?></pre>
-                </div>
-                <div class="output">
-                    <h4><?= Yii::t('app', 'Output') ?></h4>
-                    <pre><?= Html::encode($model->sample_output) ?></pre>
-                </div>
-
-                <?php if ($model->sample_input_2 != '' || $model->sample_output_2 != ''):?>
-                    <div class="input">
-                        <h4><?= Yii::t('app', 'Input') ?></h4>
-                        <pre><?= Html::encode($model->sample_input_2) ?></pre>
-                    </div>
-                    <div class="output">
-                        <h4><?= Yii::t('app', 'Output') ?></h4>
-                        <pre><?= Html::encode($model->sample_output_2) ?></pre>
-                    </div>
-                <?php endif; ?>
-
-                <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != ''):?>
-                    <div class="input">
-                        <h4><?= Yii::t('app', 'Input') ?></h4>
-                        <pre><?= Html::encode($model->sample_input_3) ?></pre>
-                    </div>
-                    <div class="output">
-                        <h4><?= Yii::t('app', 'Output') ?></h4>
-                        <pre><?= Html::encode($model->sample_output_3) ?></pre>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <?php if (!empty($model->hint)): ?>
-            <h3><?= Yii::t('app', 'Hint') ?></h3>
-            <div class="content-wrapper">
-                <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if (!empty($model->source)): ?>
-            <h3><?= Yii::t('app', 'Source') ?></h3>
-            <div class="content-wrapper">
-                <?= Yii::$app->formatter->asMarkdown($model->source) ?>
-            </div>
-        <?php endif; ?>
-    </div>
-    <div class="col-md-3 problem-info">
-        <div class="panel panel-default">
-            <div class="panel-heading">Information</div>
-            <!-- Table -->
-            <table class="table">
+        <?php if ($model->sample_input != '' || $model->sample_output != '') : ?>
+            <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
+            <table class="table table-bordered" style="table-layout:fixed;">
                 <tbody>
-                <tr>
-                    <td><?= Yii::t('app', 'Time Limit') ?></td>
-                    <td><?= $model->time_limit ?> Second</td>
-                </tr>
-                <tr>
-                    <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                    <td><?= $model->memory_limit ?> MB</td>
-                </tr>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td>标准输入</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($model->sample_input) ?></pre>
+                        </td>
+                    </tr>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td>标准输出</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($model->sample_output) ?></pre>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+        <?php endif; ?>
+        <?php if ($model->sample_input_2 != '' || $model->sample_output_2 != '') : ?>
+            <table class="table table-bordered" style="table-layout:fixed;">
+                <tbody>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td>标准输入</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($model->sample_input_2) ?></pre>
+                        </td>
+                    </tr>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td>标准输出</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($model->sample_output_2) ?></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <?php if ($model->sample_input_3 != '' || $model->sample_output_3 != '') : ?>
+            <table class="table table-bordered" style="table-layout:fixed;">
+                <tbody>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td>标准输入</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($model->sample_input_3) ?></pre>
+                        </td>
+                    </tr>
+                    <tr class="bg-tablehead" style="line-height: 1;">
+                        <td>标准输出</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre style="margin:0"><?= Html::encode($model->sample_output_3) ?></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+
+        <?php if (!empty($model->hint)) : ?>
+            <p class="lead"><?= Yii::t('app', 'Hint') ?></p>
+            <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
+            <p></p>
+        <?php endif; ?>
+
+        <?php if (!empty($model->source)) : ?>
+            <p class="lead"><?= Yii::t('app', 'Source') ?></p>
+            <p><?= $model->source ?></p>
+            <p></p>
+        <?php endif; ?>
+    </div>
+    <div class="col-lg-3">
+        <div class="list-group list-group-flush">
+
+            <div class="list-group-item">
+                单点时限 <a href="#" class="text-dark" data-toggle="tooltip" title="Java / Python 有 2s 额外运行时间">
+                    <span class="fas fa-fw fa-info-circle"></span>
+                </a>
+                <span class="float-right">
+                    <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($model->time_limit)]); ?>
+                </span>
+            </div>
+
+            <div class="list-group-item">
+                内存限制 <a href="#" class="text-dark" data-toggle="tooltip" title="Java / Python 有 64M 额外空间">
+                    <span class="fas fa-fw fa-info-circle"></span>
+                </a>
+                <span class="float-right">
+                    <?= $model->memory_limit ?> MB
+                </span>
+            </div>
+            <div class="list-group-item">
+                提交
+                <span class="float-right">
+                    <?= $model->submit ?>
+                </span>
+            </div>
+            <div class="list-group-item">
+                通过
+                <span class="float-right">
+                    <?= $model->accepted ?>
+                </span>
+            </div>
         </div>
     </div>
 </div>
+
+<?php
+$js = <<<EOF
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+EOF;
+$this->registerJs($js);
+?>
