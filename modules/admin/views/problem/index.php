@@ -11,43 +11,60 @@ use yii\bootstrap4\Modal;
 $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="problem-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Problem'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Polygon Problem'), ['create-from-polygon'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <hr>
-    <?php if (Yii::$app->user->identity->isAdmin()):?>
-    <p>
-        选中项：
-        <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="任何用户均能在前台看见题目">
-            设为可见
-        </a>
-        <a id="reserved" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="题目只能在后台查看">
-            设为隐藏
-        </a>
-        <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息">
-            设为私有
-        </a>
-        <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="不可恢复">
-            删除
-        </a>
-    </p>
-    <?php endif; ?>
+    <p class="lead">创建、导入和管理题目数据。</p>
+    <div class=" d-none d-md-block">
+        <div class="btn-group btn-block">
+            <?= Html::a('常规', ['create'], ['class' => 'btn btn-outline-primary']) ?>
+            <?= Html::a('Polygon', ['create-from-polygon'], ['class' => 'btn btn-outline-primary']) ?>
+            <?= Html::a('HUSTOJ', ['import'], ['class' => 'btn btn-outline-primary']) ?>
+            <?php if (Yii::$app->user->identity->isAdmin()) : ?>
+                <a id="available" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：任何用户均能在前台看见题目">
+                    公开
+                </a>
+                <a id="reserved" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：题目只能在后台查看">
+                    隐藏
+                </a>
+                <a id="private" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息">
+                    私有
+                </a>
+                <a id="delete" class="btn btn-outline-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：不可恢复">
+                    删除
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="d-md-none">
+        <div class="btn-group btn-block">
+            <?= Html::a('创建', ['create'], ['class' => 'btn btn-outline-primary']) ?>
+            <?= Html::a('Polygon', ['create-from-polygon'], ['class' => 'btn btn-outline-primary']) ?>
+            <?= Html::a('外部', ['import'], ['class' => 'btn btn-outline-primary']) ?>
+        </div>
+        <p></p>
+        <div class="btn-group btn-block">
+            <?php if (Yii::$app->user->identity->isAdmin()) : ?>
+                <a id="available" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：任何用户均能在前台看见题目">
+                    可见
+                </a>
+                <a id="reserved" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：题目只能在后台查看">
+                    隐藏
+                </a>
+                <a id="private" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息">
+                    私有
+                </a>
+                <a id="delete" class="btn btn-outline-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：不可恢复">
+                    删除
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <p></p>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'layout' => '{pager}{items}{pager}',  
-        'pager' =>[
-          'firstPageLabel' => '首页',
-          'prevPageLabel' => '« ',
-          'nextPageLabel' => '» ',
-          'lastPageLabel' => '尾页',
-          'maxButtonCount' => 18
-        ],        
+        'layout' => '{items}{pager}',
+        'options' => ['class' => 'table-responsive'],
+        'tableOptions' => ['class' => 'table table-bordered'],
         'options' => ['id' => 'grid'],
         'columns' => [
             [
@@ -60,14 +77,16 @@ $this->title = Yii::t('app', 'Problems');
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->id, ['problem/view', 'id' => $key]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($model->title), ['problem/view', 'id' => $key]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'status',
@@ -81,6 +100,7 @@ $this->title = Yii::t('app', 'Problems');
                     }
                 },
                 'format' => 'raw',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'created_by',
@@ -91,6 +111,7 @@ $this->title = Yii::t('app', 'Problems');
                     return '';
                 },
                 'format' => 'raw',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'polygon_id',
@@ -98,6 +119,7 @@ $this->title = Yii::t('app', 'Problems');
                     return Html::a($model->polygon_problem_id, ['/polygon/problem/view', 'id' => $model->polygon_problem_id]);
                 },
                 'format' => 'raw',
+                'enableSorting' => false,
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -141,7 +163,7 @@ $this->title = Yii::t('app', 'Problems');
     $("#available").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
-           url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_VISIBLE]).'", 
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_VISIBLE]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });
@@ -149,7 +171,7 @@ $this->title = Yii::t('app', 'Problems');
     $("#reserved").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
-           url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_HIDDEN]).'", 
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_HIDDEN]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });
@@ -157,7 +179,7 @@ $this->title = Yii::t('app', 'Problems');
     $("#private").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
-           url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_PRIVATE]).'", 
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_PRIVATE]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });
@@ -166,7 +188,7 @@ $this->title = Yii::t('app', 'Problems');
         if (confirm("确定要删除？此操作不可恢复！")) {
             var keys = $("#grid").yiiGridView("getSelectedRows");
             $.post({
-               url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => 'delete']).'", 
+               url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => 'delete']) . '", 
                dataType: \'json\',
                data: {keylist: keys}
             });
