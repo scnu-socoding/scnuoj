@@ -46,12 +46,12 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
             <div class="alert text-dark border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
         <?php else : ?>
             <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
-            <h5><?= Yii::t('app', 'Input') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Input') ?></p>
             <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-            <h5><?= Yii::t('app', 'Output') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Output') ?></p>
             <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
             <?php if ($sample_input[0] != '' || $sample_output[0] != '') : ?>
-                <h5><?= Yii::t('app', 'Examples') ?></h5>
+                <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
                 <table class="table table-bordered" style="table-layout:fixed;">
                     <tbody>
                         <tr class="bg-tablehead" style="line-height: 1;">
@@ -121,7 +121,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 
             <?php if (!empty($problem['hint'])) : ?>
 
-                <h5><?= Yii::t('app', 'Hint') ?></h5>
+                <p class="lead"><?= Yii::t('app', 'Hint') ?></p>
                 <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
 
             <?php endif; ?>

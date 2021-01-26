@@ -63,12 +63,12 @@ $nextProblemID = $model->getNextProblemID();
 
     <div class="col-lg-9">
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-        <h5><?= Yii::t('app', 'Input') ?></h5>
+        <p class="lead"><?= Yii::t('app', 'Input') ?></p>
         <?= Yii::$app->formatter->asMarkdown($model->input) ?>
-        <h5><?= Yii::t('app', 'Output') ?></h5>
+        <p class="lead"><?= Yii::t('app', 'Output') ?></p>
         <?= Yii::$app->formatter->asMarkdown($model->output) ?>
         <?php if ($model->sample_input != '' || $model->sample_output != '') : ?>
-            <h5><?= Yii::t('app', 'Examples') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
             <table class="table table-bordered" style="table-layout:fixed;">
                 <tbody>
                     <tr class="bg-tablehead" style="line-height: 1;">
@@ -137,13 +137,13 @@ $nextProblemID = $model->getNextProblemID();
 
 
         <?php if (!empty($model->hint)) : ?>
-            <h5><?= Yii::t('app', 'Hint') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Hint') ?></p>
             <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
             <p></p>
         <?php endif; ?>
 
         <?php if (!empty($model->source)) : ?>
-            <h5><?= Yii::t('app', 'Source') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Source') ?></p>
             <p><?= $model->source ?></p>
             <p></p>
         <?php endif; ?>
