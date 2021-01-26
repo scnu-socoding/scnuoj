@@ -131,7 +131,7 @@ return [
     'Add a problem' => '添加问题',
     'Current Problem ID' => '当前题目 ID',
     'New Problem ID' => '新题目 ID',
-    'Polygon Problem' => 'Polygon题目',
+    'Polygon Problem' => 'Polygon 题目',
     'Solution Language' => '语言',
     'Solution Source' => '代码',
     'Source' => '来源',
