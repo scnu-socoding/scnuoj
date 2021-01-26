@@ -8,8 +8,8 @@ use yii\widgets\ActiveForm;
 /* @var $model app\modules\polygon\models\Problem */
 
 $this->title = Yii::t('app', 'Create Problem');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="problem-create">
 

@@ -8,8 +8,8 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Problem */
 
 $this->title = Yii::t('app', 'Import Problem');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 $maxFileSize = min(ini_get("upload_max_filesize"),ini_get("post_max_size"));
 ?>
 <div class="problem-import">

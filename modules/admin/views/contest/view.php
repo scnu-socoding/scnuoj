@@ -13,8 +13,8 @@ use yii\grid\GridView;
 /* @var $announcements yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][]][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
+// $this->params['breadcrumbs'][]][] = $this->title;
 
 $problems = $model->problems;
 ?>

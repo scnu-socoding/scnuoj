@@ -10,8 +10,8 @@ use yii\widgets\ActiveForm;
 /* @var $newSolution app\models\Solution */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>

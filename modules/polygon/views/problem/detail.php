@@ -7,8 +7,8 @@ use app\models\Solution;
 /* @var $status app\modules\polygon\models\PolygonStatus */
 
 $this->title = $status->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][]][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
+// $this->params['breadcrumbs'][]][] = $this->title;
 $this->params['model'] = $model;
 ?>
 <div class="table-responsive">

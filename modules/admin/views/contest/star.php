@@ -14,8 +14,8 @@ use app\models\Contest;
 
 $this->title = $model->title;
 $contest_id = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
 <h3><?= Html::encode($model->title) . ' - 打星用户设置'?></h3>
 

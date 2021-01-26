@@ -14,8 +14,8 @@ use app\models\Contest;
 
 $this->title = $model->title;
 $contest_id = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
+// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
 <h1><?= Html::encode($model->title) ?></h1>
 
