@@ -39,8 +39,8 @@ $model = $this->params['model'];
                     ['label' => '题解', 'url' => ['/admin/problem/solution', 'id' => $model->id]],
                     ['label' => Yii::t('app', 'Tests Data'), 'url' => ['/admin/problem/test-data', 'id' => $model->id]],
                     ['label' => Yii::t('app', 'Verify Data'), 'url' => ['/admin/problem/verify', 'id' => $model->id]],
-                    ['label' => Yii::t('app', 'SPJ'), 'url' => ['/admin/problem/spj', 'id' => $model->id]],
-                    ['label' => Yii::t('app', 'Subtask'), 'url' => ['/admin/problem/subtask', 'id' => $model->id]]
+                    ['label' => Yii::t('app', 'SPJ'), 'url' => ['/admin/problem/spj', 'id' => $model->id], 'visible' => $model->spj],
+                    ['label' => Yii::t('app', 'Subtask'), 'url' => ['/admin/problem/subtask', 'id' => $model->id], 'visible' => Yii::$app->setting->get('oiMode')]
                 ],
             ]) ?>
         </div>
