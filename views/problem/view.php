@@ -31,7 +31,7 @@ $nextProblemID = $model->getNextProblemID();
     <li class="nav-item">
         <?= Html::a(
             Yii::t('app', 'Problem'),
-            ['/p/' . $model->id],
+            ['/problem/view', 'id' => $model->id],
             ['class' => 'nav-link active']
         )
         ?>
