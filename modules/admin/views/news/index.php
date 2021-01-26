@@ -24,6 +24,10 @@ $this->title = Yii::t('app', 'News');
             [
                 'attribute' => 'title',
                 'enableSorting' => false,
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return Html::a(Html::encode($model->title), ['news/view', 'id' => $key]);
+                },
             ],
             [
                 'attribute' => 'created_at',
