@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\bootstrap4\Nav;
+use yii\helpers\Html;
 
 $model = $this->params['model'];
 ?>
@@ -24,6 +25,7 @@ $model = $this->params['model'];
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
         ],
     ]) ?>
+    <p></p>
 <?php endif; ?>
 
 <?php if (Yii::$app->user->identity->isVip()) : ?>
@@ -35,11 +37,13 @@ $model = $this->params['model'];
             ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
         ],
     ]) ?>
+    <p></p>
 <?php endif; ?>
 <div class="row">
     <div class="col">
 
         <div class="problem-header">
+            <p class="lead">设置题目《<?= Html::encode($model->title) ?>》题面与数据信息。</p>
             <?= \yii\bootstrap4\Nav::widget([
                 'options' => ['class' => 'nav nav-pills'],
                 'items' => [
@@ -53,7 +57,7 @@ $model = $this->params['model'];
                 ],
             ]) ?>
         </div>
-        <hr>
+        <p></p>
         <?= $content ?>
     </div>
 </div>
