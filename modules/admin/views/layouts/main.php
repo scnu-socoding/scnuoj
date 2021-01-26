@@ -19,20 +19,7 @@ use yii\bootstrap4\Nav;
             ['label' => Yii::t('app', 'Contest'), 'url' => ['/admin/contest/index']],
             ['label' => Yii::t('app', 'Rejudge'), 'url' => ['/admin/rejudge/index']],
             ['label' => Yii::t('app', 'Setting'), 'url' => ['/admin/setting/index']],
-            ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
-        ],
-    ]) ?>
-    <p></p>
-<?php endif; ?>
-
-<?php if (Yii::$app->user->identity->isVip()) : ?>
-
-    <?= Nav::widget([
-        'options' => ['class' => 'nav nav-pills'],
-        'items' => [
-            ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']],
-            ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
         ],
     ]) ?>
     <p></p>
