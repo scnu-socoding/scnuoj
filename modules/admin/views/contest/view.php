@@ -53,9 +53,13 @@ $problems = $model->problems;
                 <?= Html::textInput('bronze', round($model->getContestUserCount() * 0.3), ['class' => 'form-control']) ?>
             </div>
             <p></p>
-            <div class="input-group">
-                <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-success btn-block']) ?>
-            </div>
+            <?php if ($model->getRunStatus() == Contest::STATUS_ENDED) : ?>
+                <div class="input-group">
+                    <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            <?php else : ?>
+                <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛尚未结束，暂时不能滚榜。</div>
+            <?php endif; ?>
             <?= Html::endForm(); ?>
             <?php Modal::end(); ?>
 
@@ -106,9 +110,13 @@ $problems = $model->problems;
                 <?= Html::textInput('bronze', round($model->getContestUserCount() * 0.3), ['class' => 'form-control']) ?>
             </div>
             <p></p>
-            <div class="input-group">
-                <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-success btn-block']) ?>
-            </div>
+            <?php if ($model->getRunStatus() == Contest::STATUS_ENDED) : ?>
+                <div class="input-group">
+                    <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            <?php else : ?>
+                <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛尚未结束，暂时不能滚榜。</div>
+            <?php endif; ?>
             <?= Html::endForm(); ?>
             <?php Modal::end(); ?>
 

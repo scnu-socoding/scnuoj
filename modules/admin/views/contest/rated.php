@@ -42,6 +42,6 @@ $this->title = $model->title;
         ]); ?>
 
     <?php else : ?>
-        <p>比赛尚未结束，请在比赛结束后再来计算积分。</p>
+        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛尚未结束，请在比赛结束后再来计算积分。</div>
     <?php endif; ?>
 </div>
