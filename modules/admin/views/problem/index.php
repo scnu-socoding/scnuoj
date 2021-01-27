@@ -108,6 +108,7 @@ $this->title = Yii::t('app', 'Problems');
             ],
             [
                 'attribute' => 'polygon_id',
+                'label' => 'Polygon',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->polygon_problem_id, ['/polygon/problem/view', 'id' => $model->polygon_problem_id]);
                 },
