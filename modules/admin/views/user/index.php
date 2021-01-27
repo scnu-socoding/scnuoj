@@ -128,16 +128,6 @@ $this->title = Yii::t('app', 'Users');
                         ];
                         return Html::a('<i class="fas fa-sm fa-pen"></i>', $url, $options);
                     },
-                    'delete' => function ($url, $model, $key) {
-                        $options = [
-                            'title' => Yii::t('yii', 'Delete'),
-                            'aria-label' => Yii::t('yii', 'Delete'),
-                            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                            'data-method' => 'post',
-                            'class' => 'text-dark'
-                        ];
-                        return Html::a('<span class="fas fa-sm fa-trash"></span>', $url, $options);
-                    }
                 ]
             ]
         ],

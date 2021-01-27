@@ -15,7 +15,7 @@ $this->title = Yii::t('app', '{username} - {nickname}', [
 ?>
 <div class="user-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead">更新用户 <?= Html::encode($model->nickname) ?> 账户信息。</p>
 
     <?= $this->render('_form', [
         'model' => $model,
