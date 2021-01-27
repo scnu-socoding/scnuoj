@@ -17,34 +17,37 @@ $this->title = $model->id;
     <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-outline-primary btn-block']) ?>
     <p></p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
-        'attributes' => [
-            'id',
-            'username',
-            'nickname',
-            'email',
-            [
-                'attribute' => 'role',
-                'value' => function ($model, $widget) {
-                    if ($model->role == \app\models\User::ROLE_PLAYER) {
-                        return '参赛用户';
-                    } else if ($model->role == \app\models\User::ROLE_USER) {
-                        return '普通用户';
-                    } else if ($model->role == \app\models\User::ROLE_VIP) {
-                        return '助教';
-                    } else if ($model->role == \app\models\User::ROLE_ADMIN) {
-                        return '管理员';
-                    }
-                    return '(未设置)';
-                },
-                'format' => 'raw',
+    <div class="table-responsive">
+        <?= DetailView::widget([
+            'model' => $model,
+            'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
+            'template' => '<tr><th class="bg-tablehead" style="width:120px;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
+            'attributes' => [
+                'id',
+                'username',
+                'nickname',
+                'email',
+                [
+                    'attribute' => 'role',
+                    'value' => function ($model, $widget) {
+                        if ($model->role == \app\models\User::ROLE_PLAYER) {
+                            return '参赛用户';
+                        } else if ($model->role == \app\models\User::ROLE_USER) {
+                            return '普通用户';
+                        } else if ($model->role == \app\models\User::ROLE_VIP) {
+                            return '助教';
+                        } else if ($model->role == \app\models\User::ROLE_ADMIN) {
+                            return '管理员';
+                        }
+                        return '(未设置)';
+                    },
+                    'format' => 'raw',
+                ],
+                'rating',
+                'created_at',
+                'updated_at',
             ],
-            'rating',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
+        ]) ?>
 
+    </div>
 </div>
