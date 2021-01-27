@@ -23,12 +23,12 @@ $this->title = Yii::t('app', 'Users');
         ]); ?>
         <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
 
-    <div class="alert alert-light">1. 格式一: 每个用户一行，格式为 <code>username password</code>。<br>
-        2. 格式二: 每个用户一行，格式为 <code>username nickname password</code>。<br>
+    <div class="alert alert-light">1. 格式一：每个用户一行，格式为 <code>username password</code>。<br>
+        2. 格式二：每个用户一行，格式为 <code>username nickname password</code>。<br>
         3. 用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间。<br>
         4. 密码至少六位。</div>
 
-        <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])  ?>
+        <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false)  ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success btn-block']) ?>
