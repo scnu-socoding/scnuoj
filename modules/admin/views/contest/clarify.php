@@ -22,17 +22,21 @@ if ($discuss != null) {
     return;
 }
 ?>
-<h3><?= Html::encode($model->title) ?></h3>
-<div style="padding-top: 20px">
+<p class="lead">比赛 <?= Html::encode($model->title) ?> 答疑。</p>
+<div>
 
     <?= GridView::widget([
         'dataProvider' => $clarifies,
+        'tableOptions' => ['class' => 'table table-bordered'],
+        'options' => ['class' => 'table-responsive'],
+        'layout' => '{items}{pager}',
         'columns' => [
             [
                 'attribute' => 'who',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->user->username) . ' [' . Html::encode($model->user->nickname) . ']', ['/user/view', 'id' => $model->user->id]);
+                    return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
                 },
+                'label' => '昵称',
                 'format' => 'raw'
             ],
             [
@@ -44,10 +48,17 @@ if ($discuss != null) {
                         'cid' => $model->id
                     ]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'enableSorting' => false,
             ],
-            'created_at',
-            'updated_at'
+            [
+                'attribute' => 'created_at',
+                'enableSorting' => false,
+            ],
+            [
+                'attribute' => 'updated_at',
+                'enableSorting' => false,
+            ]
         ]
     ]); ?>
 
