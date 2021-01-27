@@ -10,9 +10,8 @@ $this->title = Yii::t('app', 'Setting');
 ?>
 
 <div class="setting-form">
-    <h1><?= Html::encode($this->title) ?></h1>
-    
-    <hr>
+    <p class="lead">修改评测系统全局设定。</p>
+
     <?= Html::beginForm() ?>
 
     <div class="form-group">
