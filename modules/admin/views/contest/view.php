@@ -54,7 +54,7 @@ $problems = $model->problems;
             </div>
             <p></p>
             <div class="input-group">
-                <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-success btn-block']) ?>
             </div>
             <?= Html::endForm(); ?>
             <?php Modal::end(); ?>
@@ -107,7 +107,7 @@ $problems = $model->problems;
             </div>
             <p></p>
             <div class="input-group">
-                <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::submitButton(Yii::t('app', '打开滚榜页面'), ['class' => 'btn btn-success btn-block']) ?>
             </div>
             <?= Html::endForm(); ?>
             <?php Modal::end(); ?>
