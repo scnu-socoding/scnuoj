@@ -10,7 +10,7 @@ use yii\bootstrap4\Modal;
 
 $this->title = Yii::t('app', 'Problems');
 ?>
-<div class="problem-index">
+<div>
     <p class="lead">创建、导入和管理题目数据。</p>
     <div class=" d-none d-md-block">
         <div class="btn-group btn-block">
@@ -19,15 +19,12 @@ $this->title = Yii::t('app', 'Problems');
             <?= Html::a('HUSTOJ', ['import'], ['class' => 'btn btn-outline-primary']) ?>
             <?php if (Yii::$app->user->identity->isAdmin()) : ?>
                 <a id="available" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：任何用户均能在前台看见题目">
-                    公开
+                    可见
                 </a>
                 <a id="reserved" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：题目只能在后台查看">
                     隐藏
                 </a>
-                <a id="private" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息">
-                    私有
-                </a>
-                <a id="delete" class="btn btn-outline-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：不可恢复">
+                <a id="delete" class="btn btn-outline-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除勾选项：不可恢复">
                     删除
                 </a>
             <?php endif; ?>
@@ -48,10 +45,7 @@ $this->title = Yii::t('app', 'Problems');
                 <a id="reserved" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：题目只能在后台查看">
                     隐藏
                 </a>
-                <a id="private" class="btn btn-outline-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息">
-                    私有
-                </a>
-                <a id="delete" class="btn btn-outline-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="更改勾选项状态：不可恢复">
+                <a id="delete" class="btn btn-outline-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除勾选项：不可恢复">
                     删除
                 </a>
             <?php endif; ?>
@@ -172,14 +166,6 @@ $this->title = Yii::t('app', 'Problems');
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
            url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_HIDDEN]) . '", 
-           dataType: \'json\',
-           data: {keylist: keys}
-        });
-    });
-    $("#private").on("click", function () {
-        var keys = $("#grid").yiiGridView("getSelectedRows");
-        $.post({
-           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_PRIVATE]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });

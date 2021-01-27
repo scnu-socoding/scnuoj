@@ -49,8 +49,8 @@ use yii\helpers\Url;
     <?php if (Yii::$app->user->identity->isAdmin()) : ?>
         <?= $form->field($model, 'status')->radioList([
             1 => Yii::t('app', 'Visible'),
-            // 0 => Yii::t('app', 'Hidden'),
-            2 => Yii::t('app', 'Private')
+            0 => Yii::t('app', 'Hidden'),
+            // 2 => Yii::t('app', 'Private')
         ])->label(false) ?>
     <?php endif ?>
 
