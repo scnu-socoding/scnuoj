@@ -14,15 +14,18 @@ $this->title = $model->title;
 ?>
 <div class="contest-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <hr>
-    <p>
-        点击下方按钮将计算参加该场比赛的用户在该场比赛所的积分。计算出来的积分用于在排行榜排名。重复点击只会计算一次。
-    </p>
-    <?php if ($model->getRunStatus() == Contest::STATUS_ENDED): ?>
-        <?= Html::a('Rated', ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success']) ?>
+    <p class="lead">为比赛 <?= Html::encode($this->title) ?> 参赛选手计算积分。</p>
+
+    <?php if ($model->getRunStatus() == Contest::STATUS_ENDED) : ?>
+        <?= Html::a('计算积分', ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-outline-primary btn-block']) ?>
+        <p></p>
+        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 计算出来的积分用于在排行榜排名，重复点击只会计算一次。</div>
+
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
+            'layout' => '{items}{pager}',
+            'options' => ['class' => 'table-responsive'],
+            'tableOptions' => ['class' => 'table table-bordered'],
             'columns' => [
                 [
                     'attribute' => 'who',
@@ -31,10 +34,14 @@ $this->title = $model->title;
                     },
                     'format' => 'raw'
                 ],
-                'rating_change'
+                [
+                    'attribute' =>  'rating_change',
+                    'enableSorting' => false,
+                ]
             ],
         ]); ?>
-    <?php else: ?>
+
+    <?php else : ?>
         <p>比赛尚未结束，请在比赛结束后再来计算积分。</p>
     <?php endif; ?>
 </div>
