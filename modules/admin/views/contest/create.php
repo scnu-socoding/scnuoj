@@ -18,7 +18,7 @@ $model->enable_print = 0;
 ?>
 <div class="contest-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead">创建一个新的公共比赛或题目集。</p>
 
     <?= $this->render('_form', [
         'model' => $model,
