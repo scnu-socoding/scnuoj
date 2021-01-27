@@ -108,7 +108,7 @@ use yii\helpers\Url;
 
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 题目标签，可填写本题知识点、年份和比赛信息，多个标签使用逗号隔开，标签信息将展示在前台。</div>
 
-    <?= $form->field($model, 'tags')->textarea(['maxlength' => true, 'placeholder' => '可不填'])->label(false) ?>
+    <?= $form->field($model, 'tags')->textarea(['maxlength' => true])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
