@@ -29,7 +29,7 @@ $maxFileSize = min(ini_get("upload_max_filesize"), ini_get("post_max_size"));
         </div>
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'target' => '_blank']]) ?>
 
-        <?= $form->field($model, 'problemFile', ['options' => ['class' => 'custom-file']])->fileInput(
+        <?= $form->field($model, 'problemFile', ['options' => ['class' => 'custom-file'], 'template' => '{label}{input}'])->fileInput(
             ['class' => 'custom-file-input']
         )->label(true, ['class' => 'custom-file-label', 'id' => 'myfile']) ?>
         <p></p>
