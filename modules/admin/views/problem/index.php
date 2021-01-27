@@ -37,7 +37,7 @@ $this->title = Yii::t('app', 'Problems');
         <div class="btn-group btn-block">
             <?= Html::a('创建', ['create'], ['class' => 'btn btn-outline-primary']) ?>
             <?= Html::a('Polygon', ['create-from-polygon'], ['class' => 'btn btn-outline-primary']) ?>
-            <?= Html::a('外部', ['import'], ['class' => 'btn btn-outline-primary']) ?>
+            <?= Html::a('HUSTOJ', ['import'], ['class' => 'btn btn-outline-primary']) ?>
         </div>
         <p></p>
         <div class="btn-group btn-block">
