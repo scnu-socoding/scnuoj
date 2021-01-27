@@ -11,7 +11,6 @@ $this->title = Yii::t('app', 'Update');
 
 <p></p>
 
-<p class="lead">更新日志</p>
 
 <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 更新日志从 <a href="https://git.lug.ustc.edu.cn/bobby285271/scnuoj/-/raw/master/CHANGELOG.md">git.lug.ustc.edu.cn</a> 抓取，感谢 USTCLUG 的代码仓库托管服务。</div>
 
