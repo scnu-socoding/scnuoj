@@ -57,9 +57,8 @@ $this->title = Yii::t('app', 'Problems');
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'layout' => '{items}{pager}',
-        'options' => ['class' => 'table-responsive'],
+        'options' => ['class' => 'table-responsive', 'id' => 'grid'],
         'tableOptions' => ['class' => 'table table-bordered'],
-        'options' => ['id' => 'grid'],
         'columns' => [
             [
                 'class' => 'yii\grid\CheckboxColumn',
