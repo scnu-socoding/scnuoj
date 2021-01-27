@@ -17,30 +17,32 @@ $contest_id = $model->id;
 // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
 // $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
-<h3><?= Html::encode($model->title) . ' - 打星用户设置'?></h3>
+<p class="lead">管理比赛 <?= Html::encode($model->title) ?> 打星用户。</p>
 
 <?php Modal::begin([
-    'title' => '<h2>设置打星</h2>',
-    'toggleButton' => ['label' => Yii::t('app', '添加打星用户'), 'class' => 'btn btn-success'],
+    'title' => '添加打星用户',
+    'toggleButton' => ['label' => Yii::t('app', '添加打星用户'), 'class' => 'btn btn-outline-primary btn-block'],
+    'size' => Modal::SIZE_LARGE
 ]);?>
 <?= Html::beginForm(['contest/star', 'id' => $model->id]) ?>
-    <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
-        <p class="text-muted">当前比赛为线下赛，在此添加的账号在榜单排名上会被打星，不参与榜单排名</p>
-    <?php endif; ?>
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 在这里填写用户名，必须是已经注册本比赛的用户。一个名字占据一行，请自行删除多余的空行。</div>
     <div class="form-group">
-        <?= Html::label(Yii::t('app', 'User'), 'user') ?>
         <?= Html::textarea('user', '',['class' => 'form-control', 'rows' => 10]) ?>
-        <p class="hint-block">请把要打星用户的用户名复制到此处，必须是已经注册本比赛的用户，否则设置无效，一个名字占据一行，请自行删除多余的空行。</p>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
     <?= Html::endForm(); ?>
 <?php Modal::end(); ?>
 
+<p></p>
+
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    'layout' => '{items}{pager}',
+    'options' => ['class' => 'table-responsive'],
+    'tableOptions' => ['class' => 'table table-bordered'],
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         [
@@ -68,7 +70,7 @@ $contest_id = $model->id;
                         'data-confirm' => '取消打星？',
                         'data-method' => 'post',
                     ];
-                    return Html::a('<span class="fas fas-fw fa-trash"></span>', Url::toRoute(['contest/star', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
+                    return Html::a('<span class="fas fas-fw fa-trash text-dark"></span>', Url::toRoute(['contest/star', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
                 },
             ]
         ],

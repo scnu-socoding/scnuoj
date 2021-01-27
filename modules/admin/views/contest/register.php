@@ -17,70 +17,84 @@ $contest_id = $model->id;
 // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
 // $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
-<h1><?= Html::encode($model->title) ?></h1>
+<p class="lead">管理比赛 <?= Html::encode($model->title) ?> 参赛用户。</p>
 
-<?= Html::a('设置打星', ['contest/star', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
+<div class="btn-group btn-block">
 
+    <?= Html::a('打星', ['contest/star', 'id' => $model->id], ['class' => 'btn btn-outline-primary', 'target' => '_blank']) ?>
 
-<?php Modal::begin([
-    'title' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
-    'toggleButton' => ['label' => Yii::t('app', 'Add participating user'), 'class' => 'btn btn-success'],
-]); ?>
-<?= Html::beginForm(['contest/register', 'id' => $model->id]) ?>
-<?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
-    <p class="text-muted">当前比赛为线下赛，在此添加的账号在榜单排名上会被打星，不参与榜单排名</p>
-<?php endif; ?>
-<div class="form-group">
-    <?= Html::label(Yii::t('app', 'User'), 'user') ?>
-    <?= Html::textarea('user', '', ['class' => 'form-control', 'rows' => 10]) ?>
-    <p class="hint-block">请把要参赛用户的用户名复制到此处，一个名字占据一行，请自行删除多余的空行。</p>
+    <?php Modal::begin([
+        'title' => Yii::t('app', 'Add participating user'),
+        'toggleButton' => ['label' => '添加', 'class' => 'btn btn-outline-primary'],
+        'size' => Modal::SIZE_LARGE
+    ]); ?>
+    <?= Html::beginForm(['contest/register', 'id' => $model->id]) ?>
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 请把要参赛用户的用户名复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
+    <div class="form-group">
+        <?= Html::textarea('user', '', ['class' => 'form-control', 'rows' => 10]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+    </div>
+    <?= Html::endForm(); ?>
+    <?php Modal::end(); ?>
+
+    <?php Modal::begin([
+        'title' => Yii::t('app', 'Generate user for the contest'),
+        'toggleButton' => ['label' => '生成', 'class' => 'btn btn-outline-success'],
+        'size' => Modal::SIZE_LARGE
+    ]); ?>
+    <div class="alert alert-danger"><i class="fas fa-fw fa-info-circle"></i> 重复使用此功能会删除已生成的帐号，请勿在分发账号后进行此操作。</div>
+    <?php $form = ActiveForm::begin(); ?>
+
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 前缀不应更改，不同比赛的前缀都不一样，是为了可以一直保留比赛榜单。</div>
+
+    <?= $form->field($generatorForm, 'prefix', [
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">前缀</span></div>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput([
+        'maxlength' => true, 'value' => 'c' . $model->id . 'user', 'disabled' => true
+    ])->label(false) ?>
+    <p></p>
+
+    <?= $form->field($generatorForm, 'team_number', [
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">数量</span></div>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput(['maxlength' => true, 'value' => '50'])->label(false) ?>
+    <p></p>
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 请把所有队伍名称复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
+
+    <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false)  ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success btn-block']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+    <?php Modal::end(); ?>
+    <?= Html::a('导出', ['contest/printuser', 'id' => $model->id], ['class' => 'btn btn-outline-success', 'target' => '_blank']) ?>
 </div>
-
-<div class="form-group">
-    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-</div>
-<?= Html::endForm(); ?>
-<?php Modal::end(); ?>
-
-<?php Modal::begin([
-    'title' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
-    'toggleButton' => ['label' => Yii::t('app', 'Generate user for the contest'), 'class' => 'btn btn-success'],
-]); ?>
-<div class="alert alert-light">在线下举行比赛时，可在此处批量创建账号。</div>
-<div class="alert alert-danger">警告：在同一场比赛中，重复使用此功能会删除之前已经生成的帐号（所有 user_password is not nul 的账号），操作前建议备份原注册名单！！请勿在比赛开始后进行此操作。</div>
-<?php $form = ActiveForm::begin(); ?>
-
-<?= $form->field($generatorForm, 'prefix')->textInput([
-    'maxlength' => true, 'value' => 'c' . $model->id . 'user', 'disabled' => true
-])->hint('前缀不应更改，不同比赛的前缀都不一样，是为了可以一直保留比赛榜单。') ?>
-
-<?= $form->field($generatorForm, 'team_number')->textInput(['maxlength' => true, 'value' => '50']) ?>
-
-<?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->hint('请把所有队伍名称复制到此处，一个名字占据一行，请自行删除多余的空行')  ?>
-
-<div class="form-group">
-    <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success']) ?>
-</div>
-
-<?php ActiveForm::end(); ?>
-<?php Modal::end(); ?>
-<?= Html::a(Yii::t('app', 'Copy these accounts to distribute'), ['contest/printuser', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
+<p></p>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    'layout' => '{items}{pager}',
+    'options' => ['class' => 'table-responsive'],
+    'tableOptions' => ['class' => 'table table-bordered'],
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => Yii::t('app', 'Username'),
             'value' => function ($model, $key, $index, $column) {
-                return Html::a($model->user->username, ['/user/view', 'id' => $model->user->id]);
+                return Html::a(Html::encode($model->user->username), ['/user/view', 'id' => $model->user->id]);
             },
             'format' => 'raw'
         ],
         [
             'attribute' => Yii::t('app', 'Nickname'),
             'value' => function ($model, $key, $index, $column) {
-                return Html::a($model->user->nickname, ['/user/view', 'id' => $model->user->id]);
+                return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
             },
             'format' => 'raw'
         ],
@@ -89,17 +103,13 @@ $contest_id = $model->id;
             'value' => function ($contestUser, $key, $index, $column) use ($model) {
                 // if ($model->scenario == Contest::SCENARIO_OFFLINE) {
                 if ($contestUser->user_password) {
-                    return $contestUser->user_password;
+                    return Html::encode($contestUser->user_password);
                 } else {
                     return "N/A";
                 }
-
-                // } else {
-                //     return '线上赛无法提供密码';
-                // }
             },
             'format' => 'raw',
-            // 'visible' => $model->scenario == Contest::SCENARIO_OFFLINE
+            'enableSorting' => false,
         ],
         [
             'class' => 'yii\grid\ActionColumn',
@@ -112,7 +122,7 @@ $contest_id = $model->id;
                         'data-confirm' => '删除该项，也会删除该用户在此比赛中的提交记录，确定删除？',
                         'data-method' => 'post',
                     ];
-                    return Html::a('<span class="fas fas-fw fa-trash"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
+                    return Html::a('<span class="fas fas-fw fa-trash text-dark"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
                 },
             ]
         ],
