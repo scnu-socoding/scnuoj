@@ -120,7 +120,7 @@ class ContestController extends Controller
         $model = $this->findModel($id);
         if (Yii::$app->request->get('cal')) {
             $model->calRating();
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Done'));
+            Yii::$app->session->setFlash('success', '积分数据更新完毕。');
             return $this->redirect(['rated', 'id' => $model->id]);
         }
         $dataProvider = new ActiveDataProvider([
