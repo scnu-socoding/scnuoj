@@ -12,7 +12,7 @@ $this->title = Html::encode($model->title);
 ?>
 <div class="contest-update">
 
-    <p class="lead">更新比赛 <?= Html::encode($this->title) ?> 信息。</p>
+    <p class="lead">更新比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 信息。</p>
 
     <?= $this->render('_form', [
         'model' => $model,

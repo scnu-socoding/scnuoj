@@ -14,7 +14,7 @@ $this->title = $model->title;
 ?>
 <div class="contest-view">
 
-    <p class="lead">为比赛 <?= Html::encode($this->title) ?> 参赛选手计算积分。</p>
+    <p class="lead">为比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 参赛选手计算积分。</p>
 
     <?php if ($model->getRunStatus() == Contest::STATUS_ENDED) : ?>
         <?= Html::a('计算积分', ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-outline-primary btn-block']) ?>

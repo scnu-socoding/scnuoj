@@ -22,7 +22,7 @@ if ($discuss != null) {
     return;
 }
 ?>
-<p class="lead">比赛 <?= Html::encode($model->title) ?> 答疑。</p>
+<p class="lead">比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 答疑。</p>
 <div>
 
     <?= GridView::widget([

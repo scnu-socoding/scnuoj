@@ -15,7 +15,7 @@ $this->title = $model->title;
 ?>
 <div class="contest-view">
 
-    <p class="lead">比赛 <?= Html::encode($this->title) ?> 题解编辑。</p>
+    <p class="lead">比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 题解编辑。</p>
 
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 题解内容在比赛结束后，才会出现在前台的比赛页面中供用户查看。</div>
     

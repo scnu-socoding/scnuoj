@@ -17,7 +17,7 @@ $contest_id = $model->id;
 // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
 // $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
-<p class="lead">管理比赛 <?= Html::encode($model->title) ?> 参赛用户。</p>
+<p class="lead">管理比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 参赛用户。</p>
 
 <div class="btn-group btn-block">
 
