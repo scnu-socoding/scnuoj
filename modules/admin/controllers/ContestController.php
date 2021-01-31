@@ -522,7 +522,6 @@ class ContestController extends Controller
      */
     public function actionStatus($id, $active = 0, $autoRefresh = 0)
     {
-        $this->layout = 'basic';
         $model = $this->findModel($id);
         $searchModel = new SolutionSearch();
 
