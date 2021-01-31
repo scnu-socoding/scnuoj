@@ -55,7 +55,7 @@
         Java<br>
         <small>
             请不要使用 <code>package</code> 语句，并且确保自己的主类名称为 <code>Main</code>。<br>
-            如果程序中引用了类库,在提交时必须将 <code>import</code> 语句与程序的其他部分同时提交，只允许使用 Java 自带的类库。
+            如果程序中引用了类库，在提交时必须将 <code>import</code> 语句与程序的其他部分同时提交，只允许使用 Java 自带的类库。
         </small>
     </div>
     <div class="list-group-item">
