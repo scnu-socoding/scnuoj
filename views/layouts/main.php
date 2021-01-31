@@ -27,12 +27,6 @@ AppAsset::register($this);
     </title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
-    <script>
-        function errorImg(img) {
-            img.src = "<?= Yii::getAlias('@web') ?>/images/default.jpg";
-            img.onerror = null;
-        }
-    </script>
 </head>
 
 <body>
