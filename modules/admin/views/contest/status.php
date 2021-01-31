@@ -21,61 +21,70 @@ foreach ($problems as $key => $p) {
 }
 ?>
 <div class="container">
-    <p class="lead">
-        查看比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 提交信息。
-    </p>
-    <?php Modal::begin([
-        'title' => '<h3>' . Yii::t('app', 'Attention!') . '</h3>',
-        'toggleButton' => ['label' => Yii::t('app', 'Show the submissions in frontend'), 'class' => 'btn btn-success'],
-    ]); ?>
-    <h3>继续该操作前，请详细阅读以下内容：</h3>
-    <div class="well">该功能是为了让比赛结束后的提交记录显示在前台的提交状态列表页面，不使用该功能提交记录将不会主动显示在前台状态列表页面</div>
-    <p><strong>1. 此操作将会使目前为止该场比赛所有提交记录显示在前台提交状态页面[<?= Html::a(Yii::$app->request->hostInfo . '/status', Yii::$app->request->hostInfo . '/status') ?>]</strong></p>
-    <p><strong>2. 这意味着以下所有提交的代码及出错数据等信息可以被任何用户查看</strong></p>
-    <p><strong>3. 请在比赛结束后进行</strong></p>
-    <p>继续就点下面红色按钮，否则请关闭该窗口</p>
-    <?= Html::a('已阅读上述内容，并将提交记录展示在前台', ['/admin/contest/status', 'id' => $model->id, 'active' => 1], ['class' => 'btn btn-danger']) ?>
-    <?php Modal::end(); ?>
-
-    <?= Html::a('在前台隐藏提交记录', ['/admin/contest/status', 'id' => $model->id, 'active' => 2], ['class' => 'btn btn-default']) ?>
-    <?= Html::a(
-        '下载比赛期间提交记录',
-        ['/admin/contest/download-solution', 'id' => $model->id],
-        ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => '下载比赛期间正确解答的代码，可用于查重']
-    ); ?>
     <?= Html::beginForm(
         ['/admin/contest/status', 'id' => $model->id],
         'get',
         ['class' => 'toggle-auto-refresh']
     ); ?>
-    <div class="checkbox">
+    <span class="float-right">
         <label>
             <?= Html::checkbox('autoRefresh', $autoRefresh) ?>
             自动刷新当前页面
         </label>
-    </div>
+    </span>
     <?= Html::endForm(); ?>
-    <div class="solution-index" style="margin-top: 20px">
+    <p class="lead">
+        查看比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 提交信息。
+    </p>
+    <div class="btn-group btn-block">
+        <?php Modal::begin([
+            'title' => '更改前台可见性',
+            'size' => Modal::SIZE_LARGE,
+            'toggleButton' => ['label' => '前台可见性', 'class' => 'btn btn-outline-primary'],
+        ]); ?>
+        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 公开提交将同步提交数据到公共题库状态页，允许任何用户查看代码及出错数据等信息。</div>
+        <div class="alert alert-danger"><i class="fas fa-fw fa-info-circle"></i> 比赛期间设置公开提交将导致不可预知的后果，请在比赛结束后再根据需要开放。</div>
+        <div class="btn-block btn-group">
+            <?= Html::a('设为公开', ['/admin/contest/status', 'id' => $model->id, 'active' => 1], ['class' => 'btn btn-info']) ?>
+            <?= Html::a('设为隐藏', ['/admin/contest/status', 'id' => $model->id, 'active' => 2], ['class' => 'btn btn-primary']) ?>
+        </div>
+        <?php Modal::end(); ?>
+
+        <?= Html::a(
+            '导出提交',
+            ['/admin/contest/download-solution', 'id' => $model->id],
+            ['class' => 'btn btn-outline-primary', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => '下载比赛期间正确解答的代码，可用于查重']
+        ); ?>
+    </div>
+
+    <p></p>
+
+    <div class="solution-index">
         <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
 
         <?= GridView::widget([
             'layout' => '{items}{pager}',
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive'],
+            'tableOptions' => ['class' => 'table'],
             'columns' => [
                 [
                     'attribute' => 'id',
                     'value' => function ($model, $key, $index, $column) {
-                        return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank']);
+                        return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'class' => 'text-dark']);
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
                 ],
                 [
                     'attribute' => 'who',
                     'value' => function ($model, $key, $index, $column) {
-                        return Html::a(Html::encode($model->username) . '[' . Html::encode($model->user->nickname) . ']', ['/user/view', 'id' => $model->created_by]);
+                        return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by], ['class' => 'text-dark']);
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:150px;']
                 ],
                 [
                     'label' => Yii::t('app', 'Problem'),
@@ -89,35 +98,46 @@ foreach ($problems as $key => $p) {
                         }
                         return Html::a(
                             chr(65 + $res->num) . ' - ' . $model->problem->title,
-                            ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num]
+                            ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num],
+                            ['class' => 'text-dark']
                         );
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:200px;']
                 ],
                 [
                     'attribute' => 'result',
                     'value' => function ($model, $key, $index, $column) {
                         return $model->getResult();
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
                 ],
                 [
                     'attribute' => 'score',
-                    'visible' => Yii::$app->setting->get('oiMode')
+                    'visible' => Yii::$app->setting->get('oiMode'),
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
                 ],
                 [
                     'attribute' => 'time',
                     'value' => function ($model, $key, $index, $column) {
                         return $model->time . ' MS';
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
                 ],
                 [
                     'attribute' => 'memory',
                     'value' => function ($model, $key, $index, $column) {
                         return $model->memory . ' KB';
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
                 ],
                 [
                     'attribute' => 'language',
@@ -125,13 +145,28 @@ foreach ($problems as $key => $p) {
                         return Html::a(
                             $model->getLang(),
                             ['/solution/source', 'id' => $model->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info"]
+                            ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
                         );
                     },
-                    'format' => 'raw'
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
                 ],
-                'code_length',
-                'created_at:datetime',
+                [
+                    'attribute' => 'code_length',
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
+                ],
+                [
+                    'attribute' => 'created_at',
+                    'value' => function ($model, $key, $index, $column) {
+                        return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
+                    },
+                    'format' => 'raw',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:90px;']
+                ]
             ],
             'pager' => [
                 'linkOptions' => ['class' => 'page-link'],
