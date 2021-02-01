@@ -23,10 +23,10 @@ $this->title = Yii::t('app', 'Users');
         ]); ?>
         <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
 
-    <div class="alert alert-light">1. 格式一：每个用户一行，格式为 <code>username password</code>。<br>
-        2. 格式二：每个用户一行，格式为 <code>username nickname password</code>。<br>
-        3. 用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间。<br>
-        4. 密码至少六位。</div>
+        <div class="alert alert-light">1. 格式一：每个用户一行，格式为 <code>username password</code>。<br>
+            2. 格式二：每个用户一行，格式为 <code>username nickname password</code>。<br>
+            3. 用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间。<br>
+            4. 密码至少六位。</div>
 
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false)  ?>
 
@@ -64,6 +64,17 @@ $this->title = Yii::t('app', 'Users');
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($key), ['user/view', 'id' => $key]);
+                },
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
+            [
+                'label' =>  '学号',
+                'value' => function ($model, $key, $index, $column) {
+                    if (isset($model->profile->student_number))
+                        return Html::a(Html::encode($model->profile->student_number), ['user/view', 'id' => $key]);
+                    else
+                        return null;
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
