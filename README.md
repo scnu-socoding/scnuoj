@@ -1,7 +1,5 @@
 ## SCNUOJ
 
-> 春节特别主题，在立春 ～ 元宵期间使用。
-
 SCNUOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，是一个在线评测系统。
 
 SCNUOJ 可对用户在线提交的源代码进行编译和执行，并通过预先设计的测试数据检验代码的正确性。
