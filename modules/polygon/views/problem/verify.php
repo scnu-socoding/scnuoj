@@ -16,19 +16,16 @@ $this->title = $model->title;
 $this->params['model'] = $model;
 $solution->language = Yii::$app->user->identity->language;
 ?>
-<p>
-    该页面用于给验题人验证题目数据的准确性，验题前需在
-    <?= Html::a(Yii::t('app', 'Tests Data'), ['/polygon/problem/tests', 'id' => $model->id]) ?>
-    页面中生成标程的标准输出文件。
-</p>
-<hr>
+
 <?= GridView::widget([
     'layout' => '{items}{pager}',
     'dataProvider' => $dataProvider,
-    'options' => ['class' => 'table-responsive problem-index-list'],
+    'tableOptions' => ['class' => 'table'],
+    'options' => ['class' => 'table-responsive solution-index'],
     'columns' => [
         [
             'attribute' => 'id',
+            'label' => '运行 ID',
             'value' => function ($solution, $key, $index, $column) use ($model) {
                 return Html::a($solution->id, [
                     '/polygon/problem/solution-detail',
@@ -36,10 +33,12 @@ $solution->language = Yii::$app->user->identity->language;
                     'sid' => $solution->id
                 ], ['target' => '_blank']);
             },
-            'format' => 'raw'
+            'format' => 'raw',
+            'enableSorting' => false,
         ],
         [
             'attribute' => 'who',
+            'label' => '作者',
             'value' => function ($model, $key, $index, $column) {
                 return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by]);
             },
@@ -50,59 +49,59 @@ $solution->language = Yii::$app->user->identity->language;
             'value' => function ($model, $key, $index, $column) {
                 return $model->getResult();
             },
-            'format' => 'raw'
+            'format' => 'raw',
+            'enableSorting' => false,
+        ],
+        [
+            'attribute' => 'language',
+            'value' => function ($solution, $key, $index, $column) use ($model) {
+                return $solution->getLang();
+            },
+            'format' => 'raw',
+            'enableSorting' => false,
         ],
         [
             'attribute' => 'time',
             'value' => function ($model, $key, $index, $column) {
                 return $model->time . ' MS';
             },
-            'format' => 'raw'
+            'format' => 'raw',
+            'enableSorting' => false,
         ],
         [
             'attribute' => 'memory',
             'value' => function ($model, $key, $index, $column) {
                 return $model->memory . ' KB';
             },
-            'format' => 'raw'
-        ],
-        [
-            'attribute' => 'language',
-            'value' => function ($solution, $key, $index, $column) use ($model) {
-                return Html::a($solution->getLang(), [
-                '/polygon/problem/solution-detail',
-                    'id' => $model->id,
-                    'sid' => $solution->id
-                ], ['target' => '_blank']);
-            },
-            'format' => 'raw'
+            'format' => 'raw',
+            'enableSorting' => false,
         ],
         [
             'attribute' => 'created_at',
             'value' => function ($model, $key, $index, $column) {
                 return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
             },
-            'format' => 'raw'
+            'format' => 'raw',
+            'enableSorting' => false,
         ]
     ],
     'pager' => [
         'linkOptions' => ['class' => 'page-link'],
     ]
 ]); ?>
-<hr>
-<?php if (!$model->spj): ?>
-    <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($solution, 'language')->dropDownList(Solution::getLanguageList()) ?>
+<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+<?= $form->field($solution, 'language', [
+    'template' => "{input}",
+])->dropDownList($solution::getLanguageList(), ['class' => 'form-control custom-select selectpicker']) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
-<?php else: ?>
-    <p>
-        当前验题功能尚未支持用SPJ来进行验证的题目。
-    </p>
-<?php endif; ?>
+<?= $form->field($solution, 'source', [
+    'template' => "{input}",
+])->widget('app\widgets\codemirror\CodeMirror'); ?>
+
+
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+</div>
+<?php ActiveForm::end(); ?>
