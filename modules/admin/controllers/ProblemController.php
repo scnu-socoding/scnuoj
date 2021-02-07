@@ -230,7 +230,7 @@ class ProblemController extends Controller
 
         // 配置默认的题目要求
         $model->time_limit = 1;
-        $model->memory_limit = 128;
+        $model->memory_limit = 256;
         $model->status = $model::STATUS_HIDDEN;
         $model->spj = 0;
 
