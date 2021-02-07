@@ -131,8 +131,11 @@ class ProblemController extends Controller
             Yii::$app->session->setFlash('error', '请提供解决方案');
             return $this->redirect(['tests', 'id' => $id]);
         }
-        Yii::$app->db->createCommand()->delete('{{%polygon_status}}',
-            'problem_id=:pid AND source IS NULL', [':pid' => $model->id])->execute();
+        Yii::$app->db->createCommand()->delete(
+            '{{%polygon_status}}',
+            'problem_id=:pid AND source IS NULL',
+            [':pid' => $model->id]
+        )->execute();
         Yii::$app->db->createCommand()->insert('{{%polygon_status}}', [
             'problem_id' => $model->id,
             'created_at' => new Expression('NOW()'),
@@ -151,6 +154,11 @@ class ProblemController extends Controller
     {
         $model = $this->findModel($id);
 
+        if (!$model->spj) {
+            Yii::$app->session->setFlash('error', '请先启用 Special Judge 判题。');
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $model->spj_lang = Solution::CPPLANG;
             $model->save();
@@ -158,7 +166,7 @@ class ProblemController extends Controller
             if (!is_dir($dataPath)) {
                 @mkdir($dataPath);
             }
-            $fp = fopen($dataPath . '/spj.cc',"w");
+            $fp = fopen($dataPath . '/spj.cc', "w");
             fputs($fp, $model->spj_source);
             fclose($fp);
             exec("g++ -fno-asm -std=c++14 -O2 {$dataPath}/spj.cc -o {$dataPath}/spj -I" . Yii::getAlias('@app/libraries'));
@@ -197,6 +205,12 @@ class ProblemController extends Controller
     public function actionVerify($id)
     {
         $model = $this->findModel($id);
+
+        if (isset($model->spj) && $model->spj) {
+            Yii::$app->session->setFlash('error', 'Special Judge 题目需在管理员后台进行验题。');
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
         $solution = new PolygonStatus();
         $dataProvider = new ActiveDataProvider([
             'query' => PolygonStatus::find()->where('problem_id=:pid AND source IS NOT NULL', [':pid' => $id]),
@@ -231,7 +245,7 @@ class ProblemController extends Controller
                 throw new BadRequestHttpException($ext);
             }
             $inputFile = file_get_contents($_FILES["file"]["tmp_name"]);
-            file_put_contents($_FILES["file"]["tmp_name"], preg_replace("(\r\n)","\n", $inputFile));
+            file_put_contents($_FILES["file"]["tmp_name"], preg_replace("(\r\n)", "\n", $inputFile));
             @move_uploaded_file($_FILES["file"]["tmp_name"], Yii::$app->params['polygonProblemDataPath'] . $model->id . '/' . $_FILES["file"]["name"]);
         }
         return $this->render('tests', [
@@ -264,7 +278,9 @@ class ProblemController extends Controller
         if (!file_exists($zipName)) {
             return false;
         }
-        Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function($event) { unlink($event->data); }, $zipName);
+        Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function ($event) {
+            unlink($event->data);
+        }, $zipName);
         return Yii::$app->response->sendFile($zipName, $model->id . '-' . $model->title . '.zip');
     }
 
@@ -370,6 +386,11 @@ class ProblemController extends Controller
     {
         $model = $this->findModel($id);
 
+        if (!Yii::$app->setting->get('oiMode')) {
+            Yii::$app->session->setFlash('error', '请先启用 OI 模式。');
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
         $dataPath = Yii::$app->params['polygonProblemDataPath'] . $model->id;
         $subtaskContent = '';
 
@@ -381,7 +402,7 @@ class ProblemController extends Controller
             if (!is_dir($dataPath)) {
                 mkdir($dataPath);
             }
-            $fp = fopen($dataPath . '/config',"w");
+            $fp = fopen($dataPath . '/config', "w");
             fputs($fp, $spjContent);
             fclose($fp);
         }
@@ -416,8 +437,10 @@ class ProblemController extends Controller
     protected function findModel($id)
     {
         if (($model = Problem::findOne($id)) !== null) {
-            if (Yii::$app->user->id === $model->created_by ||
-                Yii::$app->user->identity->role === User::ROLE_ADMIN) {
+            if (
+                Yii::$app->user->id === $model->created_by ||
+                Yii::$app->user->identity->role === User::ROLE_ADMIN
+            ) {
                 return $model;
             } else {
                 throw new ForbiddenHttpException('You are not allowed to perform this action.');
