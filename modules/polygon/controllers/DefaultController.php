@@ -23,7 +23,7 @@ class DefaultController extends Controller
         $searchModel = new ProblemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/problem/index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel
         ]);
