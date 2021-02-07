@@ -353,10 +353,6 @@ if (waitingCount > 0) {
     interval = setInterval(testWaitingsDone, 1000);
 }
 
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
-});
-
 EOF;
     $this->registerJs($js);
     ?>
