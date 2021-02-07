@@ -32,10 +32,10 @@ $this->params['model'] = $model;
             <td><?= $status->id ?></td>
             <td><?= Html::a(Html::encode($status->user->nickname), ['/user/view', 'id' => $status->created_by]) ?></td>
             <td><?= Html::encode($model->title) ?></td>
-            <td><?= Solution::getLanguageLiteList($status->language) ?></td>
             <td><?= Solution::getResultList($status->result) ?></td>
             <td><?= $status->time ?> MS</td>
             <td><?= $status->memory ?> KB</td>
+            <td><?= Solution::getLanguageLiteList($status->language) ?></td>
             <td><?= $status->created_at ?></td>
         </tr>
         </tbody>
