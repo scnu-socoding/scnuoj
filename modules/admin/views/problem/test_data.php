@@ -15,7 +15,7 @@ $this->params['model'] = $model;
 ?>
 <div class="solutions-view">
     <div class="alert alert-light">
-        <i class="fas fa-fw fa-info-circle"></i> 一个标准输入文件对应一个标准输出文件，输入文件以 <code>.in</code> 结尾，输出文件以 <code>.out</code> 或者
+        <i class="fas fa-fw fa-info-circle"></i> 输入文件以 <code>.in</code> 结尾，输出文件以 <code>.out</code> 或者
         <code>.ans</code> 结尾，文件名可以任意取。
     </div>
     <div class="alert alert-light">
