@@ -135,7 +135,7 @@ $(document).ready(function () {
       $(this).find("pre").attr("id", preId);
       // var copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='btn btn-sm btn-outline-secondary' >复制</div>");
       // $(this).append(copy);
-      
+
 
       var clipboard = new ClipboardJS('#' + cpyId, {
         text: function (trigger) {
@@ -154,7 +154,9 @@ $(document).ready(function () {
   });
 
 
-
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 
 
   //do something
