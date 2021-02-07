@@ -19,7 +19,7 @@ $problem = $this->params['model'];
             ['label' => Yii::t('app', 'Solution'), 'url' => ['/polygon/problem/solution', 'id' => $problem->id]],
             ['label' => Yii::t('app', '题解'), 'url' => ['/polygon/problem/answer', 'id' => $problem->id]],
             ['label' => Yii::t('app', 'Tests Data'), 'url' => ['/polygon/problem/tests', 'id' => $problem->id]],
-            ['label' => Yii::t('app', 'Verify Data'), 'url' => ['/polygon/problem/verify', 'id' => $problem->id]],
+            ['label' => Yii::t('app', 'Verify Data'), 'url' => ['/polygon/problem/verify', 'id' => $problem->id], 'visible' => !$problem->spj],
             ['label' => Yii::t('app', 'SPJ'), 'url' => ['/polygon/problem/spj', 'id' => $problem->id], 'visible' => isset($problem->spj) && $problem->spj],
             ['label' => Yii::t('app', 'Subtask'), 'url' => ['/polygon/problem/subtask', 'id' => $problem->id], 'visible' => Yii::$app->setting->get('oiMode')],
         ],
