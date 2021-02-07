@@ -86,7 +86,9 @@ $this->title = $model->id;
 <?php $flag = 0; ?>
 
 <?php if ($model->canViewSource()) : ?>
-    <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
+    <div class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+        <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
+    </div>
 <?php endif; ?>
 
 <?php if ($model->canViewResult()) : ?>
@@ -223,7 +225,7 @@ EOF;
     $this->registerJs($js);
     ?>
 
-<?php elseif ($flag == 0): ?>
+<?php elseif ($flag == 0) : ?>
     <div class="alert alert-light">
         <i class="fas fa-fw fa-info-circle"></i>
         暂时无法获取本题测试点详情。
