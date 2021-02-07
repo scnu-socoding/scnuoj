@@ -58,7 +58,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输入</td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
                             </td>
                         </tr>
@@ -66,7 +66,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输出</td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
                             </td>
                         </tr>
@@ -80,7 +80,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输入</td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_input[1]) ?></pre>
                             </td>
                         </tr>
@@ -88,7 +88,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输出</td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_output[1]) ?></pre>
                             </td>
                         </tr>
@@ -102,7 +102,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输入</td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_input[2]) ?></pre>
                             </td>
                         </tr>
@@ -110,7 +110,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输出</td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_output[2]) ?></pre>
                             </td>
                         </tr>
@@ -275,11 +275,11 @@ var wait = 5;
 var submit_btn = document.getElementById("submit_solution_btn");
 
 function time() {
-    if (wait == 0) {
+    if (wait == 0 && submit_btn) {
         submit_btn.removeAttribute("disabled");
         submit_btn.innerHTML = "<span class=\"fas fas-fw fa-paper-plane\"></span> 提交";
         wait = 5;
-    } else {
+    } else if (submit_btn) {
         submit_btn.setAttribute("disabled", true);
         submit_btn.innerHTML = "若页面没有自动刷新, 请尝试重新提交";
         wait--;
@@ -290,7 +290,8 @@ function time() {
     }
 }
 
-submit_btn.parentNode.parentNode.onsubmit = function () { time(); }
+if(submit_btn)
+    submit_btn.parentNode.parentNode.onsubmit = function () { time(); }
 
 $('[data-click=solution_info]').click(function() {
     $.ajax({
