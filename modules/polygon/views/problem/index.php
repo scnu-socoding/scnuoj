@@ -29,7 +29,7 @@ $this->title = Yii::t('app', 'Problems');
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['problem/view', 'id' => $key]);
+                    return Html::a($model->id, ['/polygon/problem/view', 'id' => $key]);
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -37,7 +37,7 @@ $this->title = Yii::t('app', 'Problems');
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), ['problem/view', 'id' => $key]);
+                    return Html::a(Html::encode($model->title), ['/polygon/problem/view', 'id' => $key]);
                 },
                 'format' => 'raw',
                 'enableSorting' => false,

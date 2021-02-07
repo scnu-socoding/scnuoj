@@ -47,12 +47,12 @@ $files = $model->getDataFiles();
         </div>
     <?php elseif ($solutionStatus['result'] == Solution::OJ_AC) : ?>
         <div class="alert alert-light">
-            <i class="fas fa-fw fa-info-check"></i> 最后一次生成时间为 <?= $solutionStatus['created_at'] ?>。<span class="float-right">用时
+            <i class="fas fa-fw fa-check-circle"></i> 最后一次生成时间为 <?= $solutionStatus['created_at'] ?>。<span class="float-right">用时
                 <?= $solutionStatus['time'] ?> ms / 内存 <?= $solutionStatus['memory'] ?> KB</span>
         </div>
     <?php else : ?>
         <div class="alert alert-light">
-            <i class="fas fa-fw fa-info-check"></i> 输出数据生成失败，<?= Problem::getResultList($solutionStatus['result']) ?>。<span class="float-right">用时
+            <i class="fas fa-fw fa-info-circle"></i> 输出数据生成失败，<?= Problem::getResultList($solutionStatus['result']) ?>。<span class="float-right">用时
                 <?= $solutionStatus['time'] ?> ms / 内存 <?= $solutionStatus['memory'] ?> KB</span>
         </div>
     <?php endif; ?>
