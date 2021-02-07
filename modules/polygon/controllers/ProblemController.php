@@ -16,6 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
+use app\components\AccessRule;
 
 /**
  * ProblemController implements the CRUD actions for Problem model.
@@ -38,10 +39,17 @@ class ProblemController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
+                'ruleConfig' => [
+                    'class' => AccessRule::class,
+                ],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => [
+                            User::ROLE_ADMIN,
+                            User::ROLE_USER,
+                            User::ROLE_VIP
+                        ],
                     ],
                 ],
             ],
