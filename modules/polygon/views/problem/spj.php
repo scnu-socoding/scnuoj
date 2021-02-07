@@ -15,7 +15,7 @@ $this->params['model'] = $model;
 $model->setSamples();
 ?>
 <div class="alert alert-light">
-    <i class="fas fa-fw fa-info-circle"></i> 请在下面填写特判程序，具体可上网搜索 Testlib。
+    <i class="fas fa-fw fa-info-circle"></i> 请在下面填写特判程序，具体可上网搜索 Testlib。SPJ 题目需同步到后台题库后才能验题。
 </div>
 
 <div class="alert alert-light">
