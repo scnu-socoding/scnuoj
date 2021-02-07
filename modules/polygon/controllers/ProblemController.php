@@ -79,6 +79,7 @@ class ProblemController extends Controller
      */
     public function actionSolutionDetail($id, $sid)
     {
+        $this->layout = '/main';
         $model = $this->findModel($id);
         $status = PolygonStatus::findOne(['id' => $sid, 'problem_id' => $id]);
         if ($status === null) {
