@@ -13,16 +13,13 @@ $this->title = Yii::t('app', 'Create Problem');
 ?>
 <div class="problem-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead">创建一道题目。</p>
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <p>创建题目前，请先阅读：<?= Html::a('出题要求', ['/wiki/problem'], ['target' => '_blank']) ?></p>
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success']) ?>
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i> 欢迎使用 Polygon 系统，在此处上传题目即代表你同意管理员同步你的题目到公共题库供其他用户提交。
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
 </div>
