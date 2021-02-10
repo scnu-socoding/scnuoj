@@ -14,12 +14,12 @@ $this->title = Yii::$app->setting->get('ojName');
         <div class="row py-lg-5">
             <div class="mx-auto d-none d-md-block">
                 <br />
-                <h2>SCNUOJ 开发组提前祝大家新春快乐</h2>
+                <h2>新春快乐 牛年吉祥</h2>
                 <p class="lead text-muted"><?= Yii::$app->setting->get('schoolName') ?>在线评测系统</p>
             </div>
             <div class="mx-auto d-md-none">
                 <br />
-                <h2>Happy New Year!</h2>
+                <h2>新春快乐 牛年吉祥</h2>
                 <p class="lead text-muted"><?= Yii::$app->setting->get('schoolName') ?>在线评测系统</p>
             </div>
         </div>
