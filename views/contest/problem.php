@@ -58,7 +58,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输入</td>
                         </tr>
                         <tr>
-                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
                             </td>
                         </tr>
@@ -66,7 +66,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输出</td>
                         </tr>
                         <tr>
-                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
                             </td>
                         </tr>
@@ -80,7 +80,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输入</td>
                         </tr>
                         <tr>
-                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_input[1]) ?></pre>
                             </td>
                         </tr>
@@ -88,7 +88,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输出</td>
                         </tr>
                         <tr>
-                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_output[1]) ?></pre>
                             </td>
                         </tr>
@@ -102,7 +102,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输入</td>
                         </tr>
                         <tr>
-                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_input[2]) ?></pre>
                             </td>
                         </tr>
@@ -110,7 +110,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                             <td>标准输出</td>
                         </tr>
                         <tr>
-                            <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                                 <pre style="margin:0"><?= Html::encode($sample_output[2]) ?></pre>
                             </td>
                         </tr>

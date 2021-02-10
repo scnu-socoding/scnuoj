@@ -75,7 +75,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输入</td>
                     </tr>
                     <tr>
-                        <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_input) ?></pre>
                         </td>
                     </tr>
@@ -83,7 +83,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输出</td>
                     </tr>
                     <tr>
-                        <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_output) ?></pre>
                         </td>
                     </tr>
@@ -97,7 +97,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输入</td>
                     </tr>
                     <tr>
-                        <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_input_2) ?></pre>
                         </td>
                     </tr>
@@ -105,7 +105,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输出</td>
                     </tr>
                     <tr>
-                        <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_output_2) ?></pre>
                         </td>
                     </tr>
@@ -119,7 +119,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输入</td>
                     </tr>
                     <tr>
-                        <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_input_3) ?></pre>
                         </td>
                     </tr>
@@ -127,7 +127,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输出</td>
                     </tr>
                     <tr>
-                        <td class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_output_3) ?></pre>
                         </td>
                     </tr>

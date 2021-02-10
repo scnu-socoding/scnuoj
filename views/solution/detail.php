@@ -86,7 +86,7 @@ $this->title = $model->id;
 <?php $flag = 0; ?>
 
 <?php if ($model->canViewSource()) : ?>
-    <div class="sample-test" type="button" data-toggle="tooltip" title="点击复制">
+    <div class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
         <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
     </div>
 <?php endif; ?>
