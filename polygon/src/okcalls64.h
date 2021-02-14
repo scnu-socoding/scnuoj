@@ -18,11 +18,11 @@
  */
 //c & c++
 int LANG_CV[512] = {
-	SYS_dup3, SYS_exit,
+	0, 1, 2, 3, 5, 8, 9, 10, 11, 12, 20, 21, 59, 63, 89, 99, 158, 231, 275, 292, 511,
 	SYS_read, SYS_write, SYS_mprotect, SYS_munmap, SYS_brk, SYS_arch_prctl, SYS_pread64, SYS_open, SYS_writev,
 	SYS_time, SYS_futex, SYS_set_thread_area, SYS_access, SYS_clock_gettime, SYS_exit_group, SYS_mq_open,
 	SYS_ioprio_get, SYS_unshare, SYS_set_robust_list, SYS_splice, SYS_close, SYS_stat, SYS_fstat, SYS_execve,
-	SYS_uname, SYS_lseek, SYS_readlink, SYS_mmap, SYS_sysinfo, 0x1FF, 0};
+	SYS_uname, SYS_lseek, SYS_readlink, SYS_mmap, SYS_sysinfo, 0};
 //java
 int LANG_JV[512] = {
 	SYS_read, SYS_mprotect, SYS_getuid, SYS_getgid, SYS_geteuid, SYS_getegid, SYS_munmap, SYS_getppid, SYS_getpgrp,
@@ -33,6 +33,8 @@ int LANG_JV[512] = {
 	SYS_getrlimit, 0};
 //python
 int LANG_YV[512] = {
+	0, 39, 186,
+	318, 17, 41, 42, 72, 99, 217, 302, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 16, 21, 32, 59, 72, 78, 79, 89, 97, 102, 104, 107, 108, 131, 137, 158, 202, 218, 228, 231, 257, 273,
 	SYS_read, SYS_write, SYS_mprotect, SYS_getuid, SYS_getgid, SYS_geteuid, SYS_getegid, SYS_munmap, SYS_brk,
 	SYS_rt_sigaction, SYS_sigaltstack, SYS_rt_sigprocmask, SYS_sched_get_priority_max, SYS_arch_prctl, SYS_ioctl,
 	SYS_pread64, SYS_getxattr, SYS_open, SYS_futex, SYS_access, SYS_getdents64, SYS_set_tid_address, SYS_clock_gettime,
@@ -41,12 +43,12 @@ int LANG_YV[512] = {
 	SYS_exit, SYS_fcntl, SYS_getdents, SYS_getcwd, SYS_lseek, SYS_readlink, SYS_mmap, SYS_getrlimit,
 	SYS_sysinfo, 0};
 
-struct ok_call {
-	int * call;
+struct ok_call
+{
+	int *call;
 };
 struct ok_call ok_calls[] = {
 	{LANG_CV},
 	{LANG_CV},
 	{LANG_JV},
-	{LANG_YV}
-};
+	{LANG_YV}};
