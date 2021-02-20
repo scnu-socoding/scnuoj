@@ -46,7 +46,7 @@ AppAsset::register($this);
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
-                'style' => 'background: #e9ecef;border-bottom: 2px solid #D50000;'
+                'style' => 'background: #e9ecef;border-bottom: 2px solid #9b95c9;'
             ],
             'innerContainerOptions' => ['class' => 'container-fluid']
         ]);
