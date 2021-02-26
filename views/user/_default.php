@@ -17,33 +17,17 @@ $emailTemplate = '<div class="input-group"><div class="input-group-prepend"><spa
 
 <div class="alert alert-light"><i class="fas fa-fw fa-pen"></i> 基本信息</div>
 
-<!-- <div class="input-group">
-    <div class="input-group-prepend"><span class="input-group-text">账户</span></div><input type="text"
-        class="form-control" disabled="disabled" value="<?= $model->username ?>">
-</div>
-<p></p> -->
-
-
-
-<?php $form = ActiveForm::begin(); ?>
-
-<div class="card bg-light">
-    <div class="card-body">
-    <div class="alert alert-warning"><i class="fas fa-fw fa-info-circle"></i> SCNUOJ 开发组祝大家新春快乐！账户名仅可在春节期间更改，且新的账户名也不能与他人相同。</div>
-    <?= $form->field($model, 'username', [
-        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">账户</span></div>{input}</div>",
-        'options' => ['class' => '']
-    ])->textInput()->label(false) ?>
-    
-    </div>
+<div class="input-group">
+    <div class="input-group-prepend"><span class="input-group-text">账户</span></div><input type="text" class="form-control" disabled="disabled" value="<?= $model->username ?>">
 </div>
 <p></p>
 
 <div class="input-group">
-    <div class="input-group-prepend"><span class="input-group-text">学号</span></div><input type="text"
-        class="form-control" disabled="disabled" value="<?= $profile->student_number ?>">
+    <div class="input-group-prepend"><span class="input-group-text">学号</span></div><input type="text" class="form-control" disabled="disabled" value="<?= $profile->student_number ?>">
 </div>
 <p></p>
+
+<?php $form = ActiveForm::begin(); ?>
 
 <?php if (Yii::$app->setting->get('isChangeNickName') == 1) : ?>
     <?= $form->field($model, 'nickname', [
