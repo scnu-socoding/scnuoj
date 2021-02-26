@@ -10,19 +10,29 @@ $this->title = Yii::t('app', 'News');
 ?>
 <div class="discuss-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p class="lead">创建和管理新闻。</p>
+    <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-outline-success btn-block']) ?>
+    <p></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'options' => ['class' => 'table-responsive'],
+        'tableOptions' => ['class' => 'table table-bordered'],
+        'layout' => '{items}{pager}',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'title',
-            'created_at:datetime',
+            [
+                'attribute' => 'title',
+                'enableSorting' => false,
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return Html::a(Html::encode($model->title), ['news/view', 'id' => $key]);
+                },
+            ],
+            [
+                'attribute' => 'created_at',
+                'enableSorting' => false,
+            ],
             [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
@@ -33,13 +43,8 @@ $this->title = Yii::t('app', 'News');
                     }
                 },
                 'format' => 'raw',
+                'enableSorting' => false,
             ],
-            //'updated_at',
-            //'content:ntext',
-            //'status',
-            //'entity_id',
-            //'entity',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',

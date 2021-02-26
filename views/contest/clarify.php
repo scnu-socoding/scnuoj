@@ -75,7 +75,7 @@ if ($discuss != null) {
 
 
     <div class="well">
-        <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING) : ?>
+        <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING && $model->enable_clarify == 1) : ?>
             <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($newClarify, 'title', [
@@ -90,8 +90,10 @@ if ($discuss != null) {
                 <?= Html::submitButton('<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Create'), ['class' => 'btn btn-success btn-block']) ?>
             </div>
             <?php ActiveForm::end(); ?>
-        <?php else : ?>
+        <?php elseif ($model->enable_clarify == 1) : ?>
             <div class="alert alert-warning"><?= Yii::t('app', 'The contest has ended.') ?></div>
+        <?php else : ?>
+            <div class="alert alert-warning"><?= Yii::t('app', '本场比赛不提供答疑服务。') ?></div>
         <?php endif; ?>
     </div>
 </div>

@@ -30,7 +30,7 @@ class ContestUser extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'contest_id'], 'required'],
-            [['user_id', 'contest_id', 'rating_change'], 'integer'],
+            [['user_id', 'contest_id', 'rating_change', 'is_out_of_competition'], 'integer'],
             [['user_password'], 'string']
         ];
     }

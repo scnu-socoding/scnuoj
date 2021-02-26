@@ -319,6 +319,21 @@ class GroupController extends BaseController
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $DefGp = false;
+        if (Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0) {
+            $DefGp = false;
+        } elseif ((Yii::$app->setting->get('isDefGroup') == 2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN)) {
+            $DefGp = true;
+        } elseif (Yii::$app->setting->get('isDefGroup') == 3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)) {
+            $DefGp = true;
+        } else {
+            $DefGp = false;
+        }
+
+        if ($DefGp == false) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         return $this->render('create', [
             'model' => $model,
         ]);

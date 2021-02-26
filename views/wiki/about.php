@@ -12,7 +12,7 @@
     <div class="list-group-item">
         名称
         <span class="float-right text-secondary">
-            <?=  Yii::$app->setting->get('schoolName') ?>在线评测系统
+            <?= Yii::$app->setting->get('schoolName') ?>在线评测系统
         </span>
     </div>
     <div class="list-group-item">
@@ -37,11 +37,30 @@
             <i class="fas fa-fw fa-angle-right"></i>
         </span>
     </a>
-    <a class="list-group-item list-group-item-action" target="_blank"
-        href="//github.com/SCNU-SoCoding/scnuoj/graphs/contributors">
+    <a class="list-group-item list-group-item-action" target="_blank" href="//github.com/SCNU-SoCoding/scnuoj/graphs/contributors">
         贡献者名单
         <span class="float-right text-secondary">
             <i class="fas fa-fw fa-angle-right"></i>
         </span>
     </a>
 </div>
+
+<?php if (Yii::$app->setting->get('schoolName') == "华南师范大学软件学院") : ?>
+    <p></p>
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action" target="_blank" href="http://csoj.scnu.edu.cn/">
+            CSOJ 华南师范大学计算机学院在线评测系统
+            <span class="float-right text-secondary">
+                <i class="fas fa-fw fa-angle-right"></i>
+            </span>
+        </a>
+        <a class="list-group-item list-group-item-action" target="_blank" href="//socoding.cn/">
+            SoCoding 华南师范大学软件协会
+            <span class="float-right text-secondary">
+                <i class="fas fa-fw fa-angle-right"></i>
+            </span>
+        </a>
+    </div>
+
+
+<?php endif; ?>

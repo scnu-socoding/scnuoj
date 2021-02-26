@@ -20,20 +20,15 @@ $submit_count = $rankResult['submit_count'];
 
     <tbody style="line-height: 1;">
         <tr class="bg-tablehead" style="line-height: 2;">
-            <td class="font-weight-bold" style="width:2.5rem">#</td>
+            <td style="width:2.5rem"><b>#</b></td>
             <td style="width:8rem"></td>
             <td style="min-width:10rem;text-align:left"></td>
-            <td class="font-weight-bold" style="width:3.5rem">=</td>
+            <td style="width:3.5rem"><b>=</b></td>
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
-                    <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark font-weight-bold']) ?><br>
-                    <?php
-                    // // echo "(";
-                    // if (isset($submit_count[$p['problem_id']]['solved']))
-                    //     echo $submit_count[$p['problem_id']]['solved'];
-                    // else
-                    //     echo 0;
-                    ?>
+                    <b>
+                        <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
+                    </b>
                 </td>
             <?php endforeach; ?>
         </tr>
@@ -50,17 +45,16 @@ $submit_count = $rankResult['submit_count'];
                 </td>
                 <td style="text-align:left;display:table-cell; vertical-align:middle">
                     <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
-
                 </td>
                 <td style="display:table-cell; vertical-align:middle">
-                    <span class="font-weight-bold"><?= $rank['solved'] ?></span>
-                    <span class="text-secondary font-weight-bold ">
+                    <span><b><?= $rank['solved'] ?></b></span>
+                    <span class="text-secondary">
                         <?php if (strtotime($model->end_time) >= 253370736000) : ?>
                         <?php else : ?>
                             <?php if (intval($rank['time'] / 60) < 100000) : ?>
-                                <br><?= intval($rank['time'] / 60) ?>
+                                <br><b><?= intval($rank['time'] / 60) ?></b>
                             <?php else : ?>
-                                <br>10W+
+                                <br><b>10W+</b>
                             <?php endif; ?>
                         <?php endif; ?>
                     </span>
@@ -73,9 +67,9 @@ $submit_count = $rankResult['submit_count'];
                     $time = '';
                     if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
                         if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < 253370736000) {
-                            $css_class = 'text-success font-weight-bold bg-firstblood';
+                            $css_class = 'text-success bg-firstblood';
                         } else {
-                            $css_class = 'text-success font-weight-bold';
+                            $css_class = 'text-success';
                         }
                         if ($rank['wa_count'][$p['problem_id']] == 0) {
                             $num = '+';
@@ -94,16 +88,10 @@ $submit_count = $rankResult['submit_count'];
                         if ($rank['ac_time'][$p['problem_id']] == 0) {
                             // 补题
                             $time = '';
-                            $css_class = 'text-primary font-weight-bold';
+                            $css_class = 'text-primary';
                         }
-                    }
-                    // else if (isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                    //     $num = $rank['wa_count'][$p['problem_id']] + $rank['pending'][$p['problem_id']];
-                    //     $css_class = 'text-secondary';
-                    //     $time = '';
-                    // } 
-                    else if (isset($rank['wa_count'][$p['problem_id']])) {
-                        $css_class = 'text-danger font-weight-bold';
+                    } else if (isset($rank['wa_count'][$p['problem_id']])) {
+                        $css_class = 'text-danger';
                         if ($rank['wa_count'][$p['problem_id']] != 0) {
                             $num = '-' . $rank['wa_count'][$p['problem_id']];
                         }
@@ -120,37 +108,41 @@ $submit_count = $rankResult['submit_count'];
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<td class=\"{$css_class}\" style=\"display:table-cell; vertical-align:middle; cursor:pointer\" data-click='submission' data-href='{$url}'>{$num}{$time}</td>";
+                        echo "<td class=\"{$css_class}\" style=\"display:table-cell; vertical-align:middle; cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$num}{$time}</b></td>";
                     } else {
-                        echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\">{$num}{$time}</td>";
+                        echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
                     }
                 }
                 ?>
             </tr>
         <?php endfor; ?>
         <tr class="bg-tablehead" style="line-height: 1;">
-            <td class="font-weight-bold" style="width:2.5rem;display:table-cell; vertical-align:middle">#</td>
+            <td style="width:2.5rem;display:table-cell; vertical-align:middle"><b>#</b></td>
             <td style="width:8rem"></td>
             <td style="min-width:10rem;text-align:left"></td>
-            <td class="font-weight-bold" style="width:3.5rem;display:table-cell; vertical-align:middle">=</td>
+            <td style="width:3.5rem;display:table-cell; vertical-align:middle"><b>=</b></td>
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
-                    <span class="font-weight-bold text-success">
-                        <?php
-                        if (isset($submit_count[$p['problem_id']]['solved']))
-                            echo $submit_count[$p['problem_id']]['solved'];
-                        else
-                            echo 0;
-                        ?>
+                    <span class="text-success">
+                        <b>
+                            <?php
+                            if (isset($submit_count[$p['problem_id']]['solved']))
+                                echo $submit_count[$p['problem_id']]['solved'];
+                            else
+                                echo 0;
+                            ?>
+                        </b>
                     </span>
                     <br>
-                    <span class="font-weight-bold text-secondary">
-                        <?php
-                        if (isset($submit_count[$p['problem_id']]['submit']))
-                            echo $submit_count[$p['problem_id']]['submit'];
-                        else
-                            echo 0;
-                        ?>
+                    <span class="text-secondary">
+                        <b>
+                            <?php
+                            if (isset($submit_count[$p['problem_id']]['submit']))
+                                echo $submit_count[$p['problem_id']]['submit'];
+                            else
+                                echo 0;
+                            ?>
+                        </b>
                     </span>
                 </td>
             <?php endforeach; ?>

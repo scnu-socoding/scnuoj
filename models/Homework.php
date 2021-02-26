@@ -23,7 +23,7 @@ class Homework extends Contest
     {
         return [
             [['title', 'start_time', 'end_time'], 'required'],
-            [['description', 'editorial'], 'string'],
+            [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
             [['created_by'], 'integer'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['title'], 'string', 'max' => 255],
@@ -47,6 +47,8 @@ class Homework extends Contest
             'description' => Yii::t('app', 'Description'),
             'editorial' => Yii::t('app', 'Editorial'),
             'lock_board_time' => Yii::t('app', 'Lock Board Time'),
+            'ext_link' => '站外比赛',
+            'invite_code' => '邀请码（仅站外比赛有效）',
         ];
     }
 

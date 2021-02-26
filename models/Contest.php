@@ -23,6 +23,8 @@ use yii\caching\TagDependency;
  * @property int $type
  * @property int $scenario
  * @property int $created_by
+ * @property string $ext_link
+ * @property string $invite_code
  */
 class Contest extends \yii\db\ActiveRecord
 {
@@ -82,8 +84,8 @@ class Contest extends \yii\db\ActiveRecord
         return [
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
-            [['description', 'editorial'], 'string'],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id'], 'integer'],
+            [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_print', 'enable_clarify'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -103,7 +105,9 @@ class Contest extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'status' => Yii::t('app', 'Status'),
             'type' => Yii::t('app', 'Type'),
-            'scenario' => Yii::t('app', 'Scenario')
+            'scenario' => Yii::t('app', 'Scenario'),
+            'ext_link' => '站外比赛',
+            'invite_code' => '邀请码',
         ];
     }
 
@@ -448,6 +452,8 @@ class Contest extends \yii\db\ActiveRecord
             $result[$user['user_id']]['nickname'] = $user['nickname'];
             $result[$user['user_id']]['student_number'] = $user['student_number'];
             $result[$user['user_id']]['user_id'] = $user['user_id'];
+
+            $result[$user['user_id']]['totalwa'] = 0;
         }
 
         if (!empty($this->lock_board_time)) {
@@ -509,29 +515,20 @@ class Contest extends \yii\db\ActiveRecord
                 // AC
                 $submit_count[$pid]['solved']++;
                 $result[$user]['pending'][$pid] = 0;
+                $result[$user]['totalwa'] += $result[$user]['wa_count'][$pid];
 
                 if (empty($first_blood[$pid])) {
-                    if ($this->type == self::TYPE_RANK_SINGLE) {
-                        $result[$user]['time'] += 0.1 * self::BASIC_SCORE;
-                    }
                     $first_blood[$pid] = $user;
                 }
                 $sec = $created_at - $start_time;
                 ++$result[$user]['solved'];
-                // 单人赛计分，详见 view/wiki/contest.php。
-                if ($this->type == self::TYPE_RANK_SINGLE) {
-                    $score = 0.5 * self::BASIC_SCORE + max(0, self::BASIC_SCORE - 2 * $sec / 60 - $result[$user]['wa_count'][$pid] * 50);
-                    $result[$user]['ac_time'][$pid] = $score;
-                    $result[$user]['time'] += $score;
+                // 记录解答时间
+                if ($created_at < $contest_end_time) {
+                    $result[$user]['ac_time'][$pid] = $sec / 60;
                 } else {
-                    // 记录解答时间
-                    if ($created_at < $contest_end_time) {
-                        $result[$user]['ac_time'][$pid] = $sec / 60;
-                    } else {
-                        $result[$user]['ac_time'][$pid] = 0;
-                    }
-                    $result[$user]['time'] += $sec + $result[$user]['wa_count'][$pid] * 60 * 20;
+                    $result[$user]['ac_time'][$pid] = 0;
                 }
+                $result[$user]['time'] += $sec + $result[$user]['wa_count'][$pid] * 60 * 20;
             } else if ($row['result'] <= 3) {
                 // 还未测评
                 ++$result[$user]['pending'][$pid];
@@ -544,17 +541,15 @@ class Contest extends \yii\db\ActiveRecord
             }
         }
 
-        usort($result, function ($a, $b) {
+        usort($result, function ($a, $b) use ($contest_end_time) {
             if ($a['solved'] != $b['solved']) { //优先解题数
                 return $a['solved'] < $b['solved'];
-            } else if ($a['time'] != $b['time']) { //按时间（分数）
-                if ($this->type == self::TYPE_RANK_SINGLE) {
-                    return $a['time'] < $b['time'];
-                } else {
-                    return $a['time'] > $b['time'];
-                }
+            } else if ($contest_end_time >= 253370736000 && $a['totalwa'] != $b['totalwa']) { // 永久题目集按 wa 次数
+                return $a['totalwa'] > $b['totalwa'];
+            } else if ($contest_end_time < 253370736000 && $a['time'] != $b['time']) { //按时间（分数）
+                return $a['time'] > $b['time'];
             } else {
-                return $a['submit'] < $b['submit'];
+                return $a['user_id'] < $b['user_id'];
             }
         });
 
@@ -563,15 +558,19 @@ class Contest extends \yii\db\ActiveRecord
         $lastrank = 1;
         $finalrank = 1;
         foreach ($result as &$v) {
+            if ($this->isUserOutOfCompetition($v['user_id'])) {
+                $v['finalrank'] = '*';
+                continue;
+            }
             if ($contest_end_time < 253370736000 && ($v['solved'] != $lastscore || $v['time'] != $lasttime)) {
                 $v['finalrank'] = $finalrank;
                 $lastscore = $v['solved'];
                 $lasttime = $v['time'];
                 $lastrank = $finalrank;
-            } else if ($contest_end_time >= 253370736000 && $v['solved'] != $lastscore) {
+            } else if ($contest_end_time >= 253370736000 && ($v['solved'] != $lastscore || $v['totalwa'] != $lasttime)) {
                 $v['finalrank'] = $finalrank;
                 $lastscore = $v['solved'];
-                $lasttime = $v['time'];
+                $lasttime = $v['totalwa'];
                 $lastrank = $finalrank;
             } else {
                 $v['finalrank'] = $lastrank;
@@ -751,6 +750,10 @@ class Contest extends \yii\db\ActiveRecord
         $lastrank = 1;
         $finalrank = 1;
         foreach ($result as &$v) {
+            if ($this->isUserOutOfCompetition($v['user_id'])) {
+                $v['finalrank'] = '*';
+                continue;
+            }
             if ($type == self::TYPE_OI && $endtime == $contest_end_time) {
                 if ($v['total_score'] != $lastscore) {
                     $v['finalrank'] = $finalrank;
@@ -792,6 +795,19 @@ class Contest extends \yii\db\ActiveRecord
     }
 
     /**
+     * 判断用户是否打星
+     * @return boolean
+     */
+    public function isUserOutOfCompetition($id)
+    {
+        return Yii::$app->db->createCommand('SELECT count(*) FROM {{%contest_user}} WHERE user_id=:uid AND contest_id=:cid AND is_out_of_competition=:sta', [
+            ':uid' => $id,
+            ':cid' => $this->id,
+            ':sta' => '1'
+        ])->queryScalar();
+    }
+
+    /**
      * 通过题目在比赛中的序号来获取题目信息
      * @param $id
      * @return array|bool
@@ -828,7 +844,7 @@ class Contest extends \yii\db\ActiveRecord
             SELECT `u`.`id` as `user_id`, `rating`, `rating_change`
             FROM `user` `u`
             LEFT JOIN `contest_user` `c` ON `c`.`contest_id`=:cid
-            WHERE u.id=c.user_id ORDER BY `c`.`id`
+            WHERE u.id=c.user_id AND c.is_out_of_competition=0 ORDER BY `c`.`id`
         ', [':cid' => $this->id])->queryAll();
 
         if ($this->type == self::TYPE_OI) {

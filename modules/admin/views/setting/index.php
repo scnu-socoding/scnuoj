@@ -5,183 +5,150 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $settings array */
 /* @var $form yii\widgets\ActiveForm */
+
 $this->title = Yii::t('app', 'Setting');
 
 ?>
 
 <div class="setting-form">
-    <h1><?= Html::encode($this->title) ?></h1>
-    
-    <hr>
+    <p class="lead">修改评测系统全局设定。</p>
+
     <?= Html::beginForm() ?>
 
-    <div class="form-group">
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 全局公告将展示在每个页面的上方。</div>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">全局公告</span></div>
         <?= Html::textInput('notice', $settings['notice'], ['class' => 'form-control']) ?>
-        <p class="hint-block">
-            开启网站公告后，在网站的导航栏下方，将显示以上文本框中的公告内容。
-        </p>
-    </div>  
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', 'OJ名称'), 'ojName') ?>
-        <?= Html::textInput('ojName', $settings['ojName'], ['class' => 'form-control']) ?>
     </div>
+    <p></p>
 
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', 'OI 模式'), 'oiMode') ?>
-        <?= Html::radioList('oiMode', $settings['oiMode'], [
-            1 => '是',
-            0 => '否'
-        ]) ?>
-        <p class="hint-block">
-            注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 -o 参数。
-        </p>
-        <p class="hint-block">即需要在 jnoj/judge 目录下通过 <code>sudo ./dispatcher -o</code>来启动判题服务。</p>
-    </div>
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 <code>-o</code> 参数。</div>
 
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '学校名称'), 'ojName') ?>
-        <?= Html::textInput('schoolName', $settings['schoolName'], ['class' => 'form-control']) ?>
-    </div>
+    <?= Html::radioList('oiMode', $settings['oiMode'], [
+        1 => '启用 OI 模式',
+        0 => '关闭 OI 模式'
+    ]) ?>
 
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '提交间隔时间'), 'submitTime') ?>
-        <?= Html::textInput('submitTime', $settings['submitTime'], ['class' => 'form-control']) ?>
-        <p class="hint-block">
-            时间单位为秒，设为 0 时不限制提交，否则提交后必须间隔指定时间后才能再次提交，可避免用户短时间重复提交的情况。
-        </p>
-    </div>    
+    <div class="card bg-light">
+        <div class="card-body">
+            <div class="alert alert-warning"><i class="fas fa-fw fa-info-circle"></i> 下列选项的可用性未知，SCNUOJ 尚未提供这些选项的支持，如果您在使用这些选项时遇到问题，请耐心等候更新。</div>
 
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
-        <?= Html::radioList('isShareCode', $settings['isShareCode'], [
-            1 => '用户可以查看其他用户的代码',
-            0 => '用户的代码只能由自己或者管理员查看'
-        ]) ?>
-    </div>
 
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
-        <?= Html::radioList('isUserReg', $settings['isUserReg'], [
-            1 => '开放',
-            0 => '关闭'
-        ]) ?>
-    </div> 
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
-        <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
-            2 => '只允许修改一次',
-            1 => '允许修改',
-            0 => '不允许修改'
-        ]) ?>
-    </div>    
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
-        <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
-            1 => '开启',
-            0 => '关闭'
-        ]) ?>
-    </div>
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '创建小组'), 'isDefGroup') ?>
-        <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
-            1 => '开启',
-            2 => '仅管理员',
-            3 => '管理员与VIP用户',	            
-            0 => '关闭'	            
-        ]) ?>
-    </div>
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '组长直接加成员'), 'isGroupJoin') ?>
-        <?= Html::radioList('isGroupJoin', $settings['isGroupJoin'], [
-            1 => '开启',
-            0 => '关闭'
-        ]) ?>
-        <p class="hint-block">
-                开启该功能后,组长可以直接将用户拉入到小组中,不需要用户确认。
-        </p>         
-    </div>
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '小组管理权限'), 'isGroupReset') ?>
-        <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
-            1 => '仅组长可重置密码与昵称',
-            2 => '组长与管理员可重置密码与昵称',	            
-            0 => '关闭密码与昵称重置功能'	            
-        ]) ?>
-    </div>
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '封榜时间'), 'scoreboardFrozenTime') ?>
-        <?= Html::textInput('scoreboardFrozenTime', $settings['scoreboardFrozenTime'], ['class' => 'form-control']) ?>
-        <p class="hint-block">单位：秒。这个时间是从比赛结束后开始计算，如值为
-            <?= $settings['scoreboardFrozenTime'] ?> 时，表示比赛结束 <?= intval($settings['scoreboardFrozenTime'] / 3600) ?> 个小时后不再封榜。
-        </p>
-    </div>
-
-    <hr>
-    <div class="form-horizontal">
-        <h4>配置 SMTP 发送邮箱</h4>
-        <p class="hint-block">
-            在用户忘记密码时，需要通过此处配置的邮箱来发送"重置密码"的邮箱给用户。
-            若使用默认的 "no-reply@jnoj.org"，不能保证此默认邮箱长期可用，建议自行配置自己的邮箱。
-        </p>
-
-        <div class="form-group">
-            <?= Html::label('邮箱验证码有效时间', 'passwordResetTokenExpire', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('passwordResetTokenExpire', $settings['passwordResetTokenExpire'], ['class' => 'form-control']) ?>
-                <p class="hint-block">单位：秒。即 <?= intval($settings['passwordResetTokenExpire'] / 3600) ?> 小时后，用户邮箱确认链接失效。</p>
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">系统名称</span></div>
+                <?= Html::textInput('ojName', $settings['ojName'], ['class' => 'form-control']) ?>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('是否要验证邮箱？', 'mustVerifyEmail', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::radioList('mustVerifyEmail', $settings['mustVerifyEmail'], [
-                    1 => '新注册用户必须验证邮箱，且更改邮箱后必须验证邮箱',
-                    0 => '否'
-                ]) ?>
+            <p></p>
+
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">学校名称</span></div>
+                <?= Html::textInput('schoolName', $settings['schoolName'], ['class' => 'form-control']) ?>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('Host', 'emailHost', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailHost', $settings['emailHost'], ['class' => 'form-control', 'placeholder' => 'smtp.exmail.qq.com']) ?>
+            <p></p>
+
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">解榜时间</span></div>
+                <?= Html::textInput('scoreboardFrozenTime', $settings['scoreboardFrozenTime'], ['class' => 'form-control']) ?>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('Username', 'emailUsername', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@jnoj.org']) ?>
+            <p></p>
+
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">提交间隔时间</span></div>
+                <?= Html::textInput('submitTime', $settings['submitTime'], ['class' => 'form-control']) ?>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('Password', 'emailPassword', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailPassword', $settings['emailPassword'], ['class' => 'form-control', 'placeholder' => 'you_password']) ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('Port', 'emailPort', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailPort', $settings['emailPort'], ['class' => 'form-control', 'placeholder' => '465']) ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('Encryption', 'emailEncryption', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailEncryption', $settings['emailEncryption'], ['class' => 'form-control', 'placeholder' => 'ssl']) ?>
-            </div>
+            <p></p>
+
+            <?= Html::radioList('isShareCode', $settings['isShareCode'], [
+                1 => '用户可以查看其他用户的代码',
+                0 => '用户的代码只能由自己或者管理员查看'
+            ]) ?>
+
+            <?= Html::radioList('isUserReg', $settings['isUserReg'], [
+                1 => '开放用户注册',
+                0 => '关闭用户注册'
+            ]) ?>
+
+            <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
+                2 => '允许用户修改一次昵称',
+                1 => '允许用户修改昵称',
+                0 => '不允许用户修改昵称'
+            ]) ?>
+
+            <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
+                1 => '开启讨论',
+                0 => '关闭讨论'
+            ]) ?>
+
+            <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
+                1 => '开放小组创建',
+                2 => '仅管理员可以创建小组',
+                3 => '仅管理员和助教可以创建小组',
+                0 => '关闭小组创建'
+            ]) ?>
+
+            <?= Html::radioList('isGroupJoin', $settings['isGroupJoin'], [
+                1 => '允许组长直接组员',
+                0 => '禁止组长直接组员'
+            ]) ?>
+
+            <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
+                1 => '仅组长可重置密码与昵称',
+                2 => '组长与管理员可重置密码与昵称',
+                0 => '关闭密码与昵称重置功能'
+            ]) ?>
+
+            <?= Html::radioList('mustVerifyEmail', $settings['mustVerifyEmail'], [
+                1 => '用户必须验证邮箱',
+                0 => '用户无需验证邮箱'
+            ]) ?>
         </div>
     </div>
+    <p></p>
+    <p class="lead">配置发信服务</p>
+
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 在用户忘记密码时，需要通过此处配置的邮箱来发送重置密码的邮箱给用户。</div>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">邮箱验证码有效时间</span></div>
+        <?= Html::textInput('passwordResetTokenExpire', $settings['passwordResetTokenExpire'], ['class' => 'form-control']) ?>
+        <div class="input-group-append"><span class="input-group-text">秒</span></div>
+    </div>
+    <p></p>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">SMTP 服务器</span></div>
+        <?= Html::textInput('emailHost', $settings['emailHost'], ['class' => 'form-control', 'placeholder' => 'smtp.exmail.qq.com']) ?>
+    </div>
+    <p></p>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">账号</span></div>
+        <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@jnoj.org']) ?>
+    </div>
+    <p></p>
+
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">密码</span></div>
+        <?= Html::textInput('emailPassword', $settings['emailPassword'], ['class' => 'form-control', 'placeholder' => 'you_password']) ?>
+    </div>
+    <p></p>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">端口</span></div>
+        <?= Html::textInput('emailPort', $settings['emailPort'], ['class' => 'form-control', 'placeholder' => '465']) ?>
+    </div>
+    <p></p>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">加密</span></div>
+        <?= Html::textInput('emailEncryption', $settings['emailEncryption'], ['class' => 'form-control', 'placeholder' => 'ssl']) ?>
+    </div>
+    <p></p>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
     <?= Html::endForm(); ?>
-
 </div>

@@ -16,7 +16,7 @@ $this->title = Yii::t('app', 'Editorial');
 <ul class="nav nav-pills">
     <li class="nav-item">
         <?= Html::a( Yii::t('app', 'Problem'),
-            ['/p/' . $model->id],
+            ['/problem/view', 'id' => $model->id],
             ['class' => 'nav-link'])
         ?>
     </li>

@@ -61,7 +61,7 @@ class GenerateUserForm extends Model
         $pieces = explode("\n", trim($this->names));
 
         User::deleteAll("username LIKE '" . $this->prefix . "%'");
-        ContestUser::deleteAll(['contest_id' => $this->contest_id]);
+        ContestUser::deleteAll("user_password is not null", ['contest_id' => $this->contest_id]);
 
         set_time_limit(0);
         ob_end_clean();
@@ -77,7 +77,7 @@ class GenerateUserForm extends Model
             $user = new User();
             $user->username = $this->prefix . $i;
             $user->nickname = $nick;
-            $user->email = $this->prefix . $i . '@jnoj.org';
+            $user->email = $this->prefix . $i . '@bobby285271.top';
             $user->role = User::ROLE_PLAYER;
             $user->is_verify_email = User::VERIFY_EMAIL_YES;
             $user->status = User::STATUS_ACTIVE;

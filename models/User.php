@@ -326,7 +326,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function getSolutionStats()
     {
         $data = Yii::$app->db->createCommand(
-            'SELECT problem_id, language, result FROM {{%solution}} WHERE created_by=:uid',
+            'SELECT problem_id, language, result FROM {{%solution}} WHERE created_by=:uid ORDER BY problem_id',
             [':uid' => $this->id]
         )->queryAll();
 

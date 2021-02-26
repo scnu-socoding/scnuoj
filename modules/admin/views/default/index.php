@@ -1,5 +1,5 @@
 <?php
-$this->title = "Admin";
+$this->title = "Jury interface";
 function __($message)
 {
     $messages = array(
@@ -57,173 +57,165 @@ function __($message)
     }
 }
 ?>
-<div class="admin-default-index">
-    <h1>Hello, <?= Yii::$app->user->identity->nickname ?></h1>
-</div>
-<hr>
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <tr>
-            <th colspan="4"><?php __('Server Realtime Data'); ?></th>
-        </tr>
-        <tr>
-            <td><?php __('Time'); ?></td>
-            <td><span id="stime"><?= $stime; ?></span></td>
-            <td><?php __('Uptime'); ?></td>
-            <td><span id="uptime"><?= $uptime; ?></span></td>
-        </tr>
-        <tr>
-        </tr>
-        <tr>
-            <td><?php __('CPU Usage'); ?></td>
-            <td colspan="3">
-                <span id="stat_user" class="text-info">0.0</span> user,
-                <span id="stat_sys" class="text-info">0.0</span> sys,
-                <span id="stat_nice">0.0</span> nice,
-                <span id="stat_idle" class="text-info">99.9</span> idle,
-                <span id="stat_iowait">0.0</span> iowait,
-                <span id="stat_irq">0.0</span> irq,
-                <span id="stat_softirq">0.0</span> softirq,
-                <span id="stat_steal">0.0</span> steal
-                <div class="progress">
-                    <div id="stat_UserBar" class="progress-bar bg-success" role="progressbar"
-                         style="width:1px">&nbsp;
-                    </div>
-                    <div id="stat_SystemBar" class="progress-bar bg-warning" role="progressbar"
-                         style="width:0px">&nbsp;
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><?php __('Memory Usage'); ?></td>
-            <td colspan="3">
-                <?php __('Physical Memory'); ?> <span id="meminfo_Total"
-                                                      class="text-info"><?= $meminfo['memTotal']; ?> </span>
-                , <?php __('Used'); ?> <span id="meminfo_Used"
-                                             class="text-info"><?= $meminfo['memUsed']; ?></span>
-                , <?php __('Cached'); ?> <span id="meminfo_Buffers"
-                                               class="text-info"><?= $meminfo['memBuffers']; ?></span>
-                / <span id="meminfo_Cached" class="text-info"><?= $meminfo['memCached']; ?></span>
-                , <?php __('Free'); ?> <span id="meminfo_Free"
-                                             class="text-info"><?= $meminfo['memFree']; ?></span>
-                , <?php __('Percent'); ?> <span
-                        id="meminfo_UsedPercent"><?= $meminfo['memUsedPercent']; ?></span>%<br>
-                <div class="progress">
-                    <div id="meminfo_UsedBar" class="progress-bar bg-success" role="progressbar"
-                         style="width:<?= $meminfo['memUsedPercent']; ?>%"></div>
-                    <div id="meminfo_BuffersBar" class="progress-bar bg-info" role="progressbar"
-                         style="width:<?= $meminfo['memBuffersPercent']; ?>%"></div>
-                    <div id="meminfo_CachedBar" class="progress-bar bg-warning" role="progressbar"
-                         style="width:<?= $meminfo['memCachedPercent']; ?>%"></div>
-                </div>
-                <?php if ($meminfo['swapTotal'] > 0): ?>
-                    SWAP：<span id="meminfo_swapTotal"><?= $meminfo['swapTotal']; ?></span>
-                    , <?php __('Used'); ?> <span id="meminfo_swapUsed"><?= $meminfo['swapUsed']; ?></span>
-                    , <?php __('Free'); ?> <span id="meminfo_swapFree"><?= $meminfo['swapFree']; ?></span>
-                    , <?php __('Percent'); ?> <span
-                            id="meminfo_swapPercent"><?= $meminfo['swapPercent']; ?></span>%
-                    <div class="progress">
-                        <div id="meminfo_swapBar" class="progress-bar bg-danger" role="progressbar"
-                             style="width:<?= $meminfo['swapPercent']; ?>%"></div>
-                    </div>
-                <?php endif; ?>
-            </td>
-        </tr>
-        <tr>
-            <td><?php __('Disk Usage'); ?></td>
-            <td colspan="3">
-                <?php __('Total Space'); ?> <?= $diskinfo['diskTotal']; ?>&nbsp;G，
-                <?php __('Used'); ?> <span id="diskinfo_Used"><?= $diskinfo['diskUsed']; ?></span>&nbsp;G，
-                <?php __('Free'); ?> <span id="diskinfo_Free"><?= $diskinfo['diskFree']; ?></span>&nbsp;G，
-                <?php __('Percent'); ?> <span id="diskinfo_Percent"><?= $diskinfo['diskPercent']; ?></span>%
-                <div class="progress">
-                    <div id="diskinfo_UsedBar" class="progress-bar bg-primary" role="progressbar"
-                         style="width:<?= $diskinfo['diskPercent']; ?>%"></div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><?php __('Loadavg'); ?></td>
-            <td colspan="3" class="text-danger"><span id="loadAvg"><?= $loadavg; ?></span></td>
-        </tr>
-    </table>
+<p class="lead text-muted"><?= Yii::$app->user->identity->nickname ?>，欢迎访问 SCNUOJ 管理员后台。</p>
 
-    <table class="table table-bordered">
-        <tr>
-            <th colspan="5"><?php __('Network Usage'); ?></th>
-        </tr>
-        <?php foreach ($netdev as $dev => $info) : ?>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td style="width:13%"><?= $dev; ?> :</td>
-                <td style="width:29%"><?php __('Rx'); ?>: <span class="text-info"
-                                                                id="<?php printf('netdev_%s_human_rx', $dev); ?>"><?= $info['human_rx'] ?></span>
-                </td>
-                <td style="width:14%"><?php __('Realtime'); ?>: <span class="text-info"
-                                                                      id="<?php printf('netdev_%s_delta_rx', $dev); ?>">0B/s</span>
-                </td>
-                <td style="width:29%"><?php __('Tx'); ?>: <span class="text-info"
-                                                                id="<?php printf('netdev_%s_human_tx', $dev); ?>"><?= $info['human_tx'] ?></span>
-                </td>
-                <td style="width:14%"><?php __('Realtime'); ?>: <span class="text-info"
-                                                                      id="<?php printf('netdev_%s_delta_tx', $dev); ?>">0B/s</span>
+                <th colspan="4" class="lead"><?php __('Server Realtime Data'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><?php __('Time'); ?></td>
+                <td><span id="stime"><?= $stime; ?></span></td>
+                <td><?php __('Uptime'); ?></td>
+                <td><span id="uptime"><?= $uptime; ?></span></td>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+                <td><?php __('CPU Usage'); ?></td>
+                <td colspan="3">
+                    <span id="stat_user" class="text-info">0.0</span> user,
+                    <span id="stat_sys" class="text-info">0.0</span> sys,
+                    <span id="stat_nice">0.0</span> nice,
+                    <span id="stat_idle" class="text-info">99.9</span> idle,
+                    <span id="stat_iowait">0.0</span> iowait,
+                    <span id="stat_irq">0.0</span> irq,
+                    <span id="stat_softirq">0.0</span> softirq,
+                    <span id="stat_steal">0.0</span> steal
+                    <div class="progress">
+                        <div id="stat_UserBar" class="progress-bar bg-success" role="progressbar" style="width:1px">&nbsp;
+                        </div>
+                        <div id="stat_SystemBar" class="progress-bar bg-warning" role="progressbar" style="width:0px">&nbsp;
+                        </div>
+                    </div>
                 </td>
             </tr>
-        <?php endforeach; ?>
+            <tr>
+                <td><?php __('Memory Usage'); ?></td>
+                <td colspan="3">
+                    <?php __('Physical Memory'); ?> <span id="meminfo_Total" class="text-info"><?= $meminfo['memTotal']; ?> </span>
+                    , <?php __('Used'); ?> <span id="meminfo_Used" class="text-info"><?= $meminfo['memUsed']; ?></span>
+                    , <?php __('Cached'); ?> <span id="meminfo_Buffers" class="text-info"><?= $meminfo['memBuffers']; ?></span>
+                    / <span id="meminfo_Cached" class="text-info"><?= $meminfo['memCached']; ?></span>
+                    , <?php __('Free'); ?> <span id="meminfo_Free" class="text-info"><?= $meminfo['memFree']; ?></span>
+                    , <?php __('Percent'); ?> <span id="meminfo_UsedPercent"><?= $meminfo['memUsedPercent']; ?></span>%<br>
+                    <div class="progress">
+                        <div id="meminfo_UsedBar" class="progress-bar bg-success" role="progressbar" style="width:<?= $meminfo['memUsedPercent']; ?>%"></div>
+                        <div id="meminfo_BuffersBar" class="progress-bar bg-info" role="progressbar" style="width:<?= $meminfo['memBuffersPercent']; ?>%"></div>
+                        <div id="meminfo_CachedBar" class="progress-bar bg-warning" role="progressbar" style="width:<?= $meminfo['memCachedPercent']; ?>%"></div>
+                    </div>
+                    <?php if ($meminfo['swapTotal'] > 0) : ?>
+                        SWAP：<span id="meminfo_swapTotal"><?= $meminfo['swapTotal']; ?></span>
+                        , <?php __('Used'); ?> <span id="meminfo_swapUsed"><?= $meminfo['swapUsed']; ?></span>
+                        , <?php __('Free'); ?> <span id="meminfo_swapFree"><?= $meminfo['swapFree']; ?></span>
+                        , <?php __('Percent'); ?> <span id="meminfo_swapPercent"><?= $meminfo['swapPercent']; ?></span>%
+                        <div class="progress">
+                            <div id="meminfo_swapBar" class="progress-bar bg-danger" role="progressbar" style="width:<?= $meminfo['swapPercent']; ?>%"></div>
+                        </div>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <td><?php __('Disk Usage'); ?></td>
+                <td colspan="3">
+                    <?php __('Total Space'); ?> <?= $diskinfo['diskTotal']; ?>&nbsp;G ,
+                    <?php __('Used'); ?> <span id="diskinfo_Used"><?= $diskinfo['diskUsed']; ?></span>&nbsp;G ,
+                    <?php __('Free'); ?> <span id="diskinfo_Free"><?= $diskinfo['diskFree']; ?></span>&nbsp;G ,
+                    <?php __('Percent'); ?> <span id="diskinfo_Percent"><?= $diskinfo['diskPercent']; ?></span>%
+                    <div class="progress">
+                        <div id="diskinfo_UsedBar" class="progress-bar bg-primary" role="progressbar" style="width:<?= $diskinfo['diskPercent']; ?>%"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><?php __('Loadavg'); ?></td>
+                <td colspan="3" class="text-danger"><span id="loadAvg"><?= $loadavg; ?></span></td>
+            </tr>
+        </tbody>
     </table>
 
-    <table class="table table-bordered">
-        <tr>
-            <th colspan="12"><?php __('PHP Information'); ?></th>
-        </tr>
-        <tr>
-            <td style="width:16.7%"><?php __('Version'); ?></td>
-            <td><?= phpversion(); ?></td>
-            <td style="width:16.7%"><?php __('Zend OpCache'); ?></td>
-            <td><?= ini_get('opcache.enable') == 1 ? 'On' : 'Off'; ?></td>
-        </tr>
-        <tr>
-            <td style="width:16.7%"><?php __('Server API'); ?></td>
-            <td><?= php_sapi_name(); ?></td>
-            <td style="width:16.7%"><?php __('Memory Limit'); ?></td>
-            <td><?= ini_get('memory_limit'); ?></td>
-        </tr>
-        <tr>
-            <td style="width:16.7%"><?php __('POST Max Size'); ?></td>
-            <td><?= ini_get('post_max_size'); ?></td>
-            <td style="width:16.7%"><?php __('Upload Max FileSize'); ?></td>
-            <td><?= ini_get('upload_max_filesize'); ?></td>
-        </tr>
-        <tr>
-            <td style="width:16.7%"><?php __('Max Execution Time'); ?></td>
-            <td><?= ini_get('max_execution_time'); ?>s</td>
-            <td style="width:16.7%"><?php __('Default Socket Timeout'); ?></td>
-            <td><?= ini_get('default_socket_timeout'); ?>s</td>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="5" class="lead"><?php __('Network Usage'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($netdev as $dev => $info) : ?>
+                <tr>
+                    <td style="width:13%"><?= $dev; ?></td>
+                    <td style="width:29%"><?php __('Rx'); ?>: <span class="text-info" id="<?php printf('netdev_%s_human_rx', $dev); ?>"><?= $info['human_rx'] ?></span>
+                    </td>
+                    <td><?php __('Realtime'); ?>: <span class="text-info" id="<?php printf('netdev_%s_delta_rx', $dev); ?>">0B/s</span>
+                    </td>
+                    <td><?php __('Tx'); ?>: <span class="text-info" id="<?php printf('netdev_%s_human_tx', $dev); ?>"><?= $info['human_tx'] ?></span>
+                    </td>
+                    <td><?php __('Realtime'); ?>: <span class="text-info" id="<?php printf('netdev_%s_delta_tx', $dev); ?>">0B/s</span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
     </table>
 
-    <p>Processed in <?php printf('%0.1f', (microtime(true) - $time_start)*1000);?> ms, <?= round(memory_get_usage() / 1024, 0).' KB';?> memory usage.</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="12" class="lead"><?php __('PHP Information'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width:16.7%"><?php __('Version'); ?></td>
+                <td><?= phpversion(); ?></td>
+                <td style="width:16.7%"><?php __('Zend OpCache'); ?></td>
+                <td><?= ini_get('opcache.enable') == 1 ? 'On' : 'Off'; ?></td>
+            </tr>
+            <tr>
+                <td style="width:16.7%"><?php __('Server API'); ?></td>
+                <td><?= php_sapi_name(); ?></td>
+                <td style="width:16.7%"><?php __('Memory Limit'); ?></td>
+                <td><?= ini_get('memory_limit'); ?></td>
+            </tr>
+            <tr>
+                <td style="width:16.7%"><?php __('POST Max Size'); ?></td>
+                <td><?= ini_get('post_max_size'); ?></td>
+                <td style="width:16.7%"><?php __('Upload Max FileSize'); ?></td>
+                <td><?= ini_get('upload_max_filesize'); ?></td>
+            </tr>
+            <tr>
+                <td style="width:16.7%"><?php __('Max Execution Time'); ?></td>
+                <td><?= ini_get('max_execution_time'); ?>s</td>
+                <td style="width:16.7%"><?php __('Default Socket Timeout'); ?></td>
+                <td><?= ini_get('default_socket_timeout'); ?>s</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light"> <i class="fas fa-fw fa-info-circle"></i> Processed in <?php printf('%0.1f', (microtime(true) - $time_start) * 1000); ?> ms, <?= round(memory_get_usage() / 1024, 0) . ' KB'; ?> memory usage.</div>
 </div>
 
 <script type="text/javascript">
     var dom = {
         element: null,
-        get: function (o) {
-            function F() {
-            }
+        get: function(o) {
+            function F() {}
 
             F.prototype = this
             obj = new F()
             obj.element = (typeof o == "object") ? o : document.createElement(o)
             return obj
         },
-        width: function (w) {
+        width: function(w) {
             if (!this.element)
                 return
             this.element.style.width = w
             return this
         },
-        html: function (h) {
+        html: function(h) {
             if (!this.element)
                 return
             this.element.innerHTML = h
@@ -231,11 +223,11 @@ function __($message)
         }
     };
 
-    $ = function (s) {
+    $ = function(s) {
         return dom.get(document.getElementById(s.substring(1)))
     };
 
-    $.getJSON = function (url, f) {
+    $.getJSON = function(url, f) {
         var xhr = null;
         if (window.XMLHttpRequest) {
             xhr = new XMLHttpRequest();
@@ -243,7 +235,7 @@ function __($message)
             xhr = new ActiveXObject('MSXML2.XMLHTTP.3.0');
         }
         xhr.open('GET', url + '&_=' + new Date().getTime(), true)
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 if (window.JSON) {
                     f(JSON.parse(xhr.responseText))
@@ -259,7 +251,7 @@ function __($message)
     var netdev = <?= json_encode($netdev); ?>;
 
     function getSysinfo() {
-        $.getJSON('?method=sysinfo', function (data) {
+        $.getJSON('?method=sysinfo', function(data) {
             $('#uptime').html(data.uptime)
             $('#stime').html(data.stime)
 
@@ -312,8 +304,7 @@ function __($message)
         });
     }
 
-    window.onload = function () {
+    window.onload = function() {
         setInterval(getSysinfo, 1000)
     }
-
 </script>

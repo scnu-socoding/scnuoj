@@ -31,7 +31,7 @@ $nextProblemID = $model->getNextProblemID();
     <li class="nav-item">
         <?= Html::a(
             Yii::t('app', 'Problem'),
-            ['/p/' . $model->id],
+            ['/problem/view', 'id' => $model->id],
             ['class' => 'nav-link active']
         )
         ?>
@@ -63,19 +63,19 @@ $nextProblemID = $model->getNextProblemID();
 
     <div class="col-lg-9">
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-        <h5><?= Yii::t('app', 'Input') ?></h5>
+        <p class="lead"><?= Yii::t('app', 'Input') ?></p>
         <?= Yii::$app->formatter->asMarkdown($model->input) ?>
-        <h5><?= Yii::t('app', 'Output') ?></h5>
+        <p class="lead"><?= Yii::t('app', 'Output') ?></p>
         <?= Yii::$app->formatter->asMarkdown($model->output) ?>
         <?php if ($model->sample_input != '' || $model->sample_output != '') : ?>
-            <h5><?= Yii::t('app', 'Examples') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
             <table class="table table-bordered" style="table-layout:fixed;">
                 <tbody>
                     <tr class="bg-tablehead" style="line-height: 1;">
                         <td>标准输入</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_input) ?></pre>
                         </td>
                     </tr>
@@ -83,7 +83,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输出</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_output) ?></pre>
                         </td>
                     </tr>
@@ -97,7 +97,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输入</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_input_2) ?></pre>
                         </td>
                     </tr>
@@ -105,7 +105,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输出</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_output_2) ?></pre>
                         </td>
                     </tr>
@@ -119,7 +119,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输入</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_input_3) ?></pre>
                         </td>
                     </tr>
@@ -127,7 +127,7 @@ $nextProblemID = $model->getNextProblemID();
                         <td>标准输出</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
                             <pre style="margin:0"><?= Html::encode($model->sample_output_3) ?></pre>
                         </td>
                     </tr>
@@ -137,13 +137,13 @@ $nextProblemID = $model->getNextProblemID();
 
 
         <?php if (!empty($model->hint)) : ?>
-            <h5><?= Yii::t('app', 'Hint') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Hint') ?></p>
             <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
             <p></p>
         <?php endif; ?>
 
         <?php if (!empty($model->source)) : ?>
-            <h5><?= Yii::t('app', 'Source') ?></h5>
+            <p class="lead"><?= Yii::t('app', 'Source') ?></p>
             <p><?= $model->source ?></p>
             <p></p>
         <?php endif; ?>
@@ -274,11 +274,11 @@ var wait = 5;
 var submit_btn = document.getElementById("submit_solution_btn");
 
 function time() {
-    if (wait == 0) {
+    if (wait == 0 && submit_btn) {
         submit_btn.removeAttribute("disabled");
         submit_btn.innerHTML = "<span class=\"fas fas-fw fa-paper-plane\"></span> 提交";
         wait = 5;
-    } else {
+    } else if (submit_btn) {
         submit_btn.setAttribute("disabled", true);
         submit_btn.innerHTML = "若页面没有自动刷新, 请尝试重新提交";
         wait--;
@@ -289,7 +289,8 @@ function time() {
     }
 }
 
-submit_btn.parentNode.parentNode.onsubmit = function () { time(); }
+if(submit_btn)
+    submit_btn.parentNode.parentNode.onsubmit = function () { time(); }
 
 $('[data-click=solution_info]').click(function() {
     $.ajax({
@@ -351,10 +352,6 @@ if (waitingCount > 0) {
     }
     interval = setInterval(testWaitingsDone, 1000);
 }
-
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
-});
 
 EOF;
     $this->registerJs($js);

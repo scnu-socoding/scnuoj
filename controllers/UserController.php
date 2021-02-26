@@ -53,28 +53,8 @@ class UserController extends BaseController
     public function actionView($id)
     {
         $model = $this->findModel($id);
-
-        $contests = Yii::$app->db->createCommand('
-                SELECT `cu`.`rating_change`, `cu`.`rank`, `cu`.`contest_id`, `c`.`start_time`, `c`.title
-                FROM `contest_user` `cu`
-                LEFT JOIN `contest` `c` ON `c`.`id`=`cu`.`contest_id`
-                WHERE `cu`.`user_id`=:uid AND `cu`.`rank` IS NOT NULL ORDER BY `c`.`id`
-            ', [':uid' => $model->id])->queryAll();
-
-        $totalScore = Contest::RATING_INIT_SCORE;
-
-        foreach ($contests as &$contest) {
-            $totalScore += $contest['rating_change'];
-            $contest['total'] = $totalScore;
-            $contest['url'] = Url::toRoute(['/contest/view', 'id' => $contest['contest_id']]);
-            $contest['level'] = $model->getRatingLevel($totalScore);
-            $contest['start_time'] = strtotime($contest['start_time']);
-        }
-
         return $this->render('view', [
             'model' => $model,
-            'contests' => Json::encode($contests),
-            'contestCnt' => count($contests)
         ]);
     }
 

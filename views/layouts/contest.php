@@ -55,7 +55,7 @@ $status = $model->getRunStatus();
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
-                'style' => 'background: #e9ecef;border-bottom: 2px solid #4582ec;'
+                'style' => 'background: #e9ecef;border-bottom: 2px solid #D50000;'
             ],
             'innerContainerOptions' => ['class' => 'container-fluid']
         ]);
@@ -237,9 +237,9 @@ $status = $model->getRunStatus();
                                 'url' => ['contest/clarify', 'id' => $model->id],
                             ],
                         ];
-                        if ($model->scenario == $model::SCENARIO_OFFLINE && $model->getRunStatus() == $model::STATUS_RUNNING) {
+                        if (($model->scenario == $model::SCENARIO_OFFLINE || $model->enable_print == 1) && $model->getRunStatus() == $model::STATUS_RUNNING) {
                             $menuItems[] = [
-                                'label' => '<span class="glyphicon glyphicon-print"></span> 打印服务',
+                                'label' => '打印服务',
                                 'url' => ['/contest/print', 'id' => $model->id],
 
                             ];

@@ -49,7 +49,7 @@ $this->title = Html::encode($model->name);
         [
             'attribute' => Yii::t('app', 'Nickname'),
             'value' => function ($model, $key, $index, $column) {
-                return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
+                return Html::a(Html::encode($model->user->nickname ?? '临时用户'), ['/user/view', 'id' => $model->user->id], ['class' => 'text-dark']);
             },
             'format' => 'raw',
             'options' => ['style' => 'min-width:200px'],

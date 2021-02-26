@@ -67,7 +67,7 @@ $this->params['model'] = $model;
                 </div>
             <?php else : ?>
                 <div class="card">
-                    <div class="card-body text-seconary">
+                    <div class="card-body text-secondary">
                         管理员还没有上传比赛描述信息哦。
                     </div>
                 </div>
@@ -85,12 +85,23 @@ $this->params['model'] = $model;
                     <div class="card-body">
                         <p>您尚未报名参加该比赛，请报名参赛或比赛结束后再来访问。</p>
                         <?php if (!Yii::$app->user->isGuest) : ?>
-                            <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success btn-block']) ?>
+                            <?php if ($model->invite_code) : ?>
+                                <?= Html::beginForm(['/contest/register', 'id' => $model->id, 'register' => 1], 'get') ?>
+
+                                <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '邀请码']) ?>
+                                <p></p>
+                                <?= Html::submitButton(Yii::t('app', '报名参赛'), ['class' => 'btn btn-success btn-block']) ?>
+
+                                <?= Html::endForm() ?>
+                            <?php else : ?>
+                                <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success btn-block']) ?>
+                            <?php endif; ?>
                         <?php else : ?>
-                            <div class="btn btn-success btn-block disabled">请先登录</div>
+                            <div class="btn btn-secondary btn-block disabled">请先登录</div>
                         <?php endif; ?>
                     </div>
                 </div>
+                <p></p>
             <?php endif; ?>
         </div>
         <div class="col-lg-4">

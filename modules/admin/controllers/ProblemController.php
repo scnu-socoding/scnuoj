@@ -230,7 +230,7 @@ class ProblemController extends Controller
 
         // 配置默认的题目要求
         $model->time_limit = 1;
-        $model->memory_limit = 128;
+        $model->memory_limit = 256;
         $model->status = $model::STATUS_HIDDEN;
         $model->spj = 0;
 
@@ -453,6 +453,11 @@ class ProblemController extends Controller
             return $this->redirect(['/admin/problem']);
         }
 
+        if(! $model->spj) {
+            Yii::$app->session->setFlash('error', '请先启用 Special Judge 判题。');
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
         $dataPath = Yii::$app->params['judgeProblemDataPath'] . $model->id;
         $spjContent = '';
         if (file_exists($dataPath . '/spj.cc')) {
@@ -493,6 +498,11 @@ class ProblemController extends Controller
         if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
+        }
+
+        if(! Yii::$app->setting->get('oiMode')) {
+            Yii::$app->session->setFlash('error', '请先启用 OI 模式。');
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         $dataPath = Yii::$app->params['judgeProblemDataPath'] . $model->id;

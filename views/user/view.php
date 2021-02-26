@@ -18,15 +18,6 @@ $recentSubmission = $model->getRecentSubmission();
 <?php if ($model->role != \app\models\User::ROLE_PLAYER) : ?>
     <div class="row">
         <div class="col-lg-4">
-
-            <?php
-            // $hash = md5(strtolower(trim($model->email)));
-            // $uri = 'https://cdn.v2ex.com/gravatar/' . $hash . '?&s=512&d=mm';
-            // $headers = @get_headers($uri);
-            // if (preg_match("|200|", $headers[0])) {
-            //     echo '<div class="d-none d-md-block"><img class="img-fluid rounded img-thumbnail" onerror="errorImg(this)" src="'. $uri .'"><p></p></div>';
-            // }
-            ?>
             <div class="list-group">
                 <div class="list-group-item">
                     <?= Yii::t('app', 'Username') ?><span class="float-right text-secondary"><?= Html::encode($model->username) ?></span>

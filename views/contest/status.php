@@ -47,7 +47,7 @@ $isContestEnd = $model->isContestEnd();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'who',
@@ -90,14 +90,14 @@ $isContestEnd = $model->isContestEnd();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'score',
                 'enableSorting' => false,
                 'visible' => $model->type == Contest::TYPE_IOI || $model->type == Contest::TYPE_HOMEWORK ||
                             ($model->type == Contest::TYPE_OI && $isContestEnd),
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'time',
@@ -110,7 +110,7 @@ $isContestEnd = $model->isContestEnd();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'memory',
@@ -123,7 +123,7 @@ $isContestEnd = $model->isContestEnd();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'language',
@@ -140,13 +140,13 @@ $isContestEnd = $model->isContestEnd();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'code_length',
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
                 'attribute' => 'created_at',
@@ -155,7 +155,7 @@ $isContestEnd = $model->isContestEnd();
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'headerOptions' => ['style' => 'min-width:100px;']
+                'headerOptions' => ['style' => 'min-width:90px;']
             ]
         ],
         'pager' => [

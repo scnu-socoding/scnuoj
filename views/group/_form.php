@@ -13,34 +13,34 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name' ,[
-        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Names') ."</span></div>{input}</div>",
-      ])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name', [
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">" . Yii::t('app', 'Names') . "</span></div>{input}</div>",
+    ])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description' ,[
-        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Description') ."</span></div>{input}</div>",
-      ])->textarea(['maxlength' => true]) ?>
+    <div class="alert alert-light">小组描述所有人可见。</div>
+
+    <?= $form->field($model, 'description')->textarea(['maxlength' => true])->label(false) ?>
 
     <?= $form->field($model, 'join_policy')->radioList([
         Group::JOIN_POLICY_INVITE => Yii::t('app', 'Invite Only'),
         Group::JOIN_POLICY_APPLICATION => Yii::t('app', 'Application & Approve'),
         Group::JOIN_POLICY_FREE => Yii::t('app', 'Free')
-    ])?>
+    ]) ?>
 
     <?= $form->field($model, 'status')->radioList([
         Group::STATUS_VISIBLE => Yii::t('app', 'Visible'),
         Group::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('可见：用户可在探索页面发现。') ?>
 
-    <div class="alert alert-light">小组公告：仅小组成员可见。</div>
+    <div class="alert alert-light">小组公告仅小组成员可见。</div>
 
     <?= $form->field($model, 'kanban', [
-            'template' => "{input}",
-        ])->widget('app\widgets\editormd\Editormd'); ?>
+        'template' => "{input}",
+    ])->widget('app\widgets\editormd\Editormd'); ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

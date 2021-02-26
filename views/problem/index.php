@@ -25,15 +25,16 @@ $this->registerJs($js);
 
 <div class="row">
     <div class="input-group">
-        <div class="col-lg-8" style="margin-bottom: 1rem;">
+        <div class="col-lg-6" style="margin-bottom: 1rem;">
             <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
         </div>
 
-        <div class="col-lg-4" style="margin-bottom: 1rem;">
+        <div class="col-lg-6" style="margin-bottom: 1rem;">
             <div class="btn-group btn-block">
                 <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> 搜索', ['class' => 'btn btn-info']) ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-fw fa-tags"></i> 标签</button>
-                <!-- 模态框（Modal） -->
+                <?= Html::a('<i class="fas fa-fw fa-globe"></i> Polygon', ['/polygon'], ['class' => 'btn btn-success'])
+        ?>
             </div>
         </div>
     </div>

@@ -27,12 +27,6 @@ AppAsset::register($this);
     </title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/favicon.ico">
-    <script>
-        function errorImg(img) {
-            img.src = "<?= Yii::getAlias('@web') ?>/images/default.jpg";
-            img.onerror = null;
-        }
-    </script>
 </head>
 
 <body>
@@ -45,7 +39,7 @@ AppAsset::register($this);
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
-                'style' => 'background: #e9ecef;border-bottom: 2px solid #4582ec;'
+                'style' => 'background: #e9ecef;border-bottom: 2px solid #D50000;'
             ],
             'innerContainerOptions' => ['class' => 'container-fluid']
         ]);

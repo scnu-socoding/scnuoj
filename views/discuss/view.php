@@ -24,7 +24,7 @@ $this->title = Html::encode($model->title);
             <!-- <i class="fas fa-fw fa-question"></i> -->
 
             <!-- <i class="fas fa-fw fa-user"></i> -->
-            <?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->username]) ?>
+            <?= Html::a(Html::encode($model->user->nickname ?? '临时用户'), ['/user/view', 'id' => $model->user->username]) ?>
             发表于
             <!-- <i class="fas fa-fw fa-clock"></i> -->
             <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
