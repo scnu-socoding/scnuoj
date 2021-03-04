@@ -52,6 +52,7 @@ echo Nav::widget([
 <?php if ($model->hasPermission()) : ?>
     <?php Modal::begin([
         'title' => Yii::t('app', 'Invite Member'),
+        'size' => Modal::SIZE_LARGE,
         'toggleButton' => [
             'label' => Yii::t('app', 'Invite Member'),
             'tag' => 'a',
@@ -59,7 +60,7 @@ echo Nav::widget([
         ]
     ]); ?>
     <?php $form = ActiveForm::begin(); ?>
-    <p class="hint-block">1. 一个用户占据一行，每行格式为<code>username</code>。</p>
+    <p class="hint-block">1. 一个用户占据一行，每行格式为 <code>username</code>。</p>
     <p class="hint-block">2. 必须是已经注册过的用户。</p>
     <?= $form->field($newGroupUser, 'username')->textarea(['rows' => 10]) ?>
     <?php if (Yii::$app->setting->get('isGroupJoin')) : ?>
@@ -68,7 +69,7 @@ echo Nav::widget([
         <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中'], ['value' => [2]]) ?>
     <?php endif; ?>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary btn-block']) ?>
     </div>
     <?php ActiveForm::end(); ?>
     <?php Modal::end(); ?>
