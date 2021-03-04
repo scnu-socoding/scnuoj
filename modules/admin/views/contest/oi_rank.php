@@ -54,7 +54,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                         <td style="display:table-cell; vertical-align:middle">
                             <span>
                                 <b>
-                                    <?php if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) : ?>
+                                    <?php if ($model->type == Contest::TYPE_OI) : ?>
                                         <?= $rank['total_score'] ?>
                                     <?php else : ?>
                                         <?= $rank['correction_score'] ?>
@@ -89,7 +89,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                             if (isset($rank['score'][$p['problem_id']])) {
                                 $score = $rank['score'][$p['problem_id']];
                                 $max_score = $rank['max_score'][$p['problem_id']];
-                                if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) {
+                                if ($model->type == Contest::TYPE_OI) {
                                     $first = $score;
                                     $second = $max_score;
                                     // IOI 模式下没必要记录最后一次得分，显示解答时间与得分
