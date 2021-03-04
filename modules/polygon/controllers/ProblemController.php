@@ -351,6 +351,10 @@ class ProblemController extends Controller
             }
         }
 
+        $model->time_limit = 1;
+        $model->memory_limit = 256;
+        $model->spj = 0;
+
         return $this->render('create', [
             'model' => $model,
         ]);
