@@ -32,7 +32,7 @@
 
 ## Web 应用程序开发速成
 
-Web 应用程序采用 PHP 语言 Yii 2 框架，MVC 模式。
+Web 应用程序采用 PHP 语言 Yii 2 框架，MVC 模式（尚未有移植 Yii 3 的计划）。
 
 实际上不需要学习 PHP 也不用学习 Yii 的，但是 MVC 还是要了解一下的。
 
@@ -273,7 +273,7 @@ $query = (new Query())->select('u.id, u.nickname, u.rating, s.solved')
 
 **第二个例子：系统调用。**
 
-当你遇到本地 AC 提交 RE 一定是判题机出现了问题（大雾），这时候就看看检查日志里面是哪个系统调用号，往 `judge/src/okcalls64.h` 加上就行了。当然你可能会有点强迫症，不希望这个文件上一大串不知道是啥的数字，这时候就去 `/usr/include/x86_64-linux-gnu/asm/unistd_64.h` 查一下这个数字，然后再去 `/usr/include/x86_64-linux-gnu/bits/syscall.h` 查一些相应的 define。
+当你遇到本地 AC 提交 RE 一定是判题机出现了问题（大雾），这时候就看看检查日志里面是哪个系统调用号，往 `judge/src/okcalls64.h` 加上就行了。当然你可能会有点强迫症，不希望这个文件上一大串不知道是啥的数字，这时候就去 `/usr/include/x86_64-linux-gnu/asm/unistd_64.h` 查一下这个数字，然后再去 `/usr/include/x86_64-linux-gnu/bits/syscall.h` 查一下相应的 define。
 
 当然系统调用也不是随便加的。例如人家 `system("rm -rf /");` 被 RE 那是应该的，这里推荐关注 HUSTOJ 的系统调用设置。
 

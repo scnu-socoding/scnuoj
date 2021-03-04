@@ -10,18 +10,18 @@
 
 ### LNMP 搭建
 
-请先搭建标准 LNMP 环境：Linux + NGINX + MariaDB + PHP。
+请先搭建标准 LNMP 环境：Linux + NGINX + MariaDB + PHP（7.4 或更高版本）。
 
-特别地：PHP 需要 7.4 或更高版本，如果你计划在旧版本的 Ubuntu 部署 SCNUOJ，可能需要添加第三方 PPA 升级 PHP。
+需要到的 PHP 插件包括 `php-curl`, `php-xml`, `php-fpm`, `php-mysql`。
 
-由于判题机需要，你还需要安装 `libmysqlclient-dev`, `libmysql++-dev`，其它发行版也请安装对应的包。
+由于判题机需要，你还需要安装 `libmysqlclient-dev`, `libmysql++-dev`。
 
 ### 获取 SCNUOJ
 
 拉取代码仓库，执行：
 
 ```plain
-$ git clone https://git.lug.ustc.edu.cn/bobby285271/scnuoj.git
+$ git clone https://gitee.com/bobby285271/scnuoj.git
 ```
 
 获取项目所需的依赖，在 `scnuoj` 目录下执行：
@@ -117,6 +117,8 @@ $ ./apply.sh
 
 为了安全起见，如果你没有二次开发的需要，需要关闭 Yii 的调试功能。
 
+> 如果在使用 SCNUOJ 的过程中遇到「内部错误」的提示，可重新反注释这两行以获得错误信息，以帮助我们定位问题。
+
 编辑 `scnuoj/web/index.php`，注释下面的两行：
 
 ```php
@@ -129,6 +131,8 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 ### 判题用户
 
 创建一个用于判题的用户，执行：
+
+> 请注意 UID 和用户名必须按此命令设置，否则将无法判题。
 
 ```plain
 # useradd -m -u 1536 judge
@@ -148,7 +152,7 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 # ./dispatcher
 ```
 
-如果需要启用 OI 模式，即希望遇到非正确测试点仍继续往下测试其它测试点，加上 `-o` 参数。
+如果需要启用 OI 模式，即希望遇到非正确测试点仍继续往下测试其它测试点以得到准确的分数，加上 `-o` 参数。
 
 此时尝试在主题库提交代码，确认判题机工作情况。
 
