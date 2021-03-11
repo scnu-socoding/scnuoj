@@ -50,9 +50,12 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
             <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
             <p class="lead"><?= Yii::t('app', 'Output') ?></p>
             <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+
             <?php for ($i = 0; $i < 3; $i++) : ?>
                 <?php if ($sample_input[$i] != '' || $sample_output[$i] != '') : ?>
-                    <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
+                    <?php if ($i == 0) : ?>
+                        <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
+                    <?php endif; ?>
                     <table class="table table-bordered" style="table-layout:fixed;">
                         <tbody>
                             <tr class="bg-tablehead" style="line-height: 1;">
