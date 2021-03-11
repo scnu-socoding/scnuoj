@@ -110,19 +110,19 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <th width="70px">#</th>
                     <th width="120px">Problem ID</th>
                     <th><?= Yii::t('app', 'Problem Name') ?></th>
-                    <th width="200px"><?= Yii::t('app', 'Operation') ?></th>
+                    <th width="80px"><?= Yii::t('app', 'Operation') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <th><?= Html::a(chr(65 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
-                        <th><?= Html::a($p['problem_id'], '') ?></th>
+                        <td><?= Html::a(chr(65 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
+                        <td><?= Html::a($p['problem_id'], '') ?></td>
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
-                        <th>
+                        <td>
                             <?php Modal::begin([
                                 'title' => '<h3>' . Yii::t('app', 'Modify') . ' : ' . chr(65 + $key) . '</h3>',
-                                'toggleButton' => ['label' => Yii::t('app', 'Modify'), 'class' => 'btn btn-success'],
+                                'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
                             ]); ?>
 
                             <?= Html::beginForm(['/homework/updateproblem', 'id' => $model->id]) ?>
@@ -144,18 +144,18 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
                             <?php Modal::end(); ?>
 
-                            <?= Html::a(Yii::t('app', 'Delete'), [
+                            <?= Html::a('<i class="fas fa-sm fa-trash"></i>', [
                                 'deleteproblem',
                                 'id' => $model->id,
                                 'pid' => $p['problem_id']
                             ], [
-                                'class' => 'btn btn-danger',
+                                'class' => 'text-dark',
                                 'data' => [
                                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                                     'method' => 'post',
                                 ],
                             ]) ?>
-                        </th>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 <tr>
@@ -164,7 +164,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <th>
                         <?php Modal::begin([
                             'title' => '<h3>' . Yii::t('app', 'Add a problem') . '</h3>',
-                            'toggleButton' => ['label' => Yii::t('app', 'Add a problem'), 'class' => 'btn btn-success'],
+                            'toggleButton' => ['tag' => 'a', 'label' => Yii::t('app', 'Add a problem'), 'class' => 'text-success'],
                         ]); ?>
 
                         <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
