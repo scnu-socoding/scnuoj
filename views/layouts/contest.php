@@ -191,6 +191,7 @@ $status = $model->getRunStatus();
                                     <h1 id="countdown"></h1>
                                 </div>
                             </div>
+                            <p></p>
                         </div>
                         <div class="col-lg-4">
                             <div class="list-group">
