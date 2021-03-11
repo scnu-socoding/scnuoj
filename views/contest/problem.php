@@ -50,74 +50,31 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
             <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
             <p class="lead"><?= Yii::t('app', 'Output') ?></p>
             <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-            <?php if ($sample_input[0] != '' || $sample_output[0] != '') : ?>
-                <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
-                <table class="table table-bordered" style="table-layout:fixed;">
-                    <tbody>
-                        <tr class="bg-tablehead" style="line-height: 1;">
-                            <td>标准输入</td>
-                        </tr>
-                        <tr>
-                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                <pre style="margin:0"><?= Html::encode($sample_input[0]) ?></pre>
-                            </td>
-                        </tr>
-                        <tr class="bg-tablehead" style="line-height: 1;">
-                            <td>标准输出</td>
-                        </tr>
-                        <tr>
-                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                <pre style="margin:0"><?= Html::encode($sample_output[0]) ?></pre>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-            <?php if ($sample_input[1] != '' || $sample_output[1] != '') : ?>
-                <table class="table table-bordered" style="table-layout:fixed;">
-                    <tbody>
-                        <tr class="bg-tablehead" style="line-height: 1;">
-                            <td>标准输入</td>
-                        </tr>
-                        <tr>
-                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                <pre style="margin:0"><?= Html::encode($sample_input[1]) ?></pre>
-                            </td>
-                        </tr>
-                        <tr class="bg-tablehead" style="line-height: 1;">
-                            <td>标准输出</td>
-                        </tr>
-                        <tr>
-                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                <pre style="margin:0"><?= Html::encode($sample_output[1]) ?></pre>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-            <?php if ($sample_input[2] != '' || $sample_output[2] != '') : ?>
-                <table class="table table-bordered" style="table-layout:fixed;">
-                    <tbody>
-                        <tr class="bg-tablehead" style="line-height: 1;">
-                            <td>标准输入</td>
-                        </tr>
-                        <tr>
-                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                <pre style="margin:0"><?= Html::encode($sample_input[2]) ?></pre>
-                            </td>
-                        </tr>
-                        <tr class="bg-tablehead" style="line-height: 1;">
-                            <td>标准输出</td>
-                        </tr>
-                        <tr>
-                            <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                <pre style="margin:0"><?= Html::encode($sample_output[2]) ?></pre>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-
+            <?php for ($i = 0; $i < 3; $i++) : ?>
+                <?php if ($sample_input[$i] != '' || $sample_output[$i] != '') : ?>
+                    <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
+                    <table class="table table-bordered" style="table-layout:fixed;">
+                        <tbody>
+                            <tr class="bg-tablehead" style="line-height: 1;">
+                                <td>标准输入</td>
+                            </tr>
+                            <tr>
+                                <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
+                                    <pre style="margin:0"><?= Html::encode($sample_input[$i]) ?></pre>
+                                </td>
+                            </tr>
+                            <tr class="bg-tablehead" style="line-height: 1;">
+                                <td>标准输出</td>
+                            </tr>
+                            <tr>
+                                <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
+                                    <pre style="margin:0"><?= Html::encode($sample_output[$i]) ?></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            <?php endfor; ?>
 
             <?php if (!empty($problem['hint'])) : ?>
 
