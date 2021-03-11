@@ -132,11 +132,24 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
     <div>
         <?= GridView::widget([
             'dataProvider' => $announcements,
-            // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
-            'tableOptions' => ['class' => 'table'],
+            'layout' => '{items}{pager}',
+            'options' => ['class' => 'table-responsive'],
+            'tableOptions' => ['class' => 'table table-bordered'],
             'columns' => [
-                'content:ntext',
-                'created_at:datetime',
+                [
+                    'attribute' => 'content',
+                    'enableSorting' => false,
+                    'headerOptions' => ['style' => 'min-width:300px;']
+                ],
+                [
+                    'attribute' => 'created_at',
+                    'enableSorting' => false,
+                    'value' => function ($model, $key, $index, $column) {
+                        return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
+                    },
+                    'format' => 'raw',
+                    'headerOptions' => ['style' => 'min-width:90px;']
+                ]
             ],
         ]) ?>
     </div>
@@ -159,29 +172,30 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                         <td>
                             <?php Modal::begin([
-                                'title' => '<h3>' . Yii::t('app', 'Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                                'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
+                                'size' => Modal::SIZE_LARGE,
                                 'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
                             ]); ?>
 
                             <?= Html::beginForm(['/homework/updateproblem', 'id' => $model->id]) ?>
 
-                            <div class="form-group">
-                                <?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">原题目编号</span></div>
                                 <?= Html::textInput('problem_id', $p['problem_id'], ['class' => 'form-control', 'readonly' => 1]) ?>
                             </div>
-
-                            <div class="form-group">
-                                <?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?>
+                            <p></p>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">新题目编号</span></div>
                                 <?= Html::textInput('new_problem_id', $p['problem_id'], ['class' => 'form-control']) ?>
                             </div>
+                            <p></p>
 
                             <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                             </div>
                             <?= Html::endForm(); ?>
 
                             <?php Modal::end(); ?>
-
                             <?= Html::a('<i class="fas fa-sm fa-trash"></i>', [
                                 'deleteproblem',
                                 'id' => $model->id,
@@ -197,31 +211,31 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     </tr>
                 <?php endforeach; ?>
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <th>
+                    <td></td>
+                    <td></td>
+                    <td>
                         <?php Modal::begin([
-                            'title' => '<h3>' . Yii::t('app', 'Add a problem') . '</h3>',
+                            'title' => Yii::t('app', 'Add a problem'),
+                            'size' => Modal::SIZE_LARGE,
                             'toggleButton' => ['tag' => 'a', 'label' => Yii::t('app', 'Add a problem'), 'class' => 'text-success'],
                         ]); ?>
 
                         <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
 
-                        <div class="form-group">
-                            <p class="hint-block">1.如果有多个题目，可以用空格或逗号键分开。</p>
-                            <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>
-                            <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
+                        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 如果有几个题目，可以用空格或逗号键分开；如果有连续多个题目，可以用 1001-1005 这样的格式。</div>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">题目编号</span></div>
                             <?= Html::textInput('problem_id', '', ['class' => 'form-control']) ?>
                         </div>
-
+                        <p></p>
                         <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                         </div>
                         <?= Html::endForm(); ?>
 
                         <?php Modal::end(); ?>
-                    </th>
-                    <th></th>
+                    </td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
