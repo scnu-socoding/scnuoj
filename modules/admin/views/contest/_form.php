@@ -113,6 +113,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         Contest::TYPE_IOI => Yii::t('app', 'IOI'),
     ])->label(false) ?>
 
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛描述，此部分内容在比赛开始前就会公开展示。</div>
+
     <?= $form->field($model, 'description')->widget('app\widgets\editormd\Editormd')->label(false); ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
