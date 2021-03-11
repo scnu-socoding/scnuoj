@@ -29,9 +29,9 @@ use yii\widgets\ActiveForm;
 
     <div class="col-lg-6" style="margin-bottom: 1rem;">
         <div class="btn-group btn-block">
-            <?= Html::a('<i class="fas fa-fw fa-trophy"></i> ' . 'SCNUCPC', 'https://acm.socoding.cn/public/change-contest/7', ['class' => 'btn btn-success']) ?>
             <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
             <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> ' . Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-fw fa-trophy"></i> ' . 'SCNUCPC', 'https://acm.socoding.cn/public/change-contest/7', ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 </div>
