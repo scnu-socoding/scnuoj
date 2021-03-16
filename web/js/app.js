@@ -32,54 +32,105 @@ var OJ_VERDICT_COLOR = new Array(
   "text-danger"
 );
 function testHtml(id, caseJsonObject) {
-  return '<div class="list-group-item test-for-popup"> \
-        <div role="tab" id="heading' + id + '"> \
-                <a class="collapsed text-dark" role="button" data-toggle="collapse" \
-                   href="#test-' + id + '" aria-expanded="false" aria-controls="test-' + id + '"> \
-                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
-                    测试点 <span class="test" style="width: 50px">' + id + '</span> / \
-                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
-                    <span class="float-right text-secondary d-none d-md-inline">用时 <span class="time">' + caseJsonObject.time + '</span> ms / \
-                    内存 <span class="memory">' + caseJsonObject.memory + '</span> KB \
-                    </span></div> \
-                </a> \
-        </div> \
-        <div id="test-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + id + '"> \
-            <div class="panel-body"><hr>' + (caseJsonObject.verdict != 4 ? ('\
-                <div class="sample-test">\
-                    <div class="input">\
-                        <h6>标准输入</h6>\
-                        <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
-                    </div>\
-                    <div class="output">\
-                        <h6>标准输出</h6>\
-                        <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
-                    </div>\
-                    <div class="output">\
-                        <h6>答案</h6>\
-                        <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
-                    </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
-      + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
-                        <h6>系统信息</h6>\
-                        <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>\
-    </div>';
+  if (caseJsonObject.checker_log.substring(0, 57) == "Runtime Error: [ERROR] A not allowed system call, call ID") {
+    return '<div class="list-group-item test-for-popup"> \
+          <div role="tab" id="heading' + id + '"> \
+                  <a class="collapsed text-dark" role="button" data-toggle="collapse" \
+                    href="#test-' + id + '" aria-expanded="false" aria-controls="test-' + id + '"> \
+                      <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
+                      <span class="text-danger fas fa-fw fa-circle"></span> 测试点 <span class="test" style="width: 50px">' + id + '</span> / \
+                      <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
+                      <span class="float-right text-secondary d-none d-md-inline">用时 <span class="time">' + caseJsonObject.time + '</span> ms / \
+                      内存 <span class="memory">' + caseJsonObject.memory + '</span> KB \
+                      </span></div> \
+                  </a> \
+          </div> \
+          <div id="test-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + id + '"> \
+              <div class="panel-body"><hr>' + (caseJsonObject.verdict != 4 ? ('\
+                  <div class="sample-test">\
+                      <div class="input">\
+                          <h6>标准输入</h6>\
+                          <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
+                      </div>\
+                      <div class="output">\
+                          <h6>标准输出</h6>\
+                          <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
+                      </div>\
+                      <div class="output">\
+                          <h6>答案</h6>\
+                          <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
+                      </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
+        + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
+                          <h6>系统信息</h6>\
+                          <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
+                      </div>\
+                  </div>\
+              </div>\
+          </div>\
+      </div>';
+  } else {
+    return '<div class="list-group-item test-for-popup"> \
+          <div role="tab" id="heading' + id + '"> \
+                  <a class="collapsed text-dark" role="button" data-toggle="collapse" \
+                    href="#test-' + id + '" aria-expanded="false" aria-controls="test-' + id + '"> \
+                      <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
+                      测试点 <span class="test" style="width: 50px">' + id + '</span> / \
+                      <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
+                      <span class="float-right text-secondary d-none d-md-inline">用时 <span class="time">' + caseJsonObject.time + '</span> ms / \
+                      内存 <span class="memory">' + caseJsonObject.memory + '</span> KB \
+                      </span></div> \
+                  </a> \
+          </div> \
+          <div id="test-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + id + '"> \
+              <div class="panel-body"><hr>' + (caseJsonObject.verdict != 4 ? ('\
+                  <div class="sample-test">\
+                      <div class="input">\
+                          <h6>标准输入</h6>\
+                          <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
+                      </div>\
+                      <div class="output">\
+                          <h6>标准输出</h6>\
+                          <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
+                      </div>\
+                      <div class="output">\
+                          <h6>答案</h6>\
+                          <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
+                      </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
+        + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
+                          <h6>系统信息</h6>\
+                          <pre class="list-group-item">exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
+                      </div>\
+                  </div>\
+              </div>\
+          </div>\
+      </div>';
+  }
 }
 
 function testHtmlMinDetail(id, caseJsonObject) {
-  return '<div class="list-group-item test-for-popup"> \
-        <div role="tab" id="heading' + id + '"> \
-                <span class="collapsed text-dark"> \
-                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
-                    测试点 <span class="test" style="width: 50px">' + id + '</span> / \
-                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
-                    <span class="float-right text-secondary d-none d-md-inline">评测信息暂不可用</span></div> \
-                </span> \
-        </div> \
+  if (caseJsonObject.checker_log.substring(0, 57) == "Runtime Error: [ERROR] A not allowed system call, call ID") {
+    return '<div class="list-group-item test-for-popup"> \
+    <div role="tab" id="heading' + id + '"> \
+            <span class="collapsed text-dark"> \
+                <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
+                <span class="text-danger fas fa-fw fa-circle"></span> 测试点 <span class="test" style="width: 50px">' + id + '</span> / \
+                <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
+                <span class="float-right text-danger d-none d-md-inline">非法的系统调用</span></div> \
+            </span> \
+    </div> \
+  </div>';
+  } else {
+    return '<div class="list-group-item test-for-popup"> \
+      <div role="tab" id="heading' + id + '"> \
+              <span class="collapsed text-dark"> \
+                  <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] + '">\
+                  测试点 <span class="test" style="width: 50px">' + id + '</span> / \
+                  <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span> \
+                  <span class="float-right text-secondary d-none d-md-inline">评测信息暂不可用</span></div> \
+              </span> \
+      </div> \
     </div>';
+  }
 }
 
 function subtaskHtml(id, score, verdict) {
