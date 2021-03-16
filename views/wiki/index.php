@@ -74,12 +74,6 @@
         </small>
     </div>
     <div class="list-group-item">
-        <b>编译错误</b> Compile Error<br>
-        <small>
-            编译错误，请访问评测详情页获得编译器的详细输出。
-        </small>
-    </div>
-    <div class="list-group-item">
         <b>系统错误</b> System Error<br>
         <small>
             很遗憾，评测机出现了故障，请尽快联系管理员。
