@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap4\Modal;
 use yii\bootstrap4\Nav;
 use app\models\Contest;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */
@@ -205,6 +206,37 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
+
+        <p></p>
+        
+        <?php
+        if ($dataProvider->count > 0) {
+            echo '<div class="table-responsive">';
+            echo GridView::widget([
+                'layout' => '{items}{pager}',
+                // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
+                'tableOptions' => ['class' => 'table'],
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table-responsive'],
+                'showHeader'=> false,
+                'columns' => [
+                    [
+                        'attribute' => Yii::t('app', 'Announcement'),
+                        'value' => function ($model, $key, $index, $column) {
+                            return $model->content;
+                        },
+                        'format' => 'html',
+                        'enableSorting' => false,
+                    ],
+                ],
+                'pager' => [
+                    'linkOptions' => ['class' => 'page-link'],
+                    'maxButtonCount' => 5,
+                ]
+            ]);
+            echo '</div>';
+        }
+        ?>
     </div>
     <p></p>
 

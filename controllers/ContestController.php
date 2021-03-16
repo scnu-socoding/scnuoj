@@ -537,11 +537,17 @@ class ContestController extends BaseController
                     ->limit(10)
                     ->all();
             }
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+            ]);
+
             return $this->render('/contest/problem', [
                 'model' => $model,
                 'solution' => $solution,
                 'problem' => $problem,
-                'submissions' => $submissions
+                'submissions' => $submissions,
+                'dataProvider' => $dataProvider
             ]);
         }
     }
