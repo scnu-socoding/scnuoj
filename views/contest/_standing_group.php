@@ -124,7 +124,7 @@ $submit_count = $rankResult['submit_count'];
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
                     <span class="text-success">
-                        <b><?= $submit_count[$p['problem_id']]['solved'] : 0 ?></b>
+                        <b><?= $submit_count[$p['problem_id']]['solved'] ?? 0 ?></b>
                     </span>
                     <br>
                     <span class="text-secondary">
