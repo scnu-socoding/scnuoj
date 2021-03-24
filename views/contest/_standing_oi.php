@@ -71,20 +71,13 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                     $second = ''; // 第二行字的内容
                     if (isset($rank['solved_flag'][$p['problem_id']])) {
                         $css_class = 'text-success font-weight-bold '; // 全部正确
-                    } else if ($model->type == Contest::TYPE_IOI) {
-                        if (isset($rank['max_score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] > 0) {
-                            $css_class = 'text-warning font-weight-bold '; // 部分正确
-                        } else if (isset($rank['max_score'][$p['problem_id']]) && $rank['max_score'][$p['problem_id']] == 0) {
-                            $css_class = 'text-danger font-weight-bold '; // 尝试中
-                        }
-                    } else {
-                        if (isset($rank['score'][$p['problem_id']]) && $rank['score'][$p['problem_id']] > 0) {
-                            $css_class = 'text-warning font-weight-bold '; // 部分正确
-                        } else if (isset($rank['score'][$p['problem_id']]) && $rank['score'][$p['problem_id']] == 0) {
-                            $css_class = 'text-danger font-weight-bold '; // 尝试中
-                        }
+                    } else if ($model->type == Contest::TYPE_IOI && isset($rank['max_score'][$p['problem_id']])) {
+                        $css_class = ($rank['max_score'][$p['problem_id']] > 0) ?
+                            'text-warning font-weight-bold ' : 'text-danger font-weight-bold ';
+                    } else if (isset($rank['score'][$p['problem_id']])) {
+                        $css_class = ($rank['score'][$p['problem_id']] > 0) ? 
+                        'text-warning font-weight-bold ' : 'text-danger font-weight-bold ';
                     }
-
                     if (isset($rank['score'][$p['problem_id']])) {
                         $score = $rank['score'][$p['problem_id']];
                         $max_score = $rank['max_score'][$p['problem_id']];
@@ -107,9 +100,9 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$first}</td>";
+                        echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$first}</b></td>";
                     } else {
-                        echo "<td class=\"{$css_class}\">{$first}</td>";
+                        echo "<td class=\"{$css_class}\"><b>{$first}</b></td>";
                     }
                 }
                 ?>
