@@ -12,7 +12,7 @@ $this->title = Yii::t('app', 'Update');
 <p></p>
 
 
-<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 更新日志从 <a href="https://git.lug.ustc.edu.cn/bobby285271/scnuoj/-/raw/master/CHANGELOG.md">git.lug.ustc.edu.cn</a> 抓取，感谢 USTCLUG 的代码仓库托管服务。</div>
+<div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 更新日志从 <a href="https://gitee.com/bobby285271/scnuoj/raw/master/CHANGELOG.md">gitee.com</a> 抓取，感谢 Gitee 的代码仓库托管服务。</div>
 
 <div class="card">
     <div class="card-body">
