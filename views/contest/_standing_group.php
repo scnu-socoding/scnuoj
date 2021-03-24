@@ -124,25 +124,11 @@ $submit_count = $rankResult['submit_count'];
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
                     <span class="text-success">
-                        <b>
-                            <?php
-                            if (isset($submit_count[$p['problem_id']]['solved']))
-                                echo $submit_count[$p['problem_id']]['solved'];
-                            else
-                                echo 0;
-                            ?>
-                        </b>
+                        <b><?= $submit_count[$p['problem_id']]['solved'] : 0 ?></b>
                     </span>
                     <br>
                     <span class="text-secondary">
-                        <b>
-                            <?php
-                            if (isset($submit_count[$p['problem_id']]['submit']))
-                                echo $submit_count[$p['problem_id']]['submit'];
-                            else
-                                echo 0;
-                            ?>
-                        </b>
+                        <b><?= $submit_count[$p['problem_id']]['submit'] ?? 0 ?></b>
                     </span>
                 </td>
             <?php endforeach; ?>
