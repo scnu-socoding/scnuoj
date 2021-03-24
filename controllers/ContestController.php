@@ -99,7 +99,7 @@ class ContestController extends BaseController
         }
 
         // 访问权限检查，比赛结束前提交列表仅作者可见，比赛结束后所有人可见
-        if (!$model->isContestEnd() && $model->type == Contest::TYPE_OI) {
+        if (!$model->isContestEnd() && $model->type == Contest::TYPE_OI && (Yii::$app->user->isGuest || Yii::$app->user->id != $model->created_by)) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
         if ((!$model->isContestEnd() || $model->isScoreboardFrozen()) && (Yii::$app->user->isGuest || Yii::$app->user->id != $model->created_by)) {
