@@ -602,7 +602,6 @@ class Contest extends \yii\db\ActiveRecord
         $submit_count = [];
         $count = count($users_solution_data);
         $start_time = strtotime($this->start_time);
-        $lock_time = 0x7fffffff;
         $contest_end_time = strtotime($this->end_time);
         if ($endtime == null) {
             $endtime = $contest_end_time;
@@ -626,10 +625,6 @@ class Contest extends \yii\db\ActiveRecord
 
         foreach ($problems as $problem) {
             $problem_ids[$problem['problem_id']] = 1;
-        }
-
-        if (!empty($this->lock_board_time)) {
-            $lock_time = strtotime($this->lock_board_time);
         }
 
         for ($i = 0; $i < $count; $i++) {
