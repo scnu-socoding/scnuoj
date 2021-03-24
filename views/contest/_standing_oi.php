@@ -62,8 +62,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                     $score = '';
                     $max_score = '';
                     $css_class = ''; // CSS 颜色
-                    $first = ''; // 题目对应的排名表格第一行字的内容
-                    $second = ''; // 第二行字的内容
+                    $first = ''; // 题目对应的排名表格的内容
                     if (isset($rank['solved_flag'][$p['problem_id']])) {
                         $css_class = 'text-success'; // 全部正确
                     } else if ($model->type == Contest::TYPE_IOI && isset($rank['max_score'][$p['problem_id']])) {
@@ -72,19 +71,8 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                         $css_class = ($rank['score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
                     }
                     if (isset($rank['score'][$p['problem_id']])) {
-                        $score = $rank['score'][$p['problem_id']];
-                        $max_score = $rank['max_score'][$p['problem_id']];
-                        if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) {
-                            $first = $score;
-                            $second = $max_score;
-                            // IOI 模式下没必要记录最后一次得分，显示解答时间与得分
-                        } else {
-                            $first = $max_score;
-                            if (isset($rank['submit_time'][$p['problem_id']])) {
-                                $min = intval($rank['submit_time'][$p['problem_id']]);
-                                $second = sprintf("%02d:%02d", $min / 60, $min % 60);
-                            }
-                        }
+                        $first = ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) ?
+                        $rank['score'][$p['problem_id']] : $rank['max_score'][$p['problem_id']];
                     }
                     if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || $model->isContestEnd()) {
                         $url = Url::toRoute([
