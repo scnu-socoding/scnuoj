@@ -16,7 +16,7 @@ $submit_count = $rankResult['submit_count'];
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。</div>
     <p></p>
 <?php endif; ?>
-<table class="table table-bordered">
+<table class="table table-bordered standings-table">
 
     <tbody style="line-height: 1;">
         <tr class="bg-tablehead" style="line-height: 2;">
@@ -35,18 +35,18 @@ $submit_count = $rankResult['submit_count'];
         <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
             <tr>
-                <td style="display:table-cell; vertical-align:middle">
+                <td>
                     <?php
                     echo $rank['finalrank'];
                     ?>
                 </td>
-                <td style="display:table-cell; vertical-align:middle">
+                <td>
                     <?= Html::encode($rank['student_number']); ?>
                 </td>
-                <td style="text-align:left;display:table-cell; vertical-align:middle">
+                <td style="text-align:left">
                     <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
                 </td>
-                <td style="display:table-cell; vertical-align:middle">
+                <td>
                     <span><b><?= $rank['solved'] ?></b></span>
                     <span class="text-secondary">
                         <?php if (strtotime($model->end_time) >= 253370736000) : ?>
@@ -108,19 +108,19 @@ $submit_count = $rankResult['submit_count'];
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<td class=\"{$css_class}\" style=\"display:table-cell; vertical-align:middle; cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$num}{$time}</b></td>";
+                        echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$num}{$time}</b></td>";
                     } else {
-                        echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
+                        echo "<td class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
                     }
                 }
                 ?>
             </tr>
         <?php endfor; ?>
         <tr class="bg-tablehead" style="line-height: 1;">
-            <td style="width:2.5rem;display:table-cell; vertical-align:middle"><b>#</b></td>
+            <td style="width:2.5rem"><b>#</b></td>
             <td style="width:8rem"></td>
             <td style="min-width:10rem;text-align:left"></td>
-            <td style="width:3.5rem;display:table-cell; vertical-align:middle"><b>=</b></td>
+            <td style="width:3.5rem"><b>=</b></td>
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
                     <span class="text-success">

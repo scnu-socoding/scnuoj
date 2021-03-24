@@ -437,3 +437,8 @@ nav div li div.dropdown-menu.show {
     width:8rem;
     text-align: center;
 }
+
+.standings-table td {
+    display: table-cell;
+    vertical-align: middle;
+}

@@ -20,7 +20,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
     }
 }
 ?>
-<table class="table table-bordered">
+<table class="table table-bordered standings-table">
 
     <tbody style="line-height: 1;">
         <tr class="bg-tablehead" style="line-height: 2;">
@@ -40,17 +40,17 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
         <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
             <tr>
-                <td style="display:table-cell; vertical-align:middle">
+                <td>
                     <?= $rank['finalrank']; ?>
                 </td>
-                <td style="display:table-cell; vertical-align:middle">
+                <td>
                     <?= Html::encode($rank['student_number']); ?>
 
                 </td>
-                <td style="text-align:left;display:table-cell; vertical-align:middle">
+                <td style="text-align:left;">
                     <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
                 </td>
-                <td style="display:table-cell; vertical-align:middle">
+                <td>
                     <span>
                         <b>
                             <?php if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) : ?>
@@ -107,19 +107,19 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<td class=\"{$css_class}\" style=\"display:table-cell; vertical-align:middle; cursor:pointer\" data-click='submission' data-href='{$url}'>{$first}</td>";
+                        echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$first}</td>";
                     } else {
-                        echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\">{$first}</td>";
+                        echo "<td class=\"{$css_class}\">{$first}</td>";
                     }
                 }
                 ?>
             </tr>
         <?php endfor; ?>
         <tr class="bg-tablehead" style="line-height: 1;">
-            <td style="width:2.5rem;display:table-cell; vertical-align:middle"><b>#</b></td>
+            <td style="width:2.5rem;"><b>#</b></td>
             <td style="width:8rem"></td>
             <td style="min-width:10rem;text-align:left"></td>
-            <td style="width:3.5rem;display:table-cell; vertical-align:middle"><b>=</b></td>
+            <td style="width:3.5rem;"><b>=</b></td>
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
                     <span class="text-success">
