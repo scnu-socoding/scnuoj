@@ -40,13 +40,8 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
         <?php for ($i = 0; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
             <tr>
-                <td>
-                    <?= $rank['finalrank']; ?>
-                </td>
-                <td>
-                    <?= Html::encode($rank['student_number']); ?>
-
-                </td>
+                <td><?= $rank['finalrank'] ?></td>
+                <td><?= Html::encode($rank['student_number']); ?></td>
                 <td style="text-align:left;">
                     <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
                 </td>
