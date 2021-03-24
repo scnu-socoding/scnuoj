@@ -18,7 +18,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
 <p class="lead">查看比赛 <?= Html::encode($model->title) ?> 终榜。</p>
 <div class="text-center center-block">
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered standings-table">
 
             <tbody style="line-height: 1;">
                 <tr class="bg-tablehead" style="line-height: 2;">
@@ -34,30 +34,19 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                         </td>
                     <?php endforeach; ?>
                 </tr>
-                <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++) : ?>
+                <?php for ($i = 0; $i < count($result); $i++) : ?>
                     <?php $rank = $result[$i]; ?>
                     <tr>
-                        <td style="display:table-cell; vertical-align:middle">
-                            <?php
-                            echo $rank['finalrank'];
-                            ?>
-                        </td>
-                        <td style="display:table-cell; vertical-align:middle">
-                            <?= Html::encode($rank['student_number']); ?>
-                        </td>
-                        <td style="text-align:left;display:table-cell; vertical-align:middle">
+                        <td><?= $rank['finalrank'] ?></td>
+                        <td><?= Html::encode($rank['student_number']); ?></td>
+                        <td style="text-align:left">
                             <?= Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']], ['class' => 'text-dark']) ?>
                         </td>
-                        <td style="display:table-cell; vertical-align:middle">
+                        <td>
                             <span><b><?= $rank['solved'] ?></b></span>
                             <span class="text-secondary">
-                                <?php if (strtotime($model->end_time) >= 253370736000) : ?>
-                                <?php else : ?>
-                                    <?php if (intval($rank['time'] / 60) < 100000) : ?>
-                                        <br><b><?= intval($rank['time'] / 60) ?></b>
-                                    <?php else : ?>
-                                        <br><b>10W+</b>
-                                    <?php endif; ?>
+                                <?php if (strtotime($model->end_time) < 253370736000) : ?>
+                                    <br><b><?= (intval($rank['time'] / 60) < 100000) ? intval($rank['time'] / 60) : "10W+" ?></b>
                                 <?php endif; ?>
                             </span>
                         </td>
@@ -68,15 +57,13 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                             $num = '';
                             $time = '';
                             if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
+                                $num = '+';
+                                $css_class = 'text-success';
                                 if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < 253370736000) {
-                                    $css_class = 'text-success bg-firstblood';
-                                } else {
-                                    $css_class = 'text-success';
+                                    $css_class .= ' bg-firstblood';
                                 }
-                                if ($rank['wa_count'][$p['problem_id']] == 0) {
-                                    $num = '+';
-                                } else {
-                                    $num = '+' . $rank['wa_count'][$p['problem_id']];
+                                if ($rank['wa_count'][$p['problem_id']] != 0) {
+                                    $num .= $rank['wa_count'][$p['problem_id']];
                                 }
                                 if (intval($rank['ac_time'][$p['problem_id']]) < 100000) {
                                     $time = '<br><span class="text-secondary">' . intval($rank['ac_time'][$p['problem_id']]) . '</span>';
@@ -103,39 +90,34 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                             if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
                                 $num = "<span class=\"text-primary\">?<span>";
                             }
-
-                            echo "<td style=\"display:table-cell; vertical-align:middle\"  class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
+                            if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || (!$model->isScoreboardFrozen() && $model->isContestEnd())) {
+                                $url = Url::toRoute([
+                                    '/contest/submission',
+                                    'pid' => $p['problem_id'],
+                                    'cid' => $model->id,
+                                    'uid' => $rank['user_id']
+                                ]);
+                                echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$num}{$time}</b></td>";
+                            } else {
+                                echo "<td class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
+                            }
                         }
                         ?>
                     </tr>
                 <?php endfor; ?>
                 <tr class="bg-tablehead" style="line-height: 1;">
-                    <td style="width:2.5rem;display:table-cell; vertical-align:middle"><b>#</b></td>
+                    <td style="width:2.5rem"><b>#</b></td>
                     <td style="width:8rem"></td>
                     <td style="min-width:10rem;text-align:left"></td>
-                    <td style="width:3.5rem;display:table-cell; vertical-align:middle"><b>=</b></td>
+                    <td style="width:3.5rem"><b>=</b></td>
                     <?php foreach ($problems as $key => $p) : ?>
                         <td style="width:3.5rem">
                             <span class="text-success">
-                                <b>
-                                    <?php
-                                    if (isset($submit_count[$p['problem_id']]['solved']))
-                                        echo $submit_count[$p['problem_id']]['solved'];
-                                    else
-                                        echo 0;
-                                    ?>
-                                </b>
+                                <b><?= $submit_count[$p['problem_id']]['solved'] ?? 0 ?></b>
                             </span>
                             <br>
                             <span class="text-secondary">
-                                <b>
-                                    <?php
-                                    if (isset($submit_count[$p['problem_id']]['submit']))
-                                        echo $submit_count[$p['problem_id']]['submit'];
-                                    else
-                                        echo 0;
-                                    ?>
-                                </b>
+                                <b><?= $submit_count[$p['problem_id']]['submit'] ?? 0 ?></b>
                             </span>
                         </td>
                     <?php endforeach; ?>
