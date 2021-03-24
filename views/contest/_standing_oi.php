@@ -70,13 +70,11 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                     $first = ''; // 题目对应的排名表格第一行字的内容
                     $second = ''; // 第二行字的内容
                     if (isset($rank['solved_flag'][$p['problem_id']])) {
-                        $css_class = 'text-success font-weight-bold '; // 全部正确
+                        $css_class = 'text-success'; // 全部正确
                     } else if ($model->type == Contest::TYPE_IOI && isset($rank['max_score'][$p['problem_id']])) {
-                        $css_class = ($rank['max_score'][$p['problem_id']] > 0) ?
-                            'text-warning font-weight-bold ' : 'text-danger font-weight-bold ';
+                        $css_class = ($rank['max_score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
                     } else if (isset($rank['score'][$p['problem_id']])) {
-                        $css_class = ($rank['score'][$p['problem_id']] > 0) ? 
-                        'text-warning font-weight-bold ' : 'text-danger font-weight-bold ';
+                        $css_class = ($rank['score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
                     }
                     if (isset($rank['score'][$p['problem_id']])) {
                         $score = $rank['score'][$p['problem_id']];
