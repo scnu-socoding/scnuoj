@@ -32,7 +32,7 @@ $submit_count = $rankResult['submit_count'];
                 </td>
             <?php endforeach; ?>
         </tr>
-        <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++) : ?>
+        <?php for ($i = 0; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
             <tr>
                 <td>

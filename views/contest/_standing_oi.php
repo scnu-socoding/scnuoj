@@ -37,7 +37,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             <?php endforeach; ?>
         </tr>
 
-        <?php for ($i = 0, $ranking = 1, $last_ranking = 1; $i < count($result); $i++) : ?>
+        <?php for ($i = 0; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
             <tr>
                 <td>
