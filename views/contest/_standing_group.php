@@ -43,13 +43,8 @@ $submit_count = $rankResult['submit_count'];
                 <td>
                     <span><b><?= $rank['solved'] ?></b></span>
                     <span class="text-secondary">
-                        <?php if (strtotime($model->end_time) >= 253370736000) : ?>
-                        <?php else : ?>
-                            <?php if (intval($rank['time'] / 60) < 100000) : ?>
-                                <br><b><?= intval($rank['time'] / 60) ?></b>
-                            <?php else : ?>
-                                <br><b>10W+</b>
-                            <?php endif; ?>
+                        <?php if (strtotime($model->end_time) < 253370736000) : ?>
+                            <br><b><?= (intval($rank['time'] / 60) < 100000) ? intval($rank['time'] / 60) : "10W+" ?></b>
                         <?php endif; ?>
                     </span>
                 </td>
@@ -60,15 +55,13 @@ $submit_count = $rankResult['submit_count'];
                     $num = '';
                     $time = '';
                     if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
+                        $num = '+';
+                        $css_class = 'text-success';
                         if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < 253370736000) {
-                            $css_class = 'text-success bg-firstblood';
-                        } else {
-                            $css_class = 'text-success';
+                            $css_class .= ' bg-firstblood';
                         }
-                        if ($rank['wa_count'][$p['problem_id']] == 0) {
-                            $num = '+';
-                        } else {
-                            $num = '+' . $rank['wa_count'][$p['problem_id']];
+                        if ($rank['wa_count'][$p['problem_id']] != 0) {
+                            $num .= $rank['wa_count'][$p['problem_id']];
                         }
                         if (intval($rank['ac_time'][$p['problem_id']]) < 100000) {
                             $time = '<br><span class="text-secondary">' . intval($rank['ac_time'][$p['problem_id']]) . '</span>';
