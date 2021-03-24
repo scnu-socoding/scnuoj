@@ -619,6 +619,7 @@ class Contest extends \yii\db\ActiveRecord
             $result[$user['user_id']]['score'] = []; // 记录每道题最后一次得分（OI专属）
             $result[$user['user_id']]['max_score'] = []; // 记录每道题最大得分
             $result[$user['user_id']]['correction_score'] = 0; //订正总分
+            $result[$user['user_id']]['submit_time'] = []; // 记录每道题最大得分得到时间
             $result[$user['user_id']]['student_number'] = $user['student_number'];
             $result[$user['user_id']]['total_time'] = 0; // 记录 AC 的题目的总时间
         }
@@ -653,6 +654,8 @@ class Contest extends \yii\db\ActiveRecord
                 $result[$user]['score'][$pid] = 0;
             if (!isset($result[$user]['max_score'][$pid]))
                 $result[$user]['max_score'][$pid] = 0;
+            if (!isset($result[$user]['submit_time'][$pid]))
+                $result[$user]['submit_time'][$pid] = 0;
 
             // 针对 OI 榜单，需要记录最后一次提交的分数
             if ($created_at <= $contest_end_time) {
@@ -666,11 +669,7 @@ class Contest extends \yii\db\ActiveRecord
 
             $submit_count[$pid]['submit']++;
 
-            // 记录提交时间。仅记录比赛期间的提交时间。
-            if (!isset($result[$user]['submit_time'][$pid]) && $created_at < $contest_end_time) {
-                $result[$user]['submit_time'][$pid] = ($created_at - $start_time) / 60;
-            }
-            // 记录最大分数
+            // 记录最大分数和提交时间。
             if ($result[$user]['max_score'][$pid] < $score) {
                 $result[$user]['max_score'][$pid] = $score;
                 if ($created_at < $contest_end_time) {
@@ -691,9 +690,6 @@ class Contest extends \yii\db\ActiveRecord
                 $result[$user]['pending'][$pid] = 0;
                 $result[$user]['solved_flag'][$pid] = 1; // 标记该题已解答
                 $result[$user]['solved']++; // 解题数目
-                if ($created_at < $contest_end_time) {
-                    $result[$user]['total_time'] += ($created_at - $start_time) / 60;
-                }
                 if (empty($first_blood[$pid])) {
                     $first_blood[$pid] = $user;
                 }
@@ -707,11 +703,15 @@ class Contest extends \yii\db\ActiveRecord
         }
 
         foreach ($result as &$v) { // 枚举用户
+
             foreach ($v['score'] as $s) { // 枚举题目（最后一次提交）
                 $v['total_score'] += $s;
             }
             foreach ($v['max_score'] as $s) { // 枚举题目（最高分）
                 $v['correction_score'] += $s;
+            }
+            foreach ($v['submit_time'] as $s) { // 枚举题目（最高分）
+                $v['total_time'] += intval($s);
             }
 
             foreach ($problems as $problem) { // 枚举（题目编号）
@@ -736,10 +736,10 @@ class Contest extends \yii\db\ActiveRecord
             } else { // IOI 只需要最大值的总分排序。
                 if ($a['correction_score'] != $b['correction_score']) {
                     return $a['correction_score'] < $b['correction_score'];
-                } else if ($a['solved'] != $b['solved']) {
-                    return $a['solved'] < $b['solved'];
                 } else if ($a['total_time'] != $b['total_time']) {
                     return $a['total_time'] > $b['total_time'];
+                } else if ($a['solved'] != $b['solved']) {
+                    return $a['solved'] < $b['solved'];
                 } else {
                     return $a['user_id'] < $b['user_id'];
                 }
@@ -749,6 +749,7 @@ class Contest extends \yii\db\ActiveRecord
         $lastscore = -1;
         $lastrank = 1;
         $finalrank = 1;
+        // $lasttime = -1;
         foreach ($result as &$v) {
             if ($this->isUserOutOfCompetition($v['user_id'])) {
                 $v['finalrank'] = '*';
@@ -764,10 +765,12 @@ class Contest extends \yii\db\ActiveRecord
                 }
                 $finalrank++;
             } else { // IOI 只需要最大值的总分排序。    
+                // if ($v['correction_score'] != $lastscore || $v['total_time'] != $lasttime) {
                 if ($v['correction_score'] != $lastscore) {
                     $v['finalrank'] = $finalrank;
                     $lastscore = $v['correction_score'];
                     $lastrank = $finalrank;
+                    // $lasttime = $v['total_time'];
                 } else {
                     $v['finalrank'] = $lastrank;
                 }
