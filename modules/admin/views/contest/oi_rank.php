@@ -53,6 +53,8 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                                         <?= $rank['total_score'] ?>
                                     <?php else : ?>
                                         <?= $rank['correction_score'] ?>
+                                        <br>
+                                        <span class="text-secondary"><?= intval($rank['total_time']) ?></span>
                                     <?php endif ?>
                                 </b>
                             </span>
@@ -64,28 +66,21 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                             $max_score = '';
                             $css_class = ''; // CSS 颜色
                             $first = ''; // 题目对应的排名表格的内容
-                            if (isset($rank['solved_flag'][$p['problem_id']])) {
-                                $css_class = 'text-success'; // 全部正确
-                            } else if ($model->type == Contest::TYPE_IOI && isset($rank['max_score'][$p['problem_id']])) {
-                                $css_class = ($rank['max_score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
-                            } else if (isset($rank['score'][$p['problem_id']])) {
-                                $css_class = ($rank['score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
-                            }
                             if (isset($rank['score'][$p['problem_id']])) {
                                 $first = ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) ?
                                     $rank['score'][$p['problem_id']] : $rank['max_score'][$p['problem_id']];
                             }
-                            if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || $model->isContestEnd()) {
-                                $url = Url::toRoute([
-                                    '/contest/submission',
-                                    'pid' => $p['problem_id'],
-                                    'cid' => $model->id,
-                                    'uid' => $rank['user_id']
-                                ]);
-                                echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$first}</b></td>";
-                            } else {
-                                echo "<td class=\"{$css_class}\"><b>{$first}</b></td>";
+                            if (isset($rank['solved_flag'][$p['problem_id']])) {
+                                $css_class = 'text-success'; // 全部正确
+                                $first .= '<br><span class="text-secondary">' . intval($rank['submit_time'][$p['problem_id']]) . '</span>';
+                            } else if ($model->type == Contest::TYPE_IOI && isset($rank['max_score'][$p['problem_id']])) {
+                                $css_class = ($rank['max_score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
+                                if ($rank['max_score'][$p['problem_id']] > 0)
+                                    $first .= '<br><span class="text-secondary">' . intval($rank['submit_time'][$p['problem_id']]) . '</span>';
+                            } else if (isset($rank['score'][$p['problem_id']])) {
+                                $css_class = ($rank['score'][$p['problem_id']] > 0) ? 'text-warning' : 'text-danger';
                             }
+                            echo "<td class=\"{$css_class}\"><b>{$first}</b></td>";
                         }
                         ?>
                     </tr>
