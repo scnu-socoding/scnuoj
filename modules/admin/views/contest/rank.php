@@ -87,17 +87,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                                 $time = '';
                             }
                             
-                            if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || (!$model->isScoreboardFrozen() && $model->isContestEnd())) {
-                                $url = Url::toRoute([
-                                    '/contest/submission',
-                                    'pid' => $p['problem_id'],
-                                    'cid' => $model->id,
-                                    'uid' => $rank['user_id']
-                                ]);
-                                echo "<td class=\"{$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'><b>{$num}{$time}</b></td>";
-                            } else {
-                                echo "<td class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
-                            }
+                            echo "<td class=\"{$css_class}\"><b>{$num}{$time}</b></td>";
                         }
                         ?>
                     </tr>
