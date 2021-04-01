@@ -161,7 +161,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <th width="70px">#</th>
                     <th width="120px">Problem ID</th>
                     <th><?= Yii::t('app', 'Problem Name') ?></th>
-                    <th width="80px"><?= Yii::t('app', 'Operation') ?></th>
+                    <th width="80px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -171,7 +171,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <td><?= Html::a($p['problem_id'], '') ?></td>
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                         <td>
-                            <?php Modal::begin([
+                            <!-- <?php Modal::begin([
                                 'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
                                 'size' => Modal::SIZE_LARGE,
                                 'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
@@ -193,7 +193,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             <div class="form-group">
                                 <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                             </div>
-                            <?= Html::endForm(); ?>
+                            <?= Html::endForm(); ?> -->
 
                             <?php Modal::end(); ?>
                             <?= Html::a('<i class="fas fa-sm fa-trash"></i>', [
