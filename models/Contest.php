@@ -705,8 +705,8 @@ class Contest extends \yii\db\ActiveRecord
             foreach ($v['max_score'] as $s) { // 枚举题目（最高分）
                 $v['correction_score'] += $s;
             }
-            foreach ($v['submit_time'] as $s) { // 枚举题目（最高分）
-                $v['total_time'] += intval($s);
+            foreach ($v['submit_time'] as $s) { // 枚举题目（罚时）
+                $v['total_time'] += $s;
             }
 
             foreach ($problems as $problem) { // 枚举（题目编号）
