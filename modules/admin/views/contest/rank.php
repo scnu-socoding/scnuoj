@@ -86,10 +86,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                                 }
                                 $time = '';
                             }
-                            // 封榜的显示
-                            if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
-                                $num = "<span class=\"text-primary\">?<span>";
-                            }
+                            
                             if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || (!$model->isScoreboardFrozen() && $model->isContestEnd())) {
                                 $url = Url::toRoute([
                                     '/contest/submission',
