@@ -157,8 +157,6 @@ $status = $model->getRunStatus();
         <div class="container-xl">
             <div class="col">
 
-                <div class="alert alert-danger"><i class="fas fa-fw fa-info-circle"></i> 你正在访问下一版 SCNUOJ，如需使用稳定版本，请访问 10.191.65.243:5000</div>
-
                 <?php if (Yii::$app->setting->get('notice')) : ?>
                     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>
                 <?php endif; ?>
