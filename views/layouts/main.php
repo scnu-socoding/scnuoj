@@ -38,8 +38,7 @@ AppAsset::register($this);
             'brandLabel' => Yii::$app->setting->get('ojName'),
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
-                'style' => 'background: #e9ecef;border-bottom: 2px solid #9b95c9;'
+                'class' => 'navbar navbar-expand-lg navbar-light fixed-top scnuoj-nav',
             ],
             'innerContainerOptions' => ['class' => 'container-fluid']
         ]);
@@ -84,6 +83,10 @@ AppAsset::register($this);
         if (Yii::$app->user->isGuest) {
             $menuItemsRight[] = [
                 'label' => '<i class="fas fa-fw fa-sign-in-alt"></i> ' . Yii::t('app', 'Login'),
+                'linkOptions' => [
+                    'class' => 'badge badge-primary text-white',
+                    'style' => 'font-size: 0.930125rem; padding-left:0.8rem; padding-right:0.8rem'
+                ],
                 'url' => ['/site/login']
             ];
         } else {

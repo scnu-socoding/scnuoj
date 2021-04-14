@@ -54,8 +54,7 @@ $status = $model->getRunStatus();
             'brandLabel' => Yii::$app->setting->get('ojName'),
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar navbar-expand-lg navbar-light fixed-top',
-                'style' => 'background: #e9ecef;border-bottom: 2px solid #9b95c9;'
+                'class' => 'navbar navbar-expand-lg navbar-light fixed-top scnuoj-nav',
             ],
             'innerContainerOptions' => ['class' => 'container-fluid']
         ]);
@@ -100,6 +99,10 @@ $status = $model->getRunStatus();
         if (Yii::$app->user->isGuest) {
             $menuItemsRight[] = [
                 'label' => '<i class="fas fa-fw fa-sign-in-alt"></i> ' . Yii::t('app', 'Login'),
+                'linkOptions' => [
+                    'class' => 'badge badge-primary text-white',
+                    'style' => 'font-size: 0.930125rem; padding-left:0.8rem; padding-right:0.8rem'
+                ],
                 'url' => ['/site/login']
             ];
         } else {
@@ -153,6 +156,8 @@ $status = $model->getRunStatus();
 
         <div class="container-xl">
             <div class="col">
+
+                <div class="alert alert-danger"><i class="fas fa-fw fa-info-circle"></i> 你正在访问下一版 SCNUOJ，如需使用稳定版本，请访问 10.191.65.243:5000</div>
 
                 <?php if (Yii::$app->setting->get('notice')) : ?>
                     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> <?= Html::encode(Yii::$app->setting->get('notice')) ?></div>

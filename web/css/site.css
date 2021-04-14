@@ -442,3 +442,14 @@ nav div li div.dropdown-menu.show {
     display: table-cell;
     vertical-align: middle;
 }
+
+.scnuoj-nav {
+    background: #e9ecef;
+    background-color: #fff;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
