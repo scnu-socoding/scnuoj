@@ -54,7 +54,7 @@ $this->title = Yii::t('app', 'Signup');
             ],
         ])->widget(\yii\captcha\Captcha::class,[
             'template' => '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-sm fa-fw fa-check"></i></span></div>{input}</div>
-            <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}<span class="text-secondary d-none d-sm-inline">点击图片换图</span></div></div>',
+            <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}<a href="signup"><span class="text-secondary d-none d-sm-inline">点击图片换图</span></a></div></div>',
         ])->label(false);
     ?>
 
