@@ -457,10 +457,12 @@ nav div li div.dropdown-menu.show {
 }
 
 .search-submit {
-    height: calc(1.5em + 1rem + 2px);
+    height: calc(1.5em + 1rem + 2px) !important;
 }
 
-.search-submit button, .search-submit a.btn {
-    border-radius: 0.25rem;
-    padding: 0.6rem 1.1rem;
+.search-submit a.btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
