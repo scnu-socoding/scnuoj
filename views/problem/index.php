@@ -30,11 +30,11 @@ $this->registerJs($js);
         </div>
 
         <div class="col-lg-6" style="margin-bottom: 1rem;">
-            <div class="btn-group btn-block">
-                <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> 搜索', ['class' => 'btn btn-info']) ?>
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-fw fa-tags"></i> 标签</button>
-                <?= Html::a('<i class="fas fa-fw fa-globe"></i> Polygon', ['/polygon'], ['class' => 'btn btn-success'])
-        ?>
+            <div class="btn-group btn-block search-submit">
+                <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> 搜索', ['class' => 'btn btn-primary']) ?>
+                <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-fw fa-tags"></i> 标签</button>
+                <?= Html::a('<i class="fas fa-fw fa-globe"></i>&nbsp;出题', ['/polygon'], ['class' => 'btn btn-outline-primary'])
+                ?>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@ $this->registerJs($js);
                     <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
                     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
                     <span class="input-group-append">
-                        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-info']) ?>
+                        <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-primary']) ?>
 
                     </span>
                 </div>
@@ -77,24 +77,18 @@ $this->registerJs($js);
     </div>
 </div>
 
+<?php 
+$title_str = Html::beginForm(['/problem/index', 'page' => $page, 'tag' => $tag], 'get', ['class' => 'toggle-show-contest-standing pull-left']);
+$title_str .= '标题 <span class="float-right">';
+$title_str .= Html::checkbox('showTags', $showTags, ['style' => 'vertical-align:middle;']);
+$title_str .= ' 显示标签</span>';
+$title_str .= Html::endForm();
+$title_str .= '';
+
+?>
+
 <div class="row">
-
-
     <div class="col">
-
-
-        <?= Html::beginForm(
-            ['/problem/index', 'page' => $page, 'tag' => $tag],
-            'get',
-            ['class' => 'toggle-show-contest-standing pull-left', 'style' => 'margin-top: 6px;']
-        ); ?>
-        <div class="checkbox float-right">
-            <label>
-                <?= Html::checkbox('showTags', $showTags) ?>
-                显示题目标签
-            </label>
-        </div>
-        <?= Html::endForm(); ?>
 
         <?= GridView::widget([
             'layout' => '{items}{pager}',
@@ -119,6 +113,7 @@ $this->registerJs($js);
                 ],
                 [
                     'attribute' => 'title',
+                    'header' => $title_str,
                     'value' => function ($model, $key, $index, $column) use ($showTags) {
                         $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key], ['class' => 'text-dark']);
                         $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
