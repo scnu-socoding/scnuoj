@@ -4,17 +4,18 @@ SCNUOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，是一个在线评�
 
 SCNUOJ 可对用户在线提交的源代码进行编译和执行，并通过预先设计的测试数据检验代码的正确性。
 
-### Demo
+### 华南师大软院在线评测系统
 
-- [华南师范大学软件学院在线评测系统](https://oj.socoding.cn/)
+- [oj.socoding.cn](https://oj.socoding.cn/) - 外网入口
+- [oj-internal.socoding.cn](https://oj-internal.socoding.cn/) - 校园网入口
 
 ### 帮助文档
 
 如有任何问题，可新建 Issue 或联系 [bobby285271](https://github.com/bobby285271)。
 
-- [安装指引](docs/installation.md) - 部署 SCNUOJ 到你的设备上
-- [升级指引](docs/upgrade.md) - 从 JNOJ 或旧版本的 SCNUOJ 升级
-- [二次开发指引](docs/development.md) - 在 SCNUOJ 的基础上迭代出自己的 OJ
+- [安装指引](https://socoding.cn/t/topic/353) - 部署 SCNUOJ 到你的设备上
+- [升级指引](https://socoding.cn/t/topic/352) - 从 JNOJ 或旧版本的 SCNUOJ 升级
+- [二次开发指引](https://socoding.cn/t/topic/351) - 在 SCNUOJ 的基础上迭代出自己的 OJ
 
 ### 和 JNOJ 相比有何亮点？
 
