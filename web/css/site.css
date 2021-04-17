@@ -455,3 +455,12 @@ nav div li div.dropdown-menu.show {
     padding-left: 0.8rem;
     padding-right: 0.8rem;
 }
+
+.search-submit {
+    height: calc(1.5em + 1rem + 2px);
+}
+
+.search-submit button, .search-submit a.btn {
+    border-radius: 0.25rem;
+    padding: 0.6rem 1.1rem;
+}
