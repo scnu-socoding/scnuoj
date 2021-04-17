@@ -71,8 +71,8 @@ class GroupSearch extends Group
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->orFilterWhere(['like', 'name', $this->name])
+            ->orFilterWhere(['like', 'description', $this->name]);
 
         return $dataProvider;
     }
