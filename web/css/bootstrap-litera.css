@@ -10278,18 +10278,6 @@ a.text-dark:hover, a.text-dark:focus {
   border-width: 1px 0 0;
 }
 
-.btn {
-  border-radius: 1.078em;
-}
-
-.btn-lg, .btn-group-lg > .btn {
-  border-radius: 2.688em;
-}
-
-.btn-sm, .btn-group-sm > .btn {
-  border-radius: .844em;
-}
-
 blockquote {
   font-style: italic;
 }
