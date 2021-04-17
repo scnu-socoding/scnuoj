@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 <div class="row">
 
 
-    <div class="col-lg-6" style="margin-bottom: 1rem;">
+    <div class="col-lg-8" style="margin-bottom: 1rem;">
         <?= $form->field($model, 'title', [
             'template' => "<div class=\"input-group\">{input}</div>",
             'options' => ['class' => ''],
@@ -27,11 +27,10 @@ use yii\widgets\ActiveForm;
     </div>
 
 
-    <div class="col-lg-6" style="margin-bottom: 1rem;">
-        <div class="btn-group btn-block">
-            <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
-            <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> ' . Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('<i class="fas fa-fw fa-trophy"></i> ' . 'SCNUCPC', 'https://acm.socoding.cn/public/change-contest/7', ['class' => 'btn btn-success']) ?>
+    <div class="col-lg-4" style="margin-bottom: 1rem;">
+        <div class="btn-group btn-block search-submit">
+            <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-fw fa-trophy"></i>&nbsp;' . '校赛', '//acm.socoding.cn/public/change-contest/7', ['class' => 'btn btn-outline-primary']) ?>
         </div>
     </div>
 </div>

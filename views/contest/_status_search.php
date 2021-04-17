@@ -26,7 +26,7 @@ use yii\bootstrap4\ActiveForm;
         ])->dropDownList($nav, ['class' => 'form-control custom-select'])->label(false) ?>
     </div>
 
-    <div class="col-lg-2" style="margin-bottom: 1rem;">
+    <div class="col-lg-4" style="margin-bottom: 1rem;">
         <?= $form->field($model, 'username', [
             'template' => "<div class=\"input-group\">{input}</div>",
             'options' => ['class' => ''],
@@ -47,10 +47,9 @@ use yii\bootstrap4\ActiveForm;
         ])->dropDownList($model::getLanguageLiteList(), ['class' => 'form-control custom-select'])->label(false) ?>
     </div>
 
-    <div class="col-lg-4" style="margin-bottom: 1rem;">
-        <div class="btn-group btn-block">
-            <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-info']) ?>
-            <?= Html::resetButton('<i class="fas fa-fw fa-history"></i> ' . Yii::t('app', 'Reset'), ['class' => 'btn btn-primary']) ?>
+    <div class="col-lg-2" style="margin-bottom: 1rem;">
+        <div class="btn-group btn-block search-submit">
+            <?= Html::submitButton('<i class="fas fa-fw fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
 </div>
