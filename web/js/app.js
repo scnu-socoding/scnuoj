@@ -181,16 +181,25 @@ $(document).ready(function () {
       var preId = ("id" + Math.random()).replace('.', '0');
       var cpyId = ("id" + Math.random()).replace('.', '0');
 
-      $(this).attr("id", cpyId);
-      // $(this).attr("data-clipboard-target", preId);
-      $(this).find("pre").attr("id", preId);
-      // var copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='btn btn-sm btn-outline-secondary' >复制</div>");
-      // $(this).append(copy);
-
+      $(this).find(".sample-input-btn").attr("id", cpyId);
+      $(this).find(".sample-input-text").attr("id", preId);
 
       var clipboard = new ClipboardJS('#' + cpyId, {
         text: function (trigger) {
-          // alert(document.querySelector('#' + preId).innerText);
+          return document.querySelector('#' + preId).innerText;
+        }
+      });
+    });
+
+    $(".sample-test").each(function () {
+      var preId = ("id" + Math.random()).replace('.', '0');
+      var cpyId = ("id" + Math.random()).replace('.', '0');
+
+      $(this).find(".sample-output-btn").attr("id", cpyId);
+      $(this).find(".sample-output-text").attr("id", preId);
+
+      var clipboard = new ClipboardJS('#' + cpyId, {
+        text: function (trigger) {
           return document.querySelector('#' + preId).innerText;
         }
       });

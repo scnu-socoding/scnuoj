@@ -58,21 +58,21 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                         <p class="lead"><?= Yii::t('app', 'Examples') ?></p>
                     <?php endif; ?>
                     <table class="table table-bordered" style="table-layout:fixed;">
-                        <tbody>
+                        <tbody class="sample-test">
                             <tr class="bg-tablehead" style="line-height: 1;">
-                                <td>标准输入</td>
+                                <td>标准输入 <span class="float-right sample-input-btn btn btn-sm btn-outline-secondary" style="padding: 0 0.5rem;">复制文本</span></td>
                             </tr>
                             <tr>
-                                <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                    <pre style="margin:0"><?= Html::encode($sample_input[$i]) ?></pre>
+                                <td>
+                                    <pre class="sample-input-text" style="margin:0"><?= Html::encode($sample_input[$i]) ?></pre>
                                 </td>
                             </tr>
                             <tr class="bg-tablehead" style="line-height: 1;">
-                                <td>标准输出</td>
+                                <td>标准输出 <span class="float-right sample-output-btn btn btn-sm btn-outline-secondary" style="padding: 0 0.5rem;">复制文本</span></td>
                             </tr>
                             <tr>
-                                <td class="sample-test" style="cursor:pointer;" data-toggle="tooltip" title="点击复制">
-                                    <pre style="margin:0"><?= Html::encode($sample_output[$i]) ?></pre>
+                                <td>
+                                    <pre class="sample-output-text" style="margin:0"><?= Html::encode($sample_output[$i]) ?></pre>
                                 </td>
                             </tr>
                         </tbody>
@@ -208,7 +208,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
         <?php endif; ?>
 
         <p></p>
-        
+
         <?php
         if ($dataProvider->count > 0) {
             echo '<div class="table-responsive">';
@@ -218,7 +218,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
                 'tableOptions' => ['class' => 'table'],
                 'dataProvider' => $dataProvider,
                 'options' => ['class' => 'table-responsive'],
-                'showHeader'=> false,
+                'showHeader' => false,
                 'columns' => [
                     [
                         'attribute' => Yii::t('app', 'Announcement'),
