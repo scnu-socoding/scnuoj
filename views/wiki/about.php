@@ -18,7 +18,7 @@
     <div class="list-group-item">
         SCNUOJ 版本
         <span class="float-right text-secondary">
-            Version <?= date("Y.m.d", filemtime(Yii::getAlias('@app/CHANGELOG.md'))) ?>
+            <?= file_get_contents(Yii::getAlias('@app/VERSION')) ?>
         </span>
     </div>
 </div>

@@ -5,7 +5,7 @@
 /* @var $form yii\widgets\ActiveForm */
 $this->title = Yii::t('app', 'Update');
 ?>
-<p class="lead">感谢使用 SCNUOJ <?= date("Y.m.d", filemtime(Yii::getAlias('@app/CHANGELOG.md'))) ?>。</p>
+<p class="lead">感谢使用 SCNUOJ <?= file_get_contents(Yii::getAlias('@app/VERSION')) ?>。</p>
 
 <a class="btn btn-outline-primary btn-block" href="https://github.com/SCNU-SoCoding/scnuoj/blob/master/docs/upgrade.md">了解如何更新</a>
 
