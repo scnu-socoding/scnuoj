@@ -26,6 +26,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
     <p class="lead">更新比赛 <?= Html::a(Html::encode($model->title), ['/contest/view', 'id' => $model->id]) ?> 信息。</p>
 
+    <?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], [
+        'class' => 'btn btn-outline-danger btn-block',
+        'data-confirm' => '此操作不可恢复，你确定要删除吗？',
+        'data-method' => 'post',
+    ]) ?>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛名称应该包含年份、序号、是否重现赛等信息。</div>
@@ -105,7 +111,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
     ])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-outline-success btn-block']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -172,10 +178,10 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                         <td>
                             <!-- <?php Modal::begin([
-                                'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
-                                'size' => Modal::SIZE_LARGE,
-                                'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
-                            ]); ?>
+                                        'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
+                                        'size' => Modal::SIZE_LARGE,
+                                        'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
+                                    ]); ?>
 
                             <?= Html::beginForm(['/homework/updateproblem', 'id' => $model->id]) ?>
 
@@ -240,9 +246,5 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             </tbody>
         </table>
     </div>
-    <?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], [
-        'class' => 'btn btn-danger btn-block',
-        'data-confirm' => '此操作不可恢复，你确定要删除吗？',
-        'data-method' => 'post',
-    ]) ?>
+
 </div>
