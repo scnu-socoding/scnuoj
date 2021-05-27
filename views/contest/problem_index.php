@@ -22,7 +22,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
 
 
 
-<div class="row">
+<div class="row animate__animated animate__fadeIn animate__faster">
     <div class="col">
         <div class="list-group">
             <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
@@ -56,6 +56,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
                 // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
                 'tableOptions' => ['class' => 'table'],
                 'dataProvider' => $dataProvider,
+                'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
                 'options' => ['class' => 'table-responsive'],
                 'columns' => [
                     [

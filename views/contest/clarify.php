@@ -22,7 +22,7 @@ if ($discuss != null) {
     ]);
 }
 ?>
-<div>
+<div class="animate__animated animate__fadeIn animate__faster">
     <?php
     if ($dataProvider->count > 0) {
         echo GridView::widget([

@@ -17,7 +17,7 @@ $this->params['model'] = $model;
 <div class="row">
     <div class="col">
         <h5><?= Html::encode($clarify->title) ?></h5>
-        <div class="card">
+        <div class="card animate__animated animate__fadeIn animate__faster">
             <div class="card-header" style="padding: 0.5rem 1.25rem;">
                 <small class="text-secondary">
                     <!-- <i class="fas fa-fw fa-user"></i> -->
@@ -33,7 +33,7 @@ $this->params['model'] = $model;
         </div>
         <p></p>
         <?php foreach ($clarify->reply as $reply) : ?>
-            <div class="card">
+            <div class="card animate__animated animate__fadeIn animate__faster">
                 <div class="card-header" style="padding: 0.5rem 1.25rem;">
                     <small class="text-secondary">
                         <!-- <i class="fas fa-fw fa-user"></i> -->
@@ -49,7 +49,7 @@ $this->params['model'] = $model;
             </div>
             <p></p>
         <?php endforeach; ?>
-        <div class="well">
+        <div class="well animate__animated animate__fadeIn animate__faster">
             <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING) : ?>
                 <?php $form = ActiveForm::begin(); ?>
 
@@ -66,3 +66,4 @@ $this->params['model'] = $model;
             <?php endif; ?>
         </div>
     </div>
+</div>

@@ -39,7 +39,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
 
         <?php for ($i = 0; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
-            <tr>
+            <tr class="animate__animated animate__fadeIn animate__faster">
                 <td><?= $rank['finalrank'] ?></td>
                 <td><?= Html::encode($rank['student_number']); ?></td>
                 <td style="text-align:left;">

@@ -41,7 +41,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 <h5>Problem <?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h5>
 
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-9 animate__animated animate__fadeIn animate__faster">
 
         <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == '') : ?>
             <div class="alert text-dark border">比赛题目通过其它方式分发，敬请留意相关信息。</div>

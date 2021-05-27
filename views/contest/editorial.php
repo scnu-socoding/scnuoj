@@ -12,7 +12,7 @@ $this->params['model'] = $model;
 // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div>
+<div class="animate__animated animate__fadeIn animate__faster">
     <?php
         if ($model->editorial != NULL) {
             echo Yii::$app->formatter->asMarkdown($model->editorial);
