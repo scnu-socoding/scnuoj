@@ -1,5 +1,5 @@
 <div class="d-none d-sm-block">
-    <img src="<?= Yii::getAlias('@web') . '/images/error-header.jpg' ?>" class="img-fluid rounded">
+    <img src="<?= Yii::getAlias('@web') . '/images/about-scnuoj.jpg' ?>" class="img-fluid rounded">
     <p></p>
 </div>
 
