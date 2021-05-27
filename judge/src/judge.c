@@ -1436,9 +1436,9 @@ int main(int argc, char** argv)
     cJSON * cases_array = NULL;
     cJSON_AddItemToObject(judge_json_object, "subtasks", subtask_json_array);
 
-    if (oi_mode) {
-        test_total_count = 0; //OI 模式下的测试总数，根据实际测试点数据来计算
-    }
+    // if (oi_mode) {
+    //     test_total_count = 0; //OI 模式下的测试总数，根据实际测试点数据来计算
+    // }
 
     subtask_struct * subtask_node = subtask_list;
     int test_result_rec[OJ_NT + 1]; // 记录各个测试点的通过结果的数量
@@ -1471,9 +1471,9 @@ int main(int argc, char** argv)
             
             cJSON * case_json_object = create_case_object(verdict_res);
             cJSON_AddItemToArray(cases_array, case_json_object);
-            if (oi_mode) {
-                test_total_count++;
-            }
+            // if (oi_mode) {
+            //     test_total_count++;
+            // }
             // 非OI模式出错后不再测评
             if (!oi_mode && run_result != OJ_AC && run_result != OJ_PE) {
                 break;
