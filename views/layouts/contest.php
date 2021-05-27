@@ -154,7 +154,7 @@ $status = $model->getRunStatus();
         <br />
         <p></p>
 
-        <div class="container-xl animate__animated animate__fadeIn animate__faster">
+        <div class="container-xl">
             <div class="col">
 
                 <?php if (Yii::$app->setting->get('notice')) : ?>

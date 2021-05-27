@@ -40,7 +40,7 @@ $this->title = Yii::t('app', 'Wiki');;
         ]) ?>
 <p></p>
 <div class="row">
-    <div class="col animate__animated animate__fadeIn animate__faster">
+    <div class="col">
         <?= $content ?>
     </div>
 </div>

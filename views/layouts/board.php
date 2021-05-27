@@ -139,9 +139,9 @@ AppAsset::register($this);
         ]);
         NavBar::end();
         ?>
-        <div class="animate__animated animate__fadeIn animate__faster">
-            <?= $content ?>
-        </div>
+
+        <?= $content ?>
+
 
         <?php $this->endBody() ?>
 </body>
