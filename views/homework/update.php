@@ -173,9 +173,9 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <td><?= Html::a(chr(65 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
-                        <td><?= Html::a($p['problem_id'], '') ?></td>
-                        <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
+                        <td><?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
+                        <td><?= Html::a($p['problem_id'], ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
+                        <td><?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
                         <td>
                             <!-- <?php Modal::begin([
                                         'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
