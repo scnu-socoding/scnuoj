@@ -18,7 +18,7 @@ $this->title = Html::encode($model->title);
 
 <h3><?= Html::encode($model->title) ?></h3>
 
-<div class="card">
+<div class="card animate__animated animate__fadeIn animate__faster">
     <div class="card-header" style="padding: 0.5rem 1.25rem;">
         <small class="text-secondary">
             <!-- <i class="fas fa-fw fa-question"></i> -->
@@ -58,7 +58,7 @@ $this->title = Html::encode($model->title);
 <p></p>
 <?php $cnt = 2; ?>
 <?php foreach ($replies as $reply) : ?>
-    <div class="card">
+    <div class="card animate__animated animate__fadeIn animate__faster">
         <div class="card-header" style="padding: 0.5rem 1.25rem;">
             <small class="text-secondary">
                 <!-- <i class="fas fa-fw fa-comment"></i> -->
@@ -96,7 +96,7 @@ $this->title = Html::encode($model->title);
     'maxButtonCount' => 5,
 ]); ?>
 <p></p>
-<div class=" well">
+<div class="well animate__animated animate__fadeIn animate__faster">
 
     <?php if (Yii::$app->user->isGuest) : ?>
     <?php else : ?>

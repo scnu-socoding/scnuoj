@@ -64,7 +64,7 @@ $nextProblemID = $model->getNextProblemID();
 
 <div class="row">
 
-    <div class="col-lg-9">
+    <div class="col-lg-9 animate__animated animate__fadeIn animate__faster">
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
         <p class="lead"><?= Yii::t('app', 'Input') ?></p>
         <?= Yii::$app->formatter->asMarkdown($model->input) ?>

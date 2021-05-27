@@ -48,7 +48,7 @@ $this->title = Yii::t('app', 'Discuss');
 
 
 <?php if (!empty($discusses)): ?>
-<div class="list-group">
+<div class="list-group animate__animated animate__fadeIn animate__faster">
     <?php foreach ($discusses as $discuss): ?>
     <?= Html::a(Html::encode($discuss->title) . '<br><small>' .Html::encode($discuss->user->nickname) . ' 发表于 ' . Yii::$app->formatter->asRelativeTime($discuss->created_at) . ' · 关联问题 ' . Html::encode($model->title) . '</small>', ['/discuss/view', 'id' => $discuss->id], ['class' => 'text-dark list-group-item list-group-item-action']) ?>
     <?php endforeach; ?>
@@ -65,7 +65,7 @@ $this->title = Yii::t('app', 'Discuss');
 <?php if (Yii::$app->user->isGuest): ?>
 
 <?php else: ?>
-<div class="discuss-form">
+<div class="discuss-form animate__animated animate__fadeIn animate__faster">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($newDiscuss, 'title', [
             'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">". Yii::t('app', 'Title') ."</span></div>{input}</div>",
