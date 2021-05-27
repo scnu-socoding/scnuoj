@@ -95,7 +95,7 @@ $this->title = $model->id;
     <div class="alert alert-light">
         <i class="fas fa-fw fa-info-circle"></i>
         <?php if ($model->getTestCount()) : ?>
-            对 <?= $model->getTestCount() ?> 个测试点进行了测试，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
+            本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
         <?php else : ?>
             暂时无法获取本题测试点详情。
             <?php $flag = 1; ?>
