@@ -168,10 +168,10 @@ pre {
 }
 
 .form-signin {
-    max-width: 500px;
+    max-width: 550px;
     padding: 3rem;
     margin: 0 auto;
-    box-shadow: 0 10px 34px -15px rgba(0,0,0,.24);
+    border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 10px;
 }
 .form-signin .form-signin-heading,
