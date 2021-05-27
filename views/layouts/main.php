@@ -138,7 +138,7 @@ AppAsset::register($this);
         <br />
         <p></p>
 
-        <div class="container-xl">
+        <div class="container-xl animate__animated animate__fadeIn animate__faster">
             <div class="col">
                 <?php
                 if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
