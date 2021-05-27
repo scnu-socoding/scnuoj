@@ -19,6 +19,7 @@ $this->title = Yii::t('app', 'Contests');
         'tableOptions' => ['class' => 'table'],
         'dataProvider' => $dataProvider,
         'options' => ['class' => 'table-responsive'],
+        'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'columns' => [
             [
                 'attribute' => 'title',

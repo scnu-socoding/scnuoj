@@ -17,6 +17,7 @@ $this->title = Yii::t('app', 'Status');
         'options' => ['class' => 'table-responsive'],
         // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
+        'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'columns' => [
             [
                 'attribute' => 'id',

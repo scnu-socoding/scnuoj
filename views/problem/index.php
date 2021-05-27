@@ -77,7 +77,7 @@ $this->registerJs($js);
     </div>
 </div>
 
-<?php 
+<?php
 $title_str = Html::beginForm(['/problem/index', 'page' => $page, 'tag' => $tag], 'get', ['class' => 'toggle-show-contest-standing pull-left']);
 $title_str .= '标题 <span class="float-right">';
 $title_str .= Html::checkbox('showTags', $showTags, ['style' => 'vertical-align:middle;']);
@@ -96,6 +96,7 @@ $title_str .= '';
             // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
             'tableOptions' => ['class' => 'table'],
             'options' => ['class' => 'table-responsive problem-index-list'],
+            'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
             'columns' => [
                 [
                     'attribute' => 'id',

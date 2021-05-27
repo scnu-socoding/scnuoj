@@ -53,7 +53,7 @@ if (Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0) {
     'itemView' => '_group_item',
     'itemOptions' => ['tag' => false],
     'layout' => '{items}<p></p>{pager}',
-    'options' => ['class' => 'list-group'],
+    'options' => ['class' => 'list-group animate__animated animate__fadeIn animate__faster'],
     'pager' => [
         'linkOptions' => ['class' => 'page-link'],
         'maxButtonCount' => 5,
