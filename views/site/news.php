@@ -15,4 +15,6 @@ $this->title = Html::encode($model->title);
     <i class="fas fa-fw fa-clock"></i> 发表于 <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
 </div>
 <hr>
-<?= Yii::$app->formatter->asMarkdown($model->content) ?>
+<div class="animate__animated animate__fadeIn animate__faster">
+    <?= Yii::$app->formatter->asMarkdown($model->content) ?>
+</div>
