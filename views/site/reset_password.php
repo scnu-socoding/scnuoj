@@ -3,6 +3,8 @@
 /* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model \app\models\ResetPasswordForm */
 
+use yii\bootstrap4\Nav;
+
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -10,27 +12,42 @@ $this->title = '重置密码';
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="form-signin mt-5">
-    <center>
-        <h2><?= Html::encode($this->title) ?></h2>
-    </center>
-    <br>
-    <p class="text-secondary">请设置新密码。</p>
-    <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
-
-    <?= $form->field($model, 'password', [
-        'template' => '<div class="input-group">{input}</div>{error}',
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('password'),
+<?= Nav::widget([
+    'items' => [
+        [
+            'label' => Yii::t('app', 'Login'), 'url' => ['/site/login']
         ],
-    ])->passwordInput()->label(false);
-    ?>
+        [
+            'label' => Yii::t('app', 'Register'), 'url' => ['/site/signup']
+        ]
+    ],
+    'options' => ['class' => 'nav nav-pills']
+]) ?>
 
-    <div class="form-group">
+<p></p>
+
+
+<div class="alert alert-light">
+    <i class="fas fa-fw fa-info-circle"></i> 请设置新密码。
+</div>
+
+
+
+<div class="card animate__animated animate__fadeIn animate__faster">
+    <img src="<?= Yii::getAlias('@web') . '/images/login.jpg' ?>" class="card-img-top d-none d-md-block">
+    <div class="card-body">
+        <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+
+        <?= $form->field($model, 'password', [
+            'template' => '<div class="input-group">{input}</div>{error}',
+            'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('password'),
+            ],
+        ])->passwordInput()->label(false);
+        ?>
+
         <?= Html::submitButton('保存', ['class' => 'btn btn-success btn-block']) ?>
-    </div>
 
-    <?php ActiveForm::end(); ?>
-</div>
-</div>
+        <?php ActiveForm::end(); ?>
+    </div>
 </div>
