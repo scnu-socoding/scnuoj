@@ -48,7 +48,7 @@ $this->params['model'] = $model;
     ])
     ?>
     <p></p>
-    <div class="row">
+    <div class="row animate__animated animate__fadeIn animate__faster">
         <div class="col-lg-8">
             <div class="alert alert-light">
                 <i class="fas fa-fw fa-info-circle"></i>

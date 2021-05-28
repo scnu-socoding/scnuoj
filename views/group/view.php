@@ -52,7 +52,7 @@ echo Nav::widget([
 
 
 
-<div class="row">
+<div class="row animate__animated animate__fadeIn animate__faster">
 
 
 

@@ -16,7 +16,7 @@ $recentSubmission = $model->getRecentSubmission();
 <h3><?= Html::encode($model->nickname) ?></h3>
 <p></p>
 <?php if ($model->role != \app\models\User::ROLE_PLAYER) : ?>
-    <div class="row">
+    <div class="row animate__animated animate__fadeIn animate__faster">
         <div class="col-lg-4">
             <div class="list-group">
                 <div class="list-group-item">
@@ -112,7 +112,7 @@ $recentSubmission = $model->getRecentSubmission();
 
 
 <?php else : ?>
-    <div class="card">
+    <div class="card animate__animated animate__fadeIn animate__faster">
         <div class="card-body">
             线下赛参赛账户。
         </div>

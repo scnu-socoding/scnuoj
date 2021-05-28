@@ -84,6 +84,7 @@ echo Nav::widget([
         // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'options' => ['class' => 'table-responsive'],
+        'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'columns' => [
             [
                 'attribute' => 'role',

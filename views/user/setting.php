@@ -35,7 +35,7 @@ $this->title = $model->nickname;
         ]) ?>
     </div>
     <p></p>
-    <div>
+    <div class="animate__animated animate__fadeIn animate__faster">
         <?= $this->render('_' . $action, [
             'model' => $model,
             'profile' => $profile

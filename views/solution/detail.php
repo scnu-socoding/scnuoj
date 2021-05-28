@@ -12,7 +12,7 @@ $this->title = $model->id;
 
 ?>
 
-<div class="table-responsive">
+<div class="table-responsive animate__animated animate__fadeIn animate__faster">
     <table class="table table-rank">
         <thead>
             <tr>
@@ -86,13 +86,13 @@ $this->title = $model->id;
 <?php $flag = 0; ?>
 
 <?php if ($model->canViewSource()) : ?>
-    <div>
+    <div class="animate__animated animate__fadeIn animate__faster">
         <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
     </div>
 <?php endif; ?>
 
 <?php if ($model->canViewResult()) : ?>
-    <div class="alert alert-light">
+    <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
         <i class="fas fa-fw fa-info-circle"></i>
         <?php if ($model->getTestCount()) : ?>
             本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
@@ -106,10 +106,10 @@ $this->title = $model->id;
 <?php if ($model->solutionInfo != null && $model->canViewErrorInfo()) : ?>
     <p></p>
     <?php if ($model->result != Solution::OJ_CE) : ?>
-        <div id="run-info" class="list-group">
+        <div id="run-info" class="list-group animate__animated animate__fadeIn animate__faster">
         </div>
     <?php else : ?>
-        <div class="list-group">
+        <div class="list-group animate__animated animate__fadeIn animate__faster">
             <div class="list-group-item">
                 <pre id="run-info"></pre>
             </div>
