@@ -30,6 +30,13 @@ $this->title = Yii::t('app', 'Setting');
         0 => '关闭 OI 模式'
     ]) ?>
 
+    <p></p>
+
+    <?= Html::radioList('isContestMode', $settings['isContestMode'], [
+        1 => '启用比赛模式',
+        0 => '关闭比赛模式'
+    ]) ?>
+
     <div class="card bg-light">
         <div class="card-body">
             <div class="alert alert-warning"><i class="fas fa-fw fa-info-circle"></i> 下列选项的可用性未知，SCNUOJ 尚未提供这些选项的支持，如果您在使用这些选项时遇到问题，请耐心等候更新。</div>

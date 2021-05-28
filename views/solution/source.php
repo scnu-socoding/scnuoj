@@ -20,7 +20,15 @@ if (!$model->canViewSource()) {
         ) ?>
     </div>
     <p></p>
-    <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
+    <?php if (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin())) : ?>
+
+        <pre><code class="pre"><p style="font-size:1rem"><?= Html::encode($model->source) ?></p></code></pre>
+    <?php else : ?>
+        <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
+            <i class="fas fa-fw fa-info-circle"></i>
+            你没有权限查看提交详情，对于编译错误的提交可以点击上方按钮查看编译信息。
+        </div>
+    <?php endif; ?>
 </div>
 <script type="text/javascript">
     (function($) {
