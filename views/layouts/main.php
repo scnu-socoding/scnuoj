@@ -51,7 +51,8 @@ AppAsset::register($this);
             [
                 'label' => '<i class="fas fa-fw fa-tasks"></i> ' . Yii::t('app', 'Status'),
                 'url' => ['/solution/index'],
-                'active' => Yii::$app->controller->id == 'solution'
+                'active' => Yii::$app->controller->id == 'solution',
+                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
             ],
             [
                 'label' => '<i class="fas fa-fw fa-chart-line"></i> ' . Yii::t('app', 'Rating'),

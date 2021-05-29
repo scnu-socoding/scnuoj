@@ -26,7 +26,7 @@ if (!$model->canViewSource()) {
     <?php else : ?>
         <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
             <i class="fas fa-fw fa-info-circle"></i>
-            你没有权限查看提交详情，对于编译错误的提交可以点击上方按钮查看编译信息。
+            你没有权限查看提交详情，<b>对于编译错误的提交可以点击上方按钮查看编译信息。</b>
         </div>
     <?php endif; ?>
 </div>

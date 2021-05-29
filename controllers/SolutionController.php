@@ -40,10 +40,14 @@ class SolutionController extends BaseController
         $searchModel = new SolutionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        if (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin())) {
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
     }
 
     /**
@@ -101,9 +105,13 @@ class SolutionController extends BaseController
         $this->layout = 'main';
         $model = $this->findModel($id);
 
-        return $this->render('detail', [
-            'model' => $model,
-        ]);
+        if ($model->result == Solution::OJ_CE || !Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin())) {
+            return $this->render('detail', [
+                'model' => $model,
+            ]);
+        } else {
+            throw new ForbiddenHttpException('本提交已被成功编译，暂无评测详情可用。');
+        }
     }
 
     /**
