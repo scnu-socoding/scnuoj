@@ -111,7 +111,7 @@ $this->title = $model->id;
     <?php else : ?>
         <div class="list-group animate__animated animate__fadeIn animate__faster">
             <div class="list-group-item">
-                <pre id="run-info"></pre>
+                <pre style="margin-bottom:0" id="run-info"></pre>
             </div>
         </div>
     <?php endif; ?>

@@ -27,7 +27,7 @@ if (!$model->canViewSource()) {
         <?php if ($model->result == 11) : ?>
             <div class="list-group animate__animated animate__fadeIn animate__faster">
                 <div class="list-group-item">
-                    <pre id="run-info"><?= Html::encode($model->solutionInfo->run_info) ?></pre>
+                    <pre style="margin-bottom:0" id="run-info"><?= Html::encode($model->solutionInfo->run_info) ?></pre>
                 </div>
             </div>
         <?php else : ?>
