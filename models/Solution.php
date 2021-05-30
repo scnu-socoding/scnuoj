@@ -278,7 +278,7 @@ class Solution extends ActiveRecord
             '' => '请选择',
             '0' => 'C (GCC 9.3.0)',
             '1' => 'C++ (GCC 9.3.0)',
-            '2' => 'Java (OpenJDK 11.0.9)',
+            '2' => 'Java (OpenJDK 11.0.11)',
             '3' => 'Python (3.8.5)'
         ];
         return $status === '' ? $arr : $arr[$status];

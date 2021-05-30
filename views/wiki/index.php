@@ -105,7 +105,7 @@
         </small>
     </div>
     <div class="list-group-item">
-        <b>Java</b> (OpenJDK 11.0.9)<br>
+        <b>Java</b> (OpenJDK 11.0.11)<br>
         <small>
             <code>javac -J-Xms32m -J-Xmx256m Main.java</code>
         </small>
