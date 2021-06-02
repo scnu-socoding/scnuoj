@@ -110,6 +110,9 @@ $nextProblemID = $model->getNextProblemID();
             <p></p>
         <?php endif; ?>
         <?php if (Yii::$app->user->isGuest) : ?>
+            <div class="animate__animated animate__fadeIn animate__faster">
+                <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 登录以提交代码。</div>
+            </div>
         <?php else : ?>
             <p></p>
             <?php $form = ActiveForm::begin(); ?>
