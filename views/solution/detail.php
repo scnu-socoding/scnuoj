@@ -95,7 +95,7 @@ $this->title = $model->id;
     <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
         <i class="fas fa-fw fa-info-circle"></i>
         <?php if ($model->getTestCount()) : ?>
-            本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。</h3>
+            本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。
         <?php else : ?>
             暂时无法获取本题测试点详情。
             <?php $flag = 1; ?>
@@ -115,7 +115,6 @@ $this->title = $model->id;
             </div>
         </div>
     <?php endif; ?>
-    </div>
     <?php
     $json = $model->solutionInfo->run_info;
     $json = str_replace("<", "&lt;", $json);
