@@ -19,9 +19,12 @@ $this->title = $name;
     <img src="<?= Yii::getAlias('@web') . '/images/error-header.jpg' ?>" class="card-img-top d-none d-md-block">
     <div class="card-body">
         <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
-        页面没有如您所期望地加载，在大多数情况下可能是因为访问权限受限或者页面不存在。<br>
+        页面没有如您所期望地加载，请确认您输入的地址无误且拥有访问当前页面的权限。<br>
         如果您认为这是站点本身的问题，欢迎您联系 <a target="_blank" href="https://github.com/scnu-socoding/scnuoj">SCNU Online Judge 开发组</a>。
         <p></p>
-        <a class="btn-block btn btn-primary" href="<?=Yii::$app->homeUrl?>"> <i class="fas fa-fw fa-home"></i> 返回首页</a>
+        <div class="btn-group btn-block">
+            <a class="btn btn-outline-primary" href="javascript:history.go(-1)"> <i class="fas fa-fw fa-arrow-alt-circle-left"></i> 返回上一页</a>
+            <a class="btn btn-outline-primary" href="<?= Yii::$app->homeUrl ?>"> <i class="fas fa-fw fa-home"></i> 返回首页</a>
+        </div>
     </div>
 </div>
