@@ -115,14 +115,19 @@ $this->title = $model->id;
             </div>
         </div>
     <?php endif; ?>
+
+    <!-- https://blog.csdn.net/sunbocong/article/details/81032758 -->
+
     <?php
     $json = $model->solutionInfo->run_info;
+    $json = str_replace("&", "&#38;", $json);
     $json = str_replace("<", "&lt;", $json);
     $json = str_replace(">", "&gt;", $json);
     $json = str_replace(PHP_EOL, "<br>", $json);
     $json = str_replace("\\n", "<br>", $json);
-    $json = str_replace("'", "\'", $json);
+    $json = str_replace("'", "&#39;", $json);
     $json = str_replace("\\r", "", $json);
+    $json = str_replace("\\", "&#92;", $json);
     $oiMode = Yii::$app->setting->get('oiMode');
     $verdict = $model->result;
     $CE = Solution::OJ_CE;
@@ -179,10 +184,14 @@ EOF;
     <?php endif; ?>
     <?php
     $json = $model->solutionInfo->run_info;
+    $json = str_replace("&", "&#38;", $json);
+    $json = str_replace("<", "&lt;", $json);
+    $json = str_replace(">", "&gt;", $json);
     $json = str_replace(PHP_EOL, "<br>", $json);
     $json = str_replace("\\n", "<br>", $json);
-    $json = str_replace("'", "\'", $json);
+    $json = str_replace("'", "&#39;", $json);
     $json = str_replace("\\r", "", $json);
+    $json = str_replace("\\", "&#92;", $json);
     $oiMode = Yii::$app->setting->get('oiMode');
     $verdict = $model->result;
     $CE = Solution::OJ_CE;
