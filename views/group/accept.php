@@ -16,15 +16,15 @@ $this->title = Html::encode($model->name);
 ?>
 <h3><?= Html::encode($model->name) ?></h3>
 <p><?= Html::encode($model->description) ?></p>
-<?php if ($model->getRole() == GroupUser::ROLE_INVITING): ?>
+<?php if (!Yii::$app->user->isGuest && $model->getRole() == GroupUser::ROLE_INVITING): ?>
 <div class="alert alert-light"><i class="fas fa-fw fa-question-circle"></i> 是否接受邀请加入此小组？</div>
 <div class="btn-block btn-group">
     <?= Html::a('同意', ['/group/accept', 'id' => $model->id, 'accept' => 1], ['class' => 'btn btn-success']) ?>
     <?= Html::a('拒绝', ['/group/accept', 'id' => $model->id, 'accept' => 0], ['class' => 'btn btn-danger']) ?>
 </div>
-<?php elseif ($model->join_policy == Group::JOIN_POLICY_APPLICATION): ?>
+<?php elseif (!Yii::$app->user->isGuest && $model->join_policy == Group::JOIN_POLICY_APPLICATION): ?>
 <?= Html::a('申请加入', ['/group/accept', 'id' => $model->id, 'accept' => 3], ['class' => 'btn btn-success btn-block']) ?>
-<?php elseif ($model->join_policy == Group::JOIN_POLICY_FREE): ?>
+<?php elseif (!Yii::$app->user->isGuest && $model->join_policy == Group::JOIN_POLICY_FREE): ?>
 <?= Html::a('加入小组', ['/group/accept', 'id' => $model->id, 'accept' => 2], ['class' => 'btn btn-success btn-block']) ?>
 <?php endif; ?>
 
