@@ -36,7 +36,7 @@ use yii\helpers\Url;
     ])->textInput(['maxlength' => 128, 'autocomplete' => 'off'])->label(false) ?>
     <p></p>
 
-    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 空间限制：Java 和 Python 有 128MB 额外空间。</div>
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 空间限制：Java 和 Python 有 64MB 额外空间。</div>
 
     <?= $form->field($model, 'memory_limit', [
         'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">空间</span></div>{input}<div class=\"input-group-append\"><span class=\"input-group-text\">MB</span></div></div>",
