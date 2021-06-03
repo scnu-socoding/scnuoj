@@ -168,8 +168,8 @@
             // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
             disableGlobalDnd: true,
             fileNumLimit: 1000,
-            fileSizeLimit: 300 * 1024 * 1024,    // 200 M
-            fileSingleSizeLimit: 100 * 1024 * 1024    // 50 M
+            fileSizeLimit: 300 * 1024 * 1024,    // 300 M
+            fileSingleSizeLimit: 300 * 1024 * 1024    // 300 M
         });
 
         // 拖拽时不接受 js, txt 文件。
