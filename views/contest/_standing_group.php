@@ -13,7 +13,7 @@ $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
 <?php if ($model->isScoreboardFrozen()) : ?>
-    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。</div>
+    <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。</div>
     <p></p>
 <?php endif; ?>
 <table class="table table-bordered standings-table">
