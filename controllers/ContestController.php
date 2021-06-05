@@ -249,7 +249,7 @@ class ContestController extends BaseController
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
         $dataProvider = new ActiveDataProvider([
-            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])->orderBy('id DESC'),
         ]);
 
         return $this->render('/contest/view', [
@@ -300,7 +300,7 @@ class ContestController extends BaseController
         $newClarify = new Discuss();
         $discuss = null;
         $dataProvider = new ActiveDataProvider([
-            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])->orderBy('id DESC'),
         ]);
 
         if ($cid != -1) {
@@ -480,7 +480,7 @@ class ContestController extends BaseController
         }
         if ($pid == -1) {
             $dataProvider = new ActiveDataProvider([
-                'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+                'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])->orderBy('id DESC'),
             ]);
 
             return $this->render('/contest/problem_index', [
@@ -539,7 +539,7 @@ class ContestController extends BaseController
             }
 
             $dataProvider = new ActiveDataProvider([
-                'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+                'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])->orderBy('id DESC'),
             ]);
 
             return $this->render('/contest/problem', [

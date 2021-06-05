@@ -211,7 +211,7 @@ class HomeworkController extends BaseController
         }
 
         $announcements = new ActiveDataProvider([
-            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])
+            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])->orderBy('id DESC')
         ]);
 
         $newAnnouncement = new ContestAnnouncement();
