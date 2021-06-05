@@ -88,10 +88,10 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
             <?php endif; ?>
         <?php endif; ?>
         <p></p>
-        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 30 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest()) : ?>
+        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 30 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
             <p></p>
             <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛已结束，比赛结束 30 分钟后开放提交。</div>
-        <?php elseif ($model->isContestEnd() && !Yii::$app->user->isGuest && !$model->isUserInContest()) : ?>
+        <?php elseif ($model->isContestEnd() && !Yii::$app->user->isGuest && !$model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
             <p></p>
             <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 注册已经关闭，请参加重现赛。</div>
         <?php else : ?>
