@@ -26,11 +26,14 @@ $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
 ?>
 <div class="solution-index">
-    <?php if ($model->isScoreboardFrozen()) :?>
-        <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</div>
+    <?php if ($model->isContestEnd() && $model->isScoreboardFrozen()) : ?>
+        <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 比赛已经结束，封榜状态尚未解除，请等候管理员滚榜或解榜。</div>
+        <p></p>
+    <?php elseif ($model->isScoreboardFrozen()) : ?>
+        <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，只显示封榜前的提交及您个人的所有提交记录。</div>
     <?php endif; ?>
-    <?php if ($model->type != Contest::TYPE_OI || $isContestEnd): ?>
-    <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
+    <?php if ($model->type != Contest::TYPE_OI || $isContestEnd) : ?>
+        <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
     <?php endif; ?>
 
     <?= GridView::widget([
@@ -71,8 +74,11 @@ $isContestEnd = $model->isContestEnd();
                     if (!isset($res->num)) {
                         return $model->problem->title;
                     }
-                    return Html::a(chr(65 + $res->num) . ' - ' . $model->problem->title,
-                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num], ['class' => 'text-dark']);
+                    return Html::a(
+                        chr(65 + $res->num) . ' - ' . $model->problem->title,
+                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num],
+                        ['class' => 'text-dark']
+                    );
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -97,7 +103,7 @@ $isContestEnd = $model->isContestEnd();
                 'attribute' => 'score',
                 'enableSorting' => false,
                 'visible' => $model->type == Contest::TYPE_IOI || $model->type == Contest::TYPE_HOMEWORK ||
-                            ($model->type == Contest::TYPE_OI && $isContestEnd),
+                    ($model->type == Contest::TYPE_OI && $isContestEnd),
                 'headerOptions' => ['style' => 'min-width:90px;']
             ],
             [
@@ -131,7 +137,8 @@ $isContestEnd = $model->isContestEnd();
                 'value' => function ($solution, $key, $index, $column) use ($model, $isContestEnd) {
                     $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode'));
                     if ($solution->canViewSource() || $otherCan) {
-                        return Html::a($solution->getLang(),
+                        return Html::a(
+                            $solution->getLang(),
                             ['/solution/source', 'id' => $solution->id],
                             ['onclick' => 'return false', 'data-click' => "solution_info", 'class' => 'text-dark']
                         );
@@ -164,10 +171,10 @@ $isContestEnd = $model->isContestEnd();
             'maxButtonCount' => 5,
         ]
     ]); ?>
-<?php
-$url = \yii\helpers\Url::toRoute(['/solution/verdict']);
-$loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
-$js = <<<EOF
+    <?php
+    $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
+    $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
+    $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
     $.ajax({
         url: $(this).attr('href'),
@@ -228,8 +235,8 @@ if (waitingCount > 0) {
     interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
-$this->registerJs($js);
-?>
+    $this->registerJs($js);
+    ?>
 </div>
 <?php Modal::begin([
     'options' => ['id' => 'solution-info']

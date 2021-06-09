@@ -88,12 +88,12 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
             <?php endif; ?>
         <?php endif; ?>
         <p></p>
-        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 30 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
+        <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
             <p></p>
-            <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛已结束，比赛结束 30 分钟后开放提交。</div>
+            <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛已结束，比赛结束五分钟后开放提交。</div>
         <?php elseif ($model->isContestEnd() && !Yii::$app->user->isGuest && !$model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
             <p></p>
-            <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 注册已经关闭，请参加重现赛。</div>
+            <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛注册已关闭，你没有提交评测的权限。阅读比赛公告或联系管理员以了解如何补题。</div>
         <?php else : ?>
             <?php if (Yii::$app->user->isGuest) : ?>
                 <div class="animate__animated animate__fadeIn animate__faster">

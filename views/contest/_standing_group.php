@@ -12,7 +12,11 @@ $first_blood = $rankResult['first_blood'];
 $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
-<?php if ($model->isScoreboardFrozen()) : ?>
+
+<?php if ($model->isContestEnd() && $model->isScoreboardFrozen()) : ?>
+    <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 比赛已经结束，封榜状态尚未解除，请等候管理员滚榜或解榜。</div>
+    <p></p>
+<?php elseif ($model->isScoreboardFrozen()) : ?>
     <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。</div>
     <p></p>
 <?php endif; ?>
