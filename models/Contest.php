@@ -860,9 +860,9 @@ class Contest extends \yii\db\ActiveRecord
         foreach ($users as $user) {
             if ($rankResult[$user['user_id']]['solved'] != 0) {
                 //如果该场比赛已经计算过了，就不再计算
-                if ($user['rating_change'] != NULL) {
-                    return;
-                }
+                // if ($user['rating_change'] != NULL) {
+                //    return;
+                // }
                 $userCount++;
             }
         }

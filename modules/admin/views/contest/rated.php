@@ -19,7 +19,7 @@ $this->title = $model->title;
     <?php if ($model->getRunStatus() == Contest::STATUS_ENDED) : ?>
         <?= Html::a('计算积分', ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-outline-primary btn-block']) ?>
         <p></p>
-        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 计算出来的积分用于在排行榜排名，重复点击只会计算一次。</div>
+        <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 计算出来的积分用于在排行榜排名，重复点击会多次计算积分。</div>
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
