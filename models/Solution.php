@@ -402,9 +402,9 @@ class Solution extends ActiveRecord
         if (!empty($this->contest_id)) {
             $contest = self::getContestInfo($this->contest_id);
             // 比赛结束都可以看
-            if (time() >= strtotime($contest['end_time'])) {
-                return true;
-            }
+            // if (time() >= strtotime($contest['end_time'])) {
+            //     return true;
+            // }
             // 小组
             if ($contest['group_id'] && !Yii::$app->user->isGuest) {
                 $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
