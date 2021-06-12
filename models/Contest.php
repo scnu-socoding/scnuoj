@@ -872,7 +872,7 @@ class Contest extends \yii\db\ActiveRecord
 
             // 没有解决题目的不计算
             if ($rankResult[$user['user_id']]['solved'] == 0) {
-                continue;
+                //continue;
             }
             if ($user['rating']) {
                 foreach ($users as $u) {
@@ -886,17 +886,17 @@ class Contest extends \yii\db\ActiveRecord
 
             // 此处 ELO 算法中 K 的合理性有待改进
             if ($old < 1150) {
-                $eloK = 5;
+                $eloK = 1;
             } else if ($old < 1400) {
-                $eloK = 6;
+                $eloK = 2;
             } else if ($old < 1650) {
-                $eloK = 7;
+                $eloK = 5;
             } else if ($old < 1900) {
-                $eloK = 8;
+                $eloK = 6;
             } else if ($old < 2150) {
-                $eloK = 9;
+                $eloK = 7;
             } else {
-                $eloK = 10;
+                $eloK = 9;
             }
             $newRating = intval($old + $eloK * (($userCount - $rankResult[$user['user_id']]['rank']) - $exp));
 

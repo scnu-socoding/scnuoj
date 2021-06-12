@@ -110,7 +110,7 @@
             <code>javac -J-Xms32m -J-Xmx256m Main.java</code>
         </small>
     </div>
-    <div class="list-group-item text-secondary">
+    <div class="list-group-item">
         <b>Python</b> (3.8.5)<br>
         <small>
             编译参数不可用。
@@ -128,14 +128,14 @@
         </small>
     </div>
     <?php if (!Yii::$app->setting->get('oiMode')) : ?>
-        <div class="list-group-item text-secondary">
+        <div class="list-group-item">
             <b>IOI</b><br>
             <small>
                 有部分分，比赛期间提供判题结果反馈，排名按每题最高得分总和排序。<br>
                 OI 模式未开启，在 IOI 赛制的比赛提交代码将无法得到准确的分数。
             </small>
         </div>
-        <div class="list-group-item text-secondary">
+        <div class="list-group-item">
             <b>OI</b><br>
             <small>
                 有部分分，比赛期间不提供判题结果反馈，排名按每题最后一次提交得分总和排序。<br>
