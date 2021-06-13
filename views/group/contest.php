@@ -116,40 +116,37 @@ echo Nav::widget([
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
+                    
+                    $base_title = Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']);
+
                     if ($model->ext_link) {
                         if ($model->invite_code) {
-                            return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags"><span class="badge badge-secondary"><code class="text-white">' . $model->invite_code . '</code>' . '</span> <span class="badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span></span>';
+                            return $base_title . '<span class="problem-list-tags"><span class="badge badge-secondary"><code class="text-white">' . $model->invite_code . '</code>' . '<i class="fas fa-sm fa-lock" style="margin-left:4px"></i></span> <span class="badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span></span>';
                         }
-                        return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span>';
+                        return $base_title . '<span class="problem-list-tags badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span>';
                     }
-                    return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']) . '<span class="problem-list-tags">' . Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'badge badge-info']) . '</span>';
+
+                    $stat = "";
+
+                    if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
+                        $stat = '<span class="badge badge-success">参赛 <i class="fas fa-sm fa-check"></i></span> ';
+                    }
+
+                    $people_cnt = Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/view', 'id' => $model->id], ['class' => 'badge badge-info']);
+
+                    return $base_title . '<span class="problem-list-tags">' . $stat . $people_cnt . '</span>';
                 },
                 'format' => 'raw',
                 'enableSorting' => false,
-                'options' => ['style' => 'min-width:350px;'],
+                'options' => ['style' => 'min-width:400px;'],
             ],
             [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
-                    $link = Html::a(Yii::t('app', 'Register »'), ['/contest/register', 'id' => $model->id]);
-                    if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
-                        $link = '<span class="well-done">' . Yii::t('app', 'Registration completed') . '</span>';
-                    }
-                    if (
-                        $model->status == Contest::STATUS_VISIBLE &&
-                        !$model->isContestEnd() &&
-                        $model->scenario == Contest::SCENARIO_ONLINE
-                    ) {
-                        $column = $model->getRunStatus(true) . ' ' . $link;
-                    } else {
-                        $column = $model->getRunStatus(true);
-                    }
-                    $userCount = $model->getContestUserCount();
-                    return $column;
-                    // return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
+                    return $model->getRunStatus(true);
                 },
                 'format' => 'raw',
-                'options' => ['style' => 'width:150px;min-width:150px;'],
+                'options' => ['style' => 'width:100px;min-width:100px;'],
                 'enableSorting' => false
             ],
             [
