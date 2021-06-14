@@ -16,12 +16,6 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 非必要情况下，请不要更改本栏内容，维持当前状态即可。</div>
-    <?= $form->field($model, 'id', [
-        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">编号</span></div>{input}</div>",
-        'options' => ['class' => '']
-    ])->textInput()->label(false) ?>
-    <p></p>
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛名称应该包含年份、序号、是否重现赛等信息。</div>
     <?= $form->field($model, 'title', [
         'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">标题</span></div>{input}</div>",
