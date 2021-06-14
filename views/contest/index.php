@@ -29,9 +29,9 @@ $this->title = Yii::t('app', 'Contests');
 
                     if ($model->ext_link) {
                         if ($model->invite_code) {
-                            return $base_title . '<span class="problem-list-tags"><span class="badge badge-secondary"><code class="text-white">' . $model->invite_code . '</code>' . '<i class="fas fa-sm fa-lock" style="margin-left:4px"></i></span> <span class="badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span></span>';
+                            return $base_title . '<span class="problem-list-tags"><span class="badge badge-secondary"><code class="text-white">' . $model->invite_code . '</code>' . '<i class="fas fa-sm fa-lock" style="margin-left:4px"></i></span> <span class="badge badge-warning"> 重定向 <i class="fas fa-sm fa-rocket"></i>' . '</span></span>';
                         }
-                        return $base_title . '<span class="problem-list-tags badge badge-warning"> 站外 <i class="fas fa-sm fa-rocket"></i>' . '</span>';
+                        return $base_title . '<span class="problem-list-tags badge badge-warning"> 重定向 <i class="fas fa-sm fa-rocket"></i>' . '</span>';
                     }
 
                     $stat = "";
