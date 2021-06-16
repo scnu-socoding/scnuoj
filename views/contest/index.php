@@ -40,7 +40,7 @@ $this->title = Yii::t('app', 'Contests');
                         $stat = '<span class="badge badge-success">参赛 <i class="fas fa-sm fa-check"></i></span> ';
                     }
 
-                    $people_cnt = Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/view', 'id' => $model->id], ['class' => 'badge badge-info']);
+                    $people_cnt = Html::a($model->getContestUserCount() . ' <i class="fas fa-sm fa-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'badge badge-info']);
 
                     return $base_title . '<span class="problem-list-tags">' . $stat . $people_cnt . '</span>';
                 },
