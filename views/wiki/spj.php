@@ -79,11 +79,11 @@
         
         
         <tr>
-            <td><code>quitf(\_ok, "Correct: answer is %d", ans)</code></td>
+            <td><code>quitf(_ok, "Correct: answer is %d", ans)</code></td>
             <td>答案正确，给出 AC</td>
         </tr>
         <tr>
-            <td><code>quitf(\_wa, "Wrong answer: expected %f, found %f", jans, pans)</code></td>
+            <td><code>quitf(_wa, "Wrong answer: expected %f, found %f", jans, pans)</code></td>
             <td>答案错误，给出 WA</td>
         </tr>
         </tbody>
