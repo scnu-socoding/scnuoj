@@ -40,7 +40,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 
 <h5>Problem <?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h5>
 
-<div class="row">
+<div class="row problem-view">
     <div class="col-lg-9 animate__animated animate__fadeIn animate__faster">
 
         <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == '') : ?>

@@ -62,7 +62,7 @@ $nextProblemID = $model->getNextProblemID();
 </ul>
 <p></p>
 
-<div class="row">
+<div class="row problem-view">
 
     <div class="col-lg-9 animate__animated animate__fadeIn animate__faster">
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
