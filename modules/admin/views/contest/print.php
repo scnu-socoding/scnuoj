@@ -52,15 +52,22 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
             <br>
             <br>
             <br>
-            <h2 class="limit"><?= $model->title ?></h2>
+            <h1 class="limit"><?= $model->title ?></h1>
             <br>
             <br>
             <h3 class="limit">试题册</h3>
             <br>
             <br>
             <div class="limit">
-                <p><b>开始时间</b> <?= $model->start_time ?></p>
-                <p><b>结束时间</b> <?= $model->end_time ?></p>
+                <?php if (Yii::$app->setting->get('schoolName') == "华南师范大学软件学院") : ?>
+                    <p class="limit">
+                        华南师范大学软件协会香农先修班</p>
+                    <p class="limit">
+                        华南师范大学软件学院 ICPC/CCPC 集训队
+                    </p>
+                <?php else : ?>
+                    <p class="limit"><?= Yii::$app->setting->get('schoolName') ?></p>
+                <?php endif; ?>
             </div>
 
             <br>
@@ -80,9 +87,23 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                     <p><b><?= Html::encode($problem['title']) ?></b></p>
                 <?php endforeach; ?>
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p class="limit">
+                <b>重要提示</b> Java 和 Python 程序在题目所标时间空间限制基础上有 2 秒的额外运行时间和 64 MB 的额外空间
+            </p>
+            <br>
+            <br>
             <div style="page-break-after: always"></div>
             <?php foreach ($problems as $key => $problem) : ?>
                 <h3 class="limit"><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
+                <p class="limit">
+                    <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>, <?= $problem['memory_limit'] ?> MB
+                </p>
                 <br>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
