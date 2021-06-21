@@ -467,7 +467,7 @@ nav div li div.dropdown-menu.show {
     justify-content: center;
 }
 
-.problem-view .markdown code {
+.problem-view .markdown p code {
     border: 1px solid #ddd !important;
     background: #f6f6f6 !important;
     padding: 3px !important;
