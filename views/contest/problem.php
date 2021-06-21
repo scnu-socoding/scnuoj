@@ -44,7 +44,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
     <div class="col-lg-9 animate__animated animate__fadeIn animate__faster">
 
         <?php if ($problem['description'] == '' && $problem['input'] == '' && $problem['output'] == '') : ?>
-            <div class="alert text-dark border">比赛题目通过其它方式分发，敬请留意相关信息。</div>
+            <div class="alert text-dark border">比赛题目通过其它方式分发。</div>
         <?php else : ?>
             <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
             <p class="lead"><?= Yii::t('app', 'Input') ?></p>
