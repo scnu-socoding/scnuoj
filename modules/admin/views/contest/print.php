@@ -9,103 +9,136 @@ $this->title = $model->title;
 $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
 ?>
 <style>
-    html, body {
+    html,
+    body {
         background-color: #fff !important;
         padding: 0 20px;
     }
+
     pre {
         padding: 0;
         background-color: #fff;
         border: none;
     }
+
     .limit {
         text-align: center;
     }
+
+    pre {
+        white-space: pre-line;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    p,
+    blockquote {
+        margin-bottom: 0.5rem;
+    }
+
+    table {
+        max-width: 100%;
+        table-layout: fixed;
+    }
 </style>
-<div class="row">
-    <div class="col-md-8 problem-view">
-        <div class="alert alert-warning alert-dismissible fade in hidden-print" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <p>提示：建议使用浏览器自带的打印功能（Chrome 浏览器可在页面上鼠标“右键”-“打印”，其它浏览器请自行利用搜索引擎获取使用方法），从中选择将此页面导出为 PDF 格式后再打印。</p>
-            <p>此提示信息不会出现在浏览器的打印窗口中。</p>
-        </div>
-        <?php foreach ($problems as $key => $problem): ?>
-        <h3><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
-        <p class="limit">
-            Time limit: <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>
-        </p>
-        <p class="limit">
-            Memory limit: <?= $problem['memory_limit'] ?> MB
-        </p>
-        <div class="content-wrapper">
-            <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
-        </div>
-        <h4><?= Yii::t('app', 'Input') ?></h4>
-        <div class="content-wrapper">
-            <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-        </div>
-        <h4><?= Yii::t('app', 'Output') ?></h4>
-        <div class="content-wrapper">
-            <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-        </div>
-        <h4><?= Yii::t('app', 'Sample') ?></h4>
-        <?php
-        $sample_input = unserialize($problem['sample_input']);
-        $sample_output = unserialize($problem['sample_output']);
-        ?>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th><?= Yii::t('app', 'Sample Input') ?></th>
-                <th><?= Yii::t('app', 'Sample Output') ?></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><pre><?= Html::encode($sample_input[0]) ?></pre></td>
-                <td><pre><?= Html::encode($sample_output[0]) ?></pre></td>
-            </tr>
-            </tbody>
-        </table>
-        <?php if ($sample_input[1] != '' || $sample_output[1] != ''):?>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th><?= Yii::t('app', 'Sample Input 2') ?></th>
-                    <th><?= Yii::t('app', 'Sample Output 2') ?></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><pre><?= Html::encode($sample_input[1]) ?></pre></td>
-                    <td><pre><?= Html::encode($sample_output[1]) ?></pre></td>
-                </tr>
-                </tbody>
-            </table>
-        <?php endif; ?>
-        <?php if ($sample_input[2] != '' || $sample_output[2] != ''):?>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th><?= Yii::t('app', 'Sample Input 3') ?></th>
-                    <th><?= Yii::t('app', 'Sample Output 3') ?></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><pre><?= Html::encode($sample_input[2]) ?></pre></td>
-                    <td><pre><?= Html::encode($sample_output[2]) ?></pre></td>
-                </tr>
-                </tbody>
-            </table>
-        <?php endif; ?>
-        <?php if (!empty($problem['hint'])): ?>
-            <h4><?= Yii::t('app', 'Hint') ?></h4>
-            <div class="content-wrapper">
-                <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+<div class="container">
+    <div class="row">
+        <div class="col problem-view">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h2 class="limit"><?= $model->title ?></h2>
+            <br>
+            <br>
+            <h3 class="limit">试题册</h3>
+            <br>
+            <br>
+            <div class="limit">
+                <p><b>开始时间</b> <?= $model->start_time ?></p>
+                <p><b>结束时间</b> <?= $model->end_time ?></p>
             </div>
-        <?php endif; ?>
-        <div style="page-break-after: always"></div>
-    <?php endforeach; ?>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <div class="limit">
+                <h3>题目列表</h3>
+                <br>
+                <br>
+                <?php foreach ($problems as $key => $problem) : ?>
+                    <p><b><?= Html::encode($problem['title']) ?></b></p>
+                <?php endforeach; ?>
+            </div>
+            <div style="page-break-after: always"></div>
+            <?php foreach ($problems as $key => $problem) : ?>
+                <h3 class="limit"><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
+                <br>
+                <div class="content-wrapper">
+                    <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
+                </div>
+                <h4>输入</h4>
+                <p></p>
+                <div class="content-wrapper">
+                    <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
+                </div>
+                <h4>输出</h4>
+                <p></p>
+                <div class="content-wrapper">
+                    <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+                </div>
+
+                <?php
+                $sample_input = unserialize($problem['sample_input']);
+                $sample_output = unserialize($problem['sample_output']);
+                ?>
+
+                <?php if ($sample_output[0] != '') : ?>
+                    <h4>样例</h4>
+                    <p></p>
+                <?php endif; ?>
+
+                <?php for ($i = 0; $i < 3; $i++) : ?>
+                    <?php if ($sample_input[$i] != '' || $sample_output[$i] != '') : ?>
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <th>样例输入 <?= $i + 1 ?></th>
+                                    <th>样例输出 <?= $i + 1 ?></th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <pre style="margin-bottom:0"><?= Html::encode($sample_input[$i]) ?></pre>
+
+                                    </td>
+                                    <td>
+                                        <pre style="margin-bottom:0"><?= Html::encode($sample_output[$i]) ?></pre>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                <?php endfor; ?>
+                <?php if (!empty($problem['hint'])) : ?>
+                    <h4>说明</h4>
+                    <p></p>
+                    <div class="content-wrapper">
+                        <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                    </div>
+                <?php endif; ?>
+                <div style="page-break-after: always"></div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
