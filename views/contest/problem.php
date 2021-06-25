@@ -39,6 +39,7 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 
 
 <h5>Problem <?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h5>
+<p></p>
 
 <div class="row problem-view">
     <div class="col-lg-9 animate__animated animate__fadeIn animate__faster">
