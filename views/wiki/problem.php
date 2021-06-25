@@ -6,6 +6,12 @@ use yii\bootstrap4\Modal;
 <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 本页面已被隐藏，非管理员将无法查看此页面。
 </div>
 
+<h5>2021 年 AK 杯出题说明</h5>
+
+<p>请移步到 <a href="https://github.com/scnu-socoding/scnuse-xcpc-novice-2021">scnu-socoding/scnuse-xcpc-novice-2021</a> 查看，确认你已经登录 GitHub 且有必要的权限。</p>
+
+<p>如果无法访问上述站点，请使用必要的手段以确保你可以正常访问国际互联网。</p>
+
 <h5>Polygon System</h5>
 
 <p>为了方便课程助教和部分有需要的同学和老师，我们开放了造题系统 <?= Html::a(Yii::t('app', 'Polygon System'), ['/polygon']) ?>。所有注册用户都可以在该平台上面创建题目，非管理员用户只能查看自己创建的题目，管理员可以查看所有用户的题目，并将题目加入公共题库或比赛中。</p>
@@ -55,20 +61,44 @@ use yii\bootstrap4\Modal;
 
 
 <div class="pre"><p>#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+using ll = long long;
+
+const int N = 100;
+const int M = 100000;
+ofstream outfile;
+
+void begin_gen();
+
 int main()
 {
-    // 生成 30 组数据
-    for (int test = 1; test <= 30; test++)
+    srand(998244353); // 建议固定随机数种子以生成稳定输出
+    for (int i = 1; i <= 10; i++)
     {
-        char name[100];
-        sprintf(name, "%d.in", test); // 注意文件名称必须以 in 作为后缀
-        FILE *fp = fopen(name, "w");
-        int a = rand() % 100 + 1;     // 随机生成在一个在 [1, 100] 范围内的数
-        int b = rand() % 100 + 1;     // 随机生成在一个在 [1, 100] 范围内的数
-        fprintf(fp, "%d %d\n", a, b); // 输出到文件中
-        fclose(fp);
+        cout &lt;&lt; i &lt;&lt; endl;
+        string filename = "out/" + to_string(i) + ".in";
+        outfile.open(filename);
+        begin_gen();
+        outfile.close();
     }
-    return 0;
+}
+
+void begin_gen()
+{
+    int t = rand() % N + 1; // 别忘了加一，下同
+    outfile &lt;&lt; t &lt;&lt; endl;
+    while (t--)
+    {
+        int n = rand() % N + 1;
+        outfile &lt;&lt; n &lt;&lt; '\n'
+                &lt;&lt; rand() % M + 1;
+        for (int i = 1; i < n; i++)
+        {
+            outfile &lt;&lt; ' ' &lt;&lt; rand() % M + 1;
+        }
+        outfile &lt;&lt; '\n'; // 注意行末不要有多余空格，虽然你可能觉得无所谓
+    }
 }
 </p></div>
 
