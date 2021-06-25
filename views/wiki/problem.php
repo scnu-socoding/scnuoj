@@ -6,7 +6,7 @@ use yii\bootstrap4\Modal;
 <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 本页面已被隐藏，非管理员将无法查看此页面。
 </div>
 
-<h5>2021 年 AK 杯出题说明</h5>
+<h5>2021 年 AK 杯备题仓库</h5>
 
 <p>请移步到 <a href="https://github.com/scnu-socoding/scnuse-xcpc-novice-2021">scnu-socoding/scnuse-xcpc-novice-2021</a> 查看，确认你已经登录 GitHub 且有必要的权限。</p>
 
