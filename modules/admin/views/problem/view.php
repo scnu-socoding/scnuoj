@@ -11,7 +11,7 @@ $this->title = $model->title;
 $this->params['model'] = $model;
 
 ?>
-<div class="row">
+<div class="row problem-view">
     <div class="col-lg-9">
 
         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
