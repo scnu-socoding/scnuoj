@@ -10,7 +10,7 @@ $problem = $this->params['model'];
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <div class="polygon-header">
-<p class="lead">设置题目《<?= Html::encode($problem->title) ?>》题面与数据信息。</p>
+    <p class="lead"><?= Html::a("<i class=\"fas fa-fw fa-chevron-left\"></i>", ['/polygon/problem/index']) ?> 设置题目《<?= Html::encode($problem->title) ?>》题面与数据信息。</p>
     <?= Nav::widget([
         'options' => ['class' => 'nav nav-pills'],
         'items' => [

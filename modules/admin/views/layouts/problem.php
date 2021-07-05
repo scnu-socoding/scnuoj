@@ -30,7 +30,7 @@ $model = $this->params['model'];
     <div class="col">
 
         <div class="problem-header">
-            <p class="lead">设置题目《<?= Html::encode($model->title) ?>》题面与数据信息。</p>
+            <p class="lead"><?= Html::a("<i class=\"fas fa-fw fa-chevron-left\"></i>", ['index']) ?> 设置题目《<?= Html::encode($model->title) ?>》题面与数据信息。</p>
             <?= \yii\bootstrap4\Nav::widget([
                 'options' => ['class' => 'nav nav-pills'],
                 'items' => [

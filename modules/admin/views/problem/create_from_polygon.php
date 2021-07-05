@@ -14,6 +14,9 @@ $this->title = Yii::t('app', 'Import Problem From Polygon System');
 
     <p class="lead">从 Polygon 题库同步题目到公共题库。</p>
 
+    <?= Html::a("前往 Polygon 题库", ['/polygon/problem/index'], ['class' => 'btn btn-outline-primary btn-block']) ?>
+    <p></p>
+
     <div class="alert alert-light">
         <i class="fas fa-fw fa-info-circle"></i> 感谢您参与 <?= Yii::$app->setting->get('ojName') ?> 公共题库的建设！下面两栏请任选一项填写，重复同步同一题目仅做强制覆盖不会另外新建题目。
     </div>
