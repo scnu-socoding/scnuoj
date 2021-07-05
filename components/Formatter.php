@@ -211,7 +211,7 @@ class Formatter extends \yii\i18n\Formatter
 
         $katex = $this->katex_entity_decode_editormd($katex);
 
-        return '<span class="katex math multi-line">' . $katex . '</span>';
+        return '<span class="katex math multi-line" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">' . $katex . '</span>';
     }
 
     /**
