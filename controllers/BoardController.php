@@ -11,4 +11,8 @@ class BoardController extends BaseController
     {
         return $this->render('scnucpc2020');
     }
+    public function actionScnucpc2021()
+    {
+        return $this->render('scnucpc2021');
+    }
 }
