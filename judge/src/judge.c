@@ -1406,6 +1406,12 @@ int main(int argc, char** argv)
 
     // OI 子任务设定的 config 文件
     subtask_list = read_oi_mode_substask_configfile(oi_substask_configfile);
+
+    // 如果不是 OI 赛制，不使用子任务
+    if (!oi_mode) {
+        subtask_list = NULL;
+    }
+
     // 读取不成功，则采用满分100分分给每个测试点
     if (subtask_list == NULL) {
         subtask_list = (subtask_struct *)malloc(sizeof(subtask_struct));
