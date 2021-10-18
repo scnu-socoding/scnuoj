@@ -38,6 +38,7 @@ $problems = $model->problems;
                 'size' => Modal::SIZE_LARGE
             ]); ?>
             <?= Html::beginForm(['contest/scroll-scoreboard', 'id' => $model->id], 'get', ['target' => '_blank']) ?>
+            <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 滚榜暂时只支持罚时 20 分钟的比赛，如罚时为其他值请先修改 web/js/scrollboard.js。</div>
             <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text">金牌</span></div>
                 <?= Html::textInput('gold', round($model->getContestUserCount() * 0.1), ['class' => 'form-control']) ?>
