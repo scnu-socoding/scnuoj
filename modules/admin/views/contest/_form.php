@@ -75,6 +75,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
     ])->label(false) ?>
     <p></p>
 
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 设置比赛的罚时（分钟），仅在 ICPC 赛制生效，不填则默认 20 分钟。</div>
+    <?= $form->field($model, 'punish_time', [
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">罚时</span></div>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput()->label(false) ?>
+    <p></p>
 
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 设置比赛可见性。公开：任何用户均可参加比赛，若启用邀请码则正确填写邀请码的用户均可参赛。私有：任何时候比赛均只能由参赛用户访问，且比赛用户需要在后台手动添加。隐藏：前台无法看到比赛。</div>
 
