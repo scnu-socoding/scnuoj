@@ -146,6 +146,7 @@ $problems = $model->problems;
                 'end_time',
                 'lock_board_time',
                 'description:html',
+                'punish_time',
             ],
         ]) ?>
     </div>

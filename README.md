@@ -7,7 +7,7 @@ SCNUOJ 可对用户在线提交的源代码进行编译和执行，并通过预�
 ### 华南师大软院在线评测系统
 
 - [oj.socoding.cn](https://oj.socoding.cn/) - 外网入口
-- [oj-internal.socoding.cn](https://oj-internal.socoding.cn/) - 校园网入口
+- [10.191.65.243:5000](http://10.191.65.243:5000/) - 校园网入口
 
 ### 帮助文档
 

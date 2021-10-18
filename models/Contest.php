@@ -25,6 +25,7 @@ use yii\caching\TagDependency;
  * @property int $created_by
  * @property string $ext_link
  * @property string $invite_code
+ * @property int $punish_time
  */
 class Contest extends \yii\db\ActiveRecord
 {
@@ -85,7 +86,7 @@ class Contest extends \yii\db\ActiveRecord
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_print', 'enable_clarify'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_print', 'enable_clarify', 'punish_time'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -108,6 +109,7 @@ class Contest extends \yii\db\ActiveRecord
             'scenario' => Yii::t('app', 'Scenario'),
             'ext_link' => '站外比赛',
             'invite_code' => '邀请码',
+            'punish_time' => '罚时',
         ];
     }
 
@@ -435,6 +437,7 @@ class Contest extends \yii\db\ActiveRecord
         $start_time = strtotime($this->start_time);
         $lock_time = 0x7fffffff;
         $contest_end_time = strtotime($this->end_time);
+        $punish_time = intval($this->punish_time ?? 20);
         if ($endtime == null) {
             $endtime = $contest_end_time;
         }
@@ -528,7 +531,7 @@ class Contest extends \yii\db\ActiveRecord
                 } else {
                     $result[$user]['ac_time'][$pid] = 0;
                 }
-                $result[$user]['time'] += $sec + $result[$user]['wa_count'][$pid] * 60 * 20;
+                $result[$user]['time'] += $sec + $result[$user]['wa_count'][$pid] * 60 * $punish_time;
             } else if ($row['result'] <= 3) {
                 // 还未测评
                 ++$result[$user]['pending'][$pid];
