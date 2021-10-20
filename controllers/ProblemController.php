@@ -101,6 +101,11 @@ class ProblemController extends BaseController
 
     public function actionDiscuss($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $newDiscuss = new Discuss();
         $newDiscuss->setScenario('problem');
