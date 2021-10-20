@@ -48,6 +48,11 @@ class ContestController extends BaseController
      */
     public function actionIndex()
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId')) {
+            $this->redirect(['/contest/view', 'id' => Yii::$app->setting->get('examContestId')]);
+        }
+
         $searchModel = new ContestSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -65,6 +70,11 @@ class ContestController extends BaseController
      */
     public function actionStatus($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
@@ -92,6 +102,10 @@ class ContestController extends BaseController
      */
     public function actionSubmission($pid, $cid, $uid)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $cid != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = false;
         $model = $this->findModel($cid);
         if ($model->ext_link) {
@@ -122,6 +136,11 @@ class ContestController extends BaseController
      */
     public function actionUser($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = 'main';
         $model = $this->findModel($id);
         if ($model->ext_link) {
@@ -150,6 +169,11 @@ class ContestController extends BaseController
      */
     public function actionRegister($id, $q = null, $register = 0)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = 'main';
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/site/login']);
@@ -197,6 +221,11 @@ class ContestController extends BaseController
      */
     public function actionPrint($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
@@ -240,6 +269,11 @@ class ContestController extends BaseController
      */
     public function actionView($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
@@ -266,6 +300,11 @@ class ContestController extends BaseController
      */
     public function actionEditorial($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
@@ -289,6 +328,11 @@ class ContestController extends BaseController
      */
     public function actionClarify($id, $cid = -1)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
@@ -399,6 +443,11 @@ class ContestController extends BaseController
      */
     public function actionStanding($id, $showStandingBeforeEnd = 1)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
@@ -430,6 +479,11 @@ class ContestController extends BaseController
      */
     public function actionStanding2($id, $showStandingBeforeEnd = 1)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = 'contest';
         $model = $this->findModel($id);
         if ($model->ext_link) {
@@ -470,6 +524,11 @@ class ContestController extends BaseController
      */
     public function actionProblem($id, $pid = -1)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->ext_link) {
             $this->redirect($model->ext_link);

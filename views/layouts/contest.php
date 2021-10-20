@@ -236,7 +236,6 @@ $status = $model->getRunStatus();
                             [
                                 'label' => Yii::t('app', 'Status'),
                                 'url' => ['contest/status', 'id' => $model->id],
-                                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
                             ],
                             [
                                 'label' => Yii::t('app', 'Standing'),
