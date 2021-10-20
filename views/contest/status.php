@@ -26,7 +26,8 @@ $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
 ?>
 <div class="solution-index">
-    <?php if ($model->isContestEnd() && $model->isScoreboardFrozen()) : ?>
+    <?php if (Yii::$app->setting->get('isContestMode')) : ?>
+    <?php elseif ($model->isContestEnd() && $model->isScoreboardFrozen()) : ?>
         <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 比赛已经结束，封榜状态尚未解除，请等候管理员滚榜或解榜。</div>
         <p></p>
     <?php elseif ($model->isScoreboardFrozen()) : ?>
