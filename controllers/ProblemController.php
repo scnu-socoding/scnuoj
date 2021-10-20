@@ -43,6 +43,11 @@ class ProblemController extends BaseController
      */
     public function actionIndex($showTags = 0, $page = 1, $tag = '')
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $query = Problem::find();
 
         if (Yii::$app->request->get('tag') != '') {
@@ -139,6 +144,10 @@ class ProblemController extends BaseController
      */
     public function actionView($id, $view = 'view')
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $solution = new Solution();
         $submissions = NULL;
@@ -190,6 +199,10 @@ class ProblemController extends BaseController
      */
     public function actionSolution($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
 
         return $this->render('solution', [
