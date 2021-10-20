@@ -62,6 +62,10 @@ class ProblemController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = '/main';
         $searchModel = new ProblemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -79,6 +83,11 @@ class ProblemController extends Controller
      */
     public function actionSolutionDetail($id, $sid)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = '/main';
         $model = $this->findModel($id);
         $status = PolygonStatus::findOne(['id' => $sid, 'problem_id' => $id]);
@@ -100,6 +109,11 @@ class ProblemController extends Controller
      */
     public function actionAnswer($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
@@ -118,6 +132,11 @@ class ProblemController extends Controller
      */
     public function actionView($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $model->setSamples();
         return $this->render('view', [
@@ -127,6 +146,11 @@ class ProblemController extends Controller
 
     public function actionRun($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->solution_lang === null || empty($model->solution_source)) {
             Yii::$app->session->setFlash('error', '请提供解决方案');
@@ -153,6 +177,11 @@ class ProblemController extends Controller
      */
     public function actionSpj($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
 
         if (!$model->spj) {
@@ -186,6 +215,11 @@ class ProblemController extends Controller
      */
     public function actionSolution($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         if ($model->solution_lang == null) {
             $model->solution_lang = Yii::$app->user->identity->language;
@@ -205,6 +239,11 @@ class ProblemController extends Controller
      */
     public function actionVerify($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
 
         if (isset($model->spj) && $model->spj) {
@@ -236,6 +275,11 @@ class ProblemController extends Controller
 
     public function actionTests($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $solutionStatus = Yii::$app->db->createCommand("SELECT * FROM {{%polygon_status}} WHERE problem_id=:pid AND language IS NULL", [
             ':pid' => $model->id
@@ -261,6 +305,11 @@ class ProblemController extends Controller
      */
     public function actionDownloadData($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $filename = Yii::$app->params['polygonProblemDataPath'] . $model->id;
         $zipName = '/tmp/' . time() . $id . '.zip';
@@ -287,6 +336,11 @@ class ProblemController extends Controller
 
     public function actionDeletefile($id, $name)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $name = basename($name);
         if ($name == 'in') {
@@ -314,6 +368,11 @@ class ProblemController extends Controller
 
     public function actionViewfile($id, $name)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
         $name = basename($name);
         if (strpos($name, '.in') || strpos($name, '.out') || strpos($name, '.ans')) {
@@ -337,6 +396,11 @@ class ProblemController extends Controller
      */
     public function actionCreate()
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = '/main';
         $model = new Problem();
 
@@ -369,6 +433,11 @@ class ProblemController extends Controller
      */
     public function actionUpdate($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -389,6 +458,11 @@ class ProblemController extends Controller
 
     public function actionSubtask($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
 
         if (!Yii::$app->setting->get('oiMode')) {
@@ -426,6 +500,11 @@ class ProblemController extends Controller
      */
     public function actionDelete($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
