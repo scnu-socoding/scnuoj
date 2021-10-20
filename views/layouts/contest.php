@@ -63,6 +63,7 @@ $status = $model->getRunStatus();
                 'label' => '<i class="fas fa-fw fa-book-open"></i> ' . Yii::t('app', 'Problems'),
                 'url' => ['/problem/index'],
                 'active' => Yii::$app->controller->id == 'problem',
+                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
             ],
             [
                 'label' => '<i class="fas fa-fw fa-tasks"></i> ' . Yii::t('app', 'Status'),
@@ -73,17 +74,20 @@ $status = $model->getRunStatus();
             [
                 'label' => '<i class="fas fa-fw fa-chart-line"></i> ' . Yii::t('app', 'Rating'),
                 'url' => ['/rating/index'],
-                'active' => Yii::$app->controller->id == 'rating'
+                'active' => Yii::$app->controller->id == 'rating',
+                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
             ],
             [
                 'label' => '<i class="fas fa-fw fa-comment"></i> ' . Yii::t('app', 'Discuss'),
                 'url' => ['/discuss/index'],
-                'active' => Yii::$app->controller->id == 'discuss'
+                'active' => Yii::$app->controller->id == 'discuss',
+                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
             ],
             [
                 'label' => '<i class="fas fa-fw fa-users"></i> ' . Yii::t('app', 'Group'),
                 'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
-                'active' => Yii::$app->controller->id == 'group'
+                'active' => Yii::$app->controller->id == 'group',
+                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
             ],
             [
                 'label' => '<i class="fas fa-fw fa-trophy"></i> ' .  Yii::t('app', 'Contests'),
@@ -232,7 +236,6 @@ $status = $model->getRunStatus();
                             [
                                 'label' => Yii::t('app', 'Status'),
                                 'url' => ['contest/status', 'id' => $model->id],
-                                'visible' => (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))
                             ],
                             [
                                 'label' => Yii::t('app', 'Standing'),

@@ -35,6 +35,9 @@ class DiscussController extends BaseController
 
     public function actionIndex()
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $discusses = (new Query())->select('d.id, d.title, d.created_at, u.nickname, u.username, p.title as ptitle, p.id as pid')
             ->from('{{%discuss}} as d')
             ->leftJoin('{{%user}} as u', 'd.created_by=u.id')
@@ -59,6 +62,9 @@ class DiscussController extends BaseController
      */
     public function actionView($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         $newDiscuss = new Discuss();
 
@@ -97,6 +103,9 @@ class DiscussController extends BaseController
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
 
         if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $model->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)) {
@@ -120,6 +129,9 @@ class DiscussController extends BaseController
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         $parentID = $model->parent_id;
         $entityID = $model->entity_id;

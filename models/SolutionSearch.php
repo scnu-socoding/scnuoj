@@ -61,7 +61,10 @@ class SolutionSearch extends Solution
                 $type = $contest->type;
 
                 // OI 模式比赛未结束时只查当前用户的提交记录
-                if ($type == Contest::TYPE_OI && $currentTime <= $endTime) {
+                if (($type == Contest::TYPE_OI && $currentTime <= $endTime)
+                    || (Yii::$app->setting->get('isContestMode')
+                        && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())))
+                ) {
                     $query->andWhere('created_by=:uid', [
                         ':uid' => Yii::$app->user->id
                     ]);

@@ -57,6 +57,9 @@ class GroupController extends BaseController
      */
     public function actionMyGroup()
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $count = Yii::$app->db->createCommand(
             '
             SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id',
@@ -81,6 +84,9 @@ class GroupController extends BaseController
      */
     public function actionIndex()
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $searchModel = new GroupSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -100,6 +106,9 @@ class GroupController extends BaseController
      */
     public function actionAccept($id, $accept = -1)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         if ($model->isMember()) {
             return $this->redirect(['/group/view', 'id' => $model->id]);
@@ -160,6 +169,9 @@ class GroupController extends BaseController
      */
     public function actionView($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
@@ -185,6 +197,9 @@ class GroupController extends BaseController
      */
     public function actionMember($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
@@ -262,6 +277,9 @@ class GroupController extends BaseController
      */
     public function actionContest($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
@@ -305,6 +323,9 @@ class GroupController extends BaseController
      */
     public function actionCreate()
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = new Group();
         $model->status = Group::STATUS_VISIBLE;
         $model->join_policy = Group::JOIN_POLICY_INVITE;
@@ -349,6 +370,9 @@ class GroupController extends BaseController
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         if (!Yii::$app->user->isGuest && ($model->getRole() == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -373,6 +397,9 @@ class GroupController extends BaseController
      */
     public function actionUserDelete($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $groupUser = GroupUser::findOne($id);
         $group = $this->findModel($groupUser->group_id);
         if ($group->hasPermission() && $groupUser->role != GroupUser::ROLE_LEADER) {
@@ -392,6 +419,9 @@ class GroupController extends BaseController
      */
     public function actionUserUpdate($id, $role = 0)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $groupUser = GroupUser::findOne($id);
         $group = $this->findModel($groupUser->group_id);
         if (!$group->hasPermission()) {
@@ -441,6 +471,9 @@ class GroupController extends BaseController
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         if (!Yii::$app->user->isGuest && ($model->created_by === Yii::$app->user->id || Yii::$app->user->identity->isAdmin())) {
             $model->delete();

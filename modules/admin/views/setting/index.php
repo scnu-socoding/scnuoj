@@ -37,10 +37,17 @@ $this->title = Yii::t('app', 'Setting');
         0 => '关闭比赛模式'
     ]) ?>
 
+    <p></p>
+
+    <div class="input-group">
+        <div class="input-group-prepend"><span class="input-group-text">单场比赛</span></div>
+        <?= Html::textInput('examContestId', $settings['examContestId'], ['class' => 'form-control']) ?>
+    </div>
+    <p></p>
+
     <div class="card bg-light">
         <div class="card-body">
-            <div class="alert alert-warning"><i class="fas fa-fw fa-info-circle"></i> 下列选项的可用性未知，SCNUOJ 尚未提供这些选项的支持，如果您在使用这些选项时遇到问题，请耐心等候更新。</div>
-
+            <div class="alert alert-warning"><i class="fas fa-fw fa-info-circle"></i> 下列选项的可用性未知，SCNUOJ 尚未提供这些选项的支持，如果您在使用这些选项时遇到问题，请反馈给 SCNUOJ 开发者。</div>
 
             <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text">系统名称</span></div>

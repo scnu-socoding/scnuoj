@@ -105,7 +105,7 @@ class SolutionController extends BaseController
         $this->layout = 'main';
         $model = $this->findModel($id);
 
-        if (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin())) {
+        if ($model->canViewSource()) {
             return $this->render('detail', [
                 'model' => $model,
             ]);
