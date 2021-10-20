@@ -91,47 +91,49 @@ $this->title = $model->id;
     </div>
 <?php endif; ?>
 
-<?php if ($model->canViewResult()) : ?>
-    <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
-        <i class="fas fa-fw fa-info-circle"></i>
-        <?php if ($model->getTestCount()) : ?>
-            本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。
-        <?php else : ?>
-            暂时无法获取本题测试点详情。
-            <?php $flag = 1; ?>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
+<?php if (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin())) : ?>
 
-<?php if ($model->solutionInfo != null && $model->canViewErrorInfo()) : ?>
-    <p></p>
-    <?php if ($model->result != Solution::OJ_CE) : ?>
-        <div id="run-info" class="list-group animate__animated animate__fadeIn animate__faster">
-        </div>
-    <?php else : ?>
-        <div class="list-group animate__animated animate__fadeIn animate__faster">
-            <div class="list-group-item">
-                <pre style="margin-bottom:0" id="run-info"></pre>
-            </div>
+    <?php if ($model->canViewResult() && (!Yii::$app->setting->get('isContestMode') || (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()))) : ?>
+        <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
+            <i class="fas fa-fw fa-info-circle"></i>
+            <?php if ($model->getTestCount()) : ?>
+                本题共 <?= $model->getTestCount() ?> 个测试点，共通过了 <?= $model->getPassedTestCount() ?> 个测试点。
+            <?php else : ?>
+                暂时无法获取本题测试点详情。
+                <?php $flag = 1; ?>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 
-    <!-- https://blog.csdn.net/sunbocong/article/details/81032758 -->
+    <?php if ($model->solutionInfo != null && $model->canViewErrorInfo()) : ?>
+        <p></p>
+        <?php if ($model->result != Solution::OJ_CE) : ?>
+            <div id="run-info" class="list-group animate__animated animate__fadeIn animate__faster">
+            </div>
+        <?php else : ?>
+            <div class="list-group animate__animated animate__fadeIn animate__faster">
+                <div class="list-group-item">
+                    <pre style="margin-bottom:0" id="run-info"></pre>
+                </div>
+            </div>
+        <?php endif; ?>
 
-    <?php
-    $json = $model->solutionInfo->run_info;
-    $json = str_replace("&", "&#38;", $json);
-    $json = str_replace("<", "&lt;", $json);
-    $json = str_replace(">", "&gt;", $json);
-    $json = str_replace(PHP_EOL, "<br>", $json);
-    $json = str_replace("\\n", "<br>", $json);
-    $json = str_replace("'", "&#39;", $json);
-    $json = str_replace("\\r", "", $json);
-    $json = str_replace("\\", "&#92;", $json);
-    $oiMode = Yii::$app->setting->get('oiMode');
-    $verdict = $model->result;
-    $CE = Solution::OJ_CE;
-    $js = <<<EOF
+        <!-- https://blog.csdn.net/sunbocong/article/details/81032758 -->
+
+        <?php
+        $json = $model->solutionInfo->run_info;
+        $json = str_replace("&", "&#38;", $json);
+        $json = str_replace("<", "&lt;", $json);
+        $json = str_replace(">", "&gt;", $json);
+        $json = str_replace(PHP_EOL, "<br>", $json);
+        $json = str_replace("\\n", "<br>", $json);
+        $json = str_replace("'", "&#39;", $json);
+        $json = str_replace("\\r", "", $json);
+        $json = str_replace("\\", "&#92;", $json);
+        $oiMode = Yii::$app->setting->get('oiMode');
+        $verdict = $model->result;
+        $CE = Solution::OJ_CE;
+        $js = <<<EOF
 
 var oiMode = $oiMode;
 var verdict = $verdict;
@@ -168,34 +170,34 @@ if (verdict == CE) {
     $("#run-info").append(json);
 }
 EOF;
-    $this->registerJs($js);
-    ?>
-<?php elseif ($model->solutionInfo != null && $model->canViewResult()) : ?>
-    <p></p>
-    <?php if ($model->result != Solution::OJ_CE) : ?>
-        <div id="run-info" class="list-group">
-        </div>
-    <?php else : ?>
-        <div class="list-group">
-            <div class="list-group-item">
-                <pre id="run-info"></pre>
+        $this->registerJs($js);
+        ?>
+    <?php elseif ($model->solutionInfo != null && $model->canViewResult()) : ?>
+        <p></p>
+        <?php if ($model->result != Solution::OJ_CE) : ?>
+            <div id="run-info" class="list-group">
             </div>
-        </div>
-    <?php endif; ?>
-    <?php
-    $json = $model->solutionInfo->run_info;
-    $json = str_replace("&", "&#38;", $json);
-    $json = str_replace("<", "&lt;", $json);
-    $json = str_replace(">", "&gt;", $json);
-    $json = str_replace(PHP_EOL, "<br>", $json);
-    $json = str_replace("\\n", "<br>", $json);
-    $json = str_replace("'", "&#39;", $json);
-    $json = str_replace("\\r", "", $json);
-    $json = str_replace("\\", "&#92;", $json);
-    $oiMode = Yii::$app->setting->get('oiMode');
-    $verdict = $model->result;
-    $CE = Solution::OJ_CE;
-    $js = <<<EOF
+        <?php else : ?>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <pre id="run-info"></pre>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php
+        $json = $model->solutionInfo->run_info;
+        $json = str_replace("&", "&#38;", $json);
+        $json = str_replace("<", "&lt;", $json);
+        $json = str_replace(">", "&gt;", $json);
+        $json = str_replace(PHP_EOL, "<br>", $json);
+        $json = str_replace("\\n", "<br>", $json);
+        $json = str_replace("'", "&#39;", $json);
+        $json = str_replace("\\r", "", $json);
+        $json = str_replace("\\", "&#92;", $json);
+        $oiMode = Yii::$app->setting->get('oiMode');
+        $verdict = $model->result;
+        $CE = Solution::OJ_CE;
+        $js = <<<EOF
 
 var oiMode = $oiMode;
 var verdict = $verdict;
@@ -232,12 +234,29 @@ if (verdict == CE) {
     $("#run-info").append(json);
 }
 EOF;
-    $this->registerJs($js);
-    ?>
+        $this->registerJs($js);
+        ?>
 
-<?php elseif ($flag == 0) : ?>
-    <div class="alert alert-light">
-        <i class="fas fa-fw fa-info-circle"></i>
-        暂时无法获取本题测试点详情。
-    </div>
+    <?php elseif ($flag == 0) : ?>
+        <div class="alert alert-light">
+            <i class="fas fa-fw fa-info-circle"></i>
+            暂时无法获取本题测试点详情。
+        </div>
+    <?php endif; ?>
+
+<?php else : ?>
+
+    <?php if ($model->result == Solution::OJ_CE) : ?>
+        <div class="list-group animate__animated animate__fadeIn animate__faster">
+            <div class="list-group-item">
+                <pre id="run-info"><?= Html::encode($model->solutionInfo->run_info) ?></pre>
+            </div>
+        </div>
+    <?php else : ?>
+        <div class="alert alert-light animate__animated animate__fadeIn animate__faster">
+            <i class="fas fa-fw fa-info-circle"></i>
+            暂无评测详情可用。</b>
+        </div>
+    <?php endif; ?>
+
 <?php endif; ?>
