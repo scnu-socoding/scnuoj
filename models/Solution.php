@@ -381,6 +381,16 @@ class Solution extends ActiveRecord
      */
     public function canViewSource()
     {
+
+        if (
+            Yii::$app->setting->get('isContestMode')
+            && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))
+            && Yii::$app->setting->get('examContestId')
+            && (empty($this->contest_id) || $this->contest_id != Yii::$app->setting->get('examContestId'))
+        ) {
+            return false;
+        }
+
         //游客不能查看
         if (Yii::$app->user->isGuest) {
             return false;
