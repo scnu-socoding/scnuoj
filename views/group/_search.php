@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'name', [
             'template' => "<div class=\"input-group\">{input}</div>",
             'options' => ['class' => ''],
-        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title') . ' / '. Yii::t('app', 'Description')])->label(false) ?>
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
 
     </div>
 
