@@ -43,11 +43,6 @@ class GroupSearch extends Group
     {
         $query = Group::find();
 
-        // add conditions that should always apply here
-        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
-            $query->where(['status' => Group::STATUS_VISIBLE]);
-        }
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -59,20 +54,12 @@ class GroupSearch extends Group
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            // $query->where('0=1')
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
-
-        $query->orFilterWhere(['like', 'name', $this->name])
-            ->orFilterWhere(['like', 'description', $this->name]);
+        $query->FilterWhere(['like', 'name', $this->name])
+            ->andWhere(['<>', 'status', Group::STATUS_HIDDEN])->orderBy(['id' => SORT_DESC]);
 
         return $dataProvider;
     }
