@@ -121,3 +121,5 @@ int main(int argc, char *argv[])
     quitf(_ok, "The answer is correct.");
 }
 </p></div>
+<p></p>
+<p>请注意以上程序仅供参考，实际出题时我们建议相对误差或绝对误差一者小于给定值即算通过，且通常直接使用 <a href="https://github.com/MikeMirzayanov/testlib/blob/master/checkers/rcmp4.cpp"><code>doubleCompare</code></a> 函数。</p>
