@@ -6,12 +6,6 @@ use yii\bootstrap4\Modal;
 <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 本页面已被隐藏，非管理员将无法查看此页面。
 </div>
 
-<h5>2021 年 AK 杯备题仓库</h5>
-
-<p>请移步到 <a href="https://github.com/scnu-socoding/scnuse-xcpc-novice-2021">scnu-socoding/scnuse-xcpc-novice-2021</a> 查看，确认你已经登录 GitHub 且有必要的权限。</p>
-
-<p>如果无法访问上述站点，请使用必要的手段以确保你可以正常访问国际互联网。</p>
-
 <h5>Polygon System</h5>
 
 <p>为了方便课程助教和部分有需要的同学和老师，我们开放了造题系统 <?= Html::a(Yii::t('app', 'Polygon System'), ['/polygon']) ?>。所有注册用户都可以在该平台上面创建题目，非管理员用户只能查看自己创建的题目，管理员可以查看所有用户的题目，并将题目加入公共题库或比赛中。</p>
