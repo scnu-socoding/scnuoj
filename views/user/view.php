@@ -45,9 +45,6 @@ $recentSubmission = $model->getRecentSubmission();
                     <div class="list-group-item">
                         <?= Yii::t('app', 'Student Number') ?><span class="float-right text-secondary"><?= $model->profile->student_number ?></span>
                     </div>
-                    <div class="list-group-item">
-                        积分<span class="float-right text-secondary"><?= isset($model->rating) ? $model->rating : 'Unrated' ?></span>
-                    </div>
                 </div>
                 <p></p>
                 <div class="list-group">

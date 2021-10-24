@@ -1,5 +1,7 @@
 <?php
 
+use app\models\User;
+
 /* @var $users \app\models\User */
 /* @var $top3users \app\models\User */
 /* @var $pages \yii\data\Pagination */
@@ -11,21 +13,6 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Rating');
 ?>
-
-<?= Nav::widget([
-    'items' => [
-        [
-            'label' => Yii::t('app', 'Rank by Rating'),
-            'url' => ['rating/index'],
-        ],
-        [
-            'label' => Yii::t('app', 'Rank by Solved Problems'),
-            'url' => ['rating/problem'],
-        ]
-    ],
-    'options' => ['class' => 'nav-pills']
-]) ?>
-<p></p>
 
 <div class="row">
     <div class="col">
@@ -41,7 +28,7 @@ $this->title = Yii::t('app', 'Rating');
                         </tr>
                         <?php foreach ($users as $k => $user) : ?>
                             <?php $num = $k + $currentPage * $defaultPageSize + 1; ?>
-                            <tr class="animate__animated animate__fadeIn animate__faster">
+                            <tr  class="animate__animated animate__fadeIn animate__faster">
                                 <td><?= $num ?></td>
                                 <td>
                                     <?= $user['student_number'] ?>
@@ -50,7 +37,7 @@ $this->title = Yii::t('app', 'Rating');
                                     <?= Html::a(Html::encode($user['nickname']), ['/user/view', 'id' => $user['id']], ['class' => 'text-dark']) ?>
                                 </td>
                                 <td>
-                                    <?= $user['rating'] ?>
+                                    <?= $user['solved'] ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -67,4 +54,5 @@ $this->title = Yii::t('app', 'Rating');
         </div>
         <p></p>
     </div>
+
 </div>

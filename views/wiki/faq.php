@@ -6,15 +6,6 @@
             对于小组内部赛等私密比赛，请联系比赛的举办者了解如何参赛。
         </small>
     </div>
-    <?php if (Yii::$app->setting->get('schoolName') == "华南师范大学软件学院") : ?>
-        <div class="list-group-item">
-            积分<br>
-            <small>
-                所有香农先修班在本系统举办的限时比赛结束后，有效参赛用户的积分将会得到更新，积分可在个人页和排行页面查看。<br>
-                积分使用 Elo 积分系统计算，不同比赛会被赋予不同的权重，积分升降幅度也不同，请注意目前这个系统仅供娱乐使用。
-            </small>
-        </div>
-    <?php endif; ?>
     <?php if (!Yii::$app->setting->get('oiMode')) : ?>
         <div class="list-group-item">
             OI 模式<br>

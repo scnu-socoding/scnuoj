@@ -112,30 +112,6 @@ class ContestController extends Controller
     }
 
     /**
-     * 比赛积分计算
-     * @param $id
-     */
-    public function actionRated($id)
-    {
-        $model = $this->findModel($id);
-        if (Yii::$app->request->get('cal')) {
-            $model->calRating();
-            Yii::$app->session->setFlash('success', '积分数据更新完毕。');
-            return $this->redirect(['rated', 'id' => $model->id]);
-        }
-        $dataProvider = new ActiveDataProvider([
-            'query' => ContestUser::find()
-                ->where(['contest_id' => $model->id])
-                ->with('user')
-                ->orderBy(['rating_change' => SORT_DESC]),
-        ]);
-        return $this->render('rated', [
-            'model' => $model,
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
-    /**
      * 比赛的题解
      * @param integer $id
      * @return mixed

@@ -31,7 +31,6 @@ $problems = $model->problems;
             <?= Html::a('提交', ['status', 'id' => $model->id], ['class' => 'btn btn-outline-info', 'target' => '_blank']) ?>
             <?= Html::a('外榜', ['/contest/standing2', 'id' => $model->id], ['class' => 'btn btn-outline-info', 'target' => '_blank']) ?>
             <?= Html::a('终榜', ['rank', 'id' => $model->id], ['class' => 'btn btn-outline-success', 'target' => '_blank']) ?>
-            <?= Html::a('积分', ['rated', 'id' => $model->id], ['class' => 'btn btn-outline-success']) ?>
             <?php Modal::begin([
                 'title' => Yii::t('app', 'Scroll Scoreboard'),
                 'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-outline-success'],
@@ -89,7 +88,6 @@ $problems = $model->problems;
         <p></p>
         <div class="btn-block btn-group">
             <?= Html::a('终榜', ['rank', 'id' => $model->id], ['class' => 'btn btn-outline-success', 'target' => '_blank']) ?>
-            <?= Html::a('积分', ['rated', 'id' => $model->id], ['class' => 'btn btn-outline-success']) ?>
             <?php Modal::begin([
                 'title' => Yii::t('app', 'Scroll Scoreboard'),
                 'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-outline-success'],
