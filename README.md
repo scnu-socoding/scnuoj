@@ -13,6 +13,8 @@ SCNUOJ 可对用户在线提交的源代码进行编译和执行，并通过预�
 
 如有任何问题，可新建 Issue 或联系 [bobby285271](https://github.com/bobby285271)。
 
+> 18, Nov, 2021 - 因备案原因下方链接暂不可用，我们已经在跟进中。
+
 - [安装指引](https://socoding.cn/t/topic/353) - 部署 SCNUOJ 到你的设备上
 - [升级指引](https://socoding.cn/t/topic/352) - 从 JNOJ 或旧版本的 SCNUOJ 升级
 - [二次开发指引](https://socoding.cn/t/topic/351) - 在 SCNUOJ 的基础上迭代出自己的 OJ
