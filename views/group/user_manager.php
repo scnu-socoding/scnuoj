@@ -16,10 +16,10 @@ use app\models\GroupUser;
     <?= Html::a('拒绝加入', ['/group/user-update', 'id' => $groupUser->id, 'role' => 2], ['class' => 'btn btn-danger']); ?>
 <?php elseif ($groupUser->role == GroupUser::ROLE_REUSE_INVITATION): ?>
     <?= Html::a('重新邀请', ['/group/user-update', 'id' => $groupUser->id, 'role' => 3], ['class' => 'btn btn-default']); ?>
-<?php elseif ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER): ?>
-    <?= Html::a('设为管理员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 4], ['class' => 'btn btn-default']); ?>
-<?php elseif ($groupUser->role == GroupUser::ROLE_MANAGER && $model->getRole() == GroupUser::ROLE_LEADER): ?>
-    <?= Html::a('设为普通成员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 5], ['class' => 'btn btn-default']); ?>
+<?php elseif ($groupUser->role == GroupUser::ROLE_MEMBER && ($model->getRole() == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
+    <?= Html::a('设为管理员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 4], ['class' => 'btn btn-outline-primary']); ?>
+<?php elseif ($groupUser->role == GroupUser::ROLE_MANAGER && ($model->getRole() == GroupUser::ROLE_LEADER || Yii::$app->user->identity->isAdmin())): ?>
+    <?= Html::a('设为普通成员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 5], ['class' => 'btn btn-outline-primary']); ?>
 <?php endif; ?>
 
 <?php if (($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER && Yii::$app->setting->get('isGroupReset')!=0)
