@@ -159,7 +159,7 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $model = $this->findModel($id);
 
-        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
         }
@@ -182,7 +182,7 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $model = $this->findModel($id);
 
-        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
         }
@@ -303,7 +303,7 @@ class ProblemController extends Controller
         $id = intval($id);
         $model = $this->findModel($id);
 
-        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
         }
@@ -354,6 +354,12 @@ class ProblemController extends Controller
     {
         $this->layout = 'problem';
         $model = $this->findModel($id);
+
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
+            Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
+            return $this->redirect(['/admin/problem']);
+        }
+
         if (Yii::$app->request->isPost) {
             $ext = substr(strrchr($_FILES["file"]["name"], '.'), 1);
             if ($ext != 'in' && $ext != 'out' && $ext != 'ans') {
@@ -406,7 +412,7 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $model = $this->findModel($id);
 
-        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
         }
@@ -448,7 +454,7 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $model = $this->findModel($id);
 
-        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
         }
@@ -495,7 +501,7 @@ class ProblemController extends Controller
         $this->layout = 'problem';
         $model = $this->findModel($id);
 
-        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+        if (isset($model->user) && $model->user->role != User::ROLE_VIP && Yii::$app->user->identity->role != User::ROLE_ADMIN && $model->status != Problem::STATUS_VISIBLE) {
             Yii::$app->session->setFlash('error', '抱歉，暂时不能查看本题详情。');
             return $this->redirect(['/admin/problem']);
         }
