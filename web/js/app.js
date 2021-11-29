@@ -1,18 +1,18 @@
 var OJ_VERDICT = new Array(
-  "Pending",
-  "Pending Rejudge",
-  "Compiling",
-  "Running & Judging",
-  "Accepted",
-  "Presentation Error",
-  "Wrong Answer",
-  "Time Limit Exceeded",
-  "Memory Limit Exceeded",
-  "Output Limit Exceeded",
-  "Runtime Error",
-  "Compile Error",
-  "System Error",
-  "No Test Data"
+  "等待测评",
+  "等待重测",
+  "正在编译",
+  "正在测评",
+  "通过",
+  "输出格式错误",
+  "解答错误",
+  "运行超时",
+  "内存超限",
+  "输出超限",
+  "运行出错",
+  "编译错误",
+  "系统错误",
+  "无评测数据"
 );
 // bootstrap 3 CSS class
 var OJ_VERDICT_COLOR = new Array(
