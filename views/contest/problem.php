@@ -37,8 +37,13 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 
 ?>
 
+<?php
+$problem_id = (sizeof($problems) > 26)
+    ? ('P' . str_pad($problem['num'] + 1, 3, '0', STR_PAD_LEFT))
+    : chr(65 + $problem['num']);
+?>
 
-<h5>Problem <?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h5>
+<h5>Problem <?= Html::encode($problem_id . '. ' . $problem['title']) ?></h5>
 <p></p>
 
 <div class="row problem-view">
@@ -162,17 +167,23 @@ $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 
         <div>
             <?php foreach ($problems as $key => $p) : ?>
+
+                <?php
+                $cur_id = (sizeof($problems) > 26)
+                    ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+                    : chr(65 + $key);
+                ?>
                 <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
-                    <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
+                    <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
                 <?php else : ?>
                     <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])) : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
                     <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC) : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-success btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-success btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
                     <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4) : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
                     <?php else : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . chr(65 + $key) . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-danger btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
+                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-danger btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
                     <?php endif; ?>
                 <?php endif; ?>
 
