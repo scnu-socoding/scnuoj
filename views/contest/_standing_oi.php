@@ -31,7 +31,14 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             <?php foreach ($problems as $key => $p) : ?>
                 <td>
                     <b>
-                        <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
+
+                        <?php
+                        $cur_id = (sizeof($problems) > 0)
+                            ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+                            : chr(65 + $key);
+                        ?>
+
+                        <?= Html::a($cur_id, ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
                     </b>
                 </td>
             <?php endforeach; ?>
@@ -72,7 +79,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                     }
                     if (isset($rank['score'][$p['problem_id']])) {
                         $first = ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) ?
-                        $rank['score'][$p['problem_id']] : $rank['max_score'][$p['problem_id']];
+                            $rank['score'][$p['problem_id']] : $rank['max_score'][$p['problem_id']];
                     }
                     if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || $model->isContestEnd()) {
                         $url = Url::toRoute([

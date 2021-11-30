@@ -16,11 +16,16 @@ $this->params['model'] = $model;
 // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
 // $this->params['breadcrumbs'][] = $this->title;
 $problems = $model->problems;
+$problems_size = sizeof($problems);
 
 $nav = [];
 $nav[''] = '请选择';
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = chr(65 + $key) . '. ' . $p['title'];
+    $nav[$p['problem_id']] = ($problems_size > 0)
+        ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+        : chr(65 + $key);
+
+    $nav[$p['problem_id']] .=  '. ' . $p['title'];
 }
 $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
@@ -67,16 +72,21 @@ $isContestEnd = $model->isContestEnd();
             ],
             [
                 'label' => Yii::t('app', 'Problem'),
-                'value' => function ($model, $key, $index, $column) {
+                'value' => function ($model, $key, $index, $column) use ($problems_size) {
+
                     $res = $model->getProblemInContest();
                     if (!isset($model->problem)) {
                         return null;
                     }
                     if (!isset($res->num)) {
                         return $model->problem->title;
+                    } else {
+                        $cur_id = ($problems_size > 0)
+                            ? ('P' . str_pad($res->num + 1, 3, '0', STR_PAD_LEFT))
+                            : chr(65 + $key);
                     }
                     return Html::a(
-                        chr(65 + $res->num) . ' - ' . $model->problem->title,
+                        $cur_id . ' - ' . $model->problem->title,
                         ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num],
                         ['class' => 'text-dark']
                     );

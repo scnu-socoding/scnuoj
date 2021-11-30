@@ -297,6 +297,7 @@ class Contest extends \yii\db\ActiveRecord
         $workDir = Yii::$app->getRuntimePath() . '/contest/' . $this->id . '/';
         foreach ($solutions as $solution) {
             // 问题号
+            // FIXME: 26 题以上的情况
             $problemIndex = chr(65 + $problems[$solution['problem_id']]['num']);
             $path = $workDir . $problemIndex . '/';
             if (!is_dir($path)) {

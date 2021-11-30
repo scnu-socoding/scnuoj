@@ -31,7 +31,13 @@ $submit_count = $rankResult['submit_count'];
             <?php foreach ($problems as $key => $p) : ?>
                 <td style="width:3.5rem">
                     <b>
-                        <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
+                        <?php
+                        $cur_id = (sizeof($problems) > 0)
+                            ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+                            : chr(65 + $key);
+                        ?>
+
+                        <?= Html::a($cur_id, ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
                     </b>
                 </td>
             <?php endforeach; ?>
