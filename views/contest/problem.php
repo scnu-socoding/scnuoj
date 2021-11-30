@@ -170,7 +170,7 @@ $problem_id = (sizeof($problems) > 26)
 
                 <?php
                 $cur_id = (sizeof($problems) > 26)
-                    ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
+                    ? (str_pad($key + 1, 2, '0', STR_PAD_LEFT))
                     : chr(65 + $key);
                 ?>
                 <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
