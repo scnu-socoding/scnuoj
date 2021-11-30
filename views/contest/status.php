@@ -21,7 +21,7 @@ $problems_size = sizeof($problems);
 $nav = [];
 $nav[''] = '请选择';
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = ($problems_size > 0)
+    $nav[$p['problem_id']] = ($problems_size > 26)
         ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
         : chr(65 + $key);
 
@@ -81,7 +81,7 @@ $isContestEnd = $model->isContestEnd();
                     if (!isset($res->num)) {
                         return $model->problem->title;
                     } else {
-                        $cur_id = ($problems_size > 0)
+                        $cur_id = ($problems_size > 26)
                             ? ('P' . str_pad($res->num + 1, 3, '0', STR_PAD_LEFT))
                             : chr(65 + $key);
                     }

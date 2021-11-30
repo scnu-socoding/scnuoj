@@ -32,7 +32,7 @@ $submit_count = $rankResult['submit_count'];
                 <td style="width:3.5rem">
                     <b>
                         <?php
-                        $cur_id = (sizeof($problems) > 0)
+                        $cur_id = (sizeof($problems) > 26)
                             ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
                             : chr(65 + $key);
                         ?>
