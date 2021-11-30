@@ -83,7 +83,7 @@ $isContestEnd = $model->isContestEnd();
                     } else {
                         $cur_id = ($problems_size > 26)
                             ? ('P' . str_pad($res->num + 1, 3, '0', STR_PAD_LEFT))
-                            : chr(65 + $key);
+                            : chr(65 + $res->num);
                     }
                     return Html::a(
                         $cur_id . ' - ' . $model->problem->title,
