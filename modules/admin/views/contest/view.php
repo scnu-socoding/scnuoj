@@ -255,15 +255,22 @@ $problems = $model->problems;
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <td><?= Html::a(chr(65 + $key), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
+
+                        <?php
+                        $cur_id = (sizeof($problems) > 26)
+                            ? (str_pad($key + 1, 2, '0', STR_PAD_LEFT))
+                            : chr(65 + $key);
+                        ?>
+
+                        <td><?= Html::a($cur_id, ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td>
                             <!-- <?php Modal::begin([
-                                'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
-                                'size' => Modal::SIZE_LARGE,
-                                'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
-                            ]); ?>
+                                        'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
+                                        'size' => Modal::SIZE_LARGE,
+                                        'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
+                                    ]); ?>
 
                             <?= Html::beginForm(['contest/updateproblem', 'id' => $model->id]) ?>
 

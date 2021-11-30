@@ -32,7 +32,12 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                     <?php foreach ($problems as $key => $p) : ?>
                         <td>
                             <b>
-                                <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
+                                <?php
+                                $cur_id = (sizeof($problems) > 26)
+                                    ? (str_pad($key + 1, 2, '0', STR_PAD_LEFT))
+                                    : chr(65 + $key);
+                                ?>
+                                <?= Html::a($cur_id, ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'text-dark']) ?>
                             </b>
                         </td>
                     <?php endforeach; ?>

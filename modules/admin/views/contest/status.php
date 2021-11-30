@@ -13,11 +13,17 @@ use yii\bootstrap4\Modal;
 $this->title = $model->title;
 $this->params['model'] = $model;
 $problems = $model->problems;
+$problems_size = sizeof($problems);
 
 $nav = [];
 $nav[''] = 'All';
+
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = chr(65 + $key) . '-' . $p['title'];
+    $nav[$p['problem_id']] = ($problems_size > 26)
+        ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
+        : chr(65 + $key);
+
+    $nav[$p['problem_id']] .=  '. ' . $p['title'];
 }
 ?>
 <div class="container">
@@ -88,16 +94,20 @@ foreach ($problems as $key => $p) {
                 ],
                 [
                     'label' => Yii::t('app', 'Problem'),
-                    'value' => function ($model, $key, $index, $column) {
+                    'value' => function ($model, $key, $index, $column) use ($problems_size) {
                         $res = $model->getProblemInContest();
                         if (!isset($model->problem)) {
                             return null;
                         }
                         if (!isset($res->num)) {
                             return $model->problem->title;
+                        } else {
+                            $cur_id = ($problems_size > 26)
+                                ? ('P' . str_pad($res->num + 1, 2, '0', STR_PAD_LEFT))
+                                : chr(65 + $res->num);
                         }
                         return Html::a(
-                            chr(65 + $res->num) . ' - ' . $model->problem->title,
+                            $cur_id . ' - ' . $model->problem->title,
                             ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num],
                             ['class' => 'text-dark']
                         );

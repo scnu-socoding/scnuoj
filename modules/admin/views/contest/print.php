@@ -100,7 +100,14 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
             <br>
             <div style="page-break-after: always"></div>
             <?php foreach ($problems as $key => $problem) : ?>
-                <h3 class="limit"><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
+
+                <?php
+                $cur_id = (sizeof($problems) > 26)
+                    ? (str_pad($key + 1, 2, '0', STR_PAD_LEFT))
+                    : chr(65 + $key);
+                ?>
+
+                <h3 class="limit"><?= Html::encode($cur_id . '. ' . $problem['title']) ?></h3>
                 <p class="limit">
                     <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>, <?= $problem['memory_limit'] ?> MB
                 </p>
