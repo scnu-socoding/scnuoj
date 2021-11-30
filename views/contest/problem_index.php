@@ -30,7 +30,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
 
                     <?php
                     $problem_id = (sizeof($problems) > 26)
-                        ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+                        ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
                         : chr(65 + $key);
                     ?>
 
@@ -45,7 +45,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
 
                     <?php
                     $problem_id = (sizeof($problems) > 26)
-                        ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+                        ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
                         : chr(65 + $key);
                     ?>
 

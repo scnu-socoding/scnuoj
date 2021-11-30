@@ -22,7 +22,7 @@ $nav = [];
 $nav[''] = '请选择';
 foreach ($problems as $key => $p) {
     $nav[$p['problem_id']] = ($problems_size > 26)
-        ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+        ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
         : chr(65 + $key);
 
     $nav[$p['problem_id']] .=  '. ' . $p['title'];
@@ -82,7 +82,7 @@ $isContestEnd = $model->isContestEnd();
                         return $model->problem->title;
                     } else {
                         $cur_id = ($problems_size > 26)
-                            ? ('P' . str_pad($res->num + 1, 3, '0', STR_PAD_LEFT))
+                            ? ('P' . str_pad($res->num + 1, 2, '0', STR_PAD_LEFT))
                             : chr(65 + $res->num);
                     }
                     return Html::a(

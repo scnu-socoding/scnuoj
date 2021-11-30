@@ -34,7 +34,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
 
                         <?php
                         $cur_id = (sizeof($problems) > 26)
-                            ? ('P' . str_pad($key + 1, 3, '0', STR_PAD_LEFT))
+                            ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
                             : chr(65 + $key);
                         ?>
 
