@@ -398,6 +398,10 @@ pre {
     background-color: #E0FFE4;
 }
 
+.bg-isyou {
+    background-color: rgba(171, 188, 196, 0.28);
+}
+
 .bg-tablehead {
     background-color: #F9FAFB;
 }

@@ -44,7 +44,13 @@ $submit_count = $rankResult['submit_count'];
         </tr>
         <?php for ($i = 0; $i < count($result); $i++) : ?>
             <?php $rank = $result[$i]; ?>
-            <tr class="animate__animated animate__fadeIn animate__faster">
+            <?php if ((!Yii::$app->user->isGuest) && Yii::$app->user->id == $rank['user_id']) {
+                $front_color = "bg-isyou";
+            } else {
+                $front_color = "";
+            }
+            ?>
+            <tr class="animate__animated animate__fadeIn animate__faster <?= $front_color ?>">
                 <td><?= $rank['finalrank'] ?></td>
                 <td><?= Html::encode($rank['student_number']); ?></td>
                 <td style="text-align:left">
