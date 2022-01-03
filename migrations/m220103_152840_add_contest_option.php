@@ -12,7 +12,7 @@ class m220103_152840_add_contest_option extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%contest}}', 'enable_board',  $this->smallInteger()->defaultValue(0));
+        $this->addColumn('{{%contest}}', 'enable_board',  $this->smallInteger()->defaultValue(1));
     }
 
     /**
