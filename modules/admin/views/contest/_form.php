@@ -104,6 +104,13 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         '0' => '关闭答疑',
     ])->label(false) ?>
 
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 是否开启榜单功能，默认为是。</div>
+
+    <?= $form->field($model, 'enable_board')->radioList([
+        '1' => '开启榜单',
+        '0' => '关闭榜单',
+    ])->label(false) ?>
+
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 不同类型的区别只在于榜单的排名方式。详见 <?= Html::a('比赛类型', ['/wiki/contest'], ['target' => '_blank']) ?>。如需使用 OI 或 IOI 比赛，请在后台设置页面启用 OI 模式，判题机启动时带上 <code>-o</code> 参数。</div>
 
     <?= $form->field($model, 'type')->radioList([
