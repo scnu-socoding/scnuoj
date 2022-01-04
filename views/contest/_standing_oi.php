@@ -45,7 +45,19 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
         </tr>
 
         <?php for ($i = 0; $i < count($result); $i++) : ?>
+
             <?php $rank = $result[$i]; ?>
+            <?php if (
+                (!$model->enable_board)
+                && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))
+            ) {
+                if (Yii::$app->user->id != $rank['user_id']) {
+                    continue;
+                } else {
+                    $rank['finalrank'] = "?";
+                }
+            }
+            ?>
             <?php if ((!Yii::$app->user->isGuest) && Yii::$app->user->id == $rank['user_id']) {
                 $front_color = "bg-isyou";
             } else {

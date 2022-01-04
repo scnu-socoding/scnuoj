@@ -461,10 +461,18 @@ class ContestController extends BaseController
         } else {
             $rankResult = $model->getRankData(true, time());
         }
-        $pages = new Pagination([
-            'totalCount' => count($rankResult['rank_result']),
-            'pageSize' => 100
-        ]);
+        if ($model->enable_board == 1) {
+            $pages = new Pagination([
+                'totalCount' => count($rankResult['rank_result']),
+                'pageSize' => 100
+            ]);
+        } else {
+            $pages = new Pagination([
+                'totalCount' => count($rankResult['rank_result']),
+                'pageSize' => PHP_INT_MAX
+            ]);
+        }
+
         $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
         return $this->render('/contest/standing', [
             'model' => $model,
