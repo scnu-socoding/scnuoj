@@ -46,22 +46,27 @@ $emailTemplate = '<div class="input-group"><div class="input-group-prepend"><spa
     <p></p>
 <?php endif; ?>
 
-<?= $form->field($profile, 'major', [
-    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">班级</span></div>{input}</div>",
-    'options' => ['class' => '']
-])->textInput()->label(false) ?>
-<p></p>
-
-<?= $form->field($model, 'email', ['options' => ['class' => ''], 'template' => $emailTemplate])->textInput()->label(false) ?>
-<p></p>
+<?php if (!(Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())))) : ?>
 
 
+    <?= $form->field($profile, 'major', [
+        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">班级</span></div>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput()->label(false) ?>
+    <p></p>
 
-<div class="alert alert-light"><i class="fas fa-fw fa-pen"></i> 个人主页自定义</div>
+    <?= $form->field($model, 'email', ['options' => ['class' => ''], 'template' => $emailTemplate])->textInput()->label(false) ?>
+    <p></p>
 
-<?= $form->field($profile, 'personal_intro', [
-    'template' => "{input}",
-])->widget('app\widgets\editormd\Editormd'); ?>
+
+
+    <div class="alert alert-light"><i class="fas fa-fw fa-pen"></i> 个人主页自定义</div>
+
+    <?= $form->field($profile, 'personal_intro', [
+        'template' => "{input}",
+    ])->widget('app\widgets\editormd\Editormd'); ?>
+
+<?php endif; ?>
 
 <div class="form-group btn-block btn-group">
     <?php if (!$model->isVerifyEmail()) : ?>
