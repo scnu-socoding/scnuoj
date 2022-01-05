@@ -27,7 +27,7 @@ class Homework extends Contest
             [['created_by'], 'integer'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['title'], 'string', 'max' => 255],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_clarify', 'enable_board'], 'integer'],
         ];
     }
 

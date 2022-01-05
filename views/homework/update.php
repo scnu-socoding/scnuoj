@@ -92,6 +92,22 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         ]
     ])->label(false) ?>
     <p></p>
+    
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 是否开启答疑功能，默认为是。注意用户发布的答疑默认隐藏，因此不能用于普通题目集讨论。</div>
+
+    <?= $form->field($model, 'enable_clarify')->radioList([
+        '1' => '开启答疑',
+        '0' => '关闭答疑',
+    ])->label(false) ?>
+    <p></p>
+
+    <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 是否开启榜单功能，默认为是。</div>
+
+    <?= $form->field($model, 'enable_board')->radioList([
+        '1' => '开启榜单',
+        '0' => '关闭榜单',
+    ])->label(false) ?>
+    <p></p>
 
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 比赛描述，此部分内容在比赛开始前就会公开展示。</div>
 
