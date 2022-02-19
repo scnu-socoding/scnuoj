@@ -63,7 +63,7 @@ $this->title = Yii::t('app', 'Signup');
             ])->label(false);
             ?>
 
-            <small class="text-secondary">密码应当包含 6-16 个字符，请牢记你的密码。</small>
+            <small class="text-secondary">密码应当包含 6-16 个字符，同时包含数字、字母和特殊字符，请牢记你的密码。</small>
 
             <?= $form->field($model, 'password', [
                 'template' => '<div class="input-group">{input}</div>{error}',
