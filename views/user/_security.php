@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     'options' => ['class' => '']])->passwordInput()->label(false) ?>
 <p></p>
 <?= $form->field($model, 'newPassword', [
-    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">新的密码</span></div>{input}</div>",
+    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">新的密码</span></div>{input}</div>{error}",
     'options' => ['class' => '']])->passwordInput()->label(false) ?>
 <p></p>
 <?= $form->field($model, 'verifyPassword', [

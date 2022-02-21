@@ -41,6 +41,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6, 'max' => 16],
+            ['password', 'match', 'pattern' => '/^.*(?=.*\d)(?=.*[A-Za-z]{1,})(?=.*[^a-zA-Z0-9]).*$/', 'message' => '密码必须同时包含数字、字母和特殊符号'],
 
             ['verifyCode', 'captcha']
         ];

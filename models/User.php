@@ -98,7 +98,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['oldPassword'], 'validateOldPassword'],
             [['verifyPassword'], 'compare', 'compareAttribute' => 'newPassword'],
             [['oldPassword', 'verifyPassword', 'newPassword'], 'required'],
-            ['newPassword', 'string', 'min' => 6, 'max' => 16]
+            ['newPassword', 'string', 'min' => 6, 'max' => 16],
+            ['newPassword', 'match', 'pattern' => '/^.*(?=.*\d)(?=.*[A-Za-z]{1,})(?=.*[^a-zA-Z0-9]).*$/', 'message' => '密码必须同时包含数字、字母和特殊符号'],
         ];
     }
 
