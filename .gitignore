@@ -57,3 +57,6 @@ tests/_support/_generated
 
 #db
 /config/db.php
+
+#used by socoding internally
+/chore.sh
