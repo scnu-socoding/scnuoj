@@ -16,8 +16,8 @@
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap4": "~2.0.6",
         "yiisoft/yii2-swiftmailer": "~2.1.2",
-        "workerman/workerman": "dev-master",
-        "workerman/phpsocket.io": "dev-master",
+        "workerman/workerman": "~4.0.28",
+        "workerman/phpsocket.io": "~1.1.13",
         "justinvoelker/yii2-tagging": "*",
         "fortawesome/font-awesome": "^5.12.1"
     },
@@ -59,16 +59,6 @@
             "generateCookieValidationKey": [
                 "config/web.php"
             ]
-        }
-    },
-    "repositories": {
-        "0": {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        },
-        "packagist": {
-            "type": "composer",
-            "url": "https://mirrors.aliyun.com/composer/"
         }
     }
 }
