@@ -1,6 +1,6 @@
 # SCNUOJ 升级指引
 
-可以从管理员后台或是 [`CHANGELOG.md`](https://github.com/SCNU-SoCoding/scnuoj/blob/master/CHANGELOG.md) 文件中查看目前的版本更新情况。
+可以从管理员后台或是 [`CHANGELOG.md`](../CHANGELOG.md) 文件中查看目前的版本更新情况。
 
 ## 从 JNOJ 或 SCNUOJ 2020.x 升级
 
@@ -22,7 +22,7 @@ SCNUOJ 2021.x 相比 JNOJ 和 SCNUOJ 2020.x **至少**有以下的**破坏性变
 
 ### 执行升级
 
-请不要尝试原地升级。根据 [安装指引](https://socoding.cn/t/topic/353) 从零开始部署 SCNUOJ，配置数据库时直接使用原数据库。
+请不要尝试原地升级。根据 [安装指引](./installation.md) 从零开始部署 SCNUOJ，配置数据库时直接使用原数据库。
 
 接下来结束 JNOJ 的判题机进程，迁移题目数据：
 
@@ -33,7 +33,7 @@ SCNUOJ 2021.x 相比 JNOJ 和 SCNUOJ 2020.x **至少**有以下的**破坏性变
 
 将 `/path/to/jnoj` 和 `/path/to/scnuoj` 替换为正确的路径。
 
-随后根据 [安装指引](https://socoding.cn/t/topic/353) 或下面 "从旧版 SCNUOJ 升级" 一节编译并启动 SCNUOJ 的判题机。
+随后根据 [安装指引](./installation.md) 或下面 "从旧版 SCNUOJ 升级" 一节编译并启动 SCNUOJ 的判题机。
 
 如果你在使用 JNOJ 时曾经使用 Editor.md 上传过图片，你还需要迁移这些资源：
 
