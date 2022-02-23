@@ -114,11 +114,11 @@ class Setting extends Component
     }
 
     /**
-     * Returns a string representing the current version of the JNOJ.
-     * @return string the version of JNOJ
+     * Returns a string representing the current version of the SCNUOJ.
+     * @return string the version of SCNUOJ
      */
     public static function getVersion()
     {
-        return '0.9.0';
+        return '2021.9';
     }
 }
