@@ -21,7 +21,7 @@
 拉取代码仓库，执行：
 
 ```plain
-$ git clone https://gitee.com/bobby285271/scnuoj.git
+$ git clone https://hub.fastgit.xyz/SCNU-SoCoding/scnuoj.git
 ```
 
 获取项目所需的依赖，在 `scnuoj` 目录下执行：
