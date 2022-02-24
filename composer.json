@@ -19,7 +19,7 @@
         "workerman/workerman": "~4.0.28",
         "workerman/phpsocket.io": "~1.1.13",
         "justinvoelker/yii2-tagging": "*",
-        "fortawesome/font-awesome": "^5.12.1"
+        "fortawesome/font-awesome": "^6.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.13",
