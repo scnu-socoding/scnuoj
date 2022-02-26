@@ -5,7 +5,6 @@ namespace app\modules\admin\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use app\components\AccessRule;
 use app\models\User;
 use app\modules\admin\models\Rejudge;

@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\User;
-use app\modules\admin\models\SettingForm;
 
 /**
  * Default controller for the `admin` module

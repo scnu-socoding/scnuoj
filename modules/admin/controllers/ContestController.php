@@ -18,8 +18,6 @@ use app\models\Problem;
 use app\models\Discuss;
 use app\models\Contest;
 use app\models\SolutionSearch;
-use app\models\ContestPrint;
-use app\models\ContestProblem;
 use app\models\Solution;
 use app\modules\admin\models\GenerateUserForm;
 
