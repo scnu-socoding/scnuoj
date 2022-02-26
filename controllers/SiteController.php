@@ -195,16 +195,6 @@ class SiteController extends BaseController
     // }
 
     /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    /**
      * Requests password reset.
      *
      * @return mixed
