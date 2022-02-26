@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\components\BaseController;
-use app\models\User;
 use yii\db\Query;
 use yii\data\Pagination;
 use yii\web\ForbiddenHttpException;

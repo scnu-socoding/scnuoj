@@ -12,7 +12,6 @@ use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 use yii\base\InvalidArgumentException;
 use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\SignupForm;
 use app\models\Contest;
 use app\models\Discuss;
