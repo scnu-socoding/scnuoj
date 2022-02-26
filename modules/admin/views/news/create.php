@@ -7,8 +7,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Discuss */
 
 $this->title = Yii::t('app', 'Release news');
-// // $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
-// // $this->params['breadcrumbs'][] = $this->title;
 
 $model->status = $model::STATUS_PUBLIC;
 ?>

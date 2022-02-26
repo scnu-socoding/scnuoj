@@ -6,8 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Discuss */
 
 $this->title = $model->title;
-// $this->params['breadcrumbs'][]][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
-// $this->params['breadcrumbs'][]][] = $this->title;
 ?>
 <div class="discuss-view">
 
