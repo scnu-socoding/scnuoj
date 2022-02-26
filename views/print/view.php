@@ -7,9 +7,6 @@ use yii\widgets\DetailView;
 /* @var $model app\models\ContestPrint */
 
 $this->title = '查看打印详情';
-// $this->params['breadcrumbs'][] = ['label' => $model->contest->title, 'url' => ['/contest/view', 'id' => $model->contest_id]];
-// $this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $model->contest_id]];
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="print-source-view">
     <table class="table table-bordered">

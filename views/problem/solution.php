@@ -8,9 +8,7 @@ use yii\helpers\Html;
 /* @var $submissions array */
 
 $this->title = Yii::t('app', 'Editorial');
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-// $this->params['breadcrumbs'][] = ['label' => $model->id . ' - ' . $model->title, 'url' => ['/problem/view', 'id' => $model->id]];
-// $this->params['breadcrumbs'][] = Yii::t('app', 'Editorial');
+
 ?>
 <h3><?= Html::encode($model->id . '. ' . $model->title) ?> </h3>
 <ul class="nav nav-pills">

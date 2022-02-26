@@ -13,9 +13,6 @@ use shiyang\infinitescroll\InfiniteScrollPager;
 /* @var $pages yii\data\Pagination */
 
 $this->title = Yii::t('app', 'Discuss');
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
-// $this->params['breadcrumbs'][] = ['label' => Html::encode($model->id . ' - ' . $model->title), 'url' => ['problem/view', 'id' => $model->id]];
-// $this->params['breadcrumbs'][] = Yii::t('app', 'Discuss');
 
 ?>
 <h3><?= Html::encode($model->id . '. ' . $model->title) ?> </h3>

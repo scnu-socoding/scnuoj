@@ -11,8 +11,6 @@ use app\models\Solution;
 /* @var $submissions array */
 
 $this->title = $model->id . '. ' . $model->title;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
-// $this->params['breadcrumbs'][] = $this->title;
 
 if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;

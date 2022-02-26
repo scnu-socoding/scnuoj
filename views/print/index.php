@@ -8,8 +8,6 @@ use yii\grid\GridView;
 /* @var $contest app\models\Contest */
 
 $this->title = 'Print Sources';
-// $this->params['breadcrumbs'][] = ['label' => Html::encode($contest->title), 'url' => ['/contest/view', 'id' => $contest->id]];
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="print-source-index">
 
