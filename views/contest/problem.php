@@ -174,15 +174,19 @@ $problem_id = (sizeof($problems) > 26)
                 <?php if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
                     <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
                 <?php else : ?>
-                    <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])) : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
-                    <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC) : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-success btn-sm', 'style' => 'margin-bottom:0.5rem']); ?>
-                    <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4) : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-secondary btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
-                    <?php else : ?>
-                        <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => 'btn btn-danger btn-sm', 'style' => 'margin-bottom:0.5rem;']); ?>
-                    <?php endif; ?>
+                    <?php
+                    $problem_class = "btn btn-sm ";
+                    if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])) {
+                        $problem_class .= "btn-secondary";
+                    } elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC) {
+                        $problem_class .= "btn-success";
+                    } elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4) {
+                        $problem_class .= "btn-secondary";
+                    } else {
+                        $problem_class .= "btn-danger";
+                    }
+                    ?>
+                    <?= Html::a('<code style="font-size: 0.8rem;">' . $cur_id . '</code>', ['/contest/problem', 'id' => $model->id, 'pid' => $key], ['class' => $problem_class, 'style' => 'margin-bottom:0.5rem;']); ?>
                 <?php endif; ?>
 
             <?php endforeach; ?>
