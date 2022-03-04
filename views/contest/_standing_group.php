@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\Modal;
+use app\models\Contest;
 
 /* @var $model app\models\Contest */
 /* @var $rankResult array */
@@ -70,7 +71,7 @@ $submit_count = $rankResult['submit_count'];
                 <td>
                     <span><b><?= $rank['solved'] ?></b></span>
                     <span class="text-secondary">
-                        <?php if (strtotime($model->end_time) < 253370736000) : ?>
+                        <?php if (strtotime($model->end_time) < Contest::TIME_INFINIFY) : ?>
                             <br><b><?= (intval($rank['time'] / 60) < 100000) ? intval($rank['time'] / 60) : "10W+" ?></b>
                         <?php endif; ?>
                     </span>
@@ -84,7 +85,7 @@ $submit_count = $rankResult['submit_count'];
                     if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
                         $num = '+';
                         $css_class = 'text-success';
-                        if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < 253370736000) {
+                        if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < Contest::TIME_INFINIFY) {
                             $css_class .= ' bg-firstblood';
                         }
                         if ($rank['wa_count'][$p['problem_id']] != 0) {
@@ -95,7 +96,7 @@ $submit_count = $rankResult['submit_count'];
                         } else {
                             $time = '<br><span class="text-secondary">' . '10W+' . '</span>';
                         }
-                        if (strtotime($model->end_time) >= 253370736000) {
+                        if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) {
                             $time = '';
                         }
 

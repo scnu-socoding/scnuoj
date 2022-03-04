@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap4\Modal;
 use yii\widgets\ActiveForm;
-use app\models\GroupUser;
 use app\models\Contest;
 use yii\bootstrap4\Nav;
 
@@ -157,7 +156,7 @@ echo Nav::widget([
             [
                 'attribute' => 'end_time',
                 'value' => function ($model, $key, $index, $column) {
-                    if (strtotime($model->end_time) >= 253370736000) {
+                    if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) {
                         $column = "一直开放";
                     } else {
                         $column = $model->end_time;

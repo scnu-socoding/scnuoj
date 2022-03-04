@@ -26,7 +26,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
     <div class="col-lg-8">
         <div class="alert alert-light">
             <i class="fas fa-fw fa-info-circle"></i>
-            <?php if (strtotime($model->end_time) >= 253370736000) : ?>
+            <?php if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) : ?>
                 <b>永久开放的题目集</b> 任何时候均可进行作答。
             <?php else : ?>
                 <b>限时开放的题目集</b> 只有在规定时间内的作答才会被计入比赛正式榜单。
@@ -82,7 +82,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
             <div class="list-group-item"><?= Yii::t('app', 'Current time') ?><span class="text-secondary float-right" id="nowdate"><?= date("Y-m-d H:i:s") ?></span></div>
             <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span class="text-secondary float-right"><?= $model->start_time ?></span></div>
             <div class="list-group-item"><?= Yii::t('app', 'End time') ?>
-                <?php if (strtotime($model->end_time) >= 253370736000) : ?>
+                <?php if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) : ?>
                     <span class="text-secondary float-right">一直开放</span>
             </div>
         <?php else : ?>

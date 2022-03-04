@@ -69,6 +69,10 @@ class Contest extends \yii\db\ActiveRecord
     const SCENARIO_ONLINE = 0;
     const SCENARIO_OFFLINE = 1;
 
+
+    // 结束时间设置为 9999 年任意一天为永久比赛集。
+    const TIME_INFINIFY = 253370736000;
+
     /**
      * @inheritdoc
      */
@@ -547,9 +551,9 @@ class Contest extends \yii\db\ActiveRecord
         usort($result, function ($a, $b) use ($contest_end_time) {
             if ($a['solved'] != $b['solved']) { //优先解题数
                 return $a['solved'] < $b['solved'];
-            } else if ($contest_end_time >= 253370736000 && $a['totalwa'] != $b['totalwa']) { // 永久题目集按 wa 次数
+            } else if ($contest_end_time >= Contest::TIME_INFINIFY && $a['totalwa'] != $b['totalwa']) { // 永久题目集按 wa 次数
                 return $a['totalwa'] > $b['totalwa'];
-            } else if ($contest_end_time < 253370736000 && $a['time'] != $b['time']) { //按时间（分数）
+            } else if ($contest_end_time < Contest::TIME_INFINIFY && $a['time'] != $b['time']) { //按时间（分数）
                 return $a['time'] > $b['time'];
             } else {
                 return $a['user_id'] < $b['user_id'];
@@ -565,12 +569,12 @@ class Contest extends \yii\db\ActiveRecord
                 $v['finalrank'] = '*';
                 continue;
             }
-            if ($contest_end_time < 253370736000 && ($v['solved'] != $lastscore || $v['time'] != $lasttime)) {
+            if ($contest_end_time < Contest::TIME_INFINIFY && ($v['solved'] != $lastscore || $v['time'] != $lasttime)) {
                 $v['finalrank'] = $finalrank;
                 $lastscore = $v['solved'];
                 $lasttime = $v['time'];
                 $lastrank = $finalrank;
-            } else if ($contest_end_time >= 253370736000 && ($v['solved'] != $lastscore || $v['totalwa'] != $lasttime)) {
+            } else if ($contest_end_time >= Contest::TIME_INFINIFY && ($v['solved'] != $lastscore || $v['totalwa'] != $lasttime)) {
                 $v['finalrank'] = $finalrank;
                 $lastscore = $v['solved'];
                 $lasttime = $v['totalwa'];

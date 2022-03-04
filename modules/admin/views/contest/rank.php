@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
+use app\models\Contest;
 
 /* @var $model app\models\Contest */
 
@@ -51,7 +51,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                         <td>
                             <span><b><?= $rank['solved'] ?></b></span>
                             <span class="text-secondary">
-                                <?php if (strtotime($model->end_time) < 253370736000) : ?>
+                                <?php if (strtotime($model->end_time) < Contest::TIME_INFINIFY) : ?>
                                     <br><b><?= (intval($rank['time'] / 60) < 100000) ? intval($rank['time'] / 60) : "10W+" ?></b>
                                 <?php endif; ?>
                             </span>
@@ -65,7 +65,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                             if (isset($rank['ac_time'][$p['problem_id']]) && $rank['ac_time'][$p['problem_id']] != -1) {
                                 $num = '+';
                                 $css_class = 'text-success';
-                                if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < 253370736000) {
+                                if ($first_blood[$p['problem_id']] == $rank['user_id'] && strtotime($model->end_time) < Contest::TIME_INFINIFY) {
                                     $css_class .= ' bg-firstblood';
                                 }
                                 if ($rank['wa_count'][$p['problem_id']] != 0) {
@@ -76,7 +76,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                                 } else {
                                     $time = '<br><span class="text-secondary">' . '10W+' . '</span>';
                                 }
-                                if (strtotime($model->end_time) >= 253370736000) {
+                                if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) {
                                     $time = '';
                                 }
 

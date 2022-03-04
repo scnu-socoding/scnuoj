@@ -65,7 +65,7 @@ $this->title = Yii::t('app', 'Contests');
             [
                 'attribute' => 'end_time',
                 'value' => function ($model, $key, $index, $column) {
-                    if (strtotime($model->end_time) >= 253370736000) {
+                    if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) {
                         $column = "一直开放";
                     } else {
                         $column = $model->end_time;
