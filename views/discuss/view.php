@@ -8,10 +8,6 @@ use yii\widgets\ActiveForm;
 /* @var $newDiscuss app\models\Discuss */
 
 $this->title = Html::encode($model->title);
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['problem/index']];
-// $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->id . ' - ' . $model->problem->title), 'url' => ['problem/view', 'id' => $model->problem->id]];
-// $this->params['breadcrumbs'][] = ['label' => Html::encode(Yii::t('app', 'Discuss')), 'url' => ['problem/discuss', 'id' => $model->problem->id]];
-// $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>

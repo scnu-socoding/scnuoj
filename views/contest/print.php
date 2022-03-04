@@ -11,8 +11,6 @@ use yii\grid\GridView;
 
 $this->title = $model->title;
 $this->params['model'] = $model;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-// $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div>

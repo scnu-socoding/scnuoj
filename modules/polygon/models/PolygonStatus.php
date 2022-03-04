@@ -4,7 +4,6 @@ namespace app\modules\polygon\models;
 
 use app\models\Solution;
 use Yii;
-use yii\db\Expression;
 
 
 /**

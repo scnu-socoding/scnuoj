@@ -11,8 +11,6 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 $solution->language = Yii::$app->user->identity->language;
 ?>

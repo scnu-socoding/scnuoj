@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use app\models\Contest;
 
 /* @var $model app\models\Contest */

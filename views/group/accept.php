@@ -10,9 +10,6 @@ use app\models\GroupUser;
 /* @var $userDataProvider yii\data\ActiveDataProvider */
 $this->title = Html::encode($model->name);
 
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']];
-// $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <h3><?= Html::encode($model->name) ?></h3>
 <p><?= Html::encode($model->description) ?></p>

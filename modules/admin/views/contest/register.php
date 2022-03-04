@@ -5,7 +5,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\Modal;
 use yii\widgets\ActiveForm;
-use app\models\Contest;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */

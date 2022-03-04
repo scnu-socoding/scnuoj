@@ -9,8 +9,6 @@ use yii\helpers\Html;
 
 $this->title = Html::encode($model->title);
 $this->params['model'] = $model;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="animate__animated animate__fadeIn animate__faster">
     <?php

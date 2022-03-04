@@ -9,7 +9,6 @@ use yii\bootstrap4\Nav;
 /* @var $action string */
 
 $this->title = $model->nickname;
-// $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
 ?>
 <div class="user-update">
     <div class="contest-view">

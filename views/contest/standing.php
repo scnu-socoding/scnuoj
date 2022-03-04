@@ -11,8 +11,6 @@ use yii\helpers\Html;
 
 $this->title = $model->title;
 $this->params['model'] = $model;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-// $this->params['breadcrumbs'][] = $this->title;
 
 $js =<<<EOT
 $(".toggle-show-contest-standing input[name='showStandingBeforeEnd']").change(function () {

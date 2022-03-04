@@ -13,10 +13,6 @@ use yii\grid\GridView;
 /* @var $model app\models\Homework */
 
 $this->title = Html::encode($model->title);
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']];
-// $this->params['breadcrumbs'][] = ['label' => Html::encode($model->group->name), 'url' => ['/group/view', 'id' => $model->group->id]];
-// $this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' => ['/contest/view', 'id' => $model->id]];
-// $this->params['breadcrumbs'][] = Yii::t('app', 'Setting');
 $this->params['model'] = $model;
 $problems = $model->problems;
 $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;

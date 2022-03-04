@@ -10,7 +10,6 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 $this->title = Yii::t('app', 'Login');
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?= Nav::widget([

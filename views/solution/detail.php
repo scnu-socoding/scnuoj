@@ -7,8 +7,6 @@ use app\models\Solution;
 /* @var $model app\models\Solution */
 
 $this->title = $model->id;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Status'), 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
