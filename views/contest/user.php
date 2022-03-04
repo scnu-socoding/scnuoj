@@ -14,7 +14,6 @@ $this->title = $model->title;
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $provider,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table table-bordered'],
         'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'options' => ['class' => 'table-responsive'],

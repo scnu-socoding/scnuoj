@@ -15,7 +15,6 @@ $this->title = Yii::t('app', 'Contests');
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'dataProvider' => $dataProvider,
         'options' => ['class' => 'table-responsive'],

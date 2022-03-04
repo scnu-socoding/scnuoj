@@ -230,7 +230,6 @@ $problem_id = (sizeof($problems) > 26)
             echo '<div class="table-responsive">';
             echo GridView::widget([
                 'layout' => '{items}{pager}',
-                // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
                 'tableOptions' => ['class' => 'table'],
                 'dataProvider' => $dataProvider,
                 'options' => ['class' => 'table-responsive'],

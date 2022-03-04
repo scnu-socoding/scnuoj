@@ -45,7 +45,6 @@ $isContestEnd = $model->isContestEnd();
         'dataProvider' => $dataProvider,
         'options' => ['class' => 'table-responsive'],
         'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'columns' => [
             [

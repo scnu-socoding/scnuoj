@@ -68,7 +68,6 @@ $submissionStatistics = $model->getSubmissionStatistics();
             echo '<div class="table-responsive">';
             echo GridView::widget([
                 'layout' => '{items}{pager}',
-                // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
                 'tableOptions' => ['class' => 'table'],
                 'dataProvider' => $dataProvider,
                 'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],

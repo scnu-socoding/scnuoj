@@ -104,7 +104,6 @@ echo Nav::widget([
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $contestDataProvider,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'options' => ['class' => 'table-responsive'],

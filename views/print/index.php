@@ -19,7 +19,6 @@ $this->title = 'Print Sources';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'columns' => [
             [

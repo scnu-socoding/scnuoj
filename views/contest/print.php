@@ -22,7 +22,6 @@ $this->params['model'] = $model;
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $dataProvider,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table table-bordered'],
         'columns' => [
             [

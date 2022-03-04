@@ -17,19 +17,12 @@ $this->title = Yii::t('app', 'Users');
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'username',
-            // 'email:email',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

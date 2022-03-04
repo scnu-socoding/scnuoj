@@ -15,7 +15,6 @@ $this->title = Yii::t('app', 'Status');
         'layout' => '{items}{pager}',
         'dataProvider' => $dataProvider,
         'options' => ['class' => 'table-responsive'],
-        // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'tableOptions' => ['class' => 'table'],
         'rowOptions' => ['class' => ' animate__animated animate__fadeIn animate__faster'],
         'columns' => [
