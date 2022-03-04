@@ -40,11 +40,6 @@ class SiteController extends BaseController
         ];
     }
 
-    public function actionConstruction()
-    {
-        return $this->render('construction');
-    }
-
     public function actionNews($id)
     {
         $model = Discuss::find()->where(['id' => $id, 'status' => Discuss::STATUS_PUBLIC, 'entity' => Discuss::ENTITY_NEWS])->one();
