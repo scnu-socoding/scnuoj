@@ -53,7 +53,6 @@ $this->registerJs($js);
 
                 <?= Html::beginForm('', 'post') ?>
                 <div class="input-group">
-                    <!-- <?= Html::label(Yii::t('app', 'Search'), 'q', ['class' => 'sr-only']) ?> -->
                     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
                     <span class="input-group-append">
                         <?= Html::submitButton('<i class="fas fa-fw fa-search"></i>', ['class' => 'btn btn-primary']) ?>

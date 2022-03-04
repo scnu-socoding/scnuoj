@@ -31,7 +31,6 @@ $this->title = Yii::t('app', 'Signup');
 </div>
 
 <div class="card animate__animated animate__fadeIn animate__faster">
-    <!-- <img src="<?= Yii::getAlias('@web') . '/images/register.jpg' ?>" class="card-img-top d-none d-md-block"> -->
     <div class="card-body">
         <?php if (Yii::$app->setting->get('isUserReg')) : ?>
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>

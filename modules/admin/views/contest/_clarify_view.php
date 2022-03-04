@@ -33,10 +33,8 @@ use yii\bootstrap4\Modal;
 <div class="card">
     <div class="card-header" style="padding: 0.5rem 1.25rem;">
         <small class="text-secondary">
-            <!-- <i class="fas fa-fw fa-user"></i> -->
             <?= Html::a(Html::encode($clarify->user->nickname), ['/user/view', 'id' => $clarify->user->id]) ?>
             发表于
-            <!-- <i class="fas fa-fw fa-clock"></i> -->
             <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
         </small>
     </div>
@@ -49,9 +47,7 @@ use yii\bootstrap4\Modal;
     <div class="card">
         <div class="card-header" style="padding: 0.5rem 1.25rem;">
             <small class="text-secondary">
-                <!-- <i class="fas fa-fw fa-user"></i> -->
                 <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id]) ?>
-                <!-- <i class="fas fa-fw fa-clock"></i> -->
                 发表于
                 <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
             </small>

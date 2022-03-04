@@ -13,8 +13,6 @@ use yii\grid\GridView;
 /* @var $announcements yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-// $this->params['breadcrumbs'][]][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-// $this->params['breadcrumbs'][]][] = $this->title;
 
 $problems = $model->problems;
 ?>
@@ -266,29 +264,6 @@ $problems = $model->problems;
                         <td><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td>
-                            <!-- <?php Modal::begin([
-                                        'title' => Yii::t('app', 'Modify') . ' ' . chr(65 + $key) . ' 题题目编号',
-                                        'size' => Modal::SIZE_LARGE,
-                                        'toggleButton' => ['tag' => 'a', 'label' => '<i class="fas fa-sm fa-pen"></i>', 'class' => 'text-dark'],
-                                    ]); ?>
-
-                            <?= Html::beginForm(['contest/updateproblem', 'id' => $model->id]) ?>
-
-                            <div class="input-group">
-                                <div class="input-group-prepend"><span class="input-group-text">原题目编号</span></div>
-                                <?= Html::textInput('problem_id', $p['problem_id'], ['class' => 'form-control', 'readonly' => 1]) ?>
-                            </div>
-                            <p></p>
-                            <div class="input-group">
-                                <div class="input-group-prepend"><span class="input-group-text">新题目编号</span></div>
-                                <?= Html::textInput('new_problem_id', $p['problem_id'], ['class' => 'form-control']) ?>
-                            </div>
-                            <p></p>
-
-                            <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-                            </div>
-                            <?= Html::endForm(); ?> -->
 
                             <?php Modal::end(); ?>
                             <?= Html::a('<i class="fas fa-sm fa-trash"></i>', [

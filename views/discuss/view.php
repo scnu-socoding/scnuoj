@@ -21,12 +21,8 @@ $this->title = Html::encode($model->title);
 <div class="card animate__animated animate__fadeIn animate__faster">
     <div class="card-header" style="padding: 0.5rem 1.25rem;">
         <small class="text-secondary">
-            <!-- <i class="fas fa-fw fa-question"></i> -->
-
-            <!-- <i class="fas fa-fw fa-user"></i> -->
             <?= Html::a(Html::encode($model->user->nickname ?? '临时用户'), ['/user/view', 'id' => $model->user->username]) ?>
             发表于
-            <!-- <i class="fas fa-fw fa-clock"></i> -->
             <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
             ·
             关联问题
@@ -61,12 +57,7 @@ $this->title = Html::encode($model->title);
     <div class="card animate__animated animate__fadeIn animate__faster">
         <div class="card-header" style="padding: 0.5rem 1.25rem;">
             <small class="text-secondary">
-                <!-- <i class="fas fa-fw fa-comment"></i> -->
-                <!-- <?= $cnt ?>楼 -->
-                <!-- <?php $cnt = $cnt + 1; ?> -->
-                <!-- <i class="fas fa-fw fa-user"></i> -->
                 <?= Html::a(Html::encode($reply->user->nickname), ['/user/view', 'id' => $reply->user->id]) ?>
-                <!-- <i class="fas fa-fw fa-clock"></i> -->
                 发表于
                 <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
 

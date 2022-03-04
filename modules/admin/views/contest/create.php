@@ -7,8 +7,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Contest */
 
 $this->title = Yii::t('app', 'Create Contest');
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
 
 $model->status = $model::STATUS_HIDDEN;
 $model->type = $model::TYPE_RANK_GROUP;

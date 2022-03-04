@@ -75,7 +75,6 @@ $recentSubmission = $model->getRecentSubmission();
             <div class="col-lg-8">
 
                 <div class="card">
-                    <!-- <div class="card-header">个人档案</div> -->
 
                     <?php if ($model->profile->personal_intro != '') : ?>
                         <div class="card-body" style="padding-bottom: 0.25rem;">
