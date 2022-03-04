@@ -12,8 +12,6 @@ use yii\grid\GridView;
 
 $this->title = $model->title;
 $this->params['model'] = $model;
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contest'), 'url' => ['/contest/index']];
-// $this->params['breadcrumbs'][] = $this->title;
 
 if ($discuss != null) {
     return $this->render('_clarify_view', [
@@ -27,17 +25,10 @@ if ($discuss != null) {
     if ($dataProvider->count > 0) {
         echo GridView::widget([
             'layout' => '{items}{pager}',
-            // 'tableOptions' => ['class' => 'table table-striped table-bordered'],
             'tableOptions' => ['class' => 'table'],
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive'],
             'columns' => [
-                // [
-                //     'attribute' => 'created_at',
-                //     'options' => ['width' => '150px'],
-                //     'format' => 'datetime',
-                //     'enableSorting' => false
-                // ],
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
@@ -71,8 +62,6 @@ if ($discuss != null) {
         ]); ?>
         <p></p>
     <?php endif; ?>
-
-
 
     <div class="well">
         <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING && $model->enable_clarify == 1) : ?>
