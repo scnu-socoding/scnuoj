@@ -24,3 +24,4 @@ jobs:
           php_version: "${{ matrix.php-version }}"
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
+          level: 1
