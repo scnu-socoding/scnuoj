@@ -20,5 +20,5 @@ jobs:
       - uses: php-actions/composer@v6
       - uses: php-actions/phpstan@master
         with:
-          path: views/ controllers/ modules/ models/
+          path: views/ controllers/ modules/ models/ web/
           php_version: "${{ matrix.php-version }}"
