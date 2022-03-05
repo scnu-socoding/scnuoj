@@ -14,14 +14,18 @@ jobs:
           - "7.4"
           - "8.0"
           - "8.1"
+        level:
+          - "0"
+          - "1"
 
     steps:
       - uses: actions/checkout@v3
       - uses: php-actions/composer@v6
       - uses: php-actions/phpstan@master
+        continue-on-error: true
         with:
           path: assets/ commands/ components/ config/ controllers/ mail/ messages/ migrations/ models/ modules/ views/ web/ widgets/
           php_version: "${{ matrix.php-version }}"
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
-          level: 1
+          level: "${{ matrix.level }}"
