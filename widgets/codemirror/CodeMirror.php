@@ -30,6 +30,7 @@ class CodeMirror extends InputWidget
             echo Html::textArea($this->name, $this->value, $options);
         }
         $this->registerScripts();
+        return null;
     }
 
     /**
