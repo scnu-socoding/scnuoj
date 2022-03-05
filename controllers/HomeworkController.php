@@ -143,6 +143,7 @@ class HomeworkController extends BaseController
             }
             return $this->redirect(['/homework/update', 'id' => $id]);
         }
+        throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
 
     /**
@@ -193,6 +194,7 @@ class HomeworkController extends BaseController
             }
             return $this->redirect(['/homework/update', 'id' => $id]);
         }
+        throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
 
     /**
