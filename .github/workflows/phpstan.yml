@@ -21,6 +21,6 @@ jobs:
       - uses: php-actions/composer@v6
       - uses: php-actions/phpstan@master
         with:
-          path: views/ controllers/ modules/ models/ web/
+          path: views/ controllers/ modules/ models/ web/ assets/
           php_version: "${{ matrix.php-version }}"
-          autoload_file: vendor/yiisoft/yii2/Yii.php assets/AppAsset.php
+          autoload_file: vendor/yiisoft/yii2/Yii.php
