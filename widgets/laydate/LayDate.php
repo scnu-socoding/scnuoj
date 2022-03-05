@@ -40,6 +40,7 @@ class LayDate extends InputWidget
             echo Html::textInput($this->name, $this->value, $this->options);
         }
         $this->registerClientScript();
+        return null;
     }
 
     /**

@@ -56,6 +56,7 @@ class Editormd extends InputWidget
         }
         echo "</div>";
         $this->registerScripts();
+        return null;
     }
     /**
      * Registers simplemde markdown assets

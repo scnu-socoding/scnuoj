@@ -34,5 +34,6 @@ class Login extends \yii\base\Widget
                 ]);
             }
         }
+        return null;
     }
 }
