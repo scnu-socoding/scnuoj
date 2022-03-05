@@ -265,7 +265,6 @@ $problems = $model->problems;
                         <td><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td>
 
-                            <?php Modal::end(); ?>
                             <?= Html::a('<i class="fas fa-sm fa-trash"></i>', [
                                 'deleteproblem',
                                 'id' => $model->id,
