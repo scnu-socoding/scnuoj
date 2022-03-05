@@ -22,3 +22,4 @@ jobs:
         with:
           path: views/ controllers/ modules/ models/ web/
           php_version: "${{ matrix.php-version }}"
+          autoload_file: vendor/yiisoft/yii2/Yii.php
