@@ -189,8 +189,6 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <td><?= Html::a($p['problem_id'], ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
                         <td><?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?></td>
                         <td>
-
-                            <?php Modal::end(); ?>
                             <?= Html::a('<i class="fas fa-sm fa-trash"></i>', [
                                 'deleteproblem',
                                 'id' => $model->id,
