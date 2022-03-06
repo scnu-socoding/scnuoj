@@ -301,3 +301,16 @@ if (run_result == OJ_AC) {
 ```
 
 完结撒花！
+
+## 贡献指南
+
+为了避免错误提交数据库密码等敏感信息，你可能需要 [`assume-unchanged`](https://stackoverflow.com/questions/10879783/git-doesnt-ignore-2-specifically-named-files)：
+
+```ShellSession
+$ git update-index --assume-unchanged config/db.php
+$ git update-index --assume-unchanged judge/config.ini
+$ git update-index --assume-unchanged polygon/config.ini
+$ git ls-files -v | grep -e "^[hsmrck]"
+```
+
+当然这个做法是 [Git 官方不推荐的](https://github.com/git/git/commit/936d2c9301e41a84a374b98f92777e00d321a2ea)，别骂了别骂了。
