@@ -1,4 +1,4 @@
-## SCNUOJ
+# SCNUOJ
 
 SCNUOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，是一个在线评测系统。
 
