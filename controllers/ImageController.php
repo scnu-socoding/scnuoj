@@ -8,7 +8,7 @@ use yii\web\ForbiddenHttpException;
 use app\components\Uploader;
 
 /**
- * 用来接收 CKeditor 编辑器上传的图片
+ * 用来接收 EditorMD 编辑器上传的图片
  */
 class ImageController extends BaseController
 {
