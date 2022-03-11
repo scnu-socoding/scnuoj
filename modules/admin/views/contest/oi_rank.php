@@ -58,6 +58,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                                     <?php else : ?>
                                         <?= $rank['correction_score'] ?>
                                         <br>
+                                        <!-- OI 赛制下总罚时没啥意义... -->
                                         <span class="text-secondary"><?= intval($rank['total_time']) ?></span>
                                     <?php endif ?>
                                 </b>
