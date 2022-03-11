@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "7.4"
@@ -18,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: php-actions/composer@v6
+        with:
+          php_version: "${{ matrix.php-version }}"
       - uses: php-actions/phpstan@master
         name: "Level 0 Check"
         with:
