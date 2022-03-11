@@ -53,7 +53,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                         <td>
                             <span>
                                 <b>
-                                    <?php if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) : ?>
+                                    <?php if ($model->type == Contest::TYPE_OI) : ?>
                                         <?= $rank['total_score'] ?>
                                     <?php else : ?>
                                         <?= $rank['correction_score'] ?>
@@ -71,7 +71,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
                             $css_class = ''; // CSS 颜色
                             $first = ''; // 题目对应的排名表格的内容
                             if (isset($rank['score'][$p['problem_id']])) {
-                                $first = ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) ?
+                                $first = ($model->type == Contest::TYPE_OI) ?
                                     $rank['score'][$p['problem_id']] : $rank['max_score'][$p['problem_id']];
                             }
                             if (isset($rank['solved_flag'][$p['problem_id']])) {
