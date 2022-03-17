@@ -1,0 +1,81 @@
+name: CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  lint:
+    name: lint
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          extensions: "intl"
+          ini-values: "memory_limit=-1"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: "Lint PHP files"
+        run: "find ./ ! -path \"./vendor/*\"  -type f -name '*.php' -print0 | xargs -0 -L1 -P4 -- php -l -f"
+
+  phpstan:
+    name: phpstan
+
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6
+        with:
+          php_version: "${{ matrix.php-version }}"
+      - uses: php-actions/phpstan@master
+        name: "Level 0 Check"
+        with:
+          path: assets/ commands/ components/ config/ controllers/ mail/ messages/ migrations/ models/ modules/ views/ web/ widgets/
+          php_version: "${{ matrix.php-version }}"
+          autoload_file: vendor/yiisoft/yii2/Yii.php
+          memory_limit: 512M
+          level: "0"
+      - uses: php-actions/phpstan@master
+        name: "Level 1 Check"
+        continue-on-error: true
+        with:
+          path: assets/ commands/ components/ config/ controllers/ mail/ messages/ migrations/ models/ modules/ views/ web/ widgets/
+          php_version: "${{ matrix.php-version }}"
+          autoload_file: vendor/yiisoft/yii2/Yii.php
+          memory_limit: 512M
+          level: "1"
+
+  ci-success:
+    name: ci
+    if: ${{ success() }}
+    needs:
+      - lint
+      - phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - name: CI succeeded
+        run: exit 0
+          
