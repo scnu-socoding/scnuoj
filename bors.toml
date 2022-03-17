@@ -1,4 +1,4 @@
-status = [ "Lint", "Static Analysis" ]
+status = [ "LintChecks", "PHPStan" ]
 block_labels = [ "work-in-progress" ]
 
 delete_merged_branches = true
