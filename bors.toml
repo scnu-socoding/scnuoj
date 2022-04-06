@@ -1,4 +1,4 @@
-status = [ "ci" ]
+status = [ "ci-success" ]
 block_labels = [ "work-in-progress" ]
 
 delete_merged_branches = true
