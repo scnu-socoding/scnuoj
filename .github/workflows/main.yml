@@ -97,6 +97,7 @@ jobs:
     needs:
       - lint
       - phpstan
+      - build-judger
     runs-on: ubuntu-latest
     steps:
       - name: CI succeeded
