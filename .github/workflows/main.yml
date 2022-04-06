@@ -67,13 +67,37 @@ jobs:
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
           level: "1"
+          
+  build-judger:
+    name: build-judger
+
+    runs-on: "${{ matrix.ubuntu-version }}"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        judger:
+          - "judge"
+          - "polygon"
+        ubuntu-version:
+          - "ubuntu-18.04"
+          - "ubuntu-20.04"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+      - name: "Install dependencies"
+        run: "sudo apt install -y libmysqlclient-dev libmysql++-dev build-essential"
+      - name: "Build judger"
+        run: "cd ${{ matrix.judger }} && make"
 
   ci-success:
-    name: ci
+    name: ci-success
     if: ${{ success() }}
     needs:
       - lint
       - phpstan
+      - build-judger
     runs-on: ubuntu-latest
     steps:
       - name: CI succeeded
