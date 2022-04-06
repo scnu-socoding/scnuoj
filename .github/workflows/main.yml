@@ -67,6 +67,26 @@ jobs:
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
           level: "1"
+          
+  build-judger:
+    name: build-judger
+
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        judger:
+          - "judge"
+          - "polygon"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+      - name: "Install dependencies"
+        run: "sudo apt install -y libmysqlclient-dev libmysql++-dev build-essential"
+      - name: "Build judger"
+        run: "cd ${{ matrix.judger }} && make"
 
   ci-success:
     name: ci-success
