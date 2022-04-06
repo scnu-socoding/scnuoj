@@ -69,7 +69,7 @@ jobs:
           level: "1"
 
   ci-success:
-    name: ci
+    name: ci-success
     if: ${{ success() }}
     needs:
       - lint
