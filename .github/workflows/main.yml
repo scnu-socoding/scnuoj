@@ -71,7 +71,7 @@ jobs:
   build-judger:
     name: build-judger
 
-    runs-on: ubuntu-20.04
+    runs-on: "${{ matrix.ubuntu-version }}"
 
     strategy:
       fail-fast: false
@@ -79,6 +79,9 @@ jobs:
         judger:
           - "judge"
           - "polygon"
+        ubuntu-version:
+          - "ubuntu-18.04"
+          - "ubuntu-20.04"
 
     steps:
       - name: "Checkout"
