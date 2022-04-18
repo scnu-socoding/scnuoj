@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\User;
+use Yii;
 
 /**
  * Update controller for the `admin` module
@@ -44,7 +45,7 @@ class UpdateController extends Controller
      */
     public function actionIndex()
     {
-        $changelog = file_get_contents('https://gitee.com/bobby285271/scnuoj/raw/master/CHANGELOG.md');
+        $changelog = file_get_contents(Yii::getAlias('@app/CHANGELOG.md'));
         return $this->render('index', [
             'changelog' => $changelog
         ]);
