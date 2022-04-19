@@ -14,13 +14,21 @@ $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
 
-<?php if ($model->isContestEnd() && $model->isScoreboardFrozen()) : ?>
-    <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 比赛已经结束，封榜状态尚未解除，请等候管理员滚榜或解榜。</div>
-    <p></p>
-<?php elseif ($model->isScoreboardFrozen()) : ?>
-    <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。</div>
+<!-- 启用封榜时显示的顶部横幅 -->
+
+<?php if ($model->isScoreboardFrozen()) : ?>
+    <div class="alert alert-light" style="text-align: left !important;"><i class="fas fa-fw fa-info-circle"></i>
+        <?= (($model->isContestEnd())
+            ? "比赛已经结束，封榜状态尚未解除，请等候管理员滚榜或解榜。"
+            : "现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。")
+        ?>
+    </div>
     <p></p>
 <?php endif; ?>
+
+
+<!-- 榜单主体 -->
+
 <table class="table table-bordered standings-table">
 
     <tbody style="line-height: 1;">
