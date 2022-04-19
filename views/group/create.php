@@ -1,12 +1,5 @@
 <?php
 
-use app\models\User;
-use yii\helpers\Html;
-
-use yii\filters\AccessControl;
-use yii\web\NotFoundHttpException;
-use yii\web\ForbiddenHttpException;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 
