@@ -59,11 +59,7 @@ echo Nav::widget([
     <p class="hint-block">1. 一个用户占据一行，每行格式为 <code>username</code>。</p>
     <p class="hint-block">2. 必须是已经注册过的用户。</p>
     <?= $form->field($newGroupUser, 'username')->textarea(['rows' => 10]) ?>
-    <?php if (Yii::$app->setting->get('isGroupJoin')) : ?>
-        <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中', '4' => '普通成员'], ['value' => [4]]) ?>
-    <?php else : ?>
-        <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中'], ['value' => [2]]) ?>
-    <?php endif; ?>
+    <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中', '4' => '普通成员'], ['value' => [4]]) ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary btn-block']) ?>
     </div>

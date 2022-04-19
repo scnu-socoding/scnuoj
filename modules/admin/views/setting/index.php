@@ -101,11 +101,6 @@ $this->title = Yii::t('app', 'Setting');
                 0 => '关闭小组创建'
             ]) ?>
 
-            <?= Html::radioList('isGroupJoin', $settings['isGroupJoin'], [
-                1 => '允许组长直接组员',
-                0 => '禁止组长直接组员'
-            ]) ?>
-
             <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
                 1 => '仅组长可重置密码与昵称',
                 2 => '组长与管理员可重置密码与昵称',
