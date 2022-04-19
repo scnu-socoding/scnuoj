@@ -83,12 +83,6 @@ $this->title = Yii::t('app', 'Setting');
                 0 => '关闭用户注册'
             ]) ?>
 
-            <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
-                2 => '允许用户修改一次昵称',
-                1 => '允许用户修改昵称',
-                0 => '不允许用户修改昵称'
-            ]) ?>
-
             <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
                 1 => '开启讨论',
                 0 => '关闭讨论'
@@ -99,17 +93,6 @@ $this->title = Yii::t('app', 'Setting');
                 2 => '仅管理员可以创建小组',
                 3 => '仅管理员和助教可以创建小组',
                 0 => '关闭小组创建'
-            ]) ?>
-
-            <?= Html::radioList('isGroupJoin', $settings['isGroupJoin'], [
-                1 => '允许组长直接组员',
-                0 => '禁止组长直接组员'
-            ]) ?>
-
-            <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
-                1 => '仅组长可重置密码与昵称',
-                2 => '组长与管理员可重置密码与昵称',
-                0 => '关闭密码与昵称重置功能'
             ]) ?>
 
             <?= Html::radioList('mustVerifyEmail', $settings['mustVerifyEmail'], [
