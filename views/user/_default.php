@@ -29,22 +29,11 @@ $emailTemplate = '<div class="input-group"><div class="input-group-prepend"><spa
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?php if (Yii::$app->setting->get('isChangeNickName') == 1) : ?>
-    <?= $form->field($model, 'nickname', [
-        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">昵称</span></div>{input}</div>",
-        'options' => ['class' => '']
-    ])->textInput()->label(false) ?>
-    <p></p>
-<?php elseif (Yii::$app->setting->get('isChangeNickName') == 2 && $model->username == $model->nickname) : ?>
-    <?= $form->field($model, 'nickname', [
-        'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">昵称</span></div>{input}</div>",
-        'options' => ['class' => '']
-    ])->textInput()->label(false) ?>
-    <div class="alert alert-light">
-        昵称只能修改一次，请谨慎修改。<br>
-    </div>
-    <p></p>
-<?php endif; ?>
+<?= $form->field($model, 'nickname', [
+    'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">昵称</span></div>{input}</div>",
+    'options' => ['class' => '']
+])->textInput()->label(false) ?>
+<p></p>
 
 <?php if (!(Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())))) : ?>
 

@@ -83,12 +83,6 @@ $this->title = Yii::t('app', 'Setting');
                 0 => '关闭用户注册'
             ]) ?>
 
-            <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
-                2 => '允许用户修改一次昵称',
-                1 => '允许用户修改昵称',
-                0 => '不允许用户修改昵称'
-            ]) ?>
-
             <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
                 1 => '开启讨论',
                 0 => '关闭讨论'
