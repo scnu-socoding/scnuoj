@@ -14,10 +14,10 @@ class m201116_073045_add_setting_option extends Migration
     {
         $this->insert('{{%setting}}', ['key' => 'isUserReg', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDiscuss', 'value' => '1']);
-        $this->insert('{{%setting}}', ['key' => 'isChangeNickName', 'value' => '2']);
+        $this->insert('{{%setting}}', ['key' => 'isChangeNickName', 'value' => '2']); // unused
         $this->insert('{{%setting}}', ['key' => 'isDefGroup', 'value' => '3']);
-        $this->insert('{{%setting}}', ['key' => 'isGroupJoin', 'value' => '0']);
-        $this->insert('{{%setting}}', ['key' => 'isGroupReset', 'value' => '0']);  
+        $this->insert('{{%setting}}', ['key' => 'isGroupJoin', 'value' => '0']); // unused
+        $this->insert('{{%setting}}', ['key' => 'isGroupReset', 'value' => '0']); // unused
         $this->insert('{{%setting}}', ['key' => 'submitTime', 'value' => '0']); 
     }
 
