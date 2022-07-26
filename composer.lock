@@ -326,16 +326,16 @@
         },
         {
             "name": "fortawesome/font-awesome",
-            "version": "6.1.1",
+            "version": "6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "28e297f07af26f148c15e6cbbd12cea3027371d3"
+                "reference": "701d64a8943214b9767733e7ac0b201f1a08a8b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/28e297f07af26f148c15e6cbbd12cea3027371d3",
-                "reference": "28e297f07af26f148c15e6cbbd12cea3027371d3",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/701d64a8943214b9767733e7ac0b201f1a08a8b3",
+                "reference": "701d64a8943214b9767733e7ac0b201f1a08a8b3",
                 "shasum": ""
             },
             "type": "library",
@@ -361,7 +361,7 @@
                 "icon",
                 "svg"
             ],
-            "time": "2022-03-22T15:24:29+00:00"
+            "time": "2022-07-25T17:48:16+00:00"
         },
         {
             "name": "justinvoelker/yii2-tagging",
