@@ -1006,16 +1006,16 @@
         },
         {
             "name": "workerman/workerman",
-            "version": "v4.0.41",
+            "version": "v4.0.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "8a6a536f7f720a1d8af421ef4a48789c90ab19ec"
+                "reference": "83f09b50eaf7412504604030daa9e1f9c767e6c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/8a6a536f7f720a1d8af421ef4a48789c90ab19ec",
-                "reference": "8a6a536f7f720a1d8af421ef4a48789c90ab19ec",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/83f09b50eaf7412504604030daa9e1f9c767e6c3",
+                "reference": "83f09b50eaf7412504604030daa9e1f9c767e6c3",
                 "shasum": ""
             },
             "require": {
@@ -1058,7 +1058,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-07-19T08:05:44+00:00"
+            "time": "2022-07-29T09:06:29+00:00"
         },
         {
             "name": "yiisoft/yii2",
