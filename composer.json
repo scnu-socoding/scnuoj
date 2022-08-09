@@ -19,7 +19,8 @@
         "workerman/workerman": "~4.0.28",
         "workerman/phpsocket.io": "~1.1.13",
         "justinvoelker/yii2-tagging": "*",
-        "fortawesome/font-awesome": "^6.0.0"
+        "fortawesome/font-awesome": "^6.0.0",
+        "cweagans/composer-patches": "^1.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.13",
@@ -45,6 +46,11 @@
         ]
     },
     "extra": {
+       "patches": {
+            "cebe/markdown": {
+                "Fix Markdown LaTeX Parse": "patches/fix-md-latex-parse.patch"
+            }
+        },
         "yii\\composer\\Installer::postCreateProject": {
             "setPermission": [
                 {
