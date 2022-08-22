@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9190650f75804e37ffab4bbc0e2d6e5d",
+    "content-hash": "e150fa9aa5a55565c53fe3def4f737ef",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1050,20 +1050,20 @@
         },
         {
             "name": "workerman/workerman",
-            "version": "v4.0.42",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "83f09b50eaf7412504604030daa9e1f9c767e6c3"
+                "reference": "88ddf517e5c35bee072b2e453c4fcca0c6f1e59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/83f09b50eaf7412504604030daa9e1f9c767e6c3",
-                "reference": "83f09b50eaf7412504604030daa9e1f9c767e6c3",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/88ddf517e5c35bee072b2e453c4fcca0c6f1e59a",
+                "reference": "88ddf517e5c35bee072b2e453c4fcca0c6f1e59a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "php": ">=7.0"
             },
             "suggest": {
                 "ext-event": "For better performance. "
@@ -1102,7 +1102,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-07-29T09:06:29+00:00"
+            "time": "2022-08-20T10:16:22+00:00"
         },
         {
             "name": "yiisoft/yii2",
