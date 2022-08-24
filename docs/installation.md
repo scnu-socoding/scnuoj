@@ -176,6 +176,10 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 
 随后尝试在 Polygon 新建题目，确认测试点文件可以正常上传，如果无法上传则需检查 `scnuoj/polygon/data` 目录归属。
 
+## 安全问题
+经验证，python可以使用open函数读取一些敏感文件，即使由于行数限制显示不全但还是会有一定隐患。如果公开使用建议配合linux的acl命令来设定相关文件的权限。
+[相关文档](https://www.linuxcool.com/setfacl)
+
 ## 下一步
 
 由于 SCNUOJ 基于华南师大软院的实际情况做了一系列的修改，你可能需要阅读 [二次开发指南](./development.md)。
