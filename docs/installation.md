@@ -107,7 +107,9 @@ $ ./yii install
 
 此步为可选项，你可能希望围观 [这个 Issue](https://github.com/shi-yang/jnoj/issues/102) 了解详情。
 
-在 `scnuoj/scnuoj-patches` 目录下执行：
+对于 [`cd86f6c94ff1317b01e5bbb4a5ec0cf859d8cc44`](https://github.com/scnu-socoding/scnuoj/commit/cd86f6c94ff1317b01e5bbb4a5ec0cf859d8cc44) 或更新的版本，补丁在 `composer install` 时已被自动应用，你无需进行其他操作。
+
+对于早期的版本，在 `scnuoj/scnuoj-patches` 目录下执行：
 
 ```plain
 $ ./apply.sh
