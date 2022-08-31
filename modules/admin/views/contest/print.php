@@ -59,15 +59,7 @@ $this->registerAssetBundle('yii\bootstrap4\BootstrapPluginAsset');
             <br>
             <br>
             <div class="limit">
-                <?php if (Yii::$app->setting->get('schoolName') == "华南师范大学软件学院") : ?>
-                    <p class="limit">
-                        华南师范大学软件协会香农先修班</p>
-                    <p class="limit">
-                        华南师范大学软件学院 ICPC/CCPC 集训队
-                    </p>
-                <?php else : ?>
-                    <p class="limit"><?= Yii::$app->setting->get('schoolName') ?></p>
-                <?php endif; ?>
+                <p class="limit"><?= Yii::$app->setting->get('schoolName') ?>程序设计竞赛命题组</p>
             </div>
 
             <br>
