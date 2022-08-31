@@ -9,32 +9,15 @@ use yii\helpers\Html;
 $this->title = Yii::$app->setting->get('ojName');
 ?>
 
-<?php if (Yii::$app->setting->get('schoolName') == "华南师范大学软件学院") : ?>
-    <section class="py-5 text-center">
-        <div class="row py-lg-5">
-            <div class="mx-auto d-none d-md-block">
-                <br />
-                <h2>South China Normal University Online Judge</h2>
-                <p class="lead text-muted"><?= Yii::$app->setting->get('schoolName') ?>在线评测系统</p>
-            </div>
-            <div class="mx-auto d-md-none">
-                <br />
-                <h2>SCNU Online Judge</h2>
-                <p class="lead text-muted"><?= Yii::$app->setting->get('schoolName') ?>在线评测系统</p>
-            </div>
+<section class="py-5 text-center">
+    <div class="row py-lg-5">
+        <div class="mx-auto">
+            <br />
+            <h2><?= Yii::$app->setting->get('ojName') ?></h2>
+            <p class="lead text-muted"><?= Yii::$app->setting->get('schoolName') ?>在线评测系统</p>
         </div>
-    </section>
-<?php else : ?>
-    <section class="py-5 text-center">
-        <div class="row py-lg-5">
-            <div class="mx-auto">
-                <br />
-                <h2><?= Yii::$app->setting->get('ojName') ?></h2>
-                <p class="lead text-muted"><?= Yii::$app->setting->get('schoolName') ?>在线评测系统</p>
-            </div>
-        </div>
-    </section>
-<?php endif; ?>
+    </div>
+</section>
 
 <p></p>
 <div class="row">
