@@ -24,7 +24,7 @@ services:
     volumes:
       - ./data/mysql/data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: jnoj
+      MYSQL_DATABASE: scnuoj
       MYSQL_ROOT_PASSWORD: 123456
       TZ: Asia/Shanghai
 
