@@ -1,6 +1,9 @@
 # Taken from https://github.com/shi-yang/jnoj/commit/1377a504e4542ddccaa85301c1eece13e2e4fab8
 # Thanks @shi-yang
 
+# This file is for development propose only.
+# You will have to adjust config/db.php to use the correct host (mysql) and user (root).
+
 version: '3'
 
 services:
