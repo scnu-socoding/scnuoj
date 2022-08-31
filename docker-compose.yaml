@@ -1,0 +1,39 @@
+# Taken from https://github.com/shi-yang/jnoj/commit/1377a504e4542ddccaa85301c1eece13e2e4fab8
+# Thanks @shi-yang
+
+# This file is for development propose only.
+# You will have to adjust config/db.php to use the correct host (mysql) and user (root).
+
+version: '3'
+
+services:
+  myadminfortest:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadminfortest
+    ports:
+      - 8888:80
+    depends_on:
+      - mysql
+    environment: 
+      PMA_USER: root
+      PMA_PASSWORD: 123456
+    links:
+      - mysql:db
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    volumes:
+      - ./data/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: scnuoj
+      MYSQL_ROOT_PASSWORD: 123456
+      TZ: Asia/Shanghai
+
+  php:
+    image: yiisoftware/yii2-php:7.4-apache
+    volumes:
+      - ./:/app:delegated
+    ports:
+      - '8000:80'
