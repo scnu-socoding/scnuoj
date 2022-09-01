@@ -67,6 +67,10 @@ jobs:
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
           level: "1"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "scnuoj-vendor-${{ matrix.php-version }}"
+          path: vendor/
           
   build-judger:
     name: build-judger
