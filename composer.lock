@@ -1056,16 +1056,16 @@
         },
         {
             "name": "workerman/workerman",
-            "version": "v4.1.0",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "88ddf517e5c35bee072b2e453c4fcca0c6f1e59a"
+                "reference": "6531874fa58486f410e10452e784deb5043a70ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/88ddf517e5c35bee072b2e453c4fcca0c6f1e59a",
-                "reference": "88ddf517e5c35bee072b2e453c4fcca0c6f1e59a",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/6531874fa58486f410e10452e784deb5043a70ba",
+                "reference": "6531874fa58486f410e10452e784deb5043a70ba",
                 "shasum": ""
             },
             "require": {
@@ -1098,6 +1098,13 @@
                 "asynchronous",
                 "event-loop"
             ],
+            "support": {
+                "email": "walkor@workerman.net",
+                "forum": "http://wenda.workerman.net/",
+                "issues": "https://github.com/walkor/workerman/issues",
+                "source": "https://github.com/walkor/workerman",
+                "wiki": "http://doc.workerman.net/"
+            },
             "funding": [
                 {
                     "url": "https://opencollective.com/workerman",
@@ -1108,7 +1115,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-08-20T10:16:22+00:00"
+            "time": "2022-09-22T13:01:29+00:00"
         },
         {
             "name": "yiisoft/yii2",
