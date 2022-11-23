@@ -1008,20 +1008,24 @@
                 "MIT"
             ],
             "homepage": "http://www.workerman.net",
+            "support": {
+                "issues": "https://github.com/walkor/channel/issues",
+                "source": "https://github.com/walkor/channel/tree/v1.1.0"
+            },
             "time": "2021-02-08T02:45:42+00:00"
         },
         {
             "name": "workerman/phpsocket.io",
-            "version": "v1.1.14",
+            "version": "v1.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/phpsocket.io.git",
-                "reference": "a5758da4d55b4744a4cc9c956816d88ce385601e"
+                "reference": "2c8bce9091bbef99e4122454973fbeb393e86c80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/a5758da4d55b4744a4cc9c956816d88ce385601e",
-                "reference": "a5758da4d55b4744a4cc9c956816d88ce385601e",
+                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/2c8bce9091bbef99e4122454973fbeb393e86c80",
+                "reference": "2c8bce9091bbef99e4122454973fbeb393e86c80",
                 "shasum": ""
             },
             "require": {
@@ -1042,6 +1046,10 @@
             "keywords": [
                 "Socket.io"
             ],
+            "support": {
+                "issues": "https://github.com/walkor/phpsocket.io/issues",
+                "source": "https://github.com/walkor/phpsocket.io/tree/v1.1.15"
+            },
             "funding": [
                 {
                     "url": "https://opencollective.com/walkor",
@@ -1052,7 +1060,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-02-24T03:33:45+00:00"
+            "time": "2022-11-23T09:26:29+00:00"
         },
         {
             "name": "workerman/workerman",
