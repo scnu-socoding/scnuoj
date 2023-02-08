@@ -3,7 +3,6 @@ name: 问题反馈
 about: 创建问题反馈报告...
 title: ''
 labels: bug
-assignees: bobby285271
 
 ---
 

@@ -3,7 +3,6 @@ name: 功能请求
 about: 希望我们实现一个新功能？
 title: ''
 labels: enhancement
-assignees: bobby285271
 
 ---
 
