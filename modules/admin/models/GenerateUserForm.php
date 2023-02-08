@@ -77,7 +77,7 @@ class GenerateUserForm extends Model
             $user = new User();
             $user->username = $this->prefix . $i;
             $user->nickname = $nick;
-            $user->email = $this->prefix . $i . '@bobby285271.top';
+            $user->email = $this->prefix . $i . '@fakemailscnuoj.com';
             $user->role = User::ROLE_PLAYER;
             $user->is_verify_email = User::VERIFY_EMAIL_YES;
             $user->status = User::STATUS_ACTIVE;
