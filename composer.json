@@ -27,7 +27,7 @@
         "yiisoft/yii2-gii": "~2.2.1",
         "yiisoft/yii2-faker": "~2.0.0",
         "codeception/codeception": "^4.1.14",
-        "codeception/verify": "~2.2.0",
+        "codeception/verify": "~3.0.0",
         "codeception/specify": "~2.0.0"
     },
     "config": {
