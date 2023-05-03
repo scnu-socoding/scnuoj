@@ -50,7 +50,7 @@ jobs:
       - uses: php-actions/composer@v6
         with:
           php_version: "${{ matrix.php-version }}"
-      - uses: php-actions/phpstan@master
+      - uses: php-actions/phpstan@v3
         name: "Level 0 Check"
         with:
           path: assets/ commands/ components/ config/ controllers/ mail/ messages/ migrations/ models/ modules/ views/ web/ widgets/
@@ -58,7 +58,7 @@ jobs:
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
           level: "0"
-      - uses: php-actions/phpstan@master
+      - uses: php-actions/phpstan@v3
         name: "Level 1 Check"
         continue-on-error: true
         with:
