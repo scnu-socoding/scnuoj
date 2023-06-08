@@ -986,16 +986,16 @@
         },
         {
             "name": "workerman/channel",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/channel.git",
-                "reference": "3df772d0d20d4cebfcfd621c33d1a1ab732db523"
+                "reference": "fbfb81c7ebc5858c4053f226cbb5d15fe670ff6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/channel/zipball/3df772d0d20d4cebfcfd621c33d1a1ab732db523",
-                "reference": "3df772d0d20d4cebfcfd621c33d1a1ab732db523",
+                "url": "https://api.github.com/repos/walkor/channel/zipball/fbfb81c7ebc5858c4053f226cbb5d15fe670ff6e",
+                "reference": "fbfb81c7ebc5858c4053f226cbb5d15fe670ff6e",
                 "shasum": ""
             },
             "require": {
@@ -1014,22 +1014,22 @@
             "homepage": "http://www.workerman.net",
             "support": {
                 "issues": "https://github.com/walkor/channel/issues",
-                "source": "https://github.com/walkor/channel/tree/v1.1.0"
+                "source": "https://github.com/walkor/channel/tree/v1.2.0"
             },
-            "time": "2021-02-08T02:45:42+00:00"
+            "time": "2023-04-04T02:47:35+00:00"
         },
         {
             "name": "workerman/phpsocket.io",
-            "version": "v1.1.16",
+            "version": "v1.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/phpsocket.io.git",
-                "reference": "f4dc14e69e9d0d8ce69c6180f93b76b7743f2304"
+                "reference": "fb51151fd86414548e7cd9321c066c7b60983f8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/f4dc14e69e9d0d8ce69c6180f93b76b7743f2304",
-                "reference": "f4dc14e69e9d0d8ce69c6180f93b76b7743f2304",
+                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/fb51151fd86414548e7cd9321c066c7b60983f8c",
+                "reference": "fb51151fd86414548e7cd9321c066c7b60983f8c",
                 "shasum": ""
             },
             "require": {
@@ -1052,7 +1052,7 @@
             ],
             "support": {
                 "issues": "https://github.com/walkor/phpsocket.io/issues",
-                "source": "https://github.com/walkor/phpsocket.io/tree/v1.1.16"
+                "source": "https://github.com/walkor/phpsocket.io/tree/v1.1.17"
             },
             "funding": [
                 {
@@ -1064,7 +1064,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-11-25T13:00:18+00:00"
+            "time": "2023-06-08T06:07:20+00:00"
         },
         {
             "name": "workerman/workerman",
