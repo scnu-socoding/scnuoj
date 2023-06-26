@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e150fa9aa5a55565c53fe3def4f737ef",
+    "content-hash": "efe2a72e622e799902f8db7559f8ffc7",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1020,16 +1020,16 @@
         },
         {
             "name": "workerman/phpsocket.io",
-            "version": "v1.1.18",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/phpsocket.io.git",
-                "reference": "b89b3f2ed44f6f79fd9895e2d198b52b3fb4783b"
+                "reference": "ddc1d496441c9efe7e585e3a476c3c19f7f255dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/b89b3f2ed44f6f79fd9895e2d198b52b3fb4783b",
-                "reference": "b89b3f2ed44f6f79fd9895e2d198b52b3fb4783b",
+                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/ddc1d496441c9efe7e585e3a476c3c19f7f255dc",
+                "reference": "ddc1d496441c9efe7e585e3a476c3c19f7f255dc",
                 "shasum": ""
             },
             "require": {
@@ -1052,7 +1052,7 @@
             ],
             "support": {
                 "issues": "https://github.com/walkor/phpsocket.io/issues",
-                "source": "https://github.com/walkor/phpsocket.io/tree/v1.1.18"
+                "source": "https://github.com/walkor/phpsocket.io/tree/v2.0.2"
             },
             "funding": [
                 {
@@ -1064,7 +1064,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-06-16T01:41:34+00:00"
+            "time": "2023-06-26T06:59:05+00:00"
         },
         {
             "name": "workerman/workerman",
