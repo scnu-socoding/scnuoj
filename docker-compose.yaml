@@ -1,22 +1,13 @@
-# Taken from https://github.com/shi-yang/jnoj/commit/1377a504e4542ddccaa85301c1eece13e2e4fab8
-# Thanks @shi-yang
-
-# This file is for development propose only.
-# You will have to adjust config/db.php to use the correct host (mysql) and user (root).
-
-version: '3'
+version: "3"
 
 services:
   myadminfortest:
     image: phpmyadmin/phpmyadmin
-    container_name: myadminfortest
+    container_name: myadmin
     ports:
       - 8888:80
     depends_on:
       - mysql
-    environment: 
-      PMA_USER: root
-      PMA_PASSWORD: 123456
     links:
       - mysql:db
 
@@ -26,14 +17,47 @@ services:
     restart: always
     volumes:
       - ./data/mysql/data:/var/lib/mysql
+      - ./conf.d/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      MYSQL_DATABASE: scnuoj
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: yourpassword
       TZ: Asia/Shanghai
 
-  php:
-    image: yiisoftware/yii2-php:7.4-apache
-    volumes:
-      - ./:/app:delegated
+  caddy:
+    image: caddy:latest
+    container_name: caddy
     ports:
-      - '8000:80'
+      - 80:80
+      - 443:443
+    volumes:
+      - ./conf.d/Caddyfile:/etc/caddy/Caddyfile
+      - ./:/var/www/html
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on:
+      - php
+
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mysql
+
+  judge:
+    container_name: judge
+    build:
+      context: .
+      dockerfile: Dockerfile.judge.alpine
+    volumes:
+      - ./judge:/judge/judge
+      - ./polygon:/judge/polygon
+      # - ./libraries:/judge/libraries
+    depends_on:
+      - mysql
+      - php
+      - caddy

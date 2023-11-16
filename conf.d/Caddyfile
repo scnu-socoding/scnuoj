@@ -1,0 +1,20 @@
+http://localhost:80 {
+    root * /var/www/html/web
+    encode gzip
+
+    @disallowed {
+		path /index_test.php
+	}
+
+	try_files {path} {path}/ /index.php?{query}
+	rewrite @disallowed /index.php
+
+    php_fastcgi php:9000 {
+        root /var/www/html/web
+    }
+
+    file_server {
+        index index.html
+    }
+
+}
