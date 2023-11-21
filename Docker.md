@@ -46,6 +46,8 @@ git clone https://github.com/scnu-socoding/scnuoj.git
 
 将 `dsn` 修改为 `mysql:host=mysql;dbname=scnuoj`
 
+将 `username` 修改为 `root`
+
 `password` 修改为 你刚才设置的密码
 
 #### 2.2.3 修改 `/judge/src/judge.c`

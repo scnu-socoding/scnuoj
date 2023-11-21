@@ -3,7 +3,7 @@ FROM php:7.4-fpm-alpine
 
 # 设置apk源为国内镜像源，并安装tzdata和curl
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
-    && apk add --no-cache tzdata curl
+    && apk add --no-cache tzdata curl build-base
 
 # 设置时区为Asia/Shanghai
 ENV TZ "Asia/Shanghai"
@@ -13,8 +13,11 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 # 添加用户
 RUN addgroup -g 1000 -S www && adduser -s /sbin/nologin -S -D -u 1000 -G www www
 
+ADD https://mirror.ghproxy.com/github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
 # 安装php扩展
-RUN docker-php-ext-install opcache pdo_mysql mysqli pcntl
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions gd imagick opcache pdo_mysql mysqli pcntl zip
 
 # 安装Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -37,6 +40,8 @@ RUN composer install
 COPY  /conf.d/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 100M/' "$PHP_INI_DIR/php.ini" \
+    && sed -i 's/^post_max_size = .*/post_max_size = 200M/' "$PHP_INI_DIR/php.ini"
 
 RUN mkdir -p /var/log/php-fpm
 RUN ln -sf /dev/stdout /var/log/php-fpm/error.log
