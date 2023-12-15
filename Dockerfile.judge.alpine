@@ -1,0 +1,35 @@
+# 使用alpine作为基础镜像
+FROM alpine:3.18
+
+ENV LANG C.UTF-8
+
+# 设置apk源为国内镜像源
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
+ENV TZ "Asia/Shanghai"
+
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && apk add --no-cache python3-dev openjdk17 build-base mariadb-dev mariadb-connector-c-dev openssl libseccomp \
+    && ln -sf python3 /usr/bin/python \
+    && rm -rf /var/cache/apk/*
+
+WORKDIR /build
+COPY judge judge
+COPY polygon polygon
+
+WORKDIR /build/judge
+RUN make \
+    && chmod +x dispatcher
+
+WORKDIR /build/polygon
+RUN make \
+    && chmod +x polygon
+
+# 新建judge用户
+RUN adduser -D -u 1536 judge
+
+WORKDIR /judge
+USER root
+CMD ["sh", "-c","cp -f /build/judge/dispatcher /judge/judge/dispatcher && cp -f /build/judge/judge /judge/judge/judge && cp -f /build/polygon/polygon /judge/polygon/polygon && cp -f /build/polygon/judge /judge/polygon/judge && ./judge/dispatcher && ./polygon/polygon && tail -f /dev/null"]
