@@ -111,3 +111,11 @@ docker-compose down; docker-compose up -d
 ```
 
 即可开启 oi 模式。如需关闭，重启容器即可。
+
+## 权限问题
+
+如果出现权限问题，请在当前目录中运行
+
+```shell
+chown -R 1000:1000 *
+```
