@@ -1,5 +1,5 @@
-# 使用php7.4-fpm-alpine作为基础镜像
-FROM php:7.4-fpm-alpine
+# 使用php8.1-fpm-alpine作为基础镜像
+FROM php:8.1-fpm-alpine
 
 # 设置apk源为国内镜像源，并安装tzdata和curl
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
