@@ -93,25 +93,25 @@
 
 <div class="list-group">
     <div class="list-group-item">
-        <b>C</b> (GCC 9.3.0)<br>
+        <b>C</b> (GCC 12.2.1)<br>
         <small>
             <code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c11 -DONLINE_JUDGE</code>
         </small>
     </div>
     <div class="list-group-item">
-        <b>C++</b> (GCC 9.3.0)<br>
+        <b>C++</b> (GCC 12.2.1)<br>
         <small>
             <code>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code>
         </small>
     </div>
     <div class="list-group-item">
-        <b>Java</b> (OpenJDK 11.0.11)<br>
+        <b>Java</b> (OpenJDK 17.0.9)<br>
         <small>
             <code>javac -J-Xms32m -J-Xmx256m Main.java</code>
         </small>
     </div>
     <div class="list-group-item">
-        <b>Python</b> (3.8.5)<br>
+        <b>Python</b> (3.11.6)<br>
         <small>
             编译参数不可用。
         </small>

@@ -86,7 +86,7 @@ docker-compose up -d --build
 
 > 如果提示权限不足则先执行 `chmod +x yii` 。
 
-按住 `ctrl+c` 退出容器。此时 `scnuoj` 已经搭建完成。
+输入 `exit` 退出容器。此时 `scnuoj` 已经搭建完成。
 
 输入:
 
@@ -99,3 +99,15 @@ docker-compose down; docker-compose up -d
 ## 迁移
 
 容器化最大的好处就是迁移的时候十分方便。迁移时只需要输入 `docker-compose down` 在源服务器上停止服务。将整个文件夹打包迁移到新服务器上，重复第一步的环境配置，即可通过 `docker-compose up -d` 一键开启服务。
+
+## 判题机开启 oi 模式
+
+进入判题机容器，kill 掉原有的判题机进程，然后输入
+
+```shell
+./judge/dispatcher -o
+./polygon/polygon -o
+
+```
+
+即可开启 oi 模式。如需关闭，重启容器即可。

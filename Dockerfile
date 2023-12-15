@@ -13,7 +13,7 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 # 添加用户
 RUN addgroup -g 1000 -S www && adduser -s /sbin/nologin -S -D -u 1000 -G www www
 
-ADD https://mirror.ghproxy.com/github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 # 安装php扩展
 RUN chmod +x /usr/local/bin/install-php-extensions && \

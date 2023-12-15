@@ -1,4 +1,4 @@
-http://localhost:80 {
+:80 {
     root * /var/www/html/web
     encode gzip
 
@@ -16,5 +16,4 @@ http://localhost:80 {
     file_server {
         index index.html
     }
-
 }
