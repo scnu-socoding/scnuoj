@@ -21,12 +21,12 @@ $this->registerJs($js);
 
 
 
-<?= Html::beginForm('', 'post') ?>
+<?= Html::beginForm('/problem/index', 'get') ?>
 
 <div class="row">
     <div class="input-group">
         <div class="col-lg-6" style="margin-bottom: 1rem;">
-            <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
+            <?= Html::textInput('q', $q, ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
         </div>
 
         <div class="col-lg-6" style="margin-bottom: 1rem;">

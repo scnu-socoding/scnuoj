@@ -41,7 +41,7 @@ class ProblemController extends BaseController
      * Lists all Problem models.
      * @return mixed
      */
-    public function actionIndex($showTags = 0, $page = 1, $tag = '')
+    public function actionIndex($showTags = 0, $page = 1, $per_page = 50, $tag = '', $q = '')
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
@@ -53,16 +53,20 @@ class ProblemController extends BaseController
         if (Yii::$app->request->get('tag') != '') {
             $query->andWhere('tags LIKE :tag', [':tag' => '%' . Yii::$app->request->get('tag') . '%']);
         }
-        if (($post = Yii::$app->request->post())) {
-            $query->orWhere(['like', 'title', $post['q']])
-                ->orWhere(['like', 'id', $post['q']])
-                ->orWhere(['like', 'source', $post['q']]);
+        if (Yii::$app->request->get('q') != '') {
+            $query->orWhere(['like', 'title', $q])->orWhere(['like', 'id', $q])->orWhere(['like', 'source', $q]);
         }
+        // if (($post = Yii::$app->request->post())) {
+        //     $query->orWhere(['like', 'title', $post['q']])
+        //         ->orWhere(['like', 'id', $post['q']])
+        //         ->orWhere(['like', 'source', $post['q']]);
+        // }
         $query->andWhere('status<>' . Problem::STATUS_HIDDEN);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => $per_page,
+                'pageSizeParam' => 'per_page'
             ]
         ]);
 
@@ -95,7 +99,8 @@ class ProblemController extends BaseController
             'solvedProblem' => $solvedProblem,
             'showTags' => $showTags,
             'page' => $page,
-            'tag' => $tag
+            'tag' => $tag,
+            'q' => $q
         ]);
     }
 
