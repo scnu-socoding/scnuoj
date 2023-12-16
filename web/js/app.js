@@ -49,15 +49,15 @@ function testHtml(id, caseJsonObject) {
               <div class="panel-body"><hr>' + (caseJsonObject.verdict != 4 ? ('\
                   <div class="sample-test">\
                       <div class="input">\
-                          <h6>标准输入</h6>\
+                          <h6>测试输入</h6>\
                           <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
                       </div>\
                       <div class="output">\
-                          <h6>标准输出</h6>\
+                          <h6>代码输出</h6>\
                           <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
                       </div>\
                       <div class="output">\
-                          <h6>答案</h6>\
+                          <h6>参考答案</h6>\
                           <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
                       </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
         + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
@@ -85,15 +85,15 @@ function testHtml(id, caseJsonObject) {
               <div class="panel-body"><hr>' + (caseJsonObject.verdict != 4 ? ('\
                   <div class="sample-test">\
                       <div class="input">\
-                          <h6>标准输入</h6>\
+                          <h6>测试输入</h6>\
                           <pre class="list-group-item">' + caseJsonObject.input + '</pre>\
                       </div>\
                       <div class="output">\
-                          <h6>标准输出</h6>\
+                          <h6>代码输出</h6>\
                           <pre class="list-group-item">' + caseJsonObject.user_output + '</pre>\
                       </div>\
                       <div class="output">\
-                          <h6>答案</h6>\
+                          <h6>参考答案</h6>\
                           <pre class="list-group-item">' + caseJsonObject.output + '</pre>\
                       </div>' + (caseJsonObject.checker_log == "" ? "" : '<div class="output"><h6>检查日志</h6><pre class="list-group-item">' + caseJsonObject.checker_log + '</pre></div>')
         + '<div class="output">') : '<div class="alert alert-light">你已经通过本测试点，测试点数据已经被隐藏。</div>') + '\
