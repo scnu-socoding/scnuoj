@@ -119,6 +119,6 @@ class Setting extends Component
      */
     public static function getVersion()
     {
-        return '2021.11';
+        return '2021.12';
     }
 }
