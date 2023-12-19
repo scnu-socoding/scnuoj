@@ -14,6 +14,24 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Rating');
 ?>
 
+<style>
+    .btn-custom {
+        font-size: 0.8rem; /* 调整字体大小 */
+        padding: .335rem .65rem; /* 调整内边距以适应新的字体大小 */
+    }
+</style>
+<div class="row">
+    <div class="col">
+        <?php if (isset($lastUpdated)): ?>
+            <p style="display: inline-block; margin-right: 10px;">榜单更新时间： <?= Yii::$app->formatter->asDatetime($lastUpdated) ?></p>
+        <?php endif; ?>
+        <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()): ?>
+            <?= Html::a('刷新榜单', ['rating/clear-cache'], ['class' => 'btn btn-warning btn-custom', 'style' => 'display: inline-block; vertical-align: middle;']) ?>
+        <?php endif; ?>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col">
         <div class="rating-index">
@@ -54,5 +72,4 @@ $this->title = Yii::t('app', 'Rating');
         </div>
         <p></p>
     </div>
-
 </div>
