@@ -100,7 +100,7 @@ class ProblemController extends Controller
             'searchModel' => $searchModel
         ]);
     }
-    
+
     public function actionDeletefile($id, $name)
     {
         $model = $this->findModel($id);
@@ -363,7 +363,7 @@ class ProblemController extends Controller
                 throw new BadRequestHttpException($ext);
             }
             $fileContent = file_get_contents($_FILES["file"]["tmp_name"]);
-            file_put_contents($_FILES["file"]["tmp_name"], preg_replace("(\r\n)","\n", $fileContent));
+            file_put_contents($_FILES["file"]["tmp_name"], preg_replace("(\r\n)", "\n", $fileContent));
             @move_uploaded_file($_FILES["file"]["tmp_name"], Yii::$app->params['judgeProblemDataPath'] . $model->id . '/' . $_FILES["file"]["name"]);
         }
         return $this->render('test_data', [
@@ -386,7 +386,8 @@ class ProblemController extends Controller
         if (!$zipArc->open($zipName, \ZipArchive::CREATE)) {
             return false;
         }
-        $res = $zipArc->addGlob("{$filename}/*", GLOB_BRACE, ['remove_all_path' => true]);
+        // $res = $zipArc->addGlob("{$filename}/*", GLOB_BRACE, ['remove_all_path' => true]);
+        $res = $zipArc->addGlob("{$filename}/*", 0, ['remove_all_path' => true]);
         $zipArc->close();
         if (!$res) {
             return false;
@@ -394,7 +395,9 @@ class ProblemController extends Controller
         if (!file_exists($zipName)) {
             return false;
         }
-        Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function($event) { unlink($event->data); }, $zipName);
+        Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function ($event) {
+            unlink($event->data);
+        }, $zipName);
         return Yii::$app->response->sendFile($zipName, $model->id . '-' . $model->title . '.zip');
     }
 
@@ -456,7 +459,7 @@ class ProblemController extends Controller
             return $this->redirect(['/admin/problem']);
         }
 
-        if(! $model->spj) {
+        if (!$model->spj) {
             Yii::$app->session->setFlash('error', '请先启用 Special Judge 判题。');
             return $this->redirect(['update', 'id' => $model->id]);
         }
@@ -473,7 +476,7 @@ class ProblemController extends Controller
             if (!is_dir($dataPath)) {
                 mkdir($dataPath);
             }
-            $fp = fopen($dataPath . '/spj.cc',"w");
+            $fp = fopen($dataPath . '/spj.cc', "w");
             fputs($fp, $spjContent);
             fclose($fp);
             putenv('PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin');
@@ -503,7 +506,7 @@ class ProblemController extends Controller
             return $this->redirect(['/admin/problem']);
         }
 
-        if(! Yii::$app->setting->get('oiMode')) {
+        if (!Yii::$app->setting->get('oiMode')) {
             Yii::$app->session->setFlash('error', '请先启用 OI 模式。');
             return $this->redirect(['update', 'id' => $model->id]);
         }
@@ -519,7 +522,7 @@ class ProblemController extends Controller
             if (!is_dir($dataPath)) {
                 mkdir($dataPath);
             }
-            $fp = fopen($dataPath . '/config',"w");
+            $fp = fopen($dataPath . '/config', "w");
             fputs($fp, $spjContent);
             fclose($fp);
         }
@@ -576,7 +579,7 @@ class ProblemController extends Controller
     {
         $dir = opendir($src);
         @mkdir($dst);
-        while ( false !== ($file = readdir($dir))) {
+        while (false !== ($file = readdir($dir))) {
             if (($file != '.') && ($file != '..')) {
                 copy($src . '/' . $file, $dst . '/' . $file);
             }
@@ -592,9 +595,9 @@ class ProblemController extends Controller
     {
         $dh = opendir($dir);
         while ($file = readdir($dh)) {
-            if($file != "." && $file != "..") {
+            if ($file != "." && $file != "..") {
                 $fullpath = $dir . "/" . $file;
-                if(!is_dir($fullpath)) {
+                if (!is_dir($fullpath)) {
                     unlink($fullpath);
                 } else {
                     $this->makeDirEmpty($fullpath);
@@ -642,7 +645,7 @@ class ProblemController extends Controller
             $problem->save();
 
             $this->copyDir(Yii::$app->params['polygonProblemDataPath'] . $polygonProblem['id'], Yii::$app->params['judgeProblemDataPath'] . $problem->id);
-            
+
             // 给 SPJ 添加可执行权限
             $dataPath = Yii::$app->params['judgeProblemDataPath'] . $problem->id;
             exec("chmod +x {$dataPath}/spj");
