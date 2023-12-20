@@ -31,33 +31,41 @@ class RatingController extends BaseController
                 )
                 ->leftJoin('`user_profile` `p` ON `p`.`user_id`=`u`.`id`')
                 ->orderBy('solved DESC, id');
-            $top3users = $query->limit(3)->all();
-            $defaultPageSize = 50;
-            $countQuery = clone $query;
-            $pages = new Pagination([
-                'totalCount' => $countQuery->count(),
-                'defaultPageSize' => $defaultPageSize
-            ]);
-            $users = $query->offset($pages->offset)
-                ->limit($pages->limit)
-                ->all();
+            // 修改此处以获取所有用户数据
+            $allUsers = $query->all();
 
             // 将查询结果和当前时间保存到缓存中
             $currentTimestamp = time();
-            // 将查询结果保存到缓存中，设置有效期为 600 秒（10分钟）
+            // 缓存全体数据，设置有效期为 600 秒（10分钟）
             $data = [
-                'top3users' => $top3users,
-                'users' => $users,
-                'pages' => $pages,
-                'currentPage' => $pages->page,
-                'defaultPageSize' => $defaultPageSize,
+                'allUsers' => $allUsers,
                 'lastUpdated' => $currentTimestamp
             ];
             Yii::$app->cache->set($cacheKey, $data, 600);
         }
 
+        // 分页处理
+        // 假设从前端获取当前页码（pageNum）和每页大小（pageSize）
+        $defaultPageSize = 50;
+        $pages = new Pagination([
+            'totalCount' => count($data['allUsers']),
+            'defaultPageSize' => $defaultPageSize
+        ]);
+        $pageNum = Yii::$app->request->get('page', 1);
+        $pageSize = Yii::$app->request->get('pageSize', $defaultPageSize);
+        $offset = ($pageNum - 1) * $pageSize;
+        $pagedData = array_slice($data['allUsers'], $offset, $pageSize);
+
         // 使用缓存或新查询的数据渲染视图
-        return $this->render('index', $data);
+        // 向视图传递分页数据和其他必要信息
+        return $this->render('index', [
+            'users' => $pagedData,
+            'currentPage' => $pageNum,
+            'defaultPageSize' => $defaultPageSize,
+            'pages' => $pages,
+            'totalUsers' => count($data['allUsers']),
+            'lastUpdated' => $data['lastUpdated']
+        ]);
     }
 
     public function actionClearCache()
