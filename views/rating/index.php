@@ -45,7 +45,7 @@ $this->title = Yii::t('app', 'Rating');
                             <td><b>=</b></td>
                         </tr>
                         <?php foreach ($users as $k => $user) : ?>
-                            <?php $num = $k + $currentPage * $defaultPageSize + 1; ?>
+                            <?php $num = $k + ($currentPage-1) * $defaultPageSize + 1; ?>
                             <tr  class="animate__animated animate__fadeIn animate__faster">
                                 <td><?= $num ?></td>
                                 <td>
