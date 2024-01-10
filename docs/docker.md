@@ -50,13 +50,13 @@ git clone https://github.com/scnu-socoding/scnuoj.git
 
 `password` 修改为 你刚才设置的密码
 
-#### 2.2.3 修改 `/judge/src/judge.c`
+#### 2.2.3 修改 `/judge/config.ini`
 
 将 `use_ptrace` 的值修改为 `0`
 
 > Tips: 这里修改的原因是 P trace 机制和 Docker 存在兼容性问题导致。Docker 里的 system call 的值貌似不固定（?）
 
-#### 2.2.4 修改 `/polygon/src/judge.c`
+#### 2.2.4 修改 `/polygon/config.ini`
 
 同上
 

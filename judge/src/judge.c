@@ -112,7 +112,7 @@ static int full_diff = 0;
 static int shm_run = 0;
 
 static char record_call = 0;
-static int use_ptrace = 0;
+static int use_ptrace = 1;
 static int compile_chroot = 1;
 static int subtask_cnt = 0;
 

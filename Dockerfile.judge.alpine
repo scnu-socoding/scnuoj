@@ -32,4 +32,4 @@ RUN adduser -D -u 1536 judge
 
 WORKDIR /judge
 USER root
-CMD ["sh", "-c","cp -f /build/judge/dispatcher /judge/judge/dispatcher && cp -f /build/judge/judge /judge/judge/judge && cp -f /build/polygon/polygon /judge/polygon/polygon && cp -f /build/polygon/judge /judge/polygon/judge && ./judge/dispatcher && ./polygon/polygon && tail -f /dev/null"]
+CMD ["sh", "-c","cp -f /build/judge/dispatcher /judge/judge/dispatcher && cp -f /build/judge/judge /judge/judge/judge && cp -f /build/polygon/polygon /judge/polygon/polygon && cp -f /build/polygon/judge /judge/polygon/judge ; ./judge/dispatcher && ./polygon/polygon && tail -f /dev/null"]
