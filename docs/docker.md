@@ -52,7 +52,7 @@ git clone https://github.com/scnu-socoding/scnuoj.git
 
 #### 2.2.3 修改 `/judge/config.ini`
 
-将 `use_ptrace` 的值修改为 `0`
+将 `OJ_USE_PTRACE` 的值修改为 `0`
 
 > Tips: 这里修改的原因是 P trace 机制和 Docker 存在兼容性问题导致。Docker 里的 system call 的值貌似不固定（?）
 
