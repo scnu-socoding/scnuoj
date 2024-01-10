@@ -28,6 +28,7 @@ services:
   caddy:
     image: caddy:latest
     container_name: caddy
+    restart: always
     ports:
       - 80:80
       - 443:443
@@ -41,6 +42,7 @@ services:
 
   php:
     container_name: php
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -53,6 +55,7 @@ services:
 
   judge:
     container_name: judge
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile.judge.alpine
