@@ -125,7 +125,7 @@ jobs:
         run: echo "REPOSITORY_LOWER=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build scnuoj and Push Docker Image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile
@@ -154,9 +154,9 @@ jobs:
         run: echo "REPOSITORY_LOWER=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build judge and Push Docker Image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
-          context: judge
+          context: .
           file: Dockerfile.judge.alpine
           push: true
           tags: ghcr.io/${{ env.REPOSITORY_LOWER }}/judge:latest
