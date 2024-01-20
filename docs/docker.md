@@ -66,6 +66,10 @@ git clone https://github.com/scnu-socoding/scnuoj.git
 
 ## 3. 安装
 
+可以选择本地打包或者直接拉取镜像。
+
+### 本地打包
+
 首次运行需要安装 `scnuoj` 。
 
 先在 `/scnuoj` 目录下运行：
@@ -75,6 +79,14 @@ docker-compose up -d --build
 ```
 
 生成镜像需要时间，请耐心等待打包完成。
+
+### 拉取镜像
+
+把 docker-compose.yaml 中的 build 改为对应的在线 image，然后运行
+
+```shell
+docker-compose up -d
+```
 
 运行成功后，进入 `php` 容器。
 
