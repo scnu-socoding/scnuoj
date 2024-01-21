@@ -88,19 +88,21 @@ docker-compose up -d --build
 docker-compose up -d
 ```
 
-运行成功后，进入 `php` 容器。
+运行成功后，进入 `php` 容器进行安装。
 
-首先，先使用 `docker container ls` 命令获取 `php` 容器的 `CONTAINER ID`。
+步骤如下：
 
-然后，输入 `docker exec -it 刚才获取的ID sh` 进入容器。
+> 首先，先使用 `docker container ls` 命令获取 `php` 容器的 `CONTAINER ID`。
+>
+> 然后，输入 `docker exec -it 刚才获取的ID sh` 进入容器。
+>
+> 运行 `./yii install` 进行安装。根据提示输入管理员账号、密码和邮箱即可。
+>
+> > 如果提示权限不足则先执行 `chmod +x yii` 。
+>
+> 输入 `exit` 退出容器。此时 `scnuoj` 已经搭建完成。
 
-运行 `./yii install` 进行安装。根据提示输入管理员账号、密码和邮箱即可。
-
-> 如果提示权限不足则先执行 `chmod +x yii` 。
-
-输入 `exit` 退出容器。此时 `scnuoj` 已经搭建完成。
-
-输入:
+接下来输入:
 
 ```shell
 docker-compose down; docker-compose up -d
