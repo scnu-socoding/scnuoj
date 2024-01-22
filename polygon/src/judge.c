@@ -34,7 +34,7 @@
 #include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
