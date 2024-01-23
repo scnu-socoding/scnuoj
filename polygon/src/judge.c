@@ -601,33 +601,35 @@ int init_mysql_conn()
                             db.db_name, db.port_number, mysql_unix_port, 0))
     {
         write_log("%s", mysql_error(conn));
-        return 0;
-    }
-    const char *utf8sql = "set names utf8";
-    // if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
-    // {
-    //     write_log("%s", mysql_error(conn));
-    //     return 0;
-    // }
-    int retry = 3;
-    while (retry--)
-    {
-        if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+        int retry = 3;
+        while (retry--)
         {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
+            if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
+                                    db.db_name, db.port_number, mysql_unix_port, 0))
             {
-                write_log("connect failed! %s", mysql_error(conn));
+                write_log("%s", mysql_error(conn));
+                if (retry == 0)
+                {
+                    write_log("connect error:%s", db.host_name);
+                }
+                else
+                {
+                    write_log("retry connect:%s", db.host_name);
+                    sleep(1);
+                }
             }
             else
             {
-                sleep(1);
+                break;
             }
         }
-        else
-        {
-            break;
-        }
+        return 0;
+    }
+    const char *utf8sql = "set names utf8";
+    if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+    {
+        write_log("%s", mysql_error(conn));
+        return 0;
     }
     return 1;
 }
