@@ -337,6 +337,7 @@ bool check_out(int solution_id, int result)
                 return false;
         }
     }
+    return false;
     // if (mysql_real_query(conn, sql, strlen(sql)))
     // {
     //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
