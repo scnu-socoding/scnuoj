@@ -52,6 +52,7 @@
 #define STD_F_LIM (STD_MB << 5)
 #define STD_M_LIM (STD_MB << 7)
 #define BUFFER_SIZE 4096
+#define LARGE_BUFFER_SIZE 8192
 #define RECORD_SIZE 256
 
 /*copy from ZOJ
@@ -138,7 +139,7 @@ void write_log(const char *fmt, ...)
     va_list ap;
     char buffer[4096];
     // sprintf(buffer, "%s/log/client.log", oj_home);
-    if (snprintf(buffer, sizeof(buffer), "%s/log/client.log", oj_home) >= sizeof(buffer))
+    if (snprintf(buffer, LARGE_BUFFER_SIZE, "%s/log/client.log", oj_home) >= sizeof(buffer))
     {
         // 处理潜在的截断问题
         fprintf(stderr, "write_log: Path too long, potential buffer overflow detected.\n");
@@ -200,7 +201,7 @@ void init_mysql_conf()
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
     // sprintf(buf, "%s/config.ini", oj_home);
-    if (snprintf(buf, sizeof(buf), "%s/config.ini", oj_home))
+    if (snprintf(buf, LARGE_BUFFER_SIZE, "%s/config.ini", oj_home))
     {
         // 处理潜在的截断问题
         fprintf(stderr, "init_mysql_conf: Path too long, potential buffer overflow detected.\n");
@@ -1256,7 +1257,7 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    if (snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home))
+    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home))
     {
         printf("snprintf error\n");
         exit(1);
@@ -1267,7 +1268,7 @@ void mk_shm_workdir(char *work_dir)
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
     // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
-    if (snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home))
+    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home))
     {
         printf("snprintf error\n");
         exit(1);
@@ -1497,7 +1498,7 @@ int main(int argc, char **argv)
 
     // set work directory to start running & judging
     // sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
-    if (snprintf(work_dir, sizeof(work_dir), "%srun/%d/", oj_home, runner_id))
+    if (snprintf(work_dir, LARGE_BUFFER_SIZE, "%srun/%d/", oj_home, runner_id))
     {
         printf("snprintf error\n");
         exit(1);
@@ -1570,13 +1571,13 @@ int main(int argc, char **argv)
     // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
     // sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
 
-    if (snprintf(fullpath, sizeof(fullpath), "%sdata/%d", oj_home, problem_id))
+    if (snprintf(fullpath, LARGE_BUFFER_SIZE, "%sdata/%d", oj_home, problem_id))
     {
         printf("snprintf error\n");
         exit(1);
     }
 
-    if (snprintf(oi_substask_configfile, sizeof(oi_substask_configfile), "%sdata/%d/config", oj_home, problem_id))
+    if (snprintf(oi_substask_configfile, LARGE_BUFFER_SIZE, "%sdata/%d/config", oj_home, problem_id))
     {
         printf("snprintf error\n");
         exit(1);
