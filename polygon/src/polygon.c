@@ -361,19 +361,38 @@ bool check_out(int problem_id, int result)
             "UPDATE polygon_status SET result=%d,time=0,memory=0 "
             "WHERE id=%d and result<2 LIMIT 1",
             result, problem_id);
-    if (mysql_real_query(conn, sql, strlen(sql)))
+    int retry = 3;
+    while (retry--)
     {
-        syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-        init_mysql();
-        return false;
-    }
-    else
-    {
-        if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-            return true;
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+            sleep(5);
+            init_mysql();
+            if (retry == 0)
+                return false;
+        }
         else
-            return false;
+        {
+            if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+                return true;
+            else
+                return false;
+        }
     }
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+    //     init_mysql();
+    //     return false;
+    // }
+    // else
+    // {
+    //     if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+    //         return true;
+    //     else
+    //         return false;
+    // }
 }
 
 int work()

@@ -423,7 +423,7 @@ void update_solution_info(int solution_id, char *buf)
             }
             else
             {
-                write_log("retry update:%s", sql);
+                write_log("retry insert:%s", sql);
                 sleep(1);
             }
         }
