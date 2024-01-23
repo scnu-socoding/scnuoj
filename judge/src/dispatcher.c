@@ -41,7 +41,6 @@
 #define LOCKFILE "/var/run/judged.pid"
 #define LOCKMODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 #define BUFFER_SIZE 1024
-#define LARGE_BUFFER_SIZE 4096
 #define STD_MB 1048576LL
 
 static char lock_file[BUFFER_SIZE] = LOCKFILE;
@@ -67,10 +66,6 @@ const char *judge_name = "judge";
 void call_for_exit(int s)
 {
     STOP = true;
-    if (conn != NULL)
-    {
-        mysql_close(conn);
-    }
     printf("Stopping judged...\n");
 }
 
@@ -121,16 +116,11 @@ void init_mysql_conf()
             read_int(buf, "OJ_MOD", &oj_mod);
             read_buf(buf, "OJ_LANG_SET", oj_lang_set);
         }
-        // sprintf(query,
-        //         "SELECT id FROM solution "
-        //         "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
-        //         "ORDER BY result ASC,id ASC limit %d",
-        //         oj_lang_set, oj_tot, oj_mod, max_running * 2);
-        snprintf(query, LARGE_BUFFER_SIZE,
-                 "SELECT id FROM solution "
-                 "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
-                 "ORDER BY result ASC,id ASC limit %d",
-                 oj_lang_set, oj_tot, oj_mod, max_running * 2);
+        sprintf(query,
+                "SELECT id FROM solution "
+                "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
+                "ORDER BY result ASC,id ASC limit %d",
+                oj_lang_set, oj_tot, oj_mod, max_running * 2);
         sleep_tmp = sleep_time;
         fclose(fp);
     }
@@ -183,8 +173,6 @@ void run_client(int runid, int clientid)
           (char *)NULL);
 }
 
-int init_mysql();
-
 int executesql(const char *sql)
 {
     if (mysql_real_query(conn, sql, strlen(sql)))
@@ -193,19 +181,8 @@ int executesql(const char *sql)
         {
             write_log("%s", mysql_error(conn));
         }
-        sleep(5);
-        init_mysql();
-        int retry = 3;
-        while (retry-- && mysql_real_query(conn, sql, strlen(sql)))
-        {
-            if (DEBUG)
-            {
-                write_log("%s", mysql_error(conn));
-            }
-            conn = NULL;
-            sleep(5);
-            init_mysql();
-        }
+        sleep(20);
+        conn = NULL;
         return 1;
     }
     else
@@ -232,10 +209,9 @@ int init_mysql()
         if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
                                 db.db_name, db.port_number, mysql_unix_port, 0))
         {
-            // if (DEBUG)
-            write_log("%s", mysql_error(conn));
-            sleep(20);
-            conn = NULL;
+            if (DEBUG)
+                write_log("%s", mysql_error(conn));
+            sleep(2);
             return 1;
         }
         else
@@ -311,40 +287,18 @@ bool check_out(int solution_id, int result)
             "UPDATE solution SET result=%d,time=0,memory=0,judgetime=NOW() "
             "WHERE id=%d and result<2 LIMIT 1",
             result, solution_id);
-    int retry = 3;
-    while (retry--)
+    if (mysql_real_query(conn, sql, strlen(sql)))
     {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-            conn = NULL;
-            sleep(5);
-            init_mysql();
-            if (retry == 0)
-                return false;
-        }
-        else
-        {
-            if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-                return true;
-            else
-                return false;
-        }
+        syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+        return false;
     }
-    return false;
-    // if (mysql_real_query(conn, sql, strlen(sql)))
-    // {
-    //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-    //     conn = NULL;
-    //     return false;
-    // }
-    // else
-    // {
-    //     if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-    //         return true;
-    //     else
-    //         return false;
-    // }
+    else
+    {
+        if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+            return true;
+        else
+            return false;
+    }
 }
 
 int work()
@@ -585,9 +539,7 @@ int main(int argc, char *argv[])
     set_path();
     chdir(oj_home); // change the dir
 
-    // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
-    snprintf(lock_file, LARGE_BUFFER_SIZE, "%s/etc/judge.pid", oj_home);
-
+    sprintf(lock_file, "%s/etc/judge.pid", oj_home);
     if (!DEBUG)
         daemon_init();
     if (already_running())
@@ -615,8 +567,7 @@ int main(int argc, char *argv[])
             j = work();
         }
         turbo_mode2();
-        usleep(sleep_time * 1000);
-        // sleep(sleep_time);
+        sleep(sleep_time);
     }
     return 0;
 }

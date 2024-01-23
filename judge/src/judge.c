@@ -35,7 +35,7 @@
 #include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <signal.h>
+#include <sys/signal.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
@@ -52,7 +52,6 @@
 #define STD_F_LIM (STD_MB << 5)
 #define STD_M_LIM (STD_MB << 7)
 #define BUFFER_SIZE 4096
-#define LARGE_BUFFER_SIZE 8192
 #define RECORD_SIZE 256
 
 /*copy from ZOJ
@@ -138,14 +137,7 @@ void write_log(const char *fmt, ...)
 {
     va_list ap;
     char buffer[4096];
-    // sprintf(buffer, "%s/log/client.log", oj_home);
-    if (snprintf(buffer, LARGE_BUFFER_SIZE, "%s/log/client.log", oj_home) > sizeof(buffer))
-    {
-        // 处理潜在的截断问题
-        fprintf(stderr, "write_log: Path too long, potential buffer overflow detected.\n");
-        write_log("write_log: Path too long, potential buffer overflow detected.\n");
-        // return;
-    }
+    sprintf(buffer, "%s/log/client.log", oj_home);
     FILE *fp = fopen(buffer, "ae+");
     if (fp == NULL)
     {
@@ -201,14 +193,7 @@ void init_mysql_conf()
     sleep_time = 3;
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
-    // sprintf(buf, "%s/config.ini", oj_home);
-    if (snprintf(buf, LARGE_BUFFER_SIZE, "%s/config.ini", oj_home) > sizeof(buf))
-    {
-        // 处理潜在的截断问题
-        fprintf(stderr, "init_mysql_conf: Path too long, potential buffer overflow detected.\n");
-        write_log("init_mysql_conf: Path too long, potential buffer overflow detected.\n");
-        // return;
-    }
+    sprintf(buf, "%s/config.ini", oj_home);
     fp = fopen("./config.ini", "re");
     if (fp != NULL)
     {
@@ -376,31 +361,10 @@ void update_solution(int solution_id, int result, int time, int memory,
             tbname, result, time, memory, pass_info, score, "local", solution_id);
 
     // printf("sql= %s\n",sql);
-    int retry = 3;
-    while (retry--)
+    if (mysql_real_query(conn, sql, strlen(sql)))
     {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
-            {
-                write_log("update error:%s", sql);
-            }
-            else
-            {
-                write_log("retry update:%s", sql);
-                sleep(1);
-            }
-        }
-        else
-        {
-            break;
-        }
+        // printf("..update failed! %s\n",mysql_error(conn));
     }
-    // if (mysql_real_query(conn, sql, strlen(sql)))
-    // {
-    //     // printf("..update failed! %s\n",mysql_error(conn));
-    // }
 }
 
 void update_solution_info(int solution_id, char *buf)
@@ -413,29 +377,8 @@ void update_solution_info(int solution_id, char *buf)
             "INSERT INTO `solution_info`(`solution_id`, `run_info`) VALUES(%d, '%s') "
             "ON DUPLICATE KEY UPDATE `run_info`='%s'",
             solution_id, tmp, tmp);
-    int retry = 3;
-    while (retry--)
-    {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
-            {
-                write_log("insert error:%s", sql);
-            }
-            else
-            {
-                write_log("retry insert:%s", sql);
-                sleep(1);
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
-    // if (mysql_real_query(conn, sql, strlen(sql)))
-    //     write_log(mysql_error(conn));
+    if (mysql_real_query(conn, sql, strlen(sql)))
+        write_log(mysql_error(conn));
     free(sql);
     free(tmp);
 }
@@ -461,56 +404,14 @@ void update_problem_stat(int pid)
             "UPDATE `problem` SET `accepted`=(SELECT count(*) FROM `solution` "
             "WHERE `problem_id`=%d AND `result`=4) WHERE `id`=%d",
             pid, pid);
-    // if (mysql_real_query(conn, sql, strlen(sql)))
-    //     write_log(mysql_error(conn));
-    int retry = 3;
-    while (retry--)
-    {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
-            {
-                write_log("update error:%s", sql);
-            }
-            else
-            {
-                write_log("retry update:%s", sql);
-                sleep(1);
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
+    if (mysql_real_query(conn, sql, strlen(sql)))
+        write_log(mysql_error(conn));
     sprintf(sql,
             "UPDATE `problem` SET `submit`=(SELECT count(*) FROM `solution` "
             "WHERE `problem_id`=%d) WHERE `id`=%d",
             pid, pid);
-    // if (mysql_real_query(conn, sql, strlen(sql)))
-    //     write_log(mysql_error(conn));
-    retry = 3;
-    while (retry--)
-    {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
-            {
-                write_log("update error:%s", sql);
-            }
-            else
-            {
-                write_log("retry update:%s", sql);
-                sleep(1);
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
+    if (mysql_real_query(conn, sql, strlen(sql)))
+        write_log(mysql_error(conn));
 }
 
 void umount(char *work_dir)
@@ -622,32 +523,11 @@ int init_mysql_conn()
     conn = mysql_init(NULL);
     const char timeout = 30;
     mysql_options(conn, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
+
     if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
                             db.db_name, db.port_number, mysql_unix_port, 0))
     {
         write_log("%s", mysql_error(conn));
-        int retry = 3;
-        while (retry--)
-        {
-            if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
-                                    db.db_name, db.port_number, mysql_unix_port, 0))
-            {
-                write_log("%s", mysql_error(conn));
-                if (retry == 0)
-                {
-                    write_log("connect error:%s", db.host_name);
-                }
-                else
-                {
-                    write_log("retry connect:%s", db.host_name);
-                    sleep(1);
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
         return 0;
     }
     const char *utf8sql = "set names utf8";
@@ -683,28 +563,7 @@ void get_solution_info(int solution_id, int *p_id, int *lang)
             "WHERE id=%d",
             solution_id);
     // printf("%s\n",sql);
-    // mysql_real_query(conn, sql, strlen(sql));
-    int retry = 3;
-    while (retry--)
-    {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
-            {
-                write_log("select error:%s", sql);
-            }
-            else
-            {
-                write_log("retry update:%s", sql);
-                sleep(1);
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
+    mysql_real_query(conn, sql, strlen(sql));
     res = mysql_store_result(conn);
     row = mysql_fetch_row(res);
     *p_id = atoi(row[0]);
@@ -728,28 +587,7 @@ problem_struct get_problem_info(int p_id)
     sprintf(sql,
             "SELECT time_limit,memory_limit,spj FROM problem WHERE id=%d",
             p_id);
-    // mysql_real_query(conn, sql, strlen(sql));
-    int retry = 3;
-    while (retry--)
-    {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            write_log("%s", mysql_error(conn));
-            if (retry == 0)
-            {
-                write_log("select error:%s", sql);
-            }
-            else
-            {
-                write_log("retry update:%s", sql);
-                sleep(1);
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
+    mysql_real_query(conn, sql, strlen(sql));
     res = mysql_store_result(conn);
     row = mysql_fetch_row(res);
     problem.time_limit = atoi(row[0]);
@@ -1405,25 +1243,13 @@ void init_parameters(int argc, char **argv, int *solution_id, int *runner_id)
 void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
-    // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > sizeof(shm_path))
-    {
-        printf("snprintf error\n");
-        write_log("snprintf error\n");
-        // exit(1);
-    }
+    sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
-    // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
-    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > sizeof(shm_path))
-    {
-        printf("snprintf error\n");
-        write_log("snprintf error\n");
-        // exit(1);
-    }
+    sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
 
@@ -1549,25 +1375,13 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
             for (i = begin, j = 0; i <= end; i++, j++)
             {
                 subtask_node->test_input_name[j] = (char *)malloc(sizeof(char) * NAME_MAX);
-                // snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
-                if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i) > NAME_MAX)
-                {
-                    printf("snprintf error\n");
-                    write_log("snprintf error\n");
-                    // exit(1);
-                }
+                snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
             }
         }
         else
         {
             subtask_node->test_input_name[0] = (char *)malloc(sizeof(char) * NAME_MAX);
-            // snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
-            if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix) > NAME_MAX)
-            {
-                printf("snprintf error\n");
-                write_log("snprintf error\n");
-                // exit(1);
-            }
+            snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
         }
         subtask_rear->next = subtask_node;
         subtask_rear = subtask_node;
@@ -1650,13 +1464,7 @@ int main(int argc, char **argv)
     }
 
     // set work directory to start running & judging
-    // sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
-    if (snprintf(work_dir, LARGE_BUFFER_SIZE, "%srun/%d/", oj_home, runner_id) > sizeof(work_dir))
-    {
-        printf("snprintf error\n");
-        write_log("snprintf error\n");
-        // exit(1);
-    }
+    sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
     if (opendir(work_dir) == NULL)
     {
         execute_cmd("/bin/mkdir -p %s", work_dir);
@@ -1722,22 +1530,8 @@ int main(int argc, char **argv)
     char oi_substask_configfile[BUFFER_SIZE]; // OI 子任务设定的 config 文件路径
 
     // the fullpath of data dir
-    // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
-    // sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
-
-    if (snprintf(fullpath, LARGE_BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) > sizeof(fullpath))
-    {
-        printf("snprintf error\n");
-        write_log("snprintf error\n");
-        // exit(1);
-    }
-
-    if (snprintf(oi_substask_configfile, LARGE_BUFFER_SIZE, "%sdata/%d/config", oj_home, problem_id) > sizeof(oi_substask_configfile))
-    {
-        printf("snprintf error\n");
-        write_log("snprintf error\n");
-        // exit(1);
-    }
+    sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
+    sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
 
     // open DIRs
     DIR *dp;

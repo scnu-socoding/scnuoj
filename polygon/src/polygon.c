@@ -40,7 +40,6 @@
 #define LOCKFILE "/var/run/polygon.pid"
 #define LOCKMODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 #define BUFFER_SIZE 1024
-#define LARGE_BUFFER_SIZE 4096
 #define STD_MB 1048576
 
 extern int optind, opterr, optopt;
@@ -72,10 +71,6 @@ const char *judge_name = "judge";
 void call_for_exit(int s)
 {
     STOP = true;
-    if (conn != NULL)
-    {
-        mysql_close(conn);
-    }
     printf("Stopping judged...\n");
 }
 
@@ -131,16 +126,11 @@ void init_mysql_conf()
             read_buf(buf, "OJ_REDISAUTH", oj_redisauth);
             read_buf(buf, "OJ_REDISQNAME", oj_redisqname);
         }
-        // sprintf(query,
-        //         "SELECT id FROM polygon_status "
-        //         "WHERE result<2 and MOD(id,%d)=%d "
-        //         "ORDER BY result ASC,id ASC limit %d",
-        //         oj_tot, oj_mod, max_running * 2);
-        snprintf(query, LARGE_BUFFER_SIZE,
-                 "SELECT id FROM polygon_status "
-                 "WHERE result<2 and MOD(id,%d)=%d "
-                 "ORDER BY result ASC,id ASC limit %d",
-                 oj_tot, oj_mod, max_running * 2);
+        sprintf(query,
+                "SELECT id FROM polygon_status "
+                "WHERE result<2 and MOD(id,%d)=%d "
+                "ORDER BY result ASC,id ASC limit %d",
+                oj_tot, oj_mod, max_running * 2);
         sleep_tmp = sleep_time;
         fclose(fp);
     }
@@ -190,8 +180,6 @@ void run_client(int runid, int clientid)
     }
 }
 
-int init_mysql();
-
 int executesql(const char *sql)
 {
     if (mysql_real_query(conn, sql, strlen(sql)))
@@ -200,20 +188,8 @@ int executesql(const char *sql)
         {
             write_log("%s", mysql_error(conn));
         }
+        sleep(20);
         conn = NULL;
-        sleep(5);
-        init_mysql();
-        int retry = 3;
-        while (retry-- && mysql_real_query(conn, sql, strlen(sql)))
-        {
-            if (DEBUG)
-            {
-                write_log("%s", mysql_error(conn));
-            }
-            conn = NULL;
-            sleep(5);
-            init_mysql();
-        }
         return 1;
     }
     else
@@ -240,10 +216,9 @@ int init_mysql()
         if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
                                 db.db_name, db.port_number, mysql_unix_port, 0))
         {
-            // if (DEBUG)
-            write_log("%s", mysql_error(conn));
-            conn = NULL;
-            sleep(20);
+            if (DEBUG)
+                write_log("%s", mysql_error(conn));
+            sleep(2);
             return 1;
         }
         else
@@ -355,40 +330,18 @@ bool check_out(int problem_id, int result)
             "UPDATE polygon_status SET result=%d,time=0,memory=0 "
             "WHERE id=%d and result<2 LIMIT 1",
             result, problem_id);
-    int retry = 3;
-    while (retry--)
+    if (mysql_real_query(conn, sql, strlen(sql)))
     {
-        if (mysql_real_query(conn, sql, strlen(sql)))
-        {
-            syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-            conn = NULL;
-            sleep(5);
-            init_mysql();
-            if (retry == 0)
-                return false;
-        }
-        else
-        {
-            if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-                return true;
-            else
-                return false;
-        }
+        syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+        return false;
     }
-    return false;
-    // if (mysql_real_query(conn, sql, strlen(sql)))
-    // {
-    //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-    //     conn = NULL;
-    //     return false;
-    // }
-    // else
-    // {
-    //     if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-    //         return true;
-    //     else
-    //         return false;
-    // }
+    else
+    {
+        if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+            return true;
+        else
+            return false;
+    }
 }
 
 int work()
@@ -606,9 +559,7 @@ int main(int argc, char *argv[])
     set_path();
     chdir(oj_home); // change the dir
 
-    // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
-    snprintf(lock_file, LARGE_BUFFER_SIZE, "%s/etc/judge.pid", oj_home);
-
+    sprintf(lock_file, "%s/etc/judge.pid", oj_home);
     if (!DEBUG)
         daemon_init();
     if (already_running())
