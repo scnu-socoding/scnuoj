@@ -143,6 +143,7 @@ void write_log(const char *fmt, ...)
     {
         // 处理潜在的截断问题
         fprintf(stderr, "write_log: Path too long, potential buffer overflow detected.\n");
+        write_log("write_log: Path too long, potential buffer overflow detected.\n");
         // return;
     }
     FILE *fp = fopen(buffer, "ae+");
@@ -205,6 +206,7 @@ void init_mysql_conf()
     {
         // 处理潜在的截断问题
         fprintf(stderr, "init_mysql_conf: Path too long, potential buffer overflow detected.\n");
+        write_log("init_mysql_conf: Path too long, potential buffer overflow detected.\n");
         // return;
     }
     fp = fopen("./config.ini", "re");
@@ -1407,6 +1409,7 @@ void mk_shm_workdir(char *work_dir)
     if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > sizeof(shm_path))
     {
         printf("snprintf error\n");
+        write_log("snprintf error\n");
         // exit(1);
     }
     execute_cmd("/bin/mkdir -p %s", shm_path);
@@ -1418,6 +1421,7 @@ void mk_shm_workdir(char *work_dir)
     if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > sizeof(shm_path))
     {
         printf("snprintf error\n");
+        write_log("snprintf error\n");
         // exit(1);
     }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
@@ -1549,6 +1553,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
                 if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i) > NAME_MAX)
                 {
                     printf("snprintf error\n");
+                    write_log("snprintf error\n");
                     // exit(1);
                 }
             }
@@ -1560,6 +1565,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
             if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix) > NAME_MAX)
             {
                 printf("snprintf error\n");
+                write_log("snprintf error\n");
                 // exit(1);
             }
         }
@@ -1648,6 +1654,7 @@ int main(int argc, char **argv)
     if (snprintf(work_dir, LARGE_BUFFER_SIZE, "%srun/%d/", oj_home, runner_id) > sizeof(work_dir))
     {
         printf("snprintf error\n");
+        write_log("snprintf error\n");
         // exit(1);
     }
     if (opendir(work_dir) == NULL)
@@ -1721,12 +1728,14 @@ int main(int argc, char **argv)
     if (snprintf(fullpath, LARGE_BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) > sizeof(fullpath))
     {
         printf("snprintf error\n");
+        write_log("snprintf error\n");
         // exit(1);
     }
 
     if (snprintf(oi_substask_configfile, LARGE_BUFFER_SIZE, "%sdata/%d/config", oj_home, problem_id) > sizeof(oi_substask_configfile))
     {
         printf("snprintf error\n");
+        write_log("snprintf error\n");
         // exit(1);
     }
 
