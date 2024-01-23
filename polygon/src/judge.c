@@ -382,10 +382,32 @@ void update_solution(int solution_id, int result, int time, int memory)
             "UPDATE %s SET result=%d,time=%d,memory=%d WHERE id=%d",
             tbname, result, time, memory, solution_id);
 
-    if (mysql_real_query(conn, sql, strlen(sql)))
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     printf("sql= %s\n", sql);
+    //     printf("..update failed! %s\n", mysql_error(conn));
+    // }
+
+    int retry = 3;
+    while (retry--)
     {
-        printf("sql= %s\n", sql);
-        printf("..update failed! %s\n", mysql_error(conn));
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            printf("sql= %s\n", sql);
+            printf("..update failed! %s\n", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("update failed! %s", mysql_error(conn));
+            }
+            else
+            {
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
     }
 }
 
@@ -396,9 +418,31 @@ void update_not_ac_info(int solution_id, char *buf)
             "UPDATE polygon_status SET info = '%s' WHERE id=%d",
             buf, solution_id);
 
-    if (mysql_real_query(conn, sql, strlen(sql)))
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     write_log(mysql_error(conn));
+    // }
+
+    int retry = 3;
+    while (retry--)
     {
-        write_log(mysql_error(conn));
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            printf("sql= %s\n", sql);
+            printf("..update failed! %s\n", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("update failed! %s", mysql_error(conn));
+            }
+            else
+            {
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
     }
 }
 
@@ -562,10 +606,30 @@ int init_mysql_conn()
         return 0;
     }
     const char *utf8sql = "set names utf8";
-    if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+    // if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+    // {
+    //     write_log("%s", mysql_error(conn));
+    //     return 0;
+    // }
+    int retry = 3;
+    while (retry--)
     {
-        write_log("%s", mysql_error(conn));
-        return 0;
+        if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+        {
+            printf("%s\n", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("connect failed! %s", mysql_error(conn));
+            }
+            else
+            {
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
     }
     return 1;
 }
@@ -594,8 +658,28 @@ void get_solution_info(int solution_id, int *p_id, int *lang)
             "WHERE id=%d",
             solution_id);
     // printf("%s\n",sql);
-    mysql_real_query(conn, sql, strlen(sql));
-    res = mysql_store_result(conn);
+    // mysql_real_query(conn, sql, strlen(sql));
+    // res = mysql_store_result(conn);
+    int retry = 3;
+    while (retry--)
+    {
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            printf("select failed! %s\n", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("select failed! %s", mysql_error(conn));
+            }
+            else
+            {
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
     row = mysql_fetch_row(res);
     *p_id = atoi(row[0]);
     if (row[1] && row[2])
@@ -630,8 +714,28 @@ struct problem_struct get_problem_info(int p_id)
             "SELECT spj, spj_source, spj_lang, solution_lang, solution_source, "
             "time_limit, memory_limit FROM polygon_problem WHERE id=%d",
             p_id);
-    mysql_real_query(conn, sql, strlen(sql));
-    res = mysql_store_result(conn);
+    // mysql_real_query(conn, sql, strlen(sql));
+    // res = mysql_store_result(conn);
+    int retry = 3;
+    while (retry--)
+    {
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            printf("select failed! %s\n", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("select failed! %s", mysql_error(conn));
+            }
+            else
+            {
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
     row = mysql_fetch_row(res);
     problem.isspj = atoi(row[0]);
     problem.spj_lang = LANG_CPP; // 当前只支持C、C++语言的SPJ

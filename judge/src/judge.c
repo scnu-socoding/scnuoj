@@ -374,10 +374,31 @@ void update_solution(int solution_id, int result, int time, int memory,
             tbname, result, time, memory, pass_info, score, "local", solution_id);
 
     // printf("sql= %s\n",sql);
-    if (mysql_real_query(conn, sql, strlen(sql)))
+    int retry = 3;
+    while (retry--)
     {
-        // printf("..update failed! %s\n",mysql_error(conn));
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("update error:%s", sql);
+            }
+            else
+            {
+                write_log("retry update:%s", sql);
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
     }
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     // printf("..update failed! %s\n",mysql_error(conn));
+    // }
 }
 
 void update_solution_info(int solution_id, char *buf)
@@ -390,8 +411,29 @@ void update_solution_info(int solution_id, char *buf)
             "INSERT INTO `solution_info`(`solution_id`, `run_info`) VALUES(%d, '%s') "
             "ON DUPLICATE KEY UPDATE `run_info`='%s'",
             solution_id, tmp, tmp);
-    if (mysql_real_query(conn, sql, strlen(sql)))
-        write_log(mysql_error(conn));
+    int retry = 3;
+    while (retry--)
+    {
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("insert error:%s", sql);
+            }
+            else
+            {
+                write_log("retry update:%s", sql);
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    //     write_log(mysql_error(conn));
     free(sql);
     free(tmp);
 }
@@ -417,14 +459,56 @@ void update_problem_stat(int pid)
             "UPDATE `problem` SET `accepted`=(SELECT count(*) FROM `solution` "
             "WHERE `problem_id`=%d AND `result`=4) WHERE `id`=%d",
             pid, pid);
-    if (mysql_real_query(conn, sql, strlen(sql)))
-        write_log(mysql_error(conn));
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    //     write_log(mysql_error(conn));
+    int retry = 3;
+    while (retry--)
+    {
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("update error:%s", sql);
+            }
+            else
+            {
+                write_log("retry update:%s", sql);
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
     sprintf(sql,
             "UPDATE `problem` SET `submit`=(SELECT count(*) FROM `solution` "
             "WHERE `problem_id`=%d) WHERE `id`=%d",
             pid, pid);
-    if (mysql_real_query(conn, sql, strlen(sql)))
-        write_log(mysql_error(conn));
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    //     write_log(mysql_error(conn));
+    retry = 3;
+    while (retry--)
+    {
+        if (mysql_real_query(conn, sql, strlen(sql)))
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("update error:%s", sql);
+            }
+            else
+            {
+                write_log("retry update:%s", sql);
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
 }
 
 void umount(char *work_dir)
@@ -544,11 +628,25 @@ int init_mysql_conn()
         return 0;
     }
     const char *utf8sql = "set names utf8";
-    if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+    int retry = 3;
+    while (retry--)
     {
-        write_log("%s", mysql_error(conn));
-        return 0;
+        if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+                return 0;
+        }
+        else
+        {
+            break;
+        }
     }
+    // if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+    // {
+    //     write_log("%s", mysql_error(conn));
+    //     return 0;
+    // }
     return 1;
 }
 
@@ -576,8 +674,30 @@ void get_solution_info(int solution_id, int *p_id, int *lang)
             "WHERE id=%d",
             solution_id);
     // printf("%s\n",sql);
-    mysql_real_query(conn, sql, strlen(sql));
-    res = mysql_store_result(conn);
+    // mysql_real_query(conn, sql, strlen(sql));
+    // res = mysql_store_result(conn);
+    int retry = 3;
+    while (retry--)
+    {
+        res = mysql_store_result(conn);
+        if (res == NULL)
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("select error:%s", sql);
+            }
+            else
+            {
+                write_log("retry update:%s", sql);
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
     row = mysql_fetch_row(res);
     *p_id = atoi(row[0]);
     *lang = atoi(row[1]);
@@ -600,8 +720,30 @@ problem_struct get_problem_info(int p_id)
     sprintf(sql,
             "SELECT time_limit,memory_limit,spj FROM problem WHERE id=%d",
             p_id);
-    mysql_real_query(conn, sql, strlen(sql));
-    res = mysql_store_result(conn);
+    // mysql_real_query(conn, sql, strlen(sql));
+    // res = mysql_store_result(conn);
+    int retry = 3;
+    while (retry--)
+    {
+        res = mysql_store_result(conn);
+        if (res == NULL)
+        {
+            write_log("%s", mysql_error(conn));
+            if (retry == 0)
+            {
+                write_log("select error:%s", sql);
+            }
+            else
+            {
+                write_log("retry update:%s", sql);
+                sleep(1);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
     row = mysql_fetch_row(res);
     problem.time_limit = atoi(row[0]);
     problem.memory_limit = atoi(row[1]);

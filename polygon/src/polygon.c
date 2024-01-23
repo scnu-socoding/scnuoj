@@ -200,8 +200,18 @@ int executesql(const char *sql)
         {
             write_log("%s", mysql_error(conn));
         }
-        sleep(20);
+        sleep(5);
         init_mysql();
+        int retry = 3;
+        while (retry-- && mysql_real_query(conn, sql, strlen(sql)))
+        {
+            if (DEBUG)
+            {
+                write_log("%s", mysql_error(conn));
+            }
+            sleep(5);
+            init_mysql();
+        }
         return 1;
     }
     else
