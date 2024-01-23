@@ -201,12 +201,12 @@ void init_mysql_conf()
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
     // sprintf(buf, "%s/config.ini", oj_home);
-    if (snprintf(buf, LARGE_BUFFER_SIZE, "%s/config.ini", oj_home))
-    {
-        // 处理潜在的截断问题
-        fprintf(stderr, "init_mysql_conf: Path too long, potential buffer overflow detected.\n");
-        return;
-    }
+    // if (snprintf(buf, LARGE_BUFFER_SIZE, "%s/config.ini", oj_home))
+    // {
+    //     // 处理潜在的截断问题
+    //     fprintf(stderr, "init_mysql_conf: Path too long, potential buffer overflow detected.\n");
+    //     return;
+    // }
     fp = fopen("./config.ini", "re");
     if (fp != NULL)
     {
