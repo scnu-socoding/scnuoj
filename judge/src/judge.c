@@ -82,7 +82,7 @@ typedef struct
     double score;                  // OI 中的分数
     int verdict;                   // 测评结果
     int time;                      // 测评时间
-    long long memory;              // 测评内存
+    int memory;                    // 测评内存
     int exit_code;                 // 用户程序退出状态
     char input[RECORD_SIZE];       // 测试输入
     char output[RECORD_SIZE];      // 测试输出
@@ -838,7 +838,7 @@ int fix_python_mis_judge(char *work_dir, verdict_struct *verdict_res,
     {
         printf("Python need more Memory!");
         verdict_res->verdict = OJ_ML;
-        verdict_res->memory = (long long)mem_lmt * STD_MB;
+        verdict_res->memory = mem_lmt * STD_MB;
     }
 
     return comp_res;
@@ -866,14 +866,14 @@ int fix_java_mis_judge(char *work_dir, verdict_struct *verdict_res,
     {
         printf("JVM need more Memory!");
         verdict_res->verdict = OJ_ML;
-        verdict_res->memory = (long long)mem_lmt * STD_MB;
+        verdict_res->memory = mem_lmt * STD_MB;
     }
 
     if (!comp_res)
     {
         printf("JVM need more Memory or Threads!");
         verdict_res->verdict = OJ_ML;
-        verdict_res->memory = (long long)mem_lmt * STD_MB;
+        verdict_res->memory = mem_lmt * STD_MB;
     }
     comp_res = execute_cmd("/bin/grep 'Could not create'  %s/error.out",
                            work_dir);
@@ -944,7 +944,7 @@ void judge_solution(problem_struct problem,
     int comp_res;
     if (verdict_res->verdict == OJ_AC && verdict_res->time > problem.time_limit * 1000)
         verdict_res->verdict = OJ_TL;
-    if (verdict_res->memory > (long long)mem_lmt * STD_MB)
+    if (verdict_res->memory > mem_lmt * STD_MB)
         verdict_res->verdict = OJ_ML;
     // compare
     if (verdict_res->verdict == OJ_AC)
@@ -1015,10 +1015,10 @@ void watch_solution(problem_struct problem,
         if (verdict_res->memory < getpagesize() * ruse.ru_minflt)
             verdict_res->memory = getpagesize() * ruse.ru_minflt;
 
-        if (verdict_res->memory > (long long)mem_lmt * STD_MB)
+        if (verdict_res->memory > mem_lmt * STD_MB)
         {
             if (DEBUG)
-                printf("out of memory %lld\n", verdict_res->memory);
+                printf("out of memory %d\n", verdict_res->memory);
             if (verdict_res->verdict == OJ_AC)
                 verdict_res->verdict = OJ_ML;
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
