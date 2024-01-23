@@ -118,11 +118,11 @@ void write_log(const char *fmt, ...)
     va_list ap;
     char buffer[4096];
     // sprintf(buffer, "%s/log/client.log", oj_home);
-    if (snprintf(buffer, LARGE_BUFFER_SIZE, "%s/log/client.log", oj_home) >= sizeof(buffer))
+    if (snprintf(buffer, LARGE_BUFFER_SIZE, "%s/log/client.log", oj_home) > sizeof(buffer))
     {
         // 处理潜在的截断问题
         fprintf(stderr, "write_log: Path too long, potential buffer overflow detected.\n");
-        return;
+        // return;
     }
     FILE *fp = fopen(buffer, "ae+");
     if (fp == NULL)
@@ -197,11 +197,11 @@ void init_mysql_conf()
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
     // sprintf(buf, "%s/config.ini", oj_home);
-    if (snprintf(buf, LARGE_BUFFER_SIZE, "%s/config.ini", oj_home))
+    if (snprintf(buf, LARGE_BUFFER_SIZE, "%s/config.ini", oj_home) >= sizeof(buf))
     {
         // 处理潜在的截断问题
         fprintf(stderr, "init_mysql_conf: Path too long, potential buffer overflow detected.\n");
-        return;
+        // return;
     }
     fp = fopen("./config.ini", "re");
     if (fp != NULL)
@@ -1166,10 +1166,10 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home))
+    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > sizeof(shm_path))
     {
         printf("snprintf error\n");
-        exit(1);
+        // exit(1);
     }
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
@@ -1177,10 +1177,10 @@ void mk_shm_workdir(char *work_dir)
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
     // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
-    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home))
+    if (snprintf(shm_path, LARGE_BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > sizeof(shm_path))
     {
         printf("snprintf error\n");
-        exit(1);
+        // exit(1);
     }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
@@ -1220,10 +1220,10 @@ int main(int argc, char **argv)
     }
     // set work directory to start running & judging
     // sprintf(work_dir, "%srun/%d", oj_home, runner_id);
-    if (snprintf(work_dir, LARGE_BUFFER_SIZE, "%srun/%d", oj_home, runner_id))
+    if (snprintf(work_dir, LARGE_BUFFER_SIZE, "%srun/%d", oj_home, runner_id) > sizeof(work_dir))
     {
         printf("snprintf error\n");
-        exit(1);
+        // exit(1);
     }
     if (opendir(work_dir) == NULL)
     {
@@ -1288,10 +1288,10 @@ int main(int argc, char **argv)
     // the fullpath of data dir
     // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
 
-    if (snprintf(fullpath, LARGE_BUFFER_SIZE, "%sdata/%d", oj_home, problem_id))
+    if (snprintf(fullpath, LARGE_BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) > sizeof(fullpath))
     {
         printf("snprintf error\n");
-        exit(1);
+        // exit(1);
     }
 
     // open DIRs
