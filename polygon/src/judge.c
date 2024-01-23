@@ -88,7 +88,7 @@ static int full_diff = 0;
 static int shm_run = 0;
 
 static char record_call = 0;
-static int use_ptrace = 1;
+static int use_ptrace = 0;
 static int compile_chroot = 1;
 
 static int is_verify = 0; // 是用来验证数据，还是根据标程出数据
@@ -207,7 +207,6 @@ void init_mysql_conf()
             read_buf(buf, "OJ_JAVA_XMX", java_xmx);
             read_int(buf, "OJ_FULL_DIFF", &full_diff);
             read_int(buf, "OJ_SHM_RUN", &shm_run);
-            read_int(buf, "OJ_USE_PTRACE", &use_ptrace);
             read_int(buf, "OJ_COMPILE_CHROOT", &compile_chroot);
             read_int(buf, "OJ_USE_PTRACE", &use_ptrace);
         }
