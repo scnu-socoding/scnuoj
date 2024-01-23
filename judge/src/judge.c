@@ -1399,7 +1399,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
             {
                 subtask_node->test_input_name[j] = (char *)malloc(sizeof(char) * NAME_MAX);
                 // snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
-                if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i) > sizeof(subtask_node->test_input_name[j]))
+                if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i) > NAME_MAX)
                 {
                     printf("snprintf error\n");
                     // exit(1);
@@ -1410,7 +1410,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
         {
             subtask_node->test_input_name[0] = (char *)malloc(sizeof(char) * NAME_MAX);
             // snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
-            if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix) > sizeof(subtask_node->test_input_name[0]))
+            if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix) > NAME_MAX)
             {
                 printf("snprintf error\n");
                 // exit(1);
