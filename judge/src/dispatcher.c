@@ -621,7 +621,8 @@ int main(int argc, char *argv[])
             j = work();
         }
         turbo_mode2();
-        usleep(sleep_time * 1000);
+        // usleep(sleep_time * 1000);
+        sleep(sleep_time);
     }
     return 0;
 }
