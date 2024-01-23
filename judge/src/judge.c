@@ -675,12 +675,10 @@ void get_solution_info(int solution_id, int *p_id, int *lang)
             solution_id);
     // printf("%s\n",sql);
     // mysql_real_query(conn, sql, strlen(sql));
-    // res = mysql_store_result(conn);
     int retry = 3;
     while (retry--)
     {
-        res = mysql_store_result(conn);
-        if (res == NULL)
+        if (mysql_real_query(conn, sql, strlen(sql)))
         {
             write_log("%s", mysql_error(conn));
             if (retry == 0)
@@ -698,6 +696,7 @@ void get_solution_info(int solution_id, int *p_id, int *lang)
             break;
         }
     }
+    res = mysql_store_result(conn);
     row = mysql_fetch_row(res);
     *p_id = atoi(row[0]);
     *lang = atoi(row[1]);
@@ -721,12 +720,10 @@ problem_struct get_problem_info(int p_id)
             "SELECT time_limit,memory_limit,spj FROM problem WHERE id=%d",
             p_id);
     // mysql_real_query(conn, sql, strlen(sql));
-    // res = mysql_store_result(conn);
     int retry = 3;
     while (retry--)
     {
-        res = mysql_store_result(conn);
-        if (res == NULL)
+        if (mysql_real_query(conn, sql, strlen(sql)))
         {
             write_log("%s", mysql_error(conn));
             if (retry == 0)
@@ -744,6 +741,7 @@ problem_struct get_problem_info(int p_id)
             break;
         }
     }
+    res = mysql_store_result(conn);
     row = mysql_fetch_row(res);
     problem.time_limit = atoi(row[0]);
     problem.memory_limit = atoi(row[1]);
