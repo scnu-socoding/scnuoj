@@ -202,6 +202,7 @@ int executesql(const char *sql)
             {
                 write_log("%s", mysql_error(conn));
             }
+            conn = NULL;
             sleep(5);
             init_mysql();
         }
@@ -215,14 +216,6 @@ int executesql(const char *sql)
 
 int init_mysql()
 {
-    if (conn != NULL)
-    {
-        if (mysql_ping(conn))
-        { // Check if connection is alive
-            mysql_close(conn);
-            conn = NULL;
-        }
-    }
     if (conn == NULL)
     {
         // init the database connection
@@ -239,10 +232,10 @@ int init_mysql()
         if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
                                 db.db_name, db.port_number, mysql_unix_port, 0))
         {
-            if (DEBUG)
-                write_log("%s", mysql_error(conn));
+            // if (DEBUG)
+            write_log("%s", mysql_error(conn));
             sleep(20);
-            init_mysql();
+            conn = NULL;
             return 1;
         }
         else
@@ -324,6 +317,7 @@ bool check_out(int solution_id, int result)
         if (mysql_real_query(conn, sql, strlen(sql)))
         {
             syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+            conn = NULL;
             sleep(5);
             init_mysql();
             if (retry == 0)
@@ -341,7 +335,7 @@ bool check_out(int solution_id, int result)
     // if (mysql_real_query(conn, sql, strlen(sql)))
     // {
     //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-    //     init_mysql();
+    //     conn = NULL;
     //     return false;
     // }
     // else
