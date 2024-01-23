@@ -1,6 +1,7 @@
 name: Build Docker Image
 
-on: []
+on:
+  workflow_dispatch:
 
 jobs:
   build-scnuoj:
