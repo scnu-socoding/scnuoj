@@ -116,7 +116,8 @@ void write_log(const char *fmt, ...)
 {
     va_list ap;
     char buffer[4096];
-    sprintf(buffer, "%s/log/client.log", oj_home);
+    // sprintf(buffer, "%s/log/client.log", oj_home);
+    snprintf(buffer, sizeof(buffer), "%s/log/client.log", oj_home);
     FILE *fp = fopen(buffer, "ae+");
     if (fp == NULL)
     {
@@ -189,7 +190,8 @@ void init_mysql_conf()
     sleep_time = 3;
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
-    sprintf(buf, "%s/config.ini", oj_home);
+    // sprintf(buf, "%s/config.ini", oj_home);
+    snprintf(buf, sizeof(buf), "%s/config.ini", oj_home);
     fp = fopen("./config.ini", "re");
     if (fp != NULL)
     {
@@ -1152,7 +1154,8 @@ void init_parameters(int argc, char **argv, int *solution_id, int *runner_id)
 void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
-    sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home);
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);

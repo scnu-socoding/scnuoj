@@ -40,6 +40,7 @@
 #define LOCKFILE "/var/run/polygon.pid"
 #define LOCKMODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 #define BUFFER_SIZE 1024
+#define LARGE_BUFFER_SIZE 4096
 #define STD_MB 1048576
 
 extern int optind, opterr, optopt;
@@ -135,7 +136,7 @@ void init_mysql_conf()
         //         "WHERE result<2 and MOD(id,%d)=%d "
         //         "ORDER BY result ASC,id ASC limit %d",
         //         oj_tot, oj_mod, max_running * 2);
-        snprintf(query, BUFFER_SIZE,
+        snprintf(query, LARGE_BUFFER_SIZE,
                  "SELECT id FROM polygon_status "
                  "WHERE result<2 and MOD(id,%d)=%d "
                  "ORDER BY result ASC,id ASC limit %d",
@@ -581,7 +582,7 @@ int main(int argc, char *argv[])
     chdir(oj_home); // change the dir
 
     // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
-    snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home);
+    snprintf(lock_file, LARGE_BUFFER_SIZE, "%s/etc/judge.pid", oj_home);
 
     if (!DEBUG)
         daemon_init();
