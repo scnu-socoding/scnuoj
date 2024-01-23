@@ -1165,13 +1165,22 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home);
+    if (snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
-    sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    if (snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
 

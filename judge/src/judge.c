@@ -1256,13 +1256,22 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home);
+    if (snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
-    sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    if (snprintf(shm_path, sizeof(shm_path), "/dev/shm/jnoj%s", oj_home))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
 
@@ -1388,13 +1397,23 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
             for (i = begin, j = 0; i <= end; i++, j++)
             {
                 subtask_node->test_input_name[j] = (char *)malloc(sizeof(char) * NAME_MAX);
-                snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
+                // snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
+                if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i))
+                {
+                    printf("snprintf error\n");
+                    exit(1);
+                }
             }
         }
         else
         {
             subtask_node->test_input_name[0] = (char *)malloc(sizeof(char) * NAME_MAX);
-            snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
+            // snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
+            if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix))
+            {
+                printf("snprintf error\n");
+                exit(1);
+            }
         }
         subtask_rear->next = subtask_node;
         subtask_rear = subtask_node;
@@ -1477,7 +1496,12 @@ int main(int argc, char **argv)
     }
 
     // set work directory to start running & judging
-    sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
+    // sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
+    if (snprintf(work_dir, sizeof(work_dir), "%srun/%d/", oj_home, runner_id))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
     if (opendir(work_dir) == NULL)
     {
         execute_cmd("/bin/mkdir -p %s", work_dir);
@@ -1543,8 +1567,20 @@ int main(int argc, char **argv)
     char oi_substask_configfile[BUFFER_SIZE]; // OI 子任务设定的 config 文件路径
 
     // the fullpath of data dir
-    sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
-    sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
+    // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
+    // sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
+
+    if (snprintf(fullpath, sizeof(fullpath), "%sdata/%d", oj_home, problem_id))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
+
+    if (snprintf(oi_substask_configfile, sizeof(oi_substask_configfile), "%sdata/%d/config", oj_home, problem_id))
+    {
+        printf("snprintf error\n");
+        exit(1);
+    }
 
     // open DIRs
     DIR *dp;
