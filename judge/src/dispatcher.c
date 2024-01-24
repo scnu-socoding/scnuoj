@@ -121,11 +121,12 @@ void init_mysql_conf()
         //         "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
         //         "ORDER BY result ASC,id ASC limit %d",
         //         oj_lang_set, oj_tot, oj_mod, max_running * 2);
-        if (snprintf(query, BUFFER_SIZE,
-                     "SELECT id FROM solution "
-                     "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
-                     "ORDER BY result ASC,id ASC limit %d",
-                     oj_lang_set, oj_tot, oj_mod, max_running * 2) < 0)
+        int snp = snprintf(query, BUFFER_SIZE,
+                           "SELECT id FROM solution "
+                           "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
+                           "ORDER BY result ASC,id ASC limit %d",
+                           oj_lang_set, oj_tot, oj_mod, max_running * 2);
+        if (snp < 0 || snp >= BUFFER_SIZE)
         {
             write_log("query path too long!\n");
         }
@@ -548,7 +549,8 @@ int main(int argc, char *argv[])
     chdir(oj_home); // change the dir
 
     // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
-    if (snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home) < 0)
+    int snp = snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("lock_file path too long!\n");
     }
