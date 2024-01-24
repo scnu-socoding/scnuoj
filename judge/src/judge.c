@@ -1566,7 +1566,7 @@ int main(int argc, char **argv)
     // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
     // sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
 
-    int snp = snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id);
+    snp = snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
         printf("fullpath is too long\n");
