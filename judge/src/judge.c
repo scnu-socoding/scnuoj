@@ -253,7 +253,6 @@ void init_mysql_conf()
             read_kv_int(&kv[i], "OJ_SHM_RUN", &shm_run);
             read_kv_int(&kv[i], "OJ_COMPILE_CHROOT", &compile_chroot);
         }
-        free(kv);
     }
 }
 
