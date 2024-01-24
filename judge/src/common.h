@@ -98,7 +98,7 @@ void parseLine(char *line, kvPair *kv)
 
 void read_kv(kvPair *kv, const char *key, char *value)
 {
-    if (strncmp(buf, key, strlen(key)) == 0)
+    if (strncmp(kv->key, key, strlen(key)) == 0)
     {
         strcpy(value, kv->value);
     }
@@ -106,8 +106,7 @@ void read_kv(kvPair *kv, const char *key, char *value)
 
 void read_kv_int(kvPair *kv, const char *key, int *value)
 {
-    char buf[LENGTH];
-    if (strncmp(buf, key, strlen(key)) == 0)
+    if (strncmp(kv->key, key, strlen(key)) == 0)
     {
         sscanf(kv->value, "%d", value);
     }
