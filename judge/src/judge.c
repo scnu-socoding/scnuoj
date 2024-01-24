@@ -1487,7 +1487,7 @@ int main(int argc, char **argv)
     init_parameters(argc, argv, &solution_id, &runner_id);
     write_log("[Solution ID: %d] start judging", solution_id);
     init_mysql_conf();
-
+    write_log("[Solution ID: %d] mysql conf init success", solution_id);
     if (!init_mysql_conn())
     {
         write_log("mysql init error\n");
