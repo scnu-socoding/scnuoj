@@ -1493,7 +1493,7 @@ int main(int argc, char **argv)
         write_log("mysql init error\n");
         exit(0); // exit if mysql is down
     }
-
+    write_log("[Solution ID: %d] mysql init success", solution_id);
     // set work directory to start running & judging
     // sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
     int snp = snprintf(work_dir, BUFFER_SIZE, "%srun/%d/", oj_home, runner_id);
@@ -1517,7 +1517,7 @@ int main(int argc, char **argv)
 
     // get the limit
     problem = get_problem_info(problem_id);
-
+    write_log("[Solution ID: %d] get info success", solution_id);
     // java is lucky
     //  Clang Clang++ not VM or Script
     if (lang >= 2)
