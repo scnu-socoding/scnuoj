@@ -91,7 +91,8 @@ void parseLine(char *line, kvPair *kv)
     if (equals)
     {
         *equals = '\0';
-        strcpy(kv->key, line);
+        trim(equals + 1);
+        strcpy(kv->key, equals);
         strcpy(kv->value, equals + 1);
     }
 }
