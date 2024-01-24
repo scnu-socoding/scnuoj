@@ -1187,7 +1187,7 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    int snp = nprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir);
+    int snp = snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("shm_path too long");
