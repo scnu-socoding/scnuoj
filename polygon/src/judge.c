@@ -1198,7 +1198,7 @@ void mk_shm_workdir(char *work_dir)
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
     // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
-    snp = nprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home);
+    snp = snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("shm_path too long");
