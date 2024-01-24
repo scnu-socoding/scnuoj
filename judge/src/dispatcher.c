@@ -187,22 +187,37 @@ void run_client(int runid, int clientid)
           (char *)NULL);
 }
 
+int init_mysql();
+
 int executesql(const char *sql)
 {
-    if (mysql_real_query(conn, sql, strlen(sql)))
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     if (DEBUG)
+    //     {
+    //         write_log("%s", mysql_error(conn));
+    //     }
+    //     sleep(20);
+    //     conn = NULL;
+    //     return 1;
+    // }
+    // else
+    // {
+    //     return 0;
+    // }
+    int retry = 10;
+    while (mysql_real_query(conn, sql, strlen(sql)))
     {
         if (DEBUG)
-        {
             write_log("%s", mysql_error(conn));
+        sleep(10);
+        init_mysql();
+        if (retry-- <= 0)
+        {
+            return 1;
         }
-        sleep(20);
-        conn = NULL;
-        return 1;
     }
-    else
-    {
-        return 0;
-    }
+    return 0;
 }
 
 int init_mysql()
