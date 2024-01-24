@@ -218,6 +218,7 @@ int executesql(const char *sql)
         if (DEBUG)
             write_log("%s", mysql_error(conn));
         sleep(10);
+        conn = NULL;
         init_mysql();
         if (retry-- <= 0)
         {
@@ -298,6 +299,7 @@ int _get_jobs_mysql(int *jobs)
         if (DEBUG)
             write_log("%s", mysql_error(conn));
         sleep(10);
+        conn = NULL;
         init_mysql();
     }
     res = mysql_store_result(conn);
@@ -390,6 +392,7 @@ bool check_out(int problem_id, int result)
     {
         syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
         sleep(10);
+        conn = NULL;
         init_mysql();
     }
     if (conn != NULL && mysql_affected_rows(conn) > 0ul)

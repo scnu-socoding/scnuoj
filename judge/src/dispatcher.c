@@ -211,6 +211,7 @@ int executesql(const char *sql)
         if (DEBUG)
             write_log("%s", mysql_error(conn));
         sleep(10);
+        conn = NULL;
         init_mysql();
         if (retry-- <= 0)
         {
@@ -290,6 +291,7 @@ int _get_jobs_mysql(int *jobs)
     {
         if (DEBUG)
             write_log("%s", mysql_error(conn));
+        conn = NULL;
         init_mysql();
         sleep(10);
     }
@@ -348,6 +350,7 @@ bool check_out(int solution_id, int result)
         if (DEBUG)
             write_log("%s", mysql_error(conn));
         sleep(10);
+        conn = NULL;
         init_mysql();
     }
     if (conn != NULL && mysql_affected_rows(conn) > 0ul)
