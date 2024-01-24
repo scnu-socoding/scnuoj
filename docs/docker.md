@@ -50,13 +50,13 @@ git clone https://github.com/scnu-socoding/scnuoj.git
 
 `password` 修改为 你刚才设置的密码
 
-#### 2.2.3 修改 `/judge/src/judge.c`
+#### 2.2.3 修改 `/judge/config.ini`
 
-将 `use_ptrace` 的值修改为 `0`
+将 `OJ_USE_PTRACE` 的值修改为 `0`
 
 > Tips: 这里修改的原因是 P trace 机制和 Docker 存在兼容性问题导致。Docker 里的 system call 的值貌似不固定（?）
 
-#### 2.2.4 修改 `/polygon/src/judge.c`
+#### 2.2.4 修改 `/polygon/config.ini`
 
 同上
 
@@ -65,6 +65,10 @@ git clone https://github.com/scnu-socoding/scnuoj.git
 详情请根据 Caddy 官方文档。
 
 ## 3. 安装
+
+可以选择本地打包或者直接拉取镜像。
+
+### 本地打包
 
 首次运行需要安装 `scnuoj` 。
 
@@ -76,19 +80,29 @@ docker-compose up -d --build
 
 生成镜像需要时间，请耐心等待打包完成。
 
-运行成功后，进入 `php` 容器。
+### 拉取镜像
 
-首先，先使用 `docker container ls` 命令获取 `php` 容器的 `CONTAINER ID`。
+把 docker-compose.yaml 中的 build 改为对应的在线 image，然后运行
 
-然后，输入 `docker exec -it 刚才获取的ID sh` 进入容器。
+```shell
+docker-compose up -d
+```
 
-运行 `./yii install` 进行安装。根据提示输入管理员账号、密码和邮箱即可。
+运行成功后，进入 `php` 容器进行安装。
 
-> 如果提示权限不足则先执行 `chmod +x yii` 。
+步骤如下：
 
-输入 `exit` 退出容器。此时 `scnuoj` 已经搭建完成。
+> 首先，先使用 `docker container ls` 命令获取 `php` 容器的 `CONTAINER ID`。
+>
+> 然后，输入 `docker exec -it 刚才获取的ID sh` 进入容器。
+>
+> 运行 `./yii install` 进行安装。根据提示输入管理员账号、密码和邮箱即可。
+>
+> > 如果提示权限不足则先执行 `chmod +x yii` 。
+>
+> 输入 `exit` 退出容器。此时 `scnuoj` 已经搭建完成。
 
-输入:
+接下来输入:
 
 ```shell
 docker-compose down; docker-compose up -d

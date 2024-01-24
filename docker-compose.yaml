@@ -20,6 +20,7 @@ services:
     restart: always
     volumes:
       - ./data/mysql/data:/var/lib/mysql
+      - ./data/mysql/conf.d:/etc/mysql/conf.d
       - ./conf.d/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: yourpassword
@@ -28,6 +29,7 @@ services:
   caddy:
     image: caddy:latest
     container_name: caddy
+    restart: always
     ports:
       - 80:80
       - 443:443
@@ -41,6 +43,7 @@ services:
 
   php:
     container_name: php
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -53,6 +56,7 @@ services:
 
   judge:
     container_name: judge
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile.judge.alpine

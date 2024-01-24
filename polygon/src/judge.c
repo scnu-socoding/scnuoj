@@ -34,7 +34,7 @@
 #include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
@@ -46,10 +46,9 @@
 
 #define STD_MB 1048576
 #define STD_T_LIM 2
-#define STD_F_LIM (STD_MB<<5)
-#define STD_M_LIM (STD_MB<<7)
+#define STD_F_LIM (STD_MB << 5)
+#define STD_M_LIM (STD_MB << 7)
 #define BUFFER_SIZE 5120
-
 
 /*copy from ZOJ
  http://code.google.com/p/zoj/source/browse/trunk/judge_client/client/tracer.cc?spec=svn367&r=367#39
@@ -66,7 +65,8 @@
 #define REG_ARG1 rsi
 #endif
 
-struct problem_struct {
+struct problem_struct
+{
     int id;
     int isspj;
     int spj_lang;
@@ -88,36 +88,46 @@ static int full_diff = 0;
 static int shm_run = 0;
 
 static char record_call = 0;
-static int use_ptrace = 1;
+static int use_ptrace = 0;
 static int compile_chroot = 1;
 
-static int is_verify = 0; //是用来验证数据，还是根据标程出数据
+static int is_verify = 0; // 是用来验证数据，还是根据标程出数据
 
-static const char * tbname = "polygon_status";
-//static int sleep_tmp;
+static const char *tbname = "polygon_status";
+// static int sleep_tmp;
 
 #ifdef _mysql_h
 MYSQL *conn;
 #endif
 
-//static char buf[BUFFER_SIZE];
+// static char buf[BUFFER_SIZE];
 
-long get_file_size(const char * filename)
+long get_file_size(const char *filename)
 {
     struct stat f_stat;
-    if (stat(filename, &f_stat) == -1) {
+    if (stat(filename, &f_stat) == -1)
+    {
         return 0;
     }
-    return (long) f_stat.st_size;
+    return (long)f_stat.st_size;
 }
 
 void write_log(const char *fmt, ...)
 {
     va_list ap;
-    char buffer[4096];
-    sprintf(buffer, "%s/log/client.log", oj_home);
+    char buffer[BUFFER_SIZE];
+    // sprintf(buffer, "%s/log/client.log", oj_home);
+    int snp = snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("buffer overflow!");
+    }
+    {
+        write_log("buffer overflow!");
+    }
     FILE *fp = fopen(buffer, "ae+");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         fprintf(stderr, "openfile error!\n");
         system("pwd");
     }
@@ -129,7 +139,7 @@ void write_log(const char *fmt, ...)
     fclose(fp);
 }
 
-int execute_cmd(const char * fmt, ...)
+int execute_cmd(const char *fmt, ...)
 {
     char cmd[BUFFER_SIZE];
 
@@ -138,7 +148,7 @@ int execute_cmd(const char * fmt, ...)
 
     va_start(ap, fmt);
     vsprintf(cmd, fmt, ap);
-    //printf("%s\n",cmd);
+    // printf("%s\n",cmd);
     ret = system(cmd);
     va_end(ap);
     return ret;
@@ -155,16 +165,17 @@ void init_syscalls_limits(int lang)
     if (DEBUG)
         write_log("init_call_counter:%d", lang);
 
-    for (i = 0; i == 0 || ok_calls[lang].call[i]; i++) {
+    for (i = 0; i == 0 || ok_calls[lang].call[i]; i++)
+    {
         call_counter[ok_calls[lang].call[i]] = HOJ_MAX_LIMIT;
     }
 }
 
-FILE * read_cmd_output(const char * fmt, ...)
+FILE *read_cmd_output(const char *fmt, ...)
 {
     char cmd[BUFFER_SIZE];
 
-    FILE * ret = NULL;
+    FILE *ret = NULL;
     va_list ap;
 
     va_start(ap, fmt);
@@ -186,26 +197,55 @@ void init_mysql_conf()
     sleep_time = 3;
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
-    sprintf(buf, "%s/config.ini", oj_home);
+    // sprintf(buf, "%s/config.ini", oj_home);
+    int snp = snprintf(buf, BUFFER_SIZE, "%s/config.ini", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("buffer overflow!");
+    }
     fp = fopen("./config.ini", "re");
-    if (fp != NULL) {
-        while (fgets(buf, BUFFER_SIZE - 1, fp)) {
-            read_buf(buf, "OJ_HOST_NAME", db.host_name);
-            read_buf(buf, "OJ_USER_NAME", db.user_name);
-            read_buf(buf, "OJ_PASSWORD", db.password);
-            read_buf(buf, "OJ_DB_NAME", db.db_name);
-            read_buf(buf, "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
-            read_int(buf, "OJ_PORT_NUMBER", &db.port_number);
-            read_int(buf, "OJ_JAVA_TIME_BONUS", &java_time_bonus);
-            read_int(buf, "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
-            read_buf(buf, "OJ_JAVA_XMS", java_xms);
-            read_buf(buf, "OJ_JAVA_XMX", java_xmx);
-            read_int(buf, "OJ_FULL_DIFF", &full_diff);
-            read_int(buf, "OJ_SHM_RUN", &shm_run);
-            read_int(buf, "OJ_USE_PTRACE", &use_ptrace);
-            read_int(buf, "OJ_COMPILE_CHROOT", &compile_chroot);
+    if (fp != NULL)
+    {
+        // while (fgets(buf, BUFFER_SIZE - 1, fp))
+        // {
+        //     read_buf(buf, "OJ_HOST_NAME", db.host_name);
+        //     read_buf(buf, "OJ_USER_NAME", db.user_name);
+        //     read_buf(buf, "OJ_PASSWORD", db.password);
+        //     read_buf(buf, "OJ_DB_NAME", db.db_name);
+        //     read_buf(buf, "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
+        //     read_int(buf, "OJ_PORT_NUMBER", &db.port_number);
+        //     read_int(buf, "OJ_JAVA_TIME_BONUS", &java_time_bonus);
+        //     read_int(buf, "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
+        //     read_buf(buf, "OJ_JAVA_XMS", java_xms);
+        //     read_buf(buf, "OJ_JAVA_XMX", java_xmx);
+        //     read_int(buf, "OJ_FULL_DIFF", &full_diff);
+        //     read_int(buf, "OJ_SHM_RUN", &shm_run);
+        //     read_int(buf, "OJ_COMPILE_CHROOT", &compile_chroot);
+        // }
+        kvPair kv[20];
+        int i = 0;
+        while (fgets(buf, BUFFER_SIZE - 1, fp))
+        {
+            parseLine(buf, &kv[i++]);
         }
         fclose(fp);
+        while (i--)
+        {
+            read_kv(&kv[i], "OJ_HOST_NAME", db.host_name);
+            read_kv(&kv[i], "OJ_USER_NAME", db.user_name);
+            read_kv(&kv[i], "OJ_PASSWORD", db.password);
+            read_kv(&kv[i], "OJ_DB_NAME", db.db_name);
+            read_kv(&kv[i], "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
+            read_kv_int(&kv[i], "OJ_PORT_NUMBER", &db.port_number);
+            read_kv_int(&kv[i], "OJ_JAVA_TIME_BONUS", &java_time_bonus);
+            read_kv_int(&kv[i], "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
+            read_kv(&kv[i], "OJ_JAVA_XMS", java_xms);
+            read_kv(&kv[i], "OJ_JAVA_XMX", java_xmx);
+            read_kv_int(&kv[i], "OJ_FULL_DIFF", &full_diff);
+            read_kv_int(&kv[i], "OJ_SHM_RUN", &shm_run);
+            read_kv_int(&kv[i], "OJ_COMPILE_CHROOT", &compile_chroot);
+            read_kv_int(&kv[i], "OJ_USE_PTRACE", &use_ptrace);
+        }
     }
 }
 
@@ -218,40 +258,53 @@ int is_input_file(const char fname[])
         return l - 3;
 }
 
-void find_next_nonspace(int * c1, int * c2, FILE ** f1, FILE ** f2, int * ret)
+void find_next_nonspace(int *c1, int *c2, FILE **f1, FILE **f2, int *ret)
 {
     // Find the next non-space character or \n.
-    while ((isspace(*c1)) || (isspace(*c2))) {
-        if (*c1 != *c2) {
-            if (*c2 == EOF) {
-                do {
+    while ((isspace(*c1)) || (isspace(*c2)))
+    {
+        if (*c1 != *c2)
+        {
+            if (*c2 == EOF)
+            {
+                do
+                {
                     *c1 = fgetc(*f1);
                 } while (isspace(*c1));
                 continue;
-            } else if (*c1 == EOF) {
-                do {
+            }
+            else if (*c1 == EOF)
+            {
+                do
+                {
                     *c2 = fgetc(*f2);
                 } while (isspace(*c2));
                 continue;
-            } else if (isspace(*c1) && isspace(*c2)) {
-                while (*c2 == '\n' && isspace(*c1) && *c1!='\n')
+            }
+            else if (isspace(*c1) && isspace(*c2))
+            {
+                while (*c2 == '\n' && isspace(*c1) && *c1 != '\n')
                     *c1 = fgetc(*f1);
-                while (*c1 == '\n' && isspace(*c2) && *c2!='\n')
+                while (*c1 == '\n' && isspace(*c2) && *c2 != '\n')
                     *c2 = fgetc(*f2);
-            } else {
+            }
+            else
+            {
                 *ret = OJ_PE;
             }
         }
-        if (isspace(*c1)) {
+        if (isspace(*c1))
+        {
             *c1 = fgetc(*f1);
         }
-        if (isspace(*c2)) {
+        if (isspace(*c2))
+        {
             *c2 = fgetc(*f2);
         }
     }
 }
 
-void make_diff_out(const char * path)
+void make_diff_out(const char *path)
 {
     execute_cmd("echo '------Input------<br>'>>diff.out");
     execute_cmd("head -c 500 data.in>>diff.out");
@@ -276,26 +329,34 @@ int compare(const char *file1, const char *file2)
     FILE *f1 = fopen(file1, "re");
     FILE *f2 = fopen(file2, "re");
 
-    if (!f1 || !f2) {
+    if (!f1 || !f2)
+    {
         ret = OJ_RE;
-    } else
-        for (;;) {
+    }
+    else
+        for (;;)
+        {
             // Find the first non-space character at the beginning of line.
             // Blank lines are skipped.
             c1 = fgetc(f1);
             c2 = fgetc(f2);
             find_next_nonspace(&c1, &c2, &f1, &f2, &ret);
             // Compare the current line.
-            for (;;) {
+            for (;;)
+            {
                 // Read until 2 files return a space or 0 together.
-                while ((!isspace(c1) && c1) || (!isspace(c2) && c2)) {
-                    if (c1 == EOF && c2 == EOF) {
+                while ((!isspace(c1) && c1) || (!isspace(c2) && c2))
+                {
+                    if (c1 == EOF && c2 == EOF)
+                    {
                         goto end;
                     }
-                    if (c1 == EOF || c2 == EOF) {
+                    if (c1 == EOF || c2 == EOF)
+                    {
                         break;
                     }
-                    if (c1 != c2) {
+                    if (c1 != c2)
+                    {
                         // Consecutive non-space characters should be
                         // all exactly the same
                         ret = OJ_WA;
@@ -305,20 +366,24 @@ int compare(const char *file1, const char *file2)
                     c2 = fgetc(f2);
                 }
                 find_next_nonspace(&c1, &c2, &f1, &f2, &ret);
-                if (c1 == EOF && c2 == EOF) {
+                if (c1 == EOF && c2 == EOF)
+                {
                     goto end;
                 }
-                if (c1 == EOF || c2 == EOF) {
+                if (c1 == EOF || c2 == EOF)
+                {
                     ret = OJ_WA;
                     goto end;
                 }
-                if ((c1 == '\n' || !c1) && (c2 == '\n' || !c2)) {
+                if ((c1 == '\n' || !c1) && (c2 == '\n' || !c2))
+                {
                     break;
                 }
             }
         }
-    end: 
-    if (ret == OJ_WA || ret == OJ_PE){
+end:
+    if (ret == OJ_WA || ret == OJ_PE)
+    {
         make_diff_out(file1);
     }
     if (f1)
@@ -338,20 +403,22 @@ void update_solution(int solution_id, int result, int time, int memory)
             "UPDATE %s SET result=%d,time=%d,memory=%d WHERE id=%d",
             tbname, result, time, memory, solution_id);
 
-    if (mysql_real_query(conn, sql, strlen(sql))) {
-        printf("sql= %s\n",sql);
-        printf("..update failed! %s\n",mysql_error(conn));
+    if (mysql_real_query(conn, sql, strlen(sql)))
+    {
+        printf("sql= %s\n", sql);
+        printf("..update failed! %s\n", mysql_error(conn));
     }
 }
 
-void update_not_ac_info(int solution_id, char * buf)
+void update_not_ac_info(int solution_id, char *buf)
 {
     char sql[(1 << 16)];
     sprintf(sql,
             "UPDATE polygon_status SET info = '%s' WHERE id=%d",
             buf, solution_id);
 
-    if (mysql_real_query(conn, sql, strlen(sql))) {
+    if (mysql_real_query(conn, sql, strlen(sql)))
+    {
         write_log(mysql_error(conn));
     }
 }
@@ -361,7 +428,8 @@ void addceinfo(int solution_id)
     char ceinfo[(1 << 15)], *cend;
     FILE *fp = fopen("ce.txt", "re");
     cend = ceinfo;
-    while (fgets(cend, 1024, fp)) {
+    while (fgets(cend, 1024, fp))
+    {
         cend += strlen(cend);
         if (cend - ceinfo > 30000)
             break;
@@ -372,12 +440,13 @@ void addceinfo(int solution_id)
 }
 
 // write runtime error message back to database
-void _add_solution_info_mysql(int solution_id, const char * filename)
+void _add_solution_info_mysql(int solution_id, const char *filename)
 {
     char reinfo[(1 << 15)], *rend;
     FILE *fp = fopen(filename, "re");
     rend = reinfo;
-    while (fgets(rend, 1024, fp)) {
+    while (fgets(rend, 1024, fp))
+    {
         rend += strlen(rend);
         if (rend - reinfo > 30000)
             break;
@@ -413,13 +482,15 @@ void umount(char *work_dir)
     execute_cmd("/bin/umount -f %s/log/etc/alternatives 2>/dev/null", work_dir);
 }
 
-int compile(int lang, char * work_dir)
+int compile(int lang, char *work_dir)
 {
     pid_t pid = fork();
-    if (pid == 0) {
+    if (pid == 0)
+    {
         struct rlimit LIM;
         int cpu = 20;
-        if (lang == LANG_JAVA) {
+        if (lang == LANG_JAVA)
+        {
             cpu = 30;
         }
         LIM.rlim_max = cpu;
@@ -430,17 +501,19 @@ int compile(int lang, char * work_dir)
         LIM.rlim_cur = 100 * STD_MB;
         setrlimit(RLIMIT_FSIZE, &LIM);
 
-        if (lang != LANG_JAVA) {
+        if (lang != LANG_JAVA)
+        {
             LIM.rlim_max = STD_MB << 11;
             LIM.rlim_cur = STD_MB << 11;
             setrlimit(RLIMIT_AS, &LIM);
         }
-        
+
         freopen("ce.txt", "w", stderr);
         execute_cmd("/bin/chown judge %s ", work_dir);
         execute_cmd("/bin/chmod 700 %s ", work_dir);
 
-        if (compile_chroot && lang != LANG_JAVA && lang != LANG_PYTHON3) {
+        if (compile_chroot && lang != LANG_JAVA && lang != LANG_PYTHON3)
+        {
             execute_cmd("mkdir -p bin usr lib lib64 etc/alternatives proc tmp dev");
             execute_cmd("chown judge *");
             execute_cmd("mount -o bind /bin bin");
@@ -467,12 +540,14 @@ int compile(int lang, char * work_dir)
             sleep(1);
 
         execvp(languages[lang].compile_cmd[0],
-               (char * const *) languages[lang].compile_cmd);
+               (char *const *)languages[lang].compile_cmd);
 
         if (DEBUG)
             printf("Compile end!\n");
         exit(0);
-    } else {
+    }
+    else
+    {
         int status = 0;
 
         waitpid(pid, &status, 0);
@@ -483,7 +558,7 @@ int compile(int lang, char * work_dir)
         execute_cmd("/bin/umount -f bin usr lib lib64 etc/alternatives proc dev 2>/dev/null");
         execute_cmd("/bin/umount -f %s/* 2>/dev/null", work_dir);
         umount(work_dir);
- 
+
         return status;
     }
 }
@@ -496,17 +571,20 @@ int init_mysql_conn()
     mysql_options(conn, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
 
     // set mysql unix socket
-    char * mysql_unix_port = db.mysql_unix_port;
-    if (strlen(mysql_unix_port) == 0) {
+    char *mysql_unix_port = db.mysql_unix_port;
+    if (strlen(mysql_unix_port) == 0)
+    {
         mysql_unix_port = NULL;
     }
     if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
-                            db.db_name, db.port_number, mysql_unix_port, 0)) {
+                            db.db_name, db.port_number, mysql_unix_port, 0))
+    {
         write_log("%s", mysql_error(conn));
         return 0;
     }
-    const char * utf8sql = "set names utf8";
-    if (mysql_real_query(conn, utf8sql, strlen(utf8sql))) {
+    const char *utf8sql = "set names utf8";
+    if (mysql_real_query(conn, utf8sql, strlen(utf8sql)))
+    {
         write_log("%s", mysql_error(conn));
         return 0;
     }
@@ -534,23 +612,29 @@ void get_solution_info(int solution_id, int *p_id, int *lang)
     // get the problem id and user id from Table:polygon_status
     sprintf(sql,
             "SELECT problem_id, language, source FROM polygon_status "
-            "WHERE id=%d", solution_id);
-    //printf("%s\n",sql);
+            "WHERE id=%d",
+            solution_id);
+    // printf("%s\n",sql);
     mysql_real_query(conn, sql, strlen(sql));
     res = mysql_store_result(conn);
     row = mysql_fetch_row(res);
     *p_id = atoi(row[0]);
-    if (row[1] && row[2]) {
-        is_verify = 1; //结果中含有源码字段说明该记录是用于验证的
+    if (row[1] && row[2])
+    {
+        is_verify = 1; // 结果中含有源码字段说明该记录是用于验证的
         *lang = atoi(row[1]);
-    } else {
+    }
+    else
+    {
         is_verify = 0;
     }
-    if (is_verify) {
+    if (is_verify)
+    {
         _create_solution_file(row[2], *lang);
     }
-    if (res != NULL) {
-        mysql_free_result(res);  // free the memory
+    if (res != NULL)
+    {
+        mysql_free_result(res); // free the memory
         res = NULL;
     }
 }
@@ -571,16 +655,19 @@ struct problem_struct get_problem_info(int p_id)
     res = mysql_store_result(conn);
     row = mysql_fetch_row(res);
     problem.isspj = atoi(row[0]);
-    problem.spj_lang = LANG_CPP; //当前只支持C、C++语言的SPJ
-    if (row[3]) {
+    problem.spj_lang = LANG_CPP; // 当前只支持C、C++语言的SPJ
+    if (row[3])
+    {
         problem.solution_lang = atoi(row[3]);
     }
-    if (!is_verify) {
+    if (!is_verify)
+    {
         _create_solution_file(row[4], problem.solution_lang);
     }
     problem.time_limit = atoi(row[5]);
     problem.memory_limit = atoi(row[6]);
-    if (res != NULL) {
+    if (res != NULL)
+    {
         mysql_free_result(res); // free the memory
         res = NULL;
     }
@@ -590,14 +677,18 @@ struct problem_struct get_problem_info(int p_id)
 char *escape(char s[], char t[])
 {
     int i, j;
-    for (i = j = 0; t[i] != '\0'; ++i) {
-        if (t[i] == '\'') {
+    for (i = j = 0; t[i] != '\0'; ++i)
+    {
+        if (t[i] == '\'')
+        {
             s[j++] = '\'';
             s[j++] = '\\';
             s[j++] = '\'';
             s[j++] = '\'';
             continue;
-        } else {
+        }
+        else
+        {
             s[j++] = t[i];
         }
     }
@@ -609,9 +700,9 @@ char *escape(char s[], char t[])
  * 准备需要测试的数据点
  * 成功返回 0，失败返回1
  */
-int prepare_files(char * filename, char * infile, int p_id,
-                   char * work_dir, char * outfile, char * userfile,
-                   int runner_id)
+int prepare_files(char *filename, char *infile, int p_id,
+                  char *work_dir, char *outfile, char *userfile,
+                  int runner_id)
 {
     int res = 0;
     sprintf(infile, "%sdata/%d/%s.in", oj_home, p_id, filename);
@@ -619,9 +710,11 @@ int prepare_files(char * filename, char * infile, int p_id,
 
     // 判断是输出文件是 out 还是 ans 为后缀
     sprintf(outfile, "%sdata/%d/%s.out", oj_home, p_id, filename);
-    if (access(outfile, R_OK) == -1) {
+    if (access(outfile, R_OK) == -1)
+    {
         sprintf(outfile, "%sdata/%d/%s.ans", oj_home, p_id, filename);
-        if (access(outfile, R_OK) == -1) {
+        if (access(outfile, R_OK) == -1)
+        {
             res = 1;
         }
     }
@@ -629,7 +722,7 @@ int prepare_files(char * filename, char * infile, int p_id,
     return is_verify ? res : 0;
 }
 
-void run_solution(struct problem_struct problem, int lang, char * work_dir,
+void run_solution(struct problem_struct problem, int lang, char *work_dir,
                   int usedtime)
 {
     nice(19);
@@ -640,11 +733,13 @@ void run_solution(struct problem_struct problem, int lang, char * work_dir,
     freopen("user.out", "w", stdout);
     freopen("error.out", "a+", stderr);
     // trace me
-    if(use_ptrace) {
+    if (use_ptrace)
+    {
         ptrace(PTRACE_TRACEME, 0, NULL, NULL);
     }
     // run me
-    if (lang != LANG_JAVA && lang != LANG_PYTHON3) {
+    if (lang != LANG_JAVA && lang != LANG_PYTHON3)
+    {
         chroot(work_dir);
     }
 
@@ -664,7 +759,7 @@ void run_solution(struct problem_struct problem, int lang, char * work_dir,
     else
         LIM.rlim_cur = (problem.time_limit - usedtime / 1000) + 1;
     LIM.rlim_max = LIM.rlim_cur;
-    //if(DEBUG) printf("LIM_CPU=%d",(int)(LIM.rlim_cur));
+    // if(DEBUG) printf("LIM_CPU=%d",(int)(LIM.rlim_cur));
     setrlimit(RLIMIT_CPU, &LIM);
     alarm(0);
     alarm(problem.time_limit * 5);
@@ -674,9 +769,12 @@ void run_solution(struct problem_struct problem, int lang, char * work_dir,
     LIM.rlim_cur = STD_F_LIM;
     setrlimit(RLIMIT_FSIZE, &LIM);
     // proc limit
-    if (lang == LANG_JAVA) {
+    if (lang == LANG_JAVA)
+    {
         LIM.rlim_cur = LIM.rlim_max = 200;
-    } else {
+    }
+    else
+    {
         LIM.rlim_cur = LIM.rlim_max = 1;
     }
 
@@ -694,21 +792,22 @@ void run_solution(struct problem_struct problem, int lang, char * work_dir,
 
     // run solution
     execvp(languages[lang].run_cmd[0],
-           (char * const *) languages[lang].run_cmd);
+           (char *const *)languages[lang].run_cmd);
 
     // sleep(1);
     fflush(stderr);
     exit(0);
 }
 
-int fix_python_mis_judge(char *work_dir, int * ACflg, int * topmemory,
+int fix_python_mis_judge(char *work_dir, int *ACflg, int *topmemory,
                          int mem_lmt)
 {
     int comp_res = OJ_AC;
 
     comp_res = execute_cmd("/bin/grep 'MemoryError'  %s/error.out", work_dir);
 
-    if (!comp_res) {
+    if (!comp_res)
+    {
         printf("Python need more Memory!");
         *ACflg = OJ_ML;
         *topmemory = mem_lmt * STD_MB;
@@ -717,7 +816,7 @@ int fix_python_mis_judge(char *work_dir, int * ACflg, int * topmemory,
     return comp_res;
 }
 
-int fix_java_mis_judge(char *work_dir, int * ACflg, int * topmemory,
+int fix_java_mis_judge(char *work_dir, int *ACflg, int *topmemory,
                        int mem_lmt)
 {
     int comp_res = OJ_AC;
@@ -725,42 +824,47 @@ int fix_java_mis_judge(char *work_dir, int * ACflg, int * topmemory,
     if (DEBUG)
         execute_cmd("cat %s/error.out", work_dir);
     comp_res = execute_cmd("/bin/grep 'Exception'  %s/error.out", work_dir);
-    if (!comp_res) {
+    if (!comp_res)
+    {
         printf("Exception reported\n");
         *ACflg = OJ_RE;
     }
     execute_cmd("cat %s/error.out", work_dir);
 
     comp_res = execute_cmd(
-            "/bin/grep 'java.lang.OutOfMemoryError'  %s/error.out", work_dir);
+        "/bin/grep 'java.lang.OutOfMemoryError'  %s/error.out", work_dir);
 
-    if (!comp_res) {
+    if (!comp_res)
+    {
         printf("JVM need more Memory!");
         *ACflg = OJ_ML;
         *topmemory = mem_lmt * STD_MB;
     }
 
-    if (!comp_res) {
+    if (!comp_res)
+    {
         printf("JVM need more Memory or Threads!");
         *ACflg = OJ_ML;
         *topmemory = mem_lmt * STD_MB;
     }
     comp_res = execute_cmd("/bin/grep 'Could not create'  %s/error.out",
-            work_dir);
-    if (!comp_res) {
+                           work_dir);
+    if (!comp_res)
+    {
         printf("jvm need more resource,tweak -Xmx(OJ_JAVA_BONUS) Settings");
         *ACflg = OJ_RE;
-        //topmemory=0;
+        // topmemory=0;
     }
     return comp_res;
 }
 
-int special_judge(char* oj_home, int problem_id, char *infile, char *outfile,
+int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
                   char *userfile)
 {
     pid_t pid = fork();
     int ret = 0;
-    if (pid == 0) {
+    if (pid == 0)
+    {
         while (setgid(1536) != 0)
             sleep(1);
         while (setuid(1536) != 0)
@@ -782,12 +886,14 @@ int special_judge(char* oj_home, int problem_id, char *infile, char *outfile,
         setrlimit(RLIMIT_FSIZE, &LIM);
 
         ret = execute_cmd("%sdata/%d/spj '%s' '%s' %s", oj_home, problem_id,
-                infile, userfile, outfile);
+                          infile, userfile, outfile);
         if (ret)
             exit(1);
         else
             exit(0);
-    } else {
+    }
+    else
+    {
         int status;
 
         waitpid(pid, &status, 0);
@@ -796,9 +902,9 @@ int special_judge(char* oj_home, int problem_id, char *infile, char *outfile,
     return ret;
 }
 
-void judge_solution(struct problem_struct problem, int * ACflg, int usedtime, 
-                    char * infile, char * outfile, char * userfile,
-                    int * PEflg, int lang, char * work_dir, int * topmemory,
+void judge_solution(struct problem_struct problem, int *ACflg, int usedtime,
+                    char *infile, char *outfile, char *userfile,
+                    int *PEflg, int lang, char *work_dir, int *topmemory,
                     int solution_id)
 {
     int mem_lmt = problem.memory_limit;
@@ -809,9 +915,11 @@ void judge_solution(struct problem_struct problem, int * ACflg, int usedtime,
     if (*topmemory > mem_lmt * STD_MB)
         *ACflg = OJ_ML;
     // compare
-    if (*ACflg == OJ_AC) {
-        if (problem.isspj) {
-            comp_res = OJ_SE; //因暂无限制SPJ运行环境，Polygon暂不支持SPJ验题
+    if (*ACflg == OJ_AC)
+    {
+        if (problem.isspj)
+        {
+            comp_res = OJ_SE; // 因暂无限制SPJ运行环境，Polygon暂不支持SPJ验题
             // comp_res = special_judge(oj_home, problem.id, infile, outfile,
             //                          userfile);
             // if (comp_res == 0) {
@@ -822,65 +930,73 @@ void judge_solution(struct problem_struct problem, int * ACflg, int usedtime,
             //     comp_res = OJ_WA;
             //     make_diff_out(outfile);
             // }
-        } else {
+        }
+        else
+        {
             comp_res = compare(outfile, userfile);
         }
-        if (comp_res == OJ_WA) {
+        if (comp_res == OJ_WA)
+        {
             *ACflg = OJ_WA;
             if (DEBUG)
                 printf("fail test %s\n", infile);
-        } else if (comp_res == OJ_PE)
+        }
+        else if (comp_res == OJ_PE)
             *PEflg = OJ_PE;
         *ACflg = comp_res;
     }
-    //jvm popup messages, if don't consider them will get miss-WrongAnswer
-    if (lang == LANG_JAVA) {
+    // jvm popup messages, if don't consider them will get miss-WrongAnswer
+    if (lang == LANG_JAVA)
+    {
         comp_res = fix_java_mis_judge(work_dir, ACflg, topmemory, mem_lmt);
     }
-    if (lang == LANG_PYTHON3) {
+    if (lang == LANG_PYTHON3)
+    {
         comp_res = fix_python_mis_judge(work_dir, ACflg, topmemory, mem_lmt);
     }
 }
 
-void print_runtimeerror(char * err)
+void print_runtimeerror(char *err)
 {
     FILE *ferr = fopen("error.out", "a+");
     fprintf(ferr, "Runtime Error:%s\n", err);
     fclose(ferr);
 }
 
-void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
-                    int * ACflg, char * userfile, char * outfile,
-                    int solution_id, int lang, int * topmemory, int * usedtime,
-                    int PEflg, char * work_dir)
+void watch_solution(struct problem_struct problem, pid_t pidApp, char *infile,
+                    int *ACflg, char *userfile, char *outfile,
+                    int solution_id, int lang, int *topmemory, int *usedtime,
+                    int PEflg, char *work_dir)
 {
     int mem_lmt = problem.memory_limit;
     int isspj = problem.isspj;
 
     if (DEBUG)
         printf("pid=%d [Solution ID: %d] judging %s\n",
-                pidApp, solution_id, infile);
+               pidApp, solution_id, infile);
 
     int status, sig, exitcode;
     struct user_regs_struct reg;
     struct rusage ruse;
     bool first_run = true;
-    for (;;) {
+    for (;;)
+    {
         // check the usage
         wait4(pidApp, &status, __WALL, &ruse);
-        if(first_run){ // 
-            ptrace(PTRACE_SETOPTIONS, pidApp, NULL, PTRACE_O_TRACESYSGOOD 
-                   | PTRACE_O_TRACEEXIT 
-                //    |PTRACE_O_EXITKILL 
-                //  |PTRACE_O_TRACECLONE 
-                //  |PTRACE_O_TRACEFORK 
-                //  |PTRACE_O_TRACEVFORK
+        if (first_run)
+        { //
+            ptrace(PTRACE_SETOPTIONS, pidApp, NULL, PTRACE_O_TRACESYSGOOD | PTRACE_O_TRACEEXIT
+                   //    |PTRACE_O_EXITKILL
+                   //  |PTRACE_O_TRACECLONE
+                   //  |PTRACE_O_TRACEFORK
+                   //  |PTRACE_O_TRACEVFORK
             );
         }
         if (*topmemory < getpagesize() * ruse.ru_minflt)
             *topmemory = getpagesize() * ruse.ru_minflt;
 
-        if (*topmemory > mem_lmt * STD_MB) {
+        if (*topmemory > mem_lmt * STD_MB)
+        {
             if (DEBUG)
                 printf("out of memory %d\n", *topmemory);
             if (*ACflg == OJ_AC)
@@ -888,17 +1004,19 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
             break;
         }
-        //sig = status >> 8;/*status >> 8 EXITCODE*/
+        // sig = status >> 8;/*status >> 8 EXITCODE*/
         if (WIFEXITED(status))
             break;
-        if ((lang == LANG_C || lang == LANG_CPP) && get_file_size("error.out")) {
+        if ((lang == LANG_C || lang == LANG_CPP) && get_file_size("error.out"))
+        {
             *ACflg = OJ_RE;
             addreinfo(solution_id);
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
             break;
         }
 
-        if (is_verify && !isspj && get_file_size(userfile) > get_file_size(outfile) * 2 + 1024) {
+        if (is_verify && !isspj && get_file_size(userfile) > get_file_size(outfile) * 2 + 1024)
+        {
             *ACflg = OJ_OL;
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
             break;
@@ -907,20 +1025,26 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
         exitcode = WEXITSTATUS(status);
         /*exitcode == 5 waiting for next CPU allocation
          * ruby using system to run,exit 17 ok
-         * Runtime Error:Unknown signal xxx need be added here  
+         * Runtime Error:Unknown signal xxx need be added here
          */
         if (((lang == LANG_JAVA || lang == LANG_PYTHON3) && exitcode == 17) ||
-            exitcode == 0x05 || exitcode == 0 || exitcode == 133) {
-            //go on and on
+            exitcode == 0x05 || exitcode == 0 || exitcode == 133)
+        {
+            // go on and on
             ;
-        } else {
-            if (DEBUG) {
+        }
+        else
+        {
+            if (DEBUG)
+            {
                 printf("status>>8=%d\n", exitcode);
             }
-            //psignal(exitcode, NULL);
+            // psignal(exitcode, NULL);
 
-            if (*ACflg == OJ_AC) {
-                switch (exitcode) {
+            if (*ACflg == OJ_AC)
+            {
+                switch (exitcode)
+                {
                 case SIGCHLD:
                 case SIGALRM:
                     alarm(0);
@@ -939,23 +1063,27 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
             break;
         }
-        if (WIFSIGNALED(status)) {
+        if (WIFSIGNALED(status))
+        {
             /* WIFSIGNALED: if the process is terminated by signal
              *
              * psignal(int sig, char *s)，like perror(char *s)，print out s,
-             * with error msg from system of sig  
+             * with error msg from system of sig
              * sig = 5 means Trace/breakpoint trap
              * sig = 11 means Segmentation fault
              * sig = 25 means File size limit exceeded
              */
             sig = WTERMSIG(status);
 
-            if (DEBUG) {
+            if (DEBUG)
+            {
                 printf("WTERMSIG=%d\n", sig);
                 psignal(sig, NULL);
             }
-            if (*ACflg == OJ_AC) {
-                switch (sig) {
+            if (*ACflg == OJ_AC)
+            {
+                switch (sig)
+                {
                 case SIGCHLD:
                 case SIGALRM:
                     alarm(0);
@@ -983,15 +1111,20 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
         // check the system calls
         ptrace(PTRACE_GETREGS, pidApp, NULL, &reg);
         call_id = (unsigned int)reg.REG_SYSCALL % CALL_ARRAY_SIZE;
-        if (call_counter[call_id]) {
-            //call_counter[reg.REG_SYSCALL]--;
-        } else if (record_call) {
+        if (call_counter[call_id])
+        {
+            // call_counter[reg.REG_SYSCALL]--;
+        }
+        else if (record_call)
+        {
             call_counter[call_id] = 1;
-        } else { //do not limit JVM syscall for using different JVM
+        }
+        else
+        { // do not limit JVM syscall for using different JVM
             *ACflg = OJ_RE;
             char error[BUFFER_SIZE];
             sprintf(error, "[ERROR] A not allowed system call.\nCall ID: %u",
-                call_id);
+                    call_id);
             write_log(error);
             print_runtimeerror(error);
             ptrace(PTRACE_KILL, pidApp, NULL, NULL);
@@ -1003,23 +1136,27 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
     *usedtime += (ruse.ru_stime.tv_sec * 1000 + ruse.ru_stime.tv_usec / 1000);
 }
 
-void clean_workdir(char * work_dir)
+void clean_workdir(char *work_dir)
 {
     umount(work_dir);
-    if (DEBUG) {
+    if (DEBUG)
+    {
         execute_cmd("/bin/rm -rf %s/log/* 2>/dev/null", work_dir);
         execute_cmd("mkdir %s/log/ 2>/dev/null", work_dir);
         execute_cmd("/bin/mv %s/* %s/log/ 2>/dev/null", work_dir, work_dir);
-    } else {
+    }
+    else
+    {
         execute_cmd("mkdir %s/log/ 2>/dev/null", work_dir);
         execute_cmd("/bin/mv %s/* %s/log/ 2>/dev/null", work_dir, work_dir);
         execute_cmd("/bin/rm -rf %s/log/* 2>/dev/null", work_dir);
     }
 }
 
-void init_parameters(int argc, char ** argv, int * solution_id, int * runner_id)
+void init_parameters(int argc, char **argv, int *solution_id, int *runner_id)
 {
-    if (argc < 3) {
+    if (argc < 3)
+    {
         fprintf(stderr, "Usage:%s solution_id runner_id.\n", argv[0]);
         fprintf(stderr, "Multi:%s solution_id runner_id judge_base_path.\n", argv[0]);
         fprintf(stderr, "Debug:%s solution_id runner_id judge_base_path debug.\n", argv[0]);
@@ -1028,11 +1165,13 @@ void init_parameters(int argc, char ** argv, int * solution_id, int * runner_id)
     DEBUG = argc > 4;
 
     int cnt = readlink("/proc/self/exe", oj_home, BUFFER_SIZE);
-    if (cnt < 0 || cnt >= BUFFER_SIZE) {
+    if (cnt < 0 || cnt >= BUFFER_SIZE)
+    {
         printf("Get work dir error\n");
         exit(1);
     }
-    while (oj_home[cnt] != '/' && cnt > 0) {
+    while (oj_home[cnt] != '/' && cnt > 0)
+    {
         cnt--;
     }
     oj_home[++cnt] = '\0';
@@ -1044,30 +1183,40 @@ void init_parameters(int argc, char ** argv, int * solution_id, int * runner_id)
     *runner_id = atoi(argv[2]);
 }
 
-void mk_shm_workdir(char * work_dir)
+void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
-    sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    int snp = snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("shm_path too long");
+    }
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);
     execute_cmd("chmod 755 %s ", shm_path);
-    //sim need a soft link in shm_dir to work correctly
-    sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    // sim need a soft link in shm_dir to work correctly
+    // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    snp = snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("shm_path too long");
+    }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
 
-int count_in_files(char * dirpath)
+int count_in_files(char *dirpath)
 {
-    const char * cmd = "ls -l %s/*.in|wc -l";
+    const char *cmd = "ls -l %s/*.in|wc -l";
     int ret = 0;
-    FILE * fjobs = read_cmd_output(cmd, dirpath);
+    FILE *fjobs = read_cmd_output(cmd, dirpath);
     fscanf(fjobs, "%d", &ret);
     pclose(fjobs);
     return ret;
 }
 
-void copy_data_file(char *work_dir,char *data_path, char * filename)
+void copy_data_file(char *work_dir, char *data_path, char *filename)
 {
     execute_cmd("/bin/cp %s/user.out %s/%s.out", work_dir, data_path,
                 filename);
@@ -1075,7 +1224,7 @@ void copy_data_file(char *work_dir,char *data_path, char * filename)
     execute_cmd("chown judge %s/*", data_path);
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     char work_dir[BUFFER_SIZE];
     int solution_id = 1000;
@@ -1086,12 +1235,19 @@ int main(int argc, char** argv)
 
     init_mysql_conf();
 
-    if (!init_mysql_conn()) {
-        exit(0); //exit if mysql is down
+    if (!init_mysql_conn())
+    {
+        exit(0); // exit if mysql is down
     }
-    //set work directory to start running & judging
-    sprintf(work_dir, "%srun/%d", oj_home, runner_id);
-    if (opendir(work_dir) == NULL) {
+    // set work directory to start running & judging
+    // sprintf(work_dir, "%srun/%d", oj_home, runner_id);
+    int snp = snprintf(work_dir, BUFFER_SIZE, "%srun/%d", oj_home, runner_id);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("work_dir too long");
+    }
+    if (opendir(work_dir) == NULL)
+    {
         execute_cmd("/bin/mkdir -p %s", work_dir);
         execute_cmd("/bin/chown judge %s ", work_dir);
         execute_cmd("chmod 777 %s ", work_dir);
@@ -1102,23 +1258,26 @@ int main(int argc, char** argv)
     chdir(work_dir);
     get_solution_info(solution_id, &problem_id, &lang);
 
-    //get the problem info
+    // get the problem info
     problem = get_problem_info(problem_id);
 
-    if (!is_verify) {
+    if (!is_verify)
+    {
         lang = problem.solution_lang;
     }
 
-    //java is lucky
-    // Clang Clang++ not VM or Script
-    if (lang >= 2) {
+    // java is lucky
+    //  Clang Clang++ not VM or Script
+    if (lang >= 2)
+    {
         // the limit for java
         problem.time_limit = problem.time_limit + java_time_bonus;
         problem.memory_limit = problem.memory_limit + java_memory_bonus;
         // copy java.policy
-        if (lang == LANG_JAVA) {
+        if (lang == LANG_JAVA)
+        {
             execute_cmd("/bin/cp %s/etc/java0.policy %s/java.policy", oj_home,
-                work_dir);
+                        work_dir);
             execute_cmd("chmod 755 %s/java.policy", work_dir);
             execute_cmd("chown judge %s/java.policy", work_dir);
         }
@@ -1126,14 +1285,17 @@ int main(int argc, char** argv)
 
     // compile
     // set the result to compiling
-    if (compile(lang, work_dir) != 0) {
+    if (compile(lang, work_dir) != 0)
+    {
         addceinfo(solution_id);
         update_solution(solution_id, OJ_CE, 0, 0);
         mysql_close(conn);
         clean_workdir(work_dir);
         write_log("[Solution ID: %d] Compile Error", solution_id);
         exit(0);
-    } else {
+    }
+    else
+    {
         update_solution(solution_id, OJ_RI, 0, 0);
         umount(work_dir);
     }
@@ -1145,21 +1307,30 @@ int main(int argc, char** argv)
     char filename[BUFFER_SIZE];
 
     // the fullpath of data dir
-    sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
+    // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
+    snp = snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("fullpath too long");
+    }
 
     // open DIRs
     DIR *dp;
     struct dirent *dirp;
-    if ((dp = opendir(fullpath)) == NULL) {
+    if ((dp = opendir(fullpath)) == NULL)
+    {
         write_log("No such test data dir:%s!\n", fullpath);
         mysql_close(conn);
         exit(-1);
-    } else if (!is_verify) {
+    }
+    else if (!is_verify)
+    {
         execute_cmd("/bin/rm -rf %s/*.out", fullpath);
     }
 
     int test_count = count_in_files(fullpath);
-    if (test_count == 0) {
+    if (test_count == 0)
+    {
         write_log("No input files!\n");
         mysql_close(conn);
         exit(-1);
@@ -1172,7 +1343,8 @@ int main(int argc, char** argv)
 
     // read files and run
     while ((run_result == OJ_AC || run_result == OJ_PE) &&
-           (dirp = readdir(dp)) != NULL) {
+           (dirp = readdir(dp)) != NULL)
+    {
         namelen = is_input_file(dirp->d_name);
         if (namelen == 0)
             continue;
@@ -1180,8 +1352,9 @@ int main(int argc, char** argv)
         strncpy(filename, dirp->d_name, namelen);
         filename[namelen] = 0;
         int tmp = prepare_files(filename, infile, problem_id, work_dir,
-                      outfile, userfile, runner_id);
-        if (tmp) {
+                                outfile, userfile, runner_id);
+        if (tmp)
+        {
             run_result = OJ_NT;
             break;
         }
@@ -1189,37 +1362,46 @@ int main(int argc, char** argv)
 
         pid_t pid = fork();
 
-        if (pid == 0) {
+        if (pid == 0)
+        {
             run_solution(problem, lang, work_dir, usedtime);
-        } else {
+        }
+        else
+        {
             watch_solution(problem, pid, infile, &run_result, userfile, outfile,
-                    solution_id, lang, &topmemory, &usedtime, is_pe, work_dir);
-            if (is_verify) {
+                           solution_id, lang, &topmemory, &usedtime, is_pe, work_dir);
+            if (is_verify)
+            {
                 judge_solution(problem, &run_result, usedtime, infile,
                                outfile, userfile, &is_pe, lang, work_dir, &topmemory,
                                solution_id);
-            } else {
+            }
+            else
+            {
                 copy_data_file(work_dir, fullpath, filename);
             }
 
             max_case_time =
-                        usedtime > max_case_time ? usedtime : max_case_time;
+                usedtime > max_case_time ? usedtime : max_case_time;
             usedtime = 0;
         }
     }
     if (run_result == OJ_AC && is_pe == OJ_PE)
         run_result = OJ_PE;
 
-    if (run_result == OJ_RE) {
+    if (run_result == OJ_RE)
+    {
         addreinfo(solution_id);
     }
     usedtime = max_case_time;
-    
-    if (run_result == OJ_TL) {
+
+    if (run_result == OJ_TL)
+    {
         usedtime = problem.time_limit * 1000;
     }
 
-    if (run_result == OJ_WA) {
+    if (run_result == OJ_WA)
+    {
         adddiffinfo(solution_id);
     }
 

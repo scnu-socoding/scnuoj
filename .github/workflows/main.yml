@@ -16,6 +16,7 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
+          - "8.3"
 
     steps:
       - name: "Checkout"
@@ -30,13 +31,13 @@ jobs:
           php-version: "${{ matrix.php-version }}"
 
       - name: "Lint PHP files"
-        run: "find ./ ! -path \"./vendor/*\"  -type f -name '*.php' -print0 | xargs -0 -L1 -P4 -- php -l -f"
+        run: 'find ./ ! -path "./vendor/*"  -type f -name ''*.php'' -print0 | xargs -0 -L1 -P4 -- php -l -f'
 
   phpstan:
     name: phpstan
 
     runs-on: ubuntu-latest
-    
+
     strategy:
       fail-fast: false
       matrix:
@@ -67,7 +68,7 @@ jobs:
           autoload_file: vendor/yiisoft/yii2/Yii.php
           memory_limit: 512M
           level: "1"
-          
+
   build-judger:
     name: build-judger
 
@@ -102,4 +103,3 @@ jobs:
     steps:
       - name: CI succeeded
         run: exit 0
-          

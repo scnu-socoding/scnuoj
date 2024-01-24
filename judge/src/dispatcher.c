@@ -53,20 +53,24 @@ static int sleep_tmp;
 static int oj_tot;
 static int oj_mod;
 
-
 static int oi_mode = 0;
 static bool STOP = false;
 static MYSQL *conn;
 static MYSQL_RES *res;
 static MYSQL_ROW row;
-//static FILE *fp_log;
+// static FILE *fp_log;
 static char query[BUFFER_SIZE];
 
-const char * judge_name = "judge";
+const char *judge_name = "judge";
 
 void call_for_exit(int s)
 {
     STOP = true;
+    if (conn != NULL)
+    {
+        mysql_close(conn);
+        conn = NULL;
+    }
     printf("Stopping judged...\n");
 }
 
@@ -76,7 +80,8 @@ void write_log(const char *fmt, ...)
     char buffer[4096];
     sprintf(buffer, "%s/log/client.log", oj_home);
     FILE *fp = fopen(buffer, "ae+");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         fprintf(stderr, "openfile error!\n");
         system("pwd");
     }
@@ -101,8 +106,10 @@ void init_mysql_conf()
     oj_mod = 0;
     strcpy(oj_lang_set, "0,1,2,3");
     fp = fopen("./config.ini", "r");
-    if (fp != NULL) {
-        while (fgets(buf, BUFFER_SIZE - 1, fp)) {
+    if (fp != NULL)
+    {
+        while (fgets(buf, BUFFER_SIZE - 1, fp))
+        {
             read_buf(buf, "OJ_HOST_NAME", db.host_name);
             read_buf(buf, "OJ_USER_NAME", db.user_name);
             read_buf(buf, "OJ_PASSWORD", db.password);
@@ -114,14 +121,25 @@ void init_mysql_conf()
             read_int(buf, "OJ_MOD", &oj_mod);
             read_buf(buf, "OJ_LANG_SET", oj_lang_set);
         }
-        sprintf(query,
-                "SELECT id FROM solution "
-                "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
-                "ORDER BY result ASC,id ASC limit %d",
-                oj_lang_set, oj_tot, oj_mod, max_running * 2);
+        // sprintf(query,
+        //         "SELECT id FROM solution "
+        //         "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
+        //         "ORDER BY result ASC,id ASC limit %d",
+        //         oj_lang_set, oj_tot, oj_mod, max_running * 2);
+        int snp = snprintf(query, BUFFER_SIZE,
+                           "SELECT id FROM solution "
+                           "WHERE language in (%s) and result<2 and MOD(id,%d)=%d "
+                           "ORDER BY result ASC,id ASC limit %d",
+                           oj_lang_set, oj_tot, oj_mod, max_running * 2);
+        if (snp < 0 || snp >= BUFFER_SIZE)
+        {
+            write_log("query path too long!\n");
+        }
         sleep_tmp = sleep_time;
         fclose(fp);
-    } else {
+    }
+    else
+    {
         printf("Can not open config.ini\n");
         exit(EXIT_FAILURE);
     }
@@ -166,46 +184,81 @@ void run_client(int runid, int clientid)
     execl(judge_path, judge_path, runidstr, clientidstr,
           oi_mode ? "-o" : "",
           DEBUG ? "-d" : "",
-          (char *) NULL);
+          (char *)NULL);
 }
+
+int init_mysql();
 
 int executesql(const char *sql)
 {
-    if (mysql_real_query(conn, sql, strlen(sql))) {
-        if (DEBUG) {
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     if (DEBUG)
+    //     {
+    //         write_log("%s", mysql_error(conn));
+    //     }
+    //     sleep(20);
+    //     conn = NULL;
+    //     return 1;
+    // }
+    // else
+    // {
+    //     return 0;
+    // }
+    int retry = 10;
+    while (mysql_real_query(conn, sql, strlen(sql)))
+    {
+        if (DEBUG)
             write_log("%s", mysql_error(conn));
-        }
-        sleep(20);
+        sleep(10);
         conn = NULL;
-        return 1;
-    } else {
-        return 0;
+        init_mysql();
+        if (retry-- <= 0)
+        {
+            return 1;
+        }
     }
+    return 0;
 }
 
 int init_mysql()
 {
-    if (conn == NULL) {
+    if (conn == NULL)
+    {
         // init the database connection
         conn = mysql_init(NULL);
         // connect the database
         const char timeout = 30;
         // set mysql unix socket
-        char * mysql_unix_port = db.mysql_unix_port;
-        if (strlen(mysql_unix_port) == 0) {
+        char *mysql_unix_port = db.mysql_unix_port;
+        if (strlen(mysql_unix_port) == 0)
+        {
             mysql_unix_port = NULL;
         }
         mysql_options(conn, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
-        if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
-                                db.db_name, db.port_number, mysql_unix_port, 0)) {
+        // if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
+        //                         db.db_name, db.port_number, mysql_unix_port, 0))
+        // {
+        //     if (DEBUG)
+        //         write_log("%s", mysql_error(conn));
+        //     sleep(2);
+        //     return 1;
+        // }
+        // else
+        // {
+        //     return executesql("set names utf8");
+        // }
+        while (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
+                                   db.db_name, db.port_number, mysql_unix_port, 0))
+        {
             if (DEBUG)
                 write_log("%s", mysql_error(conn));
-            sleep(2);
-            return 1;
-        } else {
-            return executesql("set names utf8");
+            sleep(10);
         }
-    } else {
+        return executesql("set names utf8");
+    }
+    else
+    {
         return executesql("commit");
     }
 }
@@ -227,23 +280,36 @@ FILE *read_cmd_output(const char *fmt, ...)
 
 int _get_jobs_mysql(int *jobs)
 {
-    if (mysql_real_query(conn, query, strlen(query))) {
+    // if (mysql_real_query(conn, query, strlen(query)))
+    // {
+    //     if (DEBUG)
+    //         write_log("%s", mysql_error(conn));
+    //     sleep(20);
+    //     return 0;
+    // }
+    while (mysql_real_query(conn, query, strlen(query)))
+    {
         if (DEBUG)
             write_log("%s", mysql_error(conn));
-        sleep(20);
-        return 0;
+        conn = NULL;
+        init_mysql();
+        sleep(10);
     }
     res = mysql_store_result(conn);
     int i = 0;
     int ret = 0;
-    while (res != NULL && (row = mysql_fetch_row(res)) != NULL) {
+    while (res != NULL && (row = mysql_fetch_row(res)) != NULL)
+    {
         jobs[i++] = atoi(row[0]);
     }
 
-    if (res != NULL && !executesql("commit")) {
-        mysql_free_result(res);  // free the memory
+    if (res != NULL && !executesql("commit"))
+    {
+        mysql_free_result(res); // free the memory
         res = NULL;
-    } else {
+    }
+    else
+    {
         i = 0;
     }
     ret = i;
@@ -267,15 +333,30 @@ bool check_out(int solution_id, int result)
             "UPDATE solution SET result=%d,time=0,memory=0,judgetime=NOW() "
             "WHERE id=%d and result<2 LIMIT 1",
             result, solution_id);
-    if (mysql_real_query(conn, sql, strlen(sql))) {
-        syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-        return false;
-    } else {
-        if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-            return true;
-        else
-            return false;
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+    //     return false;
+    // }
+    // else
+    // {
+    //     if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+    //         return true;
+    //     else
+    //         return false;
+    // }
+    while (mysql_real_query(conn, sql, strlen(sql)))
+    {
+        if (DEBUG)
+            write_log("%s", mysql_error(conn));
+        sleep(10);
+        conn = NULL;
+        init_mysql();
     }
+    if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+        return true;
+    else
+        return false;
 }
 
 int work()
@@ -290,65 +371,81 @@ int work()
 
     // sleep_time = sleep_tmp;
     // get the database info
-    if (!get_jobs(jobs)) {
+    if (!get_jobs(jobs))
+    {
         return 0;
     }
 
     // exec the submit
-    for (int j = 0; jobs[j] > 0; j++) {
+    for (int j = 0; jobs[j] > 0; j++)
+    {
         runid = jobs[j];
         if (runid % oj_tot != oj_mod)
             continue;
         if (DEBUG)
             write_log("Judging solution %d", runid);
         // if no more client can running
-        if (workcnt >= max_running) {
+        if (workcnt >= max_running)
+        {
             // wait 4 one child exit
             tmp_pid = waitpid(-1, NULL, 0);
 
             // get the client id
-            for (i = 0; i < max_running; i++) {
+            for (i = 0; i < max_running; i++)
+            {
                 // got the client id
-                if (ID[i] == tmp_pid) {
+                if (ID[i] == tmp_pid)
+                {
                     workcnt--;
                     retcnt++;
                     ID[i] = 0;
                     break;
                 }
             }
-        } else {  // have free client
-            for (i = 0; i < max_running; i++)  // find the client id
-                if (ID[i] == 0)
-                    break;  // got the client id
         }
-        if (i < max_running) {
-            if (workcnt < max_running && check_out(runid, OJ_CI)) {
+        else
+        {                                     // have free client
+            for (i = 0; i < max_running; i++) // find the client id
+                if (ID[i] == 0)
+                    break; // got the client id
+        }
+        if (i < max_running)
+        {
+            if (workcnt < max_running && check_out(runid, OJ_CI))
+            {
                 workcnt++;
-                ID[i] = fork();  // start to fork
-                if (ID[i] == 0) {
+                ID[i] = fork(); // start to fork
+                if (ID[i] == 0)
+                {
                     if (DEBUG)
                         write_log("<<=sid=%d===clientid=%d==>>\n", runid, i);
-                    run_client(runid, i);  // if the process is the son, run it
+                    run_client(runid, i); // if the process is the son, run it
                     exit(0);
                 }
-            } else {
+            }
+            else
+            {
                 ID[i] = 0;
             }
         }
     }
-    while ((tmp_pid = waitpid(-1, NULL, 0)) > 0) {
-        for (i = 0; i < max_running; i++) {  // get the client id
-            if (ID[i] == tmp_pid) {
+    while ((tmp_pid = waitpid(-1, NULL, 0)) > 0)
+    {
+        for (i = 0; i < max_running; i++)
+        { // get the client id
+            if (ID[i] == tmp_pid)
+            {
                 workcnt--;
                 retcnt++;
                 ID[i] = 0;
-                break;  // got the client id
+                break; // got the client id
             }
         }
         printf("tmp_pid = %d\n", tmp_pid);
     }
-    if (res != NULL) {
-        mysql_free_result(res);  // free the memory
+    if (res != NULL)
+    {
+        mysql_free_result(res); // free the memory
         res = NULL;
     }
     executesql("commit");
@@ -368,18 +465,21 @@ int lockfile(int fd)
     return fcntl(fd, F_SETLK, &fl);
 }
 
-// Returns 1 if the daemon is running, otherwise returns 0. 
+// Returns 1 if the daemon is running, otherwise returns 0.
 int already_running()
 {
     char buf[16];
     int fd = open(lock_file, O_RDWR | O_CREAT, LOCKMODE);
-    if (fd < 0) {
+    if (fd < 0)
+    {
         syslog(LOG_ERR | LOG_DAEMON, "Can't open %s: %s", LOCKFILE,
                strerror(errno));
         exit(1);
     }
-    if (lockfile(fd) < 0) {
-        if (errno == EACCES || errno == EAGAIN) {
+    if (lockfile(fd) < 0)
+    {
+        if (errno == EACCES || errno == EAGAIN)
+        {
             close(fd);
             return 1;
         }
@@ -400,20 +500,21 @@ int daemon_init(void)
     if ((pid = fork()) < 0)
         return -1;
     else if (pid != 0)
-        exit(0);  // parent exit
+        exit(0); // parent exit
 
     // child continues
-    setsid();  // become session leader
-    chdir(oj_home);  // change working directory
-    umask(0);  // clear file mode creation mask
-    close(0);  // close stdin
-    close(1);  // close stdout
-    close(2);  // close stderr
+    setsid();       // become session leader
+    chdir(oj_home); // change working directory
+    umask(0);       // clear file mode creation mask
+    close(0);       // close stdin
+    close(1);       // close stdout
+    close(2);       // close stderr
     int fd = open("/dev/null", O_RDWR);
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
-    if (fd > 2) {
+    if (fd > 2)
+    {
         close(fd);
     }
     return 0;
@@ -423,25 +524,29 @@ void turbo_mode2()
 {
     char sql[BUFFER_SIZE];
     sprintf(sql, " CALL `sync_result`();");
-    if (mysql_real_query(conn, sql, strlen(sql)));
+    if (mysql_real_query(conn, sql, strlen(sql)))
+        ;
 }
 
 void set_path()
 {
     // Get current path
     int cnt = readlink("/proc/self/exe", oj_home, BUFFER_SIZE);
-    if (cnt < 0 || cnt >= BUFFER_SIZE) {
+    if (cnt < 0 || cnt >= BUFFER_SIZE)
+    {
         printf("Get work dir error\n");
         exit(1);
     }
-    while (oj_home[cnt] != '/' && cnt > 0) {
+    while (oj_home[cnt] != '/' && cnt > 0)
+    {
         cnt--;
     }
     oj_home[++cnt] = '\0';
 
     strcpy(judge_path, oj_home);
     int len = strlen(judge_name);
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++)
+    {
         judge_path[cnt] = judge_name[i];
         cnt++;
     }
@@ -465,23 +570,24 @@ void init_parameters(int argc, char *argv[])
 {
     int ch;
     struct option long_options[] = {
-        {"debug", no_argument, 0,  'd'},
-        {"oi",  no_argument, 0, 'o'},
-        {"help",  no_argument, 0, 'h'}
-    };
-    while ((ch = getopt_long(argc, argv, "doh", long_options, 0)) != -1) {
-        switch (ch) {
-            case 'o':
-                oi_mode = 1;
-                printf("Enable OI mode.\n");
-                break;
-            case 'd':
-                DEBUG = 1;
-                printf("Enable DEBUG mode.\n");
-                break;
-            case 'h':
-                display_usage();
-                exit(1);
+        {"debug", no_argument, 0, 'd'},
+        {"oi", no_argument, 0, 'o'},
+        {"help", no_argument, 0, 'h'}};
+    while ((ch = getopt_long(argc, argv, "doh", long_options, 0)) != -1)
+    {
+        switch (ch)
+        {
+        case 'o':
+            oi_mode = 1;
+            printf("Enable OI mode.\n");
+            break;
+        case 'd':
+            DEBUG = 1;
+            printf("Enable DEBUG mode.\n");
+            break;
+        case 'h':
+            display_usage();
+            exit(1);
         }
     }
 }
@@ -491,28 +597,36 @@ int main(int argc, char *argv[])
     set_path();
     chdir(oj_home); // change the dir
 
-    sprintf(lock_file, "%s/etc/judge.pid", oj_home);
+    // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
+    int snp = snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("lock_file path too long!\n");
+    }
     if (!DEBUG)
         daemon_init();
-    if (already_running()) {
+    if (already_running())
+    {
         syslog(LOG_ERR | LOG_DAEMON,
-            "This daemon program is already running!\n");
+               "This daemon program is already running!\n");
         printf("Already has one dispatcher on it!\n");
         return 1;
     }
     if (!DEBUG)
         system("/sbin/iptables -A OUTPUT -m owner --uid-owner judge -j DROP");
 
-    init_mysql_conf();  // set the database info
-    
+    init_mysql_conf(); // set the database info
+
     signal(SIGQUIT, call_for_exit);
     signal(SIGKILL, call_for_exit);
     signal(SIGTERM, call_for_exit);
 
     // start to run
-    for (;;) {
+    for (;;)
+    {
         int j = 1;
-        while (j && !init_mysql()) {
+        while (j && !init_mysql())
+        {
             j = work();
         }
         turbo_mode2();
