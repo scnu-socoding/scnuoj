@@ -1488,6 +1488,7 @@ int main(int argc, char **argv)
 
     if (!init_mysql_conn())
     {
+        write_log("mysql init error\n");
         exit(0); // exit if mysql is down
     }
 
