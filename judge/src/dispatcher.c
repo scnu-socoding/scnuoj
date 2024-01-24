@@ -291,9 +291,9 @@ int _get_jobs_mysql(int *jobs)
     {
         if (DEBUG)
             write_log("%s", mysql_error(conn));
+        sleep(10);
         conn = NULL;
         init_mysql();
-        sleep(10);
     }
     res = mysql_store_result(conn);
     int i = 0;
