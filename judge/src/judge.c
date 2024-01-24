@@ -35,7 +35,7 @@
 #include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
@@ -138,7 +138,7 @@ void write_log(const char *fmt, ...)
     va_list ap;
     char buffer[BUFFER_SIZE];
     // sprintf(buffer, "%s/log/client.log", oj_home);
-    if (snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home) > BUFFER_SIZE)
+    if (snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home) < 0)
     {
         write_log("buffer overflow");
     }
@@ -198,7 +198,7 @@ void init_mysql_conf()
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
     // sprintf(buf, "%s/config.ini", oj_home);
-    if (snprintf(buf, BUFFER_SIZE, "%s/config.ini", oj_home) > BUFFER_SIZE)
+    if (snprintf(buf, BUFFER_SIZE, "%s/config.ini", oj_home) < 0)
     {
         write_log("buffer overflow");
     }
@@ -1251,7 +1251,7 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir) > BUFFER_SIZE)
+    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir) < 0)
     {
         printf("shm_path is too long\n");
     }
@@ -1261,7 +1261,7 @@ void mk_shm_workdir(char *work_dir)
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
     // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
-    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > BUFFER_SIZE)
+    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) < 0)
     {
         printf("shm_path is too long\n");
     }
@@ -1391,7 +1391,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
             {
                 subtask_node->test_input_name[j] = (char *)malloc(sizeof(char) * NAME_MAX);
                 // snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
-                if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i) > NAME_MAX)
+                if (snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i) < 0)
                 {
                     printf("name_prefix is too long\n");
                 }
@@ -1401,7 +1401,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
         {
             subtask_node->test_input_name[0] = (char *)malloc(sizeof(char) * NAME_MAX);
             // snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
-            if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix) > NAME_MAX)
+            if (snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix) < 0)
             {
                 printf("name_prefix is too long\n");
             }
@@ -1488,7 +1488,7 @@ int main(int argc, char **argv)
 
     // set work directory to start running & judging
     // sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
-    if (snprintf(work_dir, BUFFER_SIZE, "%srun/%d/", oj_home, runner_id) > BUFFER_SIZE)
+    if (snprintf(work_dir, BUFFER_SIZE, "%srun/%d/", oj_home, runner_id) < 0)
     {
         printf("work_dir is too long\n");
     }
@@ -1560,11 +1560,11 @@ int main(int argc, char **argv)
     // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
     // sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
 
-    if (snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) > BUFFER_SIZE)
+    if (snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) < 0)
     {
         printf("fullpath is too long\n");
     }
-    if (snprintf(oi_substask_configfile, BUFFER_SIZE, "%sdata/%d/config", oj_home, problem_id) > BUFFER_SIZE)
+    if (snprintf(oi_substask_configfile, BUFFER_SIZE, "%sdata/%d/config", oj_home, problem_id) < 0)
     {
         printf("oi_substask_configfile is too long\n");
     }

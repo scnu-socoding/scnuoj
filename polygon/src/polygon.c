@@ -135,7 +135,7 @@ void init_mysql_conf()
                      "SELECT id FROM polygon_status "
                      "WHERE result<2 and MOD(id,%d)=%d "
                      "ORDER BY result ASC,id ASC limit %d",
-                     oj_tot, oj_mod, max_running * 2) > BUFFER_SIZE)
+                     oj_tot, oj_mod, max_running * 2) < 0)
         {
             printf("query buffer overflow\n");
         }
@@ -568,7 +568,7 @@ int main(int argc, char *argv[])
     chdir(oj_home); // change the dir
 
     // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
-    if (snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home) > BUFFER_SIZE)
+    if (snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home) < 0)
     {
         printf("lock_file buffer overflow\n");
     }
