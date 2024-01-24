@@ -1485,7 +1485,7 @@ int main(int argc, char **argv)
     subtask_struct *subtask_list; // 子任务链表
     double score = 0;             // OI mode score
     init_parameters(argc, argv, &solution_id, &runner_id);
-
+    write_log("[Solution ID: %d] start judging", solution_id);
     init_mysql_conf();
 
     if (!init_mysql_conn())
