@@ -368,8 +368,8 @@ int work()
                 ID[i] = fork(); // start to fork
                 if (ID[i] == 0)
                 {
-                    if (DEBUG)
-                        write_log("<<=sid=%d===clientid=%d==>>\n", runid, i);
+                    // if (DEBUG)
+                    write_log("<<=sid=%d===clientid=%d==>>\n", runid, i);
                     run_client(runid, i); // if the process is the son, run it
                     exit(0);
                 }
