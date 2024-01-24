@@ -208,7 +208,6 @@ void init_mysql_conf()
             read_int(buf, "OJ_FULL_DIFF", &full_diff);
             read_int(buf, "OJ_SHM_RUN", &shm_run);
             read_int(buf, "OJ_COMPILE_CHROOT", &compile_chroot);
-            read_int(buf, "OJ_USE_PTRACE", &use_ptrace);
         }
         fclose(fp);
     }
