@@ -501,7 +501,7 @@ int compile(int lang, char *work_dir)
 
         if (DEBUG)
             printf("Compile end!\n");
-        write_log("Compile end!");
+        // write_log("Compile end!");
         exit(0);
     }
     else
@@ -513,7 +513,7 @@ int compile(int lang, char *work_dir)
             status = get_file_size("ce.txt");
         if (DEBUG)
             printf("status = %d\n", status);
-        write_log("status = %d\n", status);
+        // write_log("status = %d\n", status);
         execute_cmd("/bin/umount -f bin usr lib lib64 etc/alternatives proc dev 2>/dev/null");
         execute_cmd("/bin/umount -f %s/* 2>/dev/null", work_dir);
         umount(work_dir);
@@ -1543,6 +1543,7 @@ int main(int argc, char **argv)
 
     // compile
     // set the result to compiling
+    write_log("[Solution ID: %d] Compiling", solution_id);
     if (compile(lang, work_dir) != 0)
     {
         addceinfo(solution_id);
@@ -1568,7 +1569,6 @@ int main(int argc, char **argv)
     // the fullpath of data dir
     // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
     // sprintf(oi_substask_configfile, "%sdata/%d/config", oj_home, problem_id);
-
     snp = snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
@@ -1655,7 +1655,7 @@ int main(int argc, char **argv)
     subtask_struct *subtask_node = subtask_list;
     int test_result_rec[OJ_NT + 1]; // 记录各个测试点的通过结果的数量
     memset(test_result_rec, 0, sizeof(test_result_rec));
-
+    write_log("[Solution ID: %d] Judging", solution_id);
     // 遍历子任务链表
     while (subtask_node->next != NULL)
     {
