@@ -9,33 +9,39 @@
 
 int DEBUG = 0;
 
-struct database {
+struct database
+{
     char host_name[LENGTH];
     char user_name[LENGTH];
     char password[LENGTH];
     char db_name[LENGTH];
-    char mysql_unix_port[LENGTH]; //连接 mysql sock文件路径
+    char mysql_unix_port[LENGTH]; // 连接 mysql sock文件路径
     int port_number;
 } db;
 
+typedef struct
+{
+    char key[50];
+    char value[LENGTH];
+} kvPair;
 
-#define OJ_WT0 0 // Pending 
-#define OJ_WT1 1 // Pending_Rejudging  
-#define OJ_CI 2  // Compiling  
-#define OJ_RI 3  // Running_Judging  
-#define OJ_AC 4  // Accepted  
-#define OJ_PE 5  // Presentation Error  
-#define OJ_WA 6  // Wrong Answer  
-#define OJ_TL 7  // Time Limit Exceeded  
-#define OJ_ML 8  // Memory Limit Exceeded  
-#define OJ_OL 9  // Output Limit Exceeded  
-#define OJ_RE 10 // Runtime Error  
-#define OJ_CE 11 // Compilation Error  
+#define OJ_WT0 0 // Pending
+#define OJ_WT1 1 // Pending_Rejudging
+#define OJ_CI 2  // Compiling
+#define OJ_RI 3  // Running_Judging
+#define OJ_AC 4  // Accepted
+#define OJ_PE 5  // Presentation Error
+#define OJ_WA 6  // Wrong Answer
+#define OJ_TL 7  // Time Limit Exceeded
+#define OJ_ML 8  // Memory Limit Exceeded
+#define OJ_OL 9  // Output Limit Exceeded
+#define OJ_RE 10 // Runtime Error
+#define OJ_CE 11 // Compilation Error
 #define OJ_SE 12 // System Error
 #define OJ_NT 13 // No Testdata
 
-//读取配置文件时寻找等号
-int after_equal(char * c)
+// 读取配置文件时寻找等号
+int after_equal(char *c)
 {
     int i = 0;
     for (; c[i] != '\0' && c[i] != '='; i++)
@@ -43,7 +49,7 @@ int after_equal(char * c)
     return ++i;
 }
 
-//读取配置文件时去除空格
+// 读取配置文件时去除空格
 void trim(char *c)
 {
     char buf[LENGTH];
@@ -61,7 +67,8 @@ void trim(char *c)
 
 bool read_buf(char *buf, const char *key, char *value)
 {
-    if (strncmp(buf, key, strlen(key)) == 0) {
+    if (strncmp(buf, key, strlen(key)) == 0)
+    {
         strcpy(value, buf + after_equal(buf));
         trim(value);
         if (DEBUG)
@@ -76,6 +83,34 @@ void read_int(char *buf, const char *key, int *value)
     char buf2[LENGTH];
     if (read_buf(buf, key, buf2))
         sscanf(buf2, "%d", value);
+}
+
+void parseLine(char *line, kvPair *kv)
+{
+    char *equals = strchr(line, '=');
+    if (equals)
+    {
+        *equals = '\0';
+        trim(equals + 1);
+        strcpy(kv->key, line);
+        strcpy(kv->value, equals + 1);
+    }
+}
+
+void read_kv(kvPair *kv, const char *key, char *value)
+{
+    if (strncmp(kv->key, key, strlen(key)) == 0)
+    {
+        strcpy(value, kv->value);
+    }
+}
+
+void read_kv_int(kvPair *kv, const char *key, int *value)
+{
+    if (strncmp(kv->key, key, strlen(key)) == 0)
+    {
+        sscanf(kv->value, "%d", value);
+    }
 }
 
 #endif

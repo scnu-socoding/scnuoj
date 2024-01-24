@@ -117,7 +117,11 @@ void write_log(const char *fmt, ...)
     va_list ap;
     char buffer[BUFFER_SIZE];
     // sprintf(buffer, "%s/log/client.log", oj_home);
-    if (snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home) < 0)
+    int snp = snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
+    {
+        write_log("buffer overflow!");
+    }
     {
         write_log("buffer overflow!");
     }
@@ -194,30 +198,54 @@ void init_mysql_conf()
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
     // sprintf(buf, "%s/config.ini", oj_home);
-    if (snprintf(buf, BUFFER_SIZE, "%s/config.ini", oj_home) < 0)
+    int snp = snprintf(buf, BUFFER_SIZE, "%s/config.ini", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("buffer overflow!");
     }
     fp = fopen("./config.ini", "re");
     if (fp != NULL)
     {
+        // while (fgets(buf, BUFFER_SIZE - 1, fp))
+        // {
+        //     read_buf(buf, "OJ_HOST_NAME", db.host_name);
+        //     read_buf(buf, "OJ_USER_NAME", db.user_name);
+        //     read_buf(buf, "OJ_PASSWORD", db.password);
+        //     read_buf(buf, "OJ_DB_NAME", db.db_name);
+        //     read_buf(buf, "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
+        //     read_int(buf, "OJ_PORT_NUMBER", &db.port_number);
+        //     read_int(buf, "OJ_JAVA_TIME_BONUS", &java_time_bonus);
+        //     read_int(buf, "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
+        //     read_buf(buf, "OJ_JAVA_XMS", java_xms);
+        //     read_buf(buf, "OJ_JAVA_XMX", java_xmx);
+        //     read_int(buf, "OJ_FULL_DIFF", &full_diff);
+        //     read_int(buf, "OJ_SHM_RUN", &shm_run);
+        //     read_int(buf, "OJ_COMPILE_CHROOT", &compile_chroot);
+        // }
+        kvPair kv[20];
+        int i = 0;
         while (fgets(buf, BUFFER_SIZE - 1, fp))
         {
-            read_buf(buf, "OJ_HOST_NAME", db.host_name);
-            read_buf(buf, "OJ_USER_NAME", db.user_name);
-            read_buf(buf, "OJ_PASSWORD", db.password);
-            read_buf(buf, "OJ_DB_NAME", db.db_name);
-            read_buf(buf, "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
-            read_int(buf, "OJ_PORT_NUMBER", &db.port_number);
-            read_int(buf, "OJ_JAVA_TIME_BONUS", &java_time_bonus);
-            read_int(buf, "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
-            read_buf(buf, "OJ_JAVA_XMS", java_xms);
-            read_buf(buf, "OJ_JAVA_XMX", java_xmx);
-            read_int(buf, "OJ_FULL_DIFF", &full_diff);
-            read_int(buf, "OJ_SHM_RUN", &shm_run);
-            read_int(buf, "OJ_COMPILE_CHROOT", &compile_chroot);
+            parseLine(buf, &kv[i++]);
         }
         fclose(fp);
+        while (i--)
+        {
+            read_kv(&kv[i], "OJ_HOST_NAME", db.host_name);
+            read_kv(&kv[i], "OJ_USER_NAME", db.user_name);
+            read_kv(&kv[i], "OJ_PASSWORD", db.password);
+            read_kv(&kv[i], "OJ_DB_NAME", db.db_name);
+            read_kv(&kv[i], "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
+            read_kv_int(&kv[i], "OJ_PORT_NUMBER", &db.port_number);
+            read_kv_int(&kv[i], "OJ_JAVA_TIME_BONUS", &java_time_bonus);
+            read_kv_int(&kv[i], "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
+            read_kv(&kv[i], "OJ_JAVA_XMS", java_xms);
+            read_kv(&kv[i], "OJ_JAVA_XMX", java_xmx);
+            read_kv_int(&kv[i], "OJ_FULL_DIFF", &full_diff);
+            read_kv_int(&kv[i], "OJ_SHM_RUN", &shm_run);
+            read_kv_int(&kv[i], "OJ_COMPILE_CHROOT", &compile_chroot);
+            read_kv_int(&kv[i], "OJ_USE_PTRACE", &use_ptrace);
+        }
     }
 }
 
@@ -1159,7 +1187,8 @@ void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
     // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
-    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir) < 0)
+    int snp = nprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("shm_path too long");
     }
@@ -1169,7 +1198,8 @@ void mk_shm_workdir(char *work_dir)
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
     // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
-    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) < 0)
+    snp = nprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("shm_path too long");
     }
@@ -1211,7 +1241,8 @@ int main(int argc, char **argv)
     }
     // set work directory to start running & judging
     // sprintf(work_dir, "%srun/%d", oj_home, runner_id);
-    if (snprintf(work_dir, BUFFER_SIZE, "%srun/%d", oj_home, runner_id) < 0)
+    int snp = snprintf(work_dir, BUFFER_SIZE, "%srun/%d", oj_home, runner_id);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("work_dir too long");
     }
@@ -1277,7 +1308,8 @@ int main(int argc, char **argv)
 
     // the fullpath of data dir
     // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
-    if (snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) < 0)
+    snp = snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("fullpath too long");
     }

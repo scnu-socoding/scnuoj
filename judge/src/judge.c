@@ -252,6 +252,7 @@ void init_mysql_conf()
             read_kv_int(&kv[i], "OJ_FULL_DIFF", &full_diff);
             read_kv_int(&kv[i], "OJ_SHM_RUN", &shm_run);
             read_kv_int(&kv[i], "OJ_COMPILE_CHROOT", &compile_chroot);
+            read_kv_int(&kv[i], "OJ_USE_PTRACE", &use_ptrace);
         }
     }
 }
@@ -1515,15 +1516,15 @@ int main(int argc, char **argv)
     subtask_struct *subtask_list; // 子任务链表
     double score = 0;             // OI mode score
     init_parameters(argc, argv, &solution_id, &runner_id);
-    write_log("[Solution ID: %d] start judging", solution_id);
+    // write_log("[Solution ID: %d] start judging", solution_id);
     init_mysql_conf();
-    write_log("[Solution ID: %d] mysql conf init success", solution_id);
+    // write_log("[Solution ID: %d] mysql conf init success", solution_id);
     if (!init_mysql_conn())
     {
         write_log("mysql init error\n");
         exit(0); // exit if mysql is down
     }
-    write_log("[Solution ID: %d] mysql init success", solution_id);
+    // write_log("[Solution ID: %d] mysql init success", solution_id);
     // set work directory to start running & judging
     // sprintf(work_dir, "%srun/%d/", oj_home, runner_id);
     int snp = snprintf(work_dir, BUFFER_SIZE, "%srun/%d/", oj_home, runner_id);
@@ -1547,7 +1548,7 @@ int main(int argc, char **argv)
 
     // get the limit
     problem = get_problem_info(problem_id);
-    write_log("[Solution ID: %d] get info success", solution_id);
+    // write_log("[Solution ID: %d] get info success", solution_id);
     // java is lucky
     //  Clang Clang++ not VM or Script
     if (lang >= 2)
@@ -1573,7 +1574,7 @@ int main(int argc, char **argv)
 
     // compile
     // set the result to compiling
-    write_log("[Solution ID: %d] Compiling", solution_id);
+    // write_log("[Solution ID: %d] Compiling", solution_id);
     if (compile(lang, work_dir) != 0)
     {
         addceinfo(solution_id);
@@ -1685,7 +1686,7 @@ int main(int argc, char **argv)
     subtask_struct *subtask_node = subtask_list;
     int test_result_rec[OJ_NT + 1]; // 记录各个测试点的通过结果的数量
     memset(test_result_rec, 0, sizeof(test_result_rec));
-    write_log("[Solution ID: %d] Judging", solution_id);
+    // write_log("[Solution ID: %d] Judging", solution_id);
     // 遍历子任务链表
     while (subtask_node->next != NULL)
     {
