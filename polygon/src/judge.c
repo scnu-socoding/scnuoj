@@ -34,7 +34,7 @@
 #include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
@@ -115,8 +115,12 @@ long get_file_size(const char *filename)
 void write_log(const char *fmt, ...)
 {
     va_list ap;
-    char buffer[4096];
-    sprintf(buffer, "%s/log/client.log", oj_home);
+    char buffer[BUFFER_SIZE];
+    // sprintf(buffer, "%s/log/client.log", oj_home);
+    if (snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home) > BUFFER_SIZE)
+    {
+        write_log("buffer overflow!");
+    }
     FILE *fp = fopen(buffer, "ae+");
     if (fp == NULL)
     {
@@ -189,7 +193,11 @@ void init_mysql_conf()
     sleep_time = 3;
     strcpy(java_xms, "-Xms32m");
     strcpy(java_xmx, "-Xmx256m");
-    sprintf(buf, "%s/config.ini", oj_home);
+    // sprintf(buf, "%s/config.ini", oj_home);
+    if (snprintf(buf, BUFFER_SIZE, "%s/config.ini", oj_home) > BUFFER_SIZE)
+    {
+        write_log("buffer overflow!");
+    }
     fp = fopen("./config.ini", "re");
     if (fp != NULL)
     {
@@ -1150,13 +1158,21 @@ void init_parameters(int argc, char **argv, int *solution_id, int *runner_id)
 void mk_shm_workdir(char *work_dir)
 {
     char shm_path[BUFFER_SIZE];
-    sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    // sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir) > BUFFER_SIZE)
+    {
+        write_log("shm_path too long");
+    }
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);
     execute_cmd("chmod 755 %s ", shm_path);
     // sim need a soft link in shm_dir to work correctly
-    sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    // sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    if (snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home) > BUFFER_SIZE)
+    {
+        write_log("shm_path too long");
+    }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
 
@@ -1194,7 +1210,11 @@ int main(int argc, char **argv)
         exit(0); // exit if mysql is down
     }
     // set work directory to start running & judging
-    sprintf(work_dir, "%srun/%d", oj_home, runner_id);
+    // sprintf(work_dir, "%srun/%d", oj_home, runner_id);
+    if (snprintf(work_dir, BUFFER_SIZE, "%srun/%d", oj_home, runner_id) > BUFFER_SIZE)
+    {
+        write_log("work_dir too long");
+    }
     if (opendir(work_dir) == NULL)
     {
         execute_cmd("/bin/mkdir -p %s", work_dir);
@@ -1256,7 +1276,11 @@ int main(int argc, char **argv)
     char filename[BUFFER_SIZE];
 
     // the fullpath of data dir
-    sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
+    // sprintf(fullpath, "%sdata/%d", oj_home, problem_id);
+    if (snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id) > BUFFER_SIZE)
+    {
+        write_log("fullpath too long");
+    }
 
     // open DIRs
     DIR *dp;

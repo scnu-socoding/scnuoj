@@ -126,11 +126,19 @@ void init_mysql_conf()
             read_buf(buf, "OJ_REDISAUTH", oj_redisauth);
             read_buf(buf, "OJ_REDISQNAME", oj_redisqname);
         }
-        sprintf(query,
-                "SELECT id FROM polygon_status "
-                "WHERE result<2 and MOD(id,%d)=%d "
-                "ORDER BY result ASC,id ASC limit %d",
-                oj_tot, oj_mod, max_running * 2);
+        // sprintf(query,
+        //         "SELECT id FROM polygon_status "
+        //         "WHERE result<2 and MOD(id,%d)=%d "
+        //         "ORDER BY result ASC,id ASC limit %d",
+        //         oj_tot, oj_mod, max_running * 2);
+        if (snprintf(query, BUFFER_SIZE,
+                     "SELECT id FROM polygon_status "
+                     "WHERE result<2 and MOD(id,%d)=%d "
+                     "ORDER BY result ASC,id ASC limit %d",
+                     oj_tot, oj_mod, max_running * 2) > BUFFER_SIZE)
+        {
+            printf("query buffer overflow\n");
+        }
         sleep_tmp = sleep_time;
         fclose(fp);
     }
@@ -559,7 +567,12 @@ int main(int argc, char *argv[])
     set_path();
     chdir(oj_home); // change the dir
 
-    sprintf(lock_file, "%s/etc/judge.pid", oj_home);
+    // sprintf(lock_file, "%s/etc/judge.pid", oj_home);
+    if (snprintf(lock_file, BUFFER_SIZE, "%s/etc/judge.pid", oj_home) > BUFFER_SIZE)
+    {
+        printf("lock_file buffer overflow\n");
+    }
+
     if (!DEBUG)
         daemon_init();
     if (already_running())
