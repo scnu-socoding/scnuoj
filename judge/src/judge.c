@@ -204,6 +204,11 @@ void init_mysql_conf()
         write_log("buffer overflow");
     }
     fp = fopen("./config.ini", "re");
+    while (fp == NULL)
+    {
+        sleep(1);
+        fp = fopen("./config.ini", "re");
+    }
     if (fp != NULL)
     {
         while (fgets(buf, BUFFER_SIZE - 1, fp))
