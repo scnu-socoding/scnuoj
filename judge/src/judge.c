@@ -1255,7 +1255,7 @@ void mk_shm_workdir(char *work_dir)
     int snp = snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", work_dir);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
-        printf("shm_path is too long\n");
+        write_log("shm_path is too long\n");
     }
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
@@ -1266,7 +1266,7 @@ void mk_shm_workdir(char *work_dir)
     snp = snprintf(shm_path, BUFFER_SIZE, "/dev/shm/jnoj%s", oj_home);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
-        printf("shm_path is too long\n");
+        write_log("shm_path is too long\n");
     }
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
@@ -1397,7 +1397,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
                 int snp = snprintf(subtask_node->test_input_name[j], NAME_MAX, "%s%d.in", name_prefix, i);
                 if (snp < 0 || snp >= NAME_MAX)
                 {
-                    printf("name_prefix is too long\n");
+                    write_log("name_prefix is too long\n");
                 }
             }
         }
@@ -1408,7 +1408,7 @@ subtask_struct *read_oi_mode_substask_configfile(char *configfile_path)
             int snp = snprintf(subtask_node->test_input_name[0], NAME_MAX, "%s.in", name_prefix);
             if (snp < 0 || snp >= NAME_MAX)
             {
-                printf("name_prefix is too long\n");
+                write_log("name_prefix is too long\n");
             }
         }
         subtask_rear->next = subtask_node;
@@ -1496,7 +1496,7 @@ int main(int argc, char **argv)
     int snp = snprintf(work_dir, BUFFER_SIZE, "%srun/%d/", oj_home, runner_id);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
-        printf("work_dir is too long\n");
+        write_log("work_dir is too long\n");
     }
     if (opendir(work_dir) == NULL)
     {
@@ -1569,12 +1569,12 @@ int main(int argc, char **argv)
     snp = snprintf(fullpath, BUFFER_SIZE, "%sdata/%d", oj_home, problem_id);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
-        printf("fullpath is too long\n");
+        write_log("fullpath is too long\n");
     }
     snp = snprintf(oi_substask_configfile, BUFFER_SIZE, "%sdata/%d/config", oj_home, problem_id);
     if (snp < 0 || snp >= BUFFER_SIZE)
     {
-        printf("oi_substask_configfile is too long\n");
+        write_log("oi_substask_configfile is too long\n");
     }
 
     // open DIRs
