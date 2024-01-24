@@ -71,6 +71,11 @@ const char *judge_name = "judge";
 void call_for_exit(int s)
 {
     STOP = true;
+    if (conn != NULL)
+    {
+        mysql_close(conn);
+        conn = NULL;
+    }
     printf("Stopping judged...\n");
 }
 
@@ -222,18 +227,26 @@ int init_mysql()
             mysql_unix_port = NULL;
         }
         mysql_options(conn, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
-        if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
-                                db.db_name, db.port_number, mysql_unix_port, 0))
+        // if (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
+        //                         db.db_name, db.port_number, mysql_unix_port, 0))
+        // {
+        //     if (DEBUG)
+        //         write_log("%s", mysql_error(conn));
+        //     sleep(2);
+        //     return 1;
+        // }
+        // else
+        // {
+        //     return executesql("set names utf8");
+        // }
+        while (!mysql_real_connect(conn, db.host_name, db.user_name, db.password,
+                                   db.db_name, db.port_number, mysql_unix_port, 0))
         {
             if (DEBUG)
                 write_log("%s", mysql_error(conn));
-            sleep(2);
-            return 1;
+            sleep(10);
         }
-        else
-        {
-            return executesql("set names utf8");
-        }
+        return executesql("set names utf8");
     }
     else
     {
