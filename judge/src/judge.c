@@ -501,6 +501,7 @@ int compile(int lang, char *work_dir)
 
         if (DEBUG)
             printf("Compile end!\n");
+        write_log("Compile end!");
         exit(0);
     }
     else
@@ -512,6 +513,7 @@ int compile(int lang, char *work_dir)
             status = get_file_size("ce.txt");
         if (DEBUG)
             printf("status = %d\n", status);
+        write_log("status = %d\n", status);
         execute_cmd("/bin/umount -f bin usr lib lib64 etc/alternatives proc dev 2>/dev/null");
         execute_cmd("/bin/umount -f %s/* 2>/dev/null", work_dir);
         umount(work_dir);
