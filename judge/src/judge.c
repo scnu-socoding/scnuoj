@@ -234,24 +234,24 @@ void init_mysql_conf()
         int i = 0;
         while (fgets(buf, BUFFER_SIZE - 1, fp))
         {
-            parseLine(buf, &kv + i);
+            parseLine(buf, &kv[i++]);
         }
         fclose(fp);
         while (i--)
         {
-            read_kv(&kv + i, "OJ_HOST_NAME", db.host_name);
-            read_kv(&kv + i, "OJ_USER_NAME", db.user_name);
-            read_kv(&kv + i, "OJ_PASSWORD", db.password);
-            read_kv(&kv + i, "OJ_DB_NAME", db.db_name);
-            read_kv(&kv + i, "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
-            read_kv(&kv + i, "OJ_PORT_NUMBER", &db.port_number);
-            read_kv(&kv + i, "OJ_JAVA_TIME_BONUS", &java_time_bonus);
-            read_kv(&kv + i, "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
-            read_kv(&kv + i, "OJ_JAVA_XMS", java_xms);
-            read_kv(&kv + i, "OJ_JAVA_XMX", java_xmx);
-            read_kv_int(&kv + i, "OJ_FULL_DIFF", &full_diff);
-            read_kv_int(&kv + i, "OJ_SHM_RUN", &shm_run);
-            read_kv_int(&kv + i, "OJ_COMPILE_CHROOT", &compile_chroot);
+            read_kv(kv[i], "OJ_HOST_NAME", db.host_name);
+            read_kv(kv[i], "OJ_USER_NAME", db.user_name);
+            read_kv(kv[i], "OJ_PASSWORD", db.password);
+            read_kv(kv[i], "OJ_DB_NAME", db.db_name);
+            read_kv(kv[i], "OJ_MYSQL_UNIX_PORT", db.mysql_unix_port);
+            read_kv(kv[i], "OJ_PORT_NUMBER", &db.port_number);
+            read_kv(kv[i], "OJ_JAVA_TIME_BONUS", &java_time_bonus);
+            read_kv(kv[i], "OJ_JAVA_MEMORY_BONUS", &java_memory_bonus);
+            read_kv(kv[i], "OJ_JAVA_XMS", java_xms);
+            read_kv(kv[i], "OJ_JAVA_XMX", java_xmx);
+            read_kv_int(kv[i], "OJ_FULL_DIFF", &full_diff);
+            read_kv_int(kv[i], "OJ_SHM_RUN", &shm_run);
+            read_kv_int(kv[i], "OJ_COMPILE_CHROOT", &compile_chroot);
         }
         free(kv);
     }
