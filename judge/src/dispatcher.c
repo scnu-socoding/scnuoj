@@ -264,12 +264,19 @@ FILE *read_cmd_output(const char *fmt, ...)
 
 int _get_jobs_mysql(int *jobs)
 {
-    if (mysql_real_query(conn, query, strlen(query)))
+    // if (mysql_real_query(conn, query, strlen(query)))
+    // {
+    //     if (DEBUG)
+    //         write_log("%s", mysql_error(conn));
+    //     sleep(20);
+    //     return 0;
+    // }
+    while (mysql_real_query(conn, query, strlen(query)))
     {
         if (DEBUG)
             write_log("%s", mysql_error(conn));
-        sleep(20);
-        return 0;
+        init_mysql();
+        sleep(10);
     }
     res = mysql_store_result(conn);
     int i = 0;
@@ -309,18 +316,29 @@ bool check_out(int solution_id, int result)
             "UPDATE solution SET result=%d,time=0,memory=0,judgetime=NOW() "
             "WHERE id=%d and result<2 LIMIT 1",
             result, solution_id);
-    if (mysql_real_query(conn, sql, strlen(sql)))
+    // if (mysql_real_query(conn, sql, strlen(sql)))
+    // {
+    //     syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
+    //     return false;
+    // }
+    // else
+    // {
+    //     if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+    //         return true;
+    //     else
+    //         return false;
+    // }
+    while (mysql_real_query(conn, sql, strlen(sql)))
     {
-        syslog(LOG_ERR | LOG_DAEMON, "%s", mysql_error(conn));
-        return false;
+        if (DEBUG)
+            write_log("%s", mysql_error(conn));
+        sleep(10);
+        init_mysql();
     }
+    if (conn != NULL && mysql_affected_rows(conn) > 0ul)
+        return true;
     else
-    {
-        if (conn != NULL && mysql_affected_rows(conn) > 0ul)
-            return true;
-        else
-            return false;
-    }
+        return false;
 }
 
 int work()
