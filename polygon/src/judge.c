@@ -122,9 +122,6 @@ void write_log(const char *fmt, ...)
     {
         write_log("buffer overflow!");
     }
-    {
-        write_log("buffer overflow!");
-    }
     FILE *fp = fopen(buffer, "ae+");
     if (fp == NULL)
     {
