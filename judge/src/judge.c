@@ -138,7 +138,8 @@ void write_log(const char *fmt, ...)
     va_list ap;
     char buffer[BUFFER_SIZE];
     // sprintf(buffer, "%s/log/client.log", oj_home);
-    if (snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home) < 0)
+    int snp = snprintf(buffer, BUFFER_SIZE, "%s/log/client.log", oj_home);
+    if (snp < 0 || snp >= BUFFER_SIZE)
     {
         write_log("buffer overflow");
     }
