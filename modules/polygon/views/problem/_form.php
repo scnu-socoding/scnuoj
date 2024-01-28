@@ -15,9 +15,9 @@ use yii\widgets\ActiveForm;
 
     <div class="alert alert-light">
         <i class="fas fa-fw fa-info-circle"></i>
-        所有输入支持 MarkDown 格式 
+        所有输入支持 Markdown 格式 
         <a href="https://markdown.com.cn/basic-syntax/" style="text-decoration: none; color:#1559CF">
-            [MarkDown 教程 click here]
+            [MD语法参考]
         </a>
     </div>
 
