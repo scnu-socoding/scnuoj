@@ -13,6 +13,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <div class="alert alert-light">
+        <i class="fas fa-fw fa-info-circle"></i>
+        所有输入支持 Markdown 格式 
+        <a href="https://markdown.com.cn/basic-syntax/" style="text-decoration: none; color:#1559CF">
+            [MD语法参考]
+        </a>
+    </div>
+
     <div class="alert alert-light"><i class="fas fa-fw fa-info-circle"></i> 题目标题（也可标注需要管理员留意的信息）。</div>
     <?= $form->field($model, 'title', [
         'template' => "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">标题</span></div>{input}</div>",
