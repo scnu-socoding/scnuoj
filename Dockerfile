@@ -26,7 +26,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer config -g repos.packagist composer https://packagist.mirrors.sjtug.sjtu.edu.cn
 
 # 设置工作目录
-WORKDIR /var/composer
+WORKDIR /var/www/html
 
 # 将composer.json和composer.lock复制到工作目录
 COPY composer.json .
@@ -34,6 +34,7 @@ COPY composer.lock .
 COPY patches ./patches
 
 # 安装项目依赖
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install
 
 # 拷贝配置文件
@@ -46,5 +47,4 @@ RUN sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 100M/' "$PHP_INI_D
 RUN mkdir -p /var/log/php-fpm
 RUN ln -sf /dev/stdout /var/log/php-fpm/error.log
 
-WORKDIR /var/www/html
-CMD ["sh", "-c","cp -fr /var/composer/vendor /var/www/html && php-fpm"]
+CMD ["sh", "-c","php-fpm"]
