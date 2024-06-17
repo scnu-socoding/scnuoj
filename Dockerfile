@@ -3,7 +3,7 @@ FROM php:8.1-fpm-alpine
 
 # 设置apk源为国内镜像源，并安装tzdata和curl
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
-    && apk add --no-cache tzdata curl build-base
+    && apk add --no-cache tzdata curl build-base zip
 
 # 设置时区为Asia/Shanghai
 ENV TZ "Asia/Shanghai"
