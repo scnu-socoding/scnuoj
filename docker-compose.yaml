@@ -25,6 +25,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: yourpassword
       TZ: Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   caddy:
     image: caddy:latest
@@ -52,7 +57,8 @@ services:
     # ports:
     #   - "9000:9000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   judge:
     container_name: judge
@@ -64,6 +70,5 @@ services:
       - ./judge:/judge/judge
       - ./polygon:/judge/polygon
     depends_on:
-      - mysql
-      - php
-      - caddy
+      mysql:
+        condition: service_healthy
