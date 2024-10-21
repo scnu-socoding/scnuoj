@@ -19,6 +19,7 @@ services:
     container_name: mysql
     restart: always
     volumes:
+      - ./data/mysqld:/var/run/mysqld
       - ./data/mysql/data:/var/lib/mysql
       - ./data/mysql/conf.d:/etc/mysql/conf.d
       - ./conf.d/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -63,10 +64,12 @@ services:
   judge:
     container_name: judge
     restart: always
+    network_mode: none
     build:
       context: .
       dockerfile: Dockerfile.judge.alpine
     volumes:
+      - ./data/mysqld/mysqld.sock:/judge/mysqld.sock
       - ./judge:/judge/judge
       - ./polygon:/judge/polygon
     depends_on:
