@@ -19,12 +19,18 @@ services:
     container_name: mysql
     restart: always
     volumes:
+      - ./data/mysqld:/var/run/mysqld
       - ./data/mysql/data:/var/lib/mysql
       - ./data/mysql/conf.d:/etc/mysql/conf.d
       - ./conf.d/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: yourpassword
       TZ: Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   caddy:
     image: caddy:latest
@@ -52,18 +58,20 @@ services:
     # ports:
     #   - "9000:9000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   judge:
     container_name: judge
     restart: always
+    network_mode: none
     build:
       context: .
       dockerfile: Dockerfile.judge.alpine
     volumes:
+      - ./data/mysqld/mysqld.sock:/judge/mysqld.sock
       - ./judge:/judge/judge
       - ./polygon:/judge/polygon
     depends_on:
-      - mysql
-      - php
-      - caddy
+      mysql:
+        condition: service_healthy

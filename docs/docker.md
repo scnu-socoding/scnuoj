@@ -143,3 +143,17 @@ find . -type f -name "spj.cc" -exec sh -c '/usr/bin/g++ -fno-asm -std=c++14 -O2 
 ```
 
 重新编译所有题目的 special judge 。
+
+## 安全性问题
+
+由于关掉了 P trace 机制，可能会导致一些安全性问题。
+
+建议对 judge 容器进行隔离，不要让其访问外部网络。使用 socket 连接的方式与数据库进行通信。
+
+### 具体操作
+
+在 `/judge/config.ini` 以及 `/polygon/config.ini` 中注释掉 `OJ_HOST_NAME` 和 `OJ_PORT_NUMBER` 两行，并解除 `OJ_MYSQL_UNIX_PORT` 的注释。
+
+同时确保 `mysqld.sock` 已经映射到了 `judge` 容器中。
+
+同时防止 `config.ini` 文件被读取，可以将其权限设置为 `root` 用户所有的 600 文件 `chmod 600 config.ini`。
