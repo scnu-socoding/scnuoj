@@ -69,6 +69,17 @@ $config = [
                 'standing/<id:\d+>' => '/contest/standing2'
             ],
         ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            // Set the following if you want to use DB component other than
+            // default 'db'.
+            // 'db' => 'mydb',
+            // To override default session table, set the following
+            // 'sessionTable' => 'my_session',
+        ],
+        'security' => [
+            'passwordHashCost' => 10, // 尝试调整这个值
+        ],
     ],
     'params' => $params,
 ];
