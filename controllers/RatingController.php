@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\BaseController;
 use yii\db\Query;
+use yii\db\Expression;
 use yii\data\Pagination;
 use yii\web\ForbiddenHttpException;
 use Yii;
@@ -23,17 +24,22 @@ class RatingController extends BaseController
 
         if ($data === false) {
             // 缓存中没有数据，执行数据库查询
-            $query = (new Query())->select('u.id, u.nickname, p.student_number, u.rating, s.solved')
+            $query = (new Query())->select([
+                'u.id',
+                'u.nickname',
+                'p.student_number',
+                'u.rating',
+                new Expression('IF(s.solved IS NULL, 0, s.solved) as solved')
+            ])
                 ->from('{{%user}} AS u')
                 ->leftJoin(
-                    '(SELECT COUNT(DISTINCT problem_id) AS solved, created_by FROM {{%solution}} WHERE result=4 GROUP BY created_by ORDER BY solved DESC) as s',
+                    '(SELECT COUNT(DISTINCT problem_id) AS solved, created_by FROM {{%solution}} WHERE result=4 GROUP BY created_by) as s',
                     'u.id=s.created_by'
                 )
                 ->leftJoin('`user_profile` `p` ON `p`.`user_id`=`u`.`id`')
-                ->orderBy('solved DESC, id');
+                ->orderBy('s.solved DESC, u.id');
             // 修改此处以获取所有用户数据
             $allUsers = $query->all();
-
             // 将查询结果和当前时间保存到缓存中
             $currentTimestamp = time();
             // 缓存全体数据，设置有效期为 600 秒（10分钟）
