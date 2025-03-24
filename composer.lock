@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e150fa9aa5a55565c53fe3def4f737ef",
+    "content-hash": "9fb7718884513bb523a5eee97d338924",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -986,16 +986,16 @@
         },
         {
             "name": "workerman/channel",
-            "version": "v1.2.0",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/channel.git",
-                "reference": "fbfb81c7ebc5858c4053f226cbb5d15fe670ff6e"
+                "reference": "1f9059ee78ca714908c30beba2736432c22a7867"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/channel/zipball/fbfb81c7ebc5858c4053f226cbb5d15fe670ff6e",
-                "reference": "fbfb81c7ebc5858c4053f226cbb5d15fe670ff6e",
+                "url": "https://api.github.com/repos/walkor/channel/zipball/1f9059ee78ca714908c30beba2736432c22a7867",
+                "reference": "1f9059ee78ca714908c30beba2736432c22a7867",
                 "shasum": ""
             },
             "require": {
@@ -1014,27 +1014,31 @@
             "homepage": "http://www.workerman.net",
             "support": {
                 "issues": "https://github.com/walkor/channel/issues",
-                "source": "https://github.com/walkor/channel/tree/v1.2.0"
+                "source": "https://github.com/walkor/channel/tree/v1.2.2"
             },
-            "time": "2023-04-04T02:47:35+00:00"
+            "time": "2024-12-26T09:38:12+00:00"
         },
         {
             "name": "workerman/phpsocket.io",
-            "version": "v1.1.18",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/phpsocket.io.git",
-                "reference": "b89b3f2ed44f6f79fd9895e2d198b52b3fb4783b"
+                "reference": "0ba306b380e016f447f9860db95fcc1c7553fb91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/b89b3f2ed44f6f79fd9895e2d198b52b3fb4783b",
-                "reference": "b89b3f2ed44f6f79fd9895e2d198b52b3fb4783b",
+                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/0ba306b380e016f447f9860db95fcc1c7553fb91",
+                "reference": "0ba306b380e016f447f9860db95fcc1c7553fb91",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "workerman/channel": ">=1.0.0",
                 "workerman/workerman": "^4.0.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "^3.7"
             },
             "type": "library",
             "autoload": {
@@ -1046,13 +1050,21 @@
             "license": [
                 "MIT"
             ],
-            "homepage": "http://www.workerman.net",
+            "description": "A server side alternative implementation of socket.io in PHP based on Workerman",
+            "homepage": "https://www.workerman.net",
             "keywords": [
-                "Socket.io"
+                "Socket.io",
+                "async",
+                "non-blocking",
+                "phpsocket.io",
+                "server",
+                "sockets",
+                "stream",
+                "workerman"
             ],
             "support": {
                 "issues": "https://github.com/walkor/phpsocket.io/issues",
-                "source": "https://github.com/walkor/phpsocket.io/tree/v1.1.18"
+                "source": "https://github.com/walkor/phpsocket.io/tree/v2.2.0"
             },
             "funding": [
                 {
@@ -1064,20 +1076,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-06-16T01:41:34+00:00"
+            "time": "2025-03-24T17:14:03+00:00"
         },
         {
             "name": "workerman/workerman",
-            "version": "v4.1.16",
+            "version": "v4.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "405d904d33026e19497dffc3d085bbc16e66534e"
+                "reference": "bb9e4b0c3fc3931a2ae38a1fb7a3ac09246efae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/405d904d33026e19497dffc3d085bbc16e66534e",
-                "reference": "405d904d33026e19497dffc3d085bbc16e66534e",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/bb9e4b0c3fc3931a2ae38a1fb7a3ac09246efae9",
+                "reference": "bb9e4b0c3fc3931a2ae38a1fb7a3ac09246efae9",
                 "shasum": ""
             },
             "require": {
@@ -1127,7 +1139,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-04T08:26:39+00:00"
+            "time": "2024-11-07T07:48:34+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -5430,5 +5442,5 @@
         "php": ">=7.4.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
