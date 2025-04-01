@@ -17,7 +17,7 @@
         "yiisoft/yii2-bootstrap4": "~2.0.6",
         "yiisoft/yii2-swiftmailer": "~2.1.2",
         "workerman/workerman": "~4.1.0",
-        "workerman/phpsocket.io": "~1.1.13",
+        "workerman/phpsocket.io": "~2.2.2",
         "justinvoelker/yii2-tagging": "*",
         "fortawesome/font-awesome": "^6.0.0",
         "cweagans/composer-patches": "^1.7"
