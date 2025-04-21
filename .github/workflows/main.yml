@@ -83,8 +83,8 @@ jobs:
           - "judge"
           - "polygon"
         ubuntu-version:
+          - "ubuntu-24.04"
           - "ubuntu-22.04"
-          - "ubuntu-20.04"
 
     steps:
       - name: "Checkout"
