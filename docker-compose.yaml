@@ -69,7 +69,7 @@ services:
       context: .
       dockerfile: Dockerfile.judge.alpine
     volumes:
-      - ./data/mysqld/mysqld.sock:/judge/mysqld.sock
+      - ./data/mysqld:/judge/mysqld
       - ./judge:/judge/judge
       - ./polygon:/judge/polygon
     depends_on:

@@ -101,7 +101,7 @@
     <div class="list-group-item">
         <b>C++</b> (GCC 12.2.1)<br>
         <small>
-            <code>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code>
+            <code>g++ -fno-asm -O2 -Wall -lm --static -std=c++20 -DONLINE_JUDGE -o Main Main.cc</code>
         </small>
     </div>
     <div class="list-group-item">
