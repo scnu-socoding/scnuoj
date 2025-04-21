@@ -9,7 +9,7 @@
 <li>题目最终要求输出一个浮点数，而且会告诉只要答案和标准答案相差不超过某个较小的数就可以，比如 <span class="katex math inline" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">0.01</span>。这种情况保留三位小数、四位小数等等都是可以的，而且多保留几位小数也没什么坏处。</li>
 </ol>
 
-<p>Special Judge 程序编译参数为 <code>g++ -fno-asm -std=c++14 -O2</code>，即已经开启 C++ 14 以及 O2 优化。在 OJ 运行的时候会给定三个参数，分别是输入文件、用户输出和标程输出，即 <code>./spj in.txt out.txt ans.txt</code>。程序的返回值决定着判断结果，返回零表示通过，返回非零值表示答案错误。你需要确保 SPJ 程序可以正确运行，也未调用与判题无关的系统函数，当 SPJ 在 OJ 中编译出错或运行出错时，OJ 不会给出反馈。SPJ 输出到 <code>stderr</code> 的内容将会被记录到用户错误数据点中。</p>
+<p>Special Judge 程序编译参数为 <code>g++ -fno-asm -std=c++20 -O2</code>，即已经开启 C++ 14 以及 O2 优化。在 OJ 运行的时候会给定三个参数，分别是输入文件、用户输出和标程输出，即 <code>./spj in.txt out.txt ans.txt</code>。程序的返回值决定着判断结果，返回零表示通过，返回非零值表示答案错误。你需要确保 SPJ 程序可以正确运行，也未调用与判题无关的系统函数，当 SPJ 在 OJ 中编译出错或运行出错时，OJ 不会给出反馈。SPJ 输出到 <code>stderr</code> 的内容将会被记录到用户错误数据点中。</p>
 
 <h5>Testlib</h5>
 

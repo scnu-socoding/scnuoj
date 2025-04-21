@@ -139,7 +139,7 @@ chown -R 1000:1000 *
 如果出现迁移到 Docker 之后（非新装） special judge 无法运行正常判题，先参考上面的权限问题。如果还是无法解决，请进入 php 容器，进入 `/var/www/html/judge/data` 目录，运行
 
 ```shell
-find . -type f -name "spj.cc" -exec sh -c '/usr/bin/g++ -fno-asm -std=c++14 -O2 {} -o $(dirname {})/spj -I /var/www/html/libraries' \;
+find . -type f -name "spj.cc" -exec sh -c '/usr/bin/g++ -fno-asm -std=c++20 -O2 {} -o $(dirname {})/spj -I /var/www/html/libraries' \;
 ```
 
 重新编译所有题目的 special judge 。
